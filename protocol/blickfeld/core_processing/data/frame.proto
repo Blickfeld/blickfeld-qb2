@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+package blickfeld.core_processing.data;
+
+option cc_enable_arenas = true;
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// This section describes the contents of a point cloud frame.
+message Frame {
+  // The fields of a point cloud frame are encoded as binary arrays.
+  // Binary types instead of native Protobuf types are used to improve the performance.
+  // NOTE: All byte arrays are encoded in Little Endian.
+  message Binary {
+    // Number of entries in arrays below.
+    uint32 length = 1;
+    // Cartesian coordinates.
+    // 3-dimensional array in row-major format with [x, y, z] tuples.
+    // Type: Float32
+    bytes cartesian = 2 [(.blickfeld.base.optional) = true, (.blickfeld.base.unit) = "m", (.blickfeld.base.numpy_dtype) = "(3,)<f4"];
+    // Estimated number of photons.
+    // 1-dimensional array.
+    // Type: UInt16
+    bytes photon_count = 3 [(.blickfeld.base.optional) = true, (.blickfeld.base.numpy_dtype) = "<u2"];
+    // Unique direction identifiers within a frame and scan pattern.
+    // 1-dimensional array.
+    // Type: UInt32
+    bytes direction_id = 5 [(.blickfeld.base.optional) = true, (.blickfeld.base.numpy_dtype) = "<u4"];
+    // Unix timestamp of points.
+    // Type: UInt64
+    bytes timestamp = 6 [(.blickfeld.base.optional) = true, (.blickfeld.base.unit) = "ns", (.blickfeld.base.numpy_dtype) = "<u8"];
+  }
+  // Incremental frame ID since startup of the device.
+  uint64 id = 1;
+  // Timestamp of start of frame.
+  // Timestamp is synchronized if Time Synchronization is configured.
+  uint64 timestamp = 2 [(.blickfeld.base.unit) = "ns"];
+  // Binary buffer with point cloud vectors
+  .blickfeld.core_processing.data.Frame.Binary binary = 3;
+}
+

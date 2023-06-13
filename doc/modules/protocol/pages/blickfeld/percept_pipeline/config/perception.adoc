@@ -1,0 +1,17 @@
+[#_blickfeld_percept_pipeline_config_Perception]
+= Perception
+
+The configuration of perception algorithms used to run e.g. security zones
+
+.Available fields in blickfeld.percept_pipeline.config.Perception
+|===
+| Field | Type | Default | Unit
+
+.2+| *background_subtraction* | xref:blickfeld/percept_pipeline/config/background_subtraction.adoc#_blickfeld_percept_pipeline_config_BackgroundSubtraction[BackgroundSubtraction] | - | - 
+3+| Extract the foreground point cloud of the scene
+
+.2+| *foreground_point_cloud_filters* | repeated xref:blickfeld/percept_pipeline/config/point_cloud_filter.adoc#_blickfeld_percept_pipeline_config_PointCloudFilter[PointCloudFilter] | - | - 
+3+| Filter the foreground point cloud
+
+|===
+

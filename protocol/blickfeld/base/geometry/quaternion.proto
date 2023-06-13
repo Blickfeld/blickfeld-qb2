@@ -1,0 +1,23 @@
+// Copyright (c) 2022 Blickfeld GmbH.
+// All rights reserved.
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+package blickfeld.base.geometry;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// A quaternion for representing an orientation.
+message Quaternion {
+  // The X component.
+  float x = 1;
+  // The Y component.
+  float y = 2;
+  // The Z component.
+  float z = 3;
+  // The W component (real part).
+  float w = 4;
+}
+

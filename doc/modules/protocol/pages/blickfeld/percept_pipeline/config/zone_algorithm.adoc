@@ -1,0 +1,65 @@
+[#_blickfeld_percept_pipeline_config_ZoneAlgorithm]
+= Zone Algorithm
+
+An algorithm that monitors the area within and around a zone.
+
+.Available fields in blickfeld.percept_pipeline.config.ZoneAlgorithm
+|===
+| Field | Type | Default | Unit
+
+.2+| *name* | string| - | - 
+3+| The user readable zone algorithm name
+
+.2+| *uuid* | string| - | - 
+3+| The uuid of the zone algorithm (uuid4)
+
+.2+| *shape* | xref:blickfeld/base/geometry/shape.adoc#_blickfeld_base_geometry_Shape[base.geometry.Shape] | - | - 
+3+| Geometric shape (usually a Box) in which the algorithm detects certain behaviors/scenarios
+
+.2+| *volume* | xref:blickfeld/percept_pipeline/config/zone_algorithm.adoc#_blickfeld_percept_pipeline_config_ZoneAlgorithm_Volume[Volume] | - | - 
+3+| Run volume monitoring within the zone
+
+.2+| *security* | xref:blickfeld/percept_pipeline/config/zone_algorithm.adoc#_blickfeld_percept_pipeline_config_ZoneAlgorithm_Security[Security] | - | - 
+3+| Run alarm detection within the zone
+
+|===
+
+[#_blickfeld_percept_pipeline_config_ZoneAlgorithm_Volume]
+== Volume
+
+Algorithm that measure the volume of a zone 
+ 
+The volume of a zone is approximated by computing a 'volume map' from the input point clouds. The volume map discretize the zone 
+into 'tiles' in the xy-plane with a side-length of 'resolution'. Each tile contains the height information about the points that 
+fall into this tile. The volume of the volume map can be calculated by adding up the volumes of the tiles in the volume map.
+
+.Available fields in blickfeld.percept_pipeline.config.ZoneAlgorithm.Volume
+|===
+| Field | Type | Default | Unit
+
+.2+| *resolution* | float| - | m 
+3+| Grid resolution per tile used to measure the volume. 
+Reasonable default: 0.1
+
+.2+| *empty_volume* | float| - | m^3 
+3+| The measured volume while area covered by the zone is considered 'empty'. The value can be set using 
+TareVolume method while the area of the zone is empty. 
+Reasonable default: 0
+
+|===
+
+[#_blickfeld_percept_pipeline_config_ZoneAlgorithm_Security]
+== Security
+
+Algorithm that triggers an alarm if movement was detected in the zone
+
+.Available fields in blickfeld.percept_pipeline.config.ZoneAlgorithm.Security
+|===
+| Field | Type | Default | Unit
+
+.2+| *min_points* | uint32| - | - 
+3+| Minimum number of (foreground) points in the security zone to trigger the alarm. 
+Reasonable default: 10
+
+|===
+

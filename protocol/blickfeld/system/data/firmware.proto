@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+import "blickfeld/base/data/version.proto";
+import "blickfeld/base/options.proto";
+package blickfeld.system.data;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// The Firmware data message contains all relevant information about
+// the current firmware, uploaded firmware and the status of an firmware installation.
+message Firmware {
+  // contains information about rauc bundle parsed from the associated manifest file
+  message Info {
+    // Human-readable label / version of the firmware
+    string label = 1;
+    // Version
+    .blickfeld.base.data.Version version = 2;
+    // Lowest allowed version which can be downgraded to if this firmware is installed
+    .blickfeld.base.data.Version allowed_downgrade_version = 3;
+  }
+  // contains information about rauc bridge status
+  message Status {
+    // initial state when no bundle is available and no installation is happenning
+    message Idle {
+    }
+    // state when bundle is verified and available for installation
+    message ReadyToInstall {
+      // Firmware info of bundle which has been uploaded
+      .blickfeld.system.data.Firmware.Info uploaded_firmware_info = 1;
+    }
+    // state when the installation process is ongoing
+    message Installation {
+      // Contains information about current state of installation procedure inside the tree of progress
+      message Progress {
+        // progress of installation in percents (0%-100%)
+        uint32 percent = 1;
+        // log message describing the current installation step
+        string message = 2;
+      }
+      // Current installation progress
+      .blickfeld.system.data.Firmware.Status.Installation.Progress progress = 1;
+    }
+    // state when installation failed
+    message Failure {
+      // Human-readable reason for installation failure
+      string reason = 1;
+    }
+    // state when reboot of the device has been triggered after successfull installation
+    message Reboot {
+    }
+    oneof status {
+      // no bundle is available and no installation is happenning
+      .blickfeld.system.data.Firmware.Status.Idle idle = 1;
+      // bundle is verified and available for installation
+      .blickfeld.system.data.Firmware.Status.ReadyToInstall ready_to_install = 2;
+      // the installation process is ongoing
+      .blickfeld.system.data.Firmware.Status.Installation installation = 3;
+      // installation failed
+      .blickfeld.system.data.Firmware.Status.Failure failure = 4;
+      // reboot has been triggered after successfull installation
+      .blickfeld.system.data.Firmware.Status.Reboot reboot = 5;
+    }
+    // Currently installed firmware
+    .blickfeld.system.data.Firmware.Info installed_firmware_info = 6;
+  }
+}
+

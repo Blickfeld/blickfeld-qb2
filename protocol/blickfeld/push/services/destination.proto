@@ -1,0 +1,31 @@
+// Copyright (c) 2023 Blickfeld GmbH.
+// All rights reserved.
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+import "blickfeld/push/config/destination.proto";
+import "google/protobuf/empty.proto";
+package blickfeld.push.services;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// request to validate a configured destination
+message DestinationValidateRequest {
+  // the current (possibly incomplete) configuration entered
+  .blickfeld.push.config.Destination destination = 1;
+}
+
+// An gRPC service to configure multiple push settings
+service Destination {
+  option (.blickfeld.base.access_control_service) = {
+    level: LEVEL_PUBLIC
+  };
+  option (.blickfeld.base.protocol_maturity_service) = {
+    level: LEVEL_EXPERIMENTAL
+  };
+  // Setting validation
+  rpc Validate(.blickfeld.push.services.DestinationValidateRequest) returns (.google.protobuf.Empty);
+}
+

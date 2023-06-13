@@ -1,0 +1,15 @@
+[#_blickfeld_percept_pipeline_data_PointCloudType]
+= Point Cloud Type
+
+The type of the point cloud
+
+.Available values for blickfeld.percept_pipeline.data.PointCloudType enum
+[cols='25h,5,~']
+|===
+| Name | Value | Description
+
+| POINT_CLOUD_TYPE_UNSPECIFIED ^| 0 | The zero value that is not accepted
+| POINT_CLOUD_TYPE_FULL ^| 1 | Full point cloud (combined point cloud of all devices or unfiltered point cloud coming from one device)
+| POINT_CLOUD_TYPE_FOREGROUND ^| 2 | Point cloud containing only foreground/points from moving objects
+|===
+

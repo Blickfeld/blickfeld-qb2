@@ -1,0 +1,32 @@
+[#_blickfeld_push_config_Payload]
+= Payload
+
+defines what type of data stream to use as payload
+
+.Available fields in blickfeld.push.config.Payload
+|===
+| Field | Type | Default | Unit
+
+.2+| *encoding* | xref:blickfeld/push/config/payload.adoc#_blickfeld_push_config_Payload_Encoding[Encoding] | - | - 
+3+| payload encoding
+
+.2+| *data_type* | xref:blickfeld/percept_processing/data/data_type.adoc#_blickfeld_percept_processing_data_DataType[percept_processing.data.DataType] | - | - 
+3+| payload data type to stream
+
+|===
+
+[#_blickfeld_push_config_Payload_Encoding]
+== Encoding
+
+define how the messages are serialized
+
+.Available values for blickfeld.push.config.Payload.Encoding enum
+[cols='25h,5,~']
+|===
+| Name | Value | Description
+
+| ENCODING_UNSPECIFIED ^| 0 | unspecified
+| ENCODING_PROTOBUF ^| 1 | protobuf serialized as binary
+| ENCODING_JSON ^| 2 | json representation of protobuf messages
+|===
+

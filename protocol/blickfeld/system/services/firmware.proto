@@ -1,0 +1,96 @@
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+import "blickfeld/system/data/firmware.proto";
+import "google/protobuf/empty.proto";
+package blickfeld.system.services;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// This request is sent multiple times to upload a full complete bundle.
+// End the stream with the last chunk of the bundle.
+message FirmwareUploadRequest {
+  // Binary chunk of firmware bundle.
+  // The chunk size should not exceed 1 MB.
+  // For a firmware bundle with a size of 500 MB, at least 500 chunks / messages are required.
+  bytes binary_chunk = 1;
+}
+
+// The uploaded firmware bundle is validated after the upload and its firmware info is returned.
+message FirmwareUploadResponse {
+  // Firmware info with version and release information
+  .blickfeld.system.data.Firmware.Info info = 1;
+}
+
+// This request contains some optional configuration parameters for the install step.
+message FirmwareInstallRequest {
+}
+
+// Continous status message which reports the installation progress.
+message FirmwareInstallResponse {
+  // Progress is defined in Status.Installation.Progress.
+  .blickfeld.system.data.Firmware.Status status = 1;
+}
+
+// Please refer to <<_blickfeld_system_services_FirmwareUploadRequest, FirmwareUploadRequest>>.
+message FirmwareUploadAndInstallRequest {
+  // Please refer to <<_blickfeld_system_services_FirmwareUploadRequest, FirmwareUploadRequest>>.
+  bytes binary_chunk = 1;
+}
+
+// Please refer to <<_blickfeld_system_services_FirmwareInstallResponse, FirmwareInstallResponse>>.
+message FirmwareUploadAndInstallResponse {
+  // Please refer to <<_blickfeld_system_services_FirmwareInstallResponse, FirmwareInstallResponse>>.
+  .blickfeld.system.data.Firmware.Status status = 1;
+}
+
+// Response with snapshot of current status.
+message FirmwareGetStatusResponse {
+  // Current firmware status
+  .blickfeld.system.data.Firmware.Status status = 1;
+}
+
+// Continuous response with status
+message FirmwareWatchStatusResponse {
+  // Current firmware status
+  .blickfeld.system.data.Firmware.Status status = 1;
+}
+
+// The firmware service offers methods to fetch the currently installed firmware,
+// upgrade it, downgrade it and also configure auto-update mechanisms.
+service Firmware {
+  option (.blickfeld.base.access_control_service) = {
+    level: LEVEL_PUBLIC
+  };
+  option (.blickfeld.base.protocol_maturity_service) = {
+    level: LEVEL_MAINTAINED
+  };
+  // Upload the firmware bundle from the client to the device.
+  // Fails if the uploaded firmware bundle is not valid.
+  rpc Upload(stream .blickfeld.system.services.FirmwareUploadRequest) returns (.blickfeld.system.services.FirmwareUploadResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      level: LEVEL_AUTHORIZED
+    };
+  }
+  // Trigger the installation process of an uploaded firmware.
+  // A status stream with the installation progress is returned and ends with installation completion.
+  rpc Install(.blickfeld.system.services.FirmwareInstallRequest) returns (stream .blickfeld.system.services.FirmwareInstallResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      level: LEVEL_AUTHORIZED
+    };
+  }
+  // Combines the Upload and Install steps in a single method.
+  rpc UploadAndInstall(stream .blickfeld.system.services.FirmwareUploadAndInstallRequest) returns (stream .blickfeld.system.services.FirmwareUploadAndInstallResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      level: LEVEL_AUTHORIZED
+    };
+  }
+  // Get the current firmware status which includes the currently installed firmware but also ongoing or failed installations.
+  rpc GetStatus(.google.protobuf.Empty) returns (.blickfeld.system.services.FirmwareGetStatusResponse);
+  // Continously watch the status stream and get updates on changes.
+  // This can be used to attach to an ongoing installation.
+  rpc WatchStatus(.google.protobuf.Empty) returns (stream .blickfeld.system.services.FirmwareWatchStatusResponse);
+}
+

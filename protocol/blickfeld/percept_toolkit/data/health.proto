@@ -1,0 +1,20 @@
+// Copyright (c) 2023 Blickfeld GmbH.
+// All rights reserved.
+syntax = "proto3";
+
+import "blickfeld/base/data/health.proto";
+import "blickfeld/base/options.proto";
+package blickfeld.percept_toolkit.data;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// A health message that contains information about the toolkit status.
+message Health {
+  // High-level state of module.
+  .blickfeld.base.data.Health.State state = 1;
+  // Reason for the given state. Needs to be set if state is not STATE_OK.
+  string state_reason = 2;
+}
+

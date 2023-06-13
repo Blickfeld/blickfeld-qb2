@@ -1,0 +1,21 @@
+[#_blickfeld_percept_pipeline_data_State]
+= State
+
+The states of pipeline
+
+.Available values for blickfeld.percept_pipeline.data.State enum
+[cols='25h,5,~']
+|===
+| Name | Value | Description
+
+| STATE_UNSPECIFIED ^| 0 | State field is not set
+| STATE_STARTING ^| 1 | Pipeline is getting started currently.
+| STATE_STABLE ^| 2 | Pipeline is stable input and output of the pipeline are achieving the same frequency. Only very few frames are 
+allowed to be dropped.
+| STATE_UNSTABLE ^| 3 | Pipeline is unstable if the pipeline cannot process all frames of the data source and thus has to drop frames to keep up.
+| STATE_BROKEN ^| 4 | Pipeline is broken if the pipeline does not generate the expected outputs, i.e. frames or state list at all. 
+This can happen if the devices in the 'data source' cannot be reached.
+| STATE_RESTARTING ^| 5 | Pipeline is restarting if there is a larger configuration change, i.e. data source changed.
+| STATE_IDLE ^| 6 | No processing is happening in the pipeline.
+|===
+

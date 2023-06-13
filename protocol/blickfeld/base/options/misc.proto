@@ -1,0 +1,41 @@
+syntax = "proto2";
+
+import "blickfeld/base/options/access_control.proto";
+import "google/protobuf/descriptor.proto";
+// Options are not namespaced
+package blickfeld.base;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+message LinkData {
+  required string type = 1;
+  required string directory = 2;
+}
+
+extend .google.protobuf.OneofOptions {
+  optional bool optional_one_of = 52006 [default = false, json_name = "optionalOneOf"];
+}
+
+extend .google.protobuf.FieldOptions {
+  optional double d_min = 52000 [default = -inf, json_name = "dMin"];
+  optional double d_max = 52001 [default = inf, json_name = "dMax"];
+  optional sint32 length = 52004 [default = 2147483647, json_name = "length"];
+  optional string regex = 52005 [default = ".*", json_name = "regex"];
+  optional bool optional = 52006 [default = false, json_name = "optional"];
+  optional bool allow_sparse = 52007 [default = false, json_name = "allowSparse"];
+  optional sint32 min_length = 52008 [default = 0, json_name = "minLength"];
+  optional sint32 max_length = 52009 [default = 2147483647, json_name = "maxLength"];
+  optional uint64 legacy_field_id = 52010 [json_name = "legacyFieldId"];
+  optional string unit = 52011 [json_name = "unit"];
+  // Unit of field value
+  // Used by Python client library generator to generate simple numpy accessors for binary fields
+  optional string numpy_dtype = 52012 [json_name = "numpyDtype"];
+}
+
+extend .google.protobuf.EnumOptions {
+  // Option which is used by modules to link enum entries to corresponding Protobuf data files
+  optional .blickfeld.base.LinkData link_data = 52000 [json_name = "linkData"];
+}
+

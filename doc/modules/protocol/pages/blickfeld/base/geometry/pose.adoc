@@ -1,0 +1,17 @@
+[#_blickfeld_base_geometry_Pose]
+= Pose
+
+A pose, consisting of a vector3 (3D coordinate) and a quaternion.
+
+.Available fields in blickfeld.base.geometry.Pose
+|===
+| Field | Type | Default | Unit
+
+.2+| *position* | xref:blickfeld/base/geometry/vector3.adoc#_blickfeld_base_geometry_Vector3[Vector3] | - | - 
+3+| A vector representing the position.
+
+.2+| *orientation* | xref:blickfeld/base/geometry/quaternion.adoc#_blickfeld_base_geometry_Quaternion[Quaternion] | - | - 
+3+| A quaternion representing the orientation.
+
+|===
+

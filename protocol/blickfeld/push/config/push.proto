@@ -1,0 +1,25 @@
+// Copyright (c) 2023 Blickfeld GmbH.
+// All rights reserved.
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+import "blickfeld/push/config/destination.proto";
+import "blickfeld/push/config/payload.proto";
+package blickfeld.push.config;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// defines a combination of stream and destination
+message Push {
+  // name of push
+  string name = 1;
+  // stream payload
+  .blickfeld.push.config.Payload payload = 2;
+  // push destination
+  .blickfeld.push.config.Destination destination = 3;
+  // push enabled
+  bool enabled = 4;
+}
+

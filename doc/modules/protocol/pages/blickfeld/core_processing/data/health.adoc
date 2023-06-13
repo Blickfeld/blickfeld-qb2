@@ -1,0 +1,363 @@
+[#_blickfeld_core_processing_data_Health]
+= Health
+
+Message representing health
+
+.Available fields in blickfeld.core_processing.data.Health
+|===
+| Field | Type | Default | Unit
+
+.2+| *state* | xref:blickfeld/base/data/health.adoc#_blickfeld_base_data_Health_State[base.data.Health.State] | - | - 
+3+| High-level state of module
+
+.2+| *state_reason* | string| - | - 
+3+| Reason for given state. Is not set if state is STATE_OK.
+
+.2+| *channel_status* | xref:blickfeld/core_processing/data/health.adoc#_blickfeld_core_processing_data_Health_ChannelStatus[ChannelStatus] | - | - 
+3+| Status of internal channels
+
+.2+| *server_status* | xref:blickfeld/core_processing/data/health.adoc#_blickfeld_core_processing_data_Health_ServerStatus[ServerStatus] | - | - 
+3+| Status of gRPC server
+
+.2+| *error_flags* | xref:blickfeld/core_processing/data/health.adoc#_blickfeld_core_processing_data_Health_ErrorFlags[ErrorFlags] | - | - 
+3+| Error flags which give insight in fine-grained errors
+
+|===
+
+[#_blickfeld_core_processing_data_Health_ChannelStatus]
+== Channel Status
+
+Status for typed channels producing raw-data
+
+.Available fields in blickfeld.core_processing.data.Health.ChannelStatus
+|===
+| Field | Type | Default | Unit
+
+.2+| *point_cloud* | xref:blickfeld/core_processing/data/health.adoc#_blickfeld_core_processing_data_Health_ChannelStatus_PointCloud[PointCloud] | - | - 
+3+| Point Cloud status
+
+.2+| *acceleration* | xref:blickfeld/core_processing/data/health.adoc#_blickfeld_core_processing_data_Health_ChannelStatus_Acceleration[Acceleration] | - | - 
+3+| Acceleration status
+
+.2+| *adc* | xref:blickfeld/core_processing/data/health.adoc#_blickfeld_core_processing_data_Health_ChannelStatus_Adc[Adc] | - | - 
+3+| Adc status
+
+.2+| *vertical_beam_deflection_control* | xref:blickfeld/core_processing/data/health.adoc#_blickfeld_core_processing_data_Health_ChannelStatus_BeamDeflectionControl[BeamDeflectionControl] | - | - 
+3+| Vertical Beam Deflection Control status
+
+.2+| *horizontal_beam_deflection_control* | xref:blickfeld/core_processing/data/health.adoc#_blickfeld_core_processing_data_Health_ChannelStatus_BeamDeflectionControl[BeamDeflectionControl] | - | - 
+3+| Horizontal Beam Deflection Control status
+
+.2+| *magnetic_field* | xref:blickfeld/core_processing/data/health.adoc#_blickfeld_core_processing_data_Health_ChannelStatus_MagneticField[MagneticField] | - | - 
+3+| Magnetic Field status
+
+|===
+
+[#_blickfeld_core_processing_data_Health_ChannelStatus_PointCloud]
+=== Point Cloud
+
+Status of Point Cloud channel
+
+.Available fields in blickfeld.core_processing.data.Health.ChannelStatus.PointCloud
+|===
+| Field | Type | Default | Unit
+
+.2+| *point_rate* | float| - | Hz 
+3+| Processed points per second
+
+.2+| *scanline_rate* | float| - | Hz 
+3+| Scanlines per second
+
+.2+| *frame_rate* | float| - | Hz 
+3+| Frames per second
+
+.2+| *data_rate* | float| - | B/s 
+3+| Average data rate 
+ 
+[NOTE] 
+This value is averaged over 10 seconds, peak or current values might be different.
+
+|===
+
+[#_blickfeld_core_processing_data_Health_ChannelStatus_Acceleration]
+=== Acceleration
+
+Status of Acceleration channel
+
+.Available fields in blickfeld.core_processing.data.Health.ChannelStatus.Acceleration
+|===
+| Field | Type | Default | Unit
+
+.2+| *buffer_rate* | float| - | Hz 
+3+| Processed buffers per second
+
+.2+| *data_rate* | float| - | B/s 
+3+| Average data rate 
+ 
+[NOTE] 
+This value is averaged over 10 seconds, peak or current values might be different.
+
+|===
+
+[#_blickfeld_core_processing_data_Health_ChannelStatus_Adc]
+=== Adc
+
+Status of Adc channel
+
+.Available fields in blickfeld.core_processing.data.Health.ChannelStatus.Adc
+|===
+| Field | Type | Default | Unit
+
+.2+| *buffer_rate* | float| - | Hz 
+3+| Processed buffers per second
+
+.2+| *data_rate* | float| - | B/s 
+3+| Average data rate 
+ 
+[NOTE] 
+This value is averaged over 10 seconds, peak or current values might be different.
+
+|===
+
+[#_blickfeld_core_processing_data_Health_ChannelStatus_BeamDeflectionControl]
+=== Beam Deflection Control
+
+Status of BeamDeflectionControl channel
+
+.Available fields in blickfeld.core_processing.data.Health.ChannelStatus.BeamDeflectionControl
+|===
+| Field | Type | Default | Unit
+
+.2+| *buffer_rate* | float| - | Hz 
+3+| Produced buffers per second
+
+.2+| *data_rate* | float| - | B/s 
+3+| Average data rate 
+ 
+[NOTE] 
+This value is averaged over 10 seconds, peak or current values might be different.
+
+|===
+
+[#_blickfeld_core_processing_data_Health_ChannelStatus_MagneticField]
+=== Magnetic Field
+
+Status of Magnetic-Field channel
+
+.Available fields in blickfeld.core_processing.data.Health.ChannelStatus.MagneticField
+|===
+| Field | Type | Default | Unit
+
+.2+| *buffer_rate* | float| - | Hz 
+3+| Produced buffers per second
+
+.2+| *data_rate* | float| - | B/s 
+3+| Average data rate 
+ 
+[NOTE] 
+This value is averaged over 10 seconds, peak or current values might be different.
+
+|===
+
+[#_blickfeld_core_processing_data_Health_ServerStatus]
+== Server Status
+
+Status for Server / Client activities
+
+.Available fields in blickfeld.core_processing.data.Health.ServerStatus
+|===
+| Field | Type | Default | Unit
+
+.2+| *point_cloud* | xref:blickfeld/core_processing/data/health.adoc#_blickfeld_core_processing_data_Health_ServerStatus_PointCloud[PointCloud] | - | - 
+3+| Point Cloud service
+
+.2+| *acceleration* | xref:blickfeld/core_processing/data/health.adoc#_blickfeld_core_processing_data_Health_ServerStatus_Acceleration[Acceleration] | - | - 
+3+| Acceleration service
+
+.2+| *adc* | xref:blickfeld/core_processing/data/health.adoc#_blickfeld_core_processing_data_Health_ServerStatus_Adc[Adc] | - | - 
+3+| Adc service
+
+.2+| *beam_deflection_control* | xref:blickfeld/core_processing/data/health.adoc#_blickfeld_core_processing_data_Health_ServerStatus_BeamDeflectionControl[BeamDeflectionControl] | - | - 
+3+| Beam Deflection Control service
+
+.2+| *health* | xref:blickfeld/core_processing/data/health.adoc#_blickfeld_core_processing_data_Health_ServerStatus_Health[Health] | - | - 
+3+| Health service
+
+.2+| *magnetic_field* | xref:blickfeld/core_processing/data/health.adoc#_blickfeld_core_processing_data_Health_ServerStatus_MagneticField[MagneticField] | - | - 
+3+| Magnetic Field service
+
+|===
+
+[#_blickfeld_core_processing_data_Health_ServerStatus_PointCloud]
+=== Point Cloud
+
+Status for Point Cloud service
+
+.Available fields in blickfeld.core_processing.data.Health.ServerStatus.PointCloud
+|===
+| Field | Type | Default | Unit
+
+.2+| *number_of_clients* | uint32| - | - 
+3+| Number of currently open client connections 
+ 
+[NOTE] 
+This is a snapshot and does not distinguish between long running streams or single request / response methods.
+
+.2+| *data_rate* | float| - | B/s 
+3+| Average data rate 
+ 
+[NOTE] 
+This value is averaged over 10 seconds, peak or current values might be different.
+
+|===
+
+[#_blickfeld_core_processing_data_Health_ServerStatus_Acceleration]
+=== Acceleration
+
+Status for Acceleration service
+
+.Available fields in blickfeld.core_processing.data.Health.ServerStatus.Acceleration
+|===
+| Field | Type | Default | Unit
+
+.2+| *number_of_clients* | uint32| - | - 
+3+| Number of currently open client connections 
+ 
+[NOTE] 
+This is a snapshot and does not distinguish between long running streams or single request / response methods.
+
+.2+| *data_rate* | float| - | B/s 
+3+| Average data rate 
+ 
+[NOTE] 
+This value is averaged over 10 seconds, peak or current values might be different.
+
+|===
+
+[#_blickfeld_core_processing_data_Health_ServerStatus_Adc]
+=== Adc
+
+Status for Adc service
+
+.Available fields in blickfeld.core_processing.data.Health.ServerStatus.Adc
+|===
+| Field | Type | Default | Unit
+
+.2+| *number_of_clients* | uint32| - | - 
+3+| Number of currently open client connections 
+ 
+[NOTE] 
+This is a snapshot and does not distinguish between long running streams or single request / response methods.
+
+.2+| *data_rate* | float| - | B/s 
+3+| Average data rate 
+ 
+[NOTE] 
+This value is averaged over 10 seconds, peak or current values might be different.
+
+|===
+
+[#_blickfeld_core_processing_data_Health_ServerStatus_BeamDeflectionControl]
+=== Beam Deflection Control
+
+Status for BeamDeflectionControl service
+
+.Available fields in blickfeld.core_processing.data.Health.ServerStatus.BeamDeflectionControl
+|===
+| Field | Type | Default | Unit
+
+.2+| *number_of_clients* | uint32| - | - 
+3+| Number of currently open client connections 
+ 
+[NOTE] 
+This is a snapshot and does not distinguish between long running streams or single request / response methods.
+
+.2+| *data_rate* | float| - | B/s 
+3+| Average data rate 
+ 
+[NOTE] 
+This value is averaged over 10 seconds, peak or current values might be different.
+
+|===
+
+[#_blickfeld_core_processing_data_Health_ServerStatus_Health]
+=== Health
+
+Status for Health service
+
+.Available fields in blickfeld.core_processing.data.Health.ServerStatus.Health
+|===
+| Field | Type | Default | Unit
+
+.2+| *number_of_clients* | uint32| - | - 
+3+| Number of currently open client connections 
+ 
+[NOTE] 
+This is a snapshot and does not distinguish between long running streams or single request / response methods.
+
+.2+| *data_rate* | float| - | B/s 
+3+| Average data rate 
+ 
+[NOTE] 
+This value is averaged over 10 seconds, peak or current values might be different.
+
+|===
+
+[#_blickfeld_core_processing_data_Health_ServerStatus_MagneticField]
+=== Magnetic Field
+
+Status for Magnetic Field service
+
+.Available fields in blickfeld.core_processing.data.Health.ServerStatus.MagneticField
+|===
+| Field | Type | Default | Unit
+
+.2+| *number_of_clients* | uint32| - | - 
+3+| Number of currently open client connections 
+ 
+[NOTE] 
+This is a snapshot and does not distinguish between long running streams or single request / response methods.
+
+.2+| *data_rate* | float| - | B/s 
+3+| Average data rate 
+ 
+[NOTE] 
+This value is averaged over 10 seconds, peak or current values might be different.
+
+|===
+
+[#_blickfeld_core_processing_data_Health_ErrorFlags]
+== Error Flags
+
+Error flags of internal data handling mechanisms
+
+.Available fields in blickfeld.core_processing.data.Health.ErrorFlags
+|===
+| Field | Type | Default | Unit
+
+.2+| *packet_counter_mismatch_packager* | bool| - | - 
+3+| TLP counter mismatch for Packager DMA
+
+.2+| *packet_counter_mismatch_debug* | bool| - | - 
+3+| TLP counter mismatch for Debug DMA
+
+.2+| *exhausted_scanline_buffers* | bool| - | - 
+3+| Dropping data because scanline buffers are exhausted
+
+.2+| *exhausted_acceleration_buffers* | bool| - | - 
+3+| Dropping data because acceleration buffers are exhausted
+
+.2+| *exhausted_adc_buffers* | bool| - | - 
+3+| Dropping data because adc buffers are exhausted
+
+.2+| *exhausted_vertical_beam_deflection_control_buffers* | bool| - | - 
+3+| Dropping data because vertical beam deflection control buffers are exhausted
+
+.2+| *exhausted_horizontal_beam_deflection_control_buffers* | bool| - | - 
+3+| Dropping data because horizontal beam deflection control buffers are exhausted
+
+.2+| *exhausted_magnetic_field_buffers* | bool| - | - 
+3+| Dropping data because magnetic field buffers are exhausted
+
+|===
+

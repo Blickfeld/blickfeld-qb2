@@ -1,0 +1,63 @@
+[#_blickfeld_percept_pipeline_config_BackgroundSubtraction]
+= Background Subtraction
+
+Algorithms seperating the input point cloud into foreground and background.
+
+.Available fields in blickfeld.percept_pipeline.config.BackgroundSubtraction
+|===
+| Field | Type | Default | Unit
+
+.2+| *mixture_of_gaussians* | xref:blickfeld/percept_pipeline/config/background_subtraction.adoc#_blickfeld_percept_pipeline_config_BackgroundSubtraction_MixtureOfGaussians[MixtureOfGaussians] | - | - 
+3+| Use mixture of gaussians for foreground/background detection
+
+.2+| *octree* | xref:blickfeld/percept_pipeline/config/background_subtraction.adoc#_blickfeld_percept_pipeline_config_BackgroundSubtraction_Octree[Octree] | - | - 
+3+| Use a static octree for foreground/background detection.
+
+|===
+
+[#_blickfeld_percept_pipeline_config_BackgroundSubtraction_MixtureOfGaussians]
+== Mixture Of Gaussians
+
+Dynamic background subtraction using a mixture of gaussians. The algorithm automatically slowly updates the 
+background model if the scene changes. The update rate is controlled via 'exponential_decay'.
+
+.Available fields in blickfeld.percept_pipeline.config.BackgroundSubtraction.MixtureOfGaussians
+|===
+| Field | Type | Default | Unit
+
+.2+| *num_initialization_frames* | uint32| - | - 
+3+| How many frames of the first received frames are used to build the background 
+Reasonable default: 10
+
+.2+| *exponential_decay* | float| - | - 
+3+| Controls how fast objects switch between foreground and background. Exponential decay factor. 
+Reasonable default: 0.005
+
+.2+| *min_weight_threshold_for_background* | float| - | - 
+3+| Controls how much noise the background/foreground is expected to have. 
+Reasonable default: 0.25
+
+|===
+
+[#_blickfeld_percept_pipeline_config_BackgroundSubtraction_Octree]
+== Octree
+
+Uses the first received frames to build a static background map of the environment. The algorithm requires the 
+scene to only contain the static parts of the scene on the start of the processing. The background model is not 
+updated automatically afterwards. The ResetBackground grpc method allows to update the static map of the 
+environment.
+
+.Available fields in blickfeld.percept_pipeline.config.BackgroundSubtraction.Octree
+|===
+| Field | Type | Default | Unit
+
+.2+| *num_initialization_frames* | uint32| - | - 
+3+| How many frames of the first received frames are used to build the background 
+Reasonable default: 10
+
+.2+| *octree_resolution* | float| - | m 
+3+| Resolution for the octree storing a static background. 
+Reasonable default: 0.15
+
+|===
+

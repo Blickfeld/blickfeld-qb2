@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+import "blickfeld/core_processing/data/health.proto";
+import "google/protobuf/empty.proto";
+package blickfeld.core_processing.services;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// Response to health get request
+message HealthGetResponse {
+  // Health state
+  .blickfeld.core_processing.data.Health health = 1;
+}
+
+// Stream response to health watch request
+message HealthWatchResponse {
+  // Health state
+  .blickfeld.core_processing.data.Health health = 1;
+}
+
+// The health service provides methods to monitor operational status of the core_processing module
+service Health {
+  option (.blickfeld.base.access_control_service) = {
+    level: LEVEL_PUBLIC
+  };
+  option (.blickfeld.base.protocol_maturity_service) = {
+    level: LEVEL_MAINTAINED
+  };
+  // Returns the current health status of the core_processing module
+  rpc Get(.google.protobuf.Empty) returns (.blickfeld.core_processing.services.HealthGetResponse);
+  // Can be used to attach to the health monitoring status information of the core_processing module
+  rpc Watch(.google.protobuf.Empty) returns (stream .blickfeld.core_processing.services.HealthWatchResponse);
+}
+

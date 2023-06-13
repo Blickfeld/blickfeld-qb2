@@ -1,0 +1,9 @@
+= Welcome to Qb2 Documentation
+
+image::qb2_product_banner.png[alt=Qb2]
+
+*Industry-first smart 3D LiDAR combines high-performance sensing with advanced on-device processing.*
+
+Qb2 is based on Blickfeld’s proprietary solid-state software-defined LiDAR technology, and, as an industry first, enables the capturing and processing of 3D LiDAR data on a single device.
+
+The integrated compute module allows Blickfeld Percept software stack to run on the device providing data for volume monitoring purposes, crowd analytics and smart infrastructure. WiFi on the device removes the need for additional network cabling.

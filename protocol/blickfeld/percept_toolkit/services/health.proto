@@ -1,0 +1,39 @@
+// Copyright (c) 2023 Blickfeld GmbH.
+// All rights reserved.
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+import "blickfeld/percept_toolkit/data/health.proto";
+import "google/protobuf/empty.proto";
+package blickfeld.percept_toolkit.services;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// Health Stream response of the toolkit module
+message HealthWatchResponse {
+  // The current health state of the module
+  .blickfeld.percept_toolkit.data.Health health = 1;
+}
+
+// Health Get response of the toolkit module
+message HealthGetResponse {
+  // The current health state of the module
+  .blickfeld.percept_toolkit.data.Health health = 1;
+}
+
+// An gRPC service to request the health of toolkit
+service Health {
+  option (.blickfeld.base.access_control_service) = {
+    level: LEVEL_PUBLIC
+  };
+  option (.blickfeld.base.protocol_maturity_service) = {
+    level: LEVEL_EXPERIMENTAL
+  };
+  // Streams health messages in regular intervals containing the state of toolkit
+  rpc Watch(.google.protobuf.Empty) returns (stream .blickfeld.percept_toolkit.services.HealthWatchResponse);
+  // Return health messages containing the state of toolkit
+  rpc Get(.google.protobuf.Empty) returns (.blickfeld.percept_toolkit.services.HealthGetResponse);
+}
+

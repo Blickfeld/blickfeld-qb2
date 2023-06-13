@@ -1,0 +1,37 @@
+[#_blickfeld_push_config_Destination]
+= Destination
+
+Push destination definition
+
+.Available fields in blickfeld.push.config.Destination
+|===
+| Field | Type | Default | Unit
+
+.2+| *mqtt* | xref:blickfeld/push/config/destination.adoc#_blickfeld_push_config_Destination_Mqtt[Mqtt] | - | - 
+3+| mqtt server destination
+
+|===
+
+[#_blickfeld_push_config_Destination_Mqtt]
+== Mqtt
+
+Mqtt Endpoint definition
+
+.Available fields in blickfeld.push.config.Destination.Mqtt
+|===
+| Field | Type | Default | Unit
+
+.2+| *server_fqdn* | string| - | - 
+3+| mqtt server location
+
+.2+| *server_port* | uint32| - | - 
+3+| mqtt server port will be set to 1883 if it is not set (server_port==0)
+
+.2+| *authentication* | xref:blickfeld/push/config/authentication.adoc#_blickfeld_push_config_Authentication[Authentication] | - | - 
+3+| mqtt server authentication settings
+
+.2+| *client_identifier* | string| - | - 
+3+| mqtt client identifier
+
+|===
+

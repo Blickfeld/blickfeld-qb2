@@ -1,0 +1,31 @@
+// Copyright (c) 2023 Blickfeld GmbH.
+// All rights reserved.
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+import "blickfeld/push/config/authentication.proto";
+package blickfeld.push.config;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// Push destination definition
+message Destination {
+  // Mqtt Endpoint definition
+  message Mqtt {
+    // mqtt server location
+    string server_fqdn = 1;
+    // mqtt server port will be set to 1883 if it is not set (server_port==0)
+    uint32 server_port = 2;
+    // mqtt server authentication settings
+    .blickfeld.push.config.Authentication authentication = 3;
+    // mqtt client identifier
+    string client_identifier = 4;
+  }
+  oneof destination_type {
+    // mqtt server destination
+    .blickfeld.push.config.Destination.Mqtt mqtt = 1;
+  }
+}
+

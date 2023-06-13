@@ -1,0 +1,21 @@
+// Copyright (c) 2022 Blickfeld GmbH.
+// All rights reserved.
+syntax = "proto3";
+
+import "blickfeld/percept_pipeline/config/background_subtraction.proto";
+import "blickfeld/percept_pipeline/config/point_cloud_filter.proto";
+import "blickfeld/base/options.proto";
+package blickfeld.percept_pipeline.config;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// The configuration of perception algorithms used to run e.g. security zones
+message Perception {
+  // Extract the foreground point cloud of the scene
+  .blickfeld.percept_pipeline.config.BackgroundSubtraction background_subtraction = 1;
+  // Filter the foreground point cloud
+  repeated .blickfeld.percept_pipeline.config.PointCloudFilter foreground_point_cloud_filters = 2;
+}
+

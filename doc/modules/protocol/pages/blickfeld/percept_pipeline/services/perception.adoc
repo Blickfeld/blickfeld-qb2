@@ -1,0 +1,109 @@
+= Service: Perception
+
+CAUTION: This API is not yet officially released neither maintained.
+
+The perception service allows getting, configuring and receiving updates of the perception configurations. 
+Perception configurations specify the algorithms used for e.g. for background subtraction etc.
+
+.Available methods
+|===
+| Method | Request | Response
+
+| *xref:#Get[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/percept_pipeline/services/perception.adoc#_blickfeld_percept_pipeline_services_PerceptionGetResponse[PerceptionGetResponse]
+| *xref:#Set[]* | xref:blickfeld/percept_pipeline/services/perception.adoc#_blickfeld_percept_pipeline_services_PerceptionSetRequest[PerceptionSetRequest]| xref:#_google_protobuf_Empty[google.protobuf.Empty]
+| *xref:#Watch[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/percept_pipeline/services/perception.adoc#_blickfeld_percept_pipeline_services_PerceptionWatchResponse[PerceptionWatchResponse]Stream 
+| *xref:#ListTemplates[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/percept_pipeline/services/perception.adoc#_blickfeld_percept_pipeline_services_PerceptionListTemplatesResponse[PerceptionListTemplatesResponse]
+|===
+[#Get]
+== Get
+
+Get current perception configuration
+
+[#_blickfeld_percept_pipeline_services_PerceptionGetResponse]
+=== Response
+
+Response containing the current perception configuration
+
+.Available fields in blickfeld.percept_pipeline.services.PerceptionGetResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *perception* | xref:blickfeld/percept_pipeline/config/perception.adoc#_blickfeld_percept_pipeline_config_Perception[config.Perception] | - | - 
+3+| The current perception configuration
+
+|===
+
+[#Set]
+== Set
+
+Set the perception configuration
+
+[#_blickfeld_percept_pipeline_services_PerceptionSetRequest]
+=== Request
+
+Request for setting the perception configuration
+
+.Available fields in blickfeld.percept_pipeline.services.PerceptionSetRequest
+|===
+| Field | Type | Default | Unit
+
+.2+| *template_name* | string| - | - 
+3+| Use a template to set the configuration, templates are predefined perception configurations
+
+.2+| *perception* | xref:blickfeld/percept_pipeline/config/perception.adoc#_blickfeld_percept_pipeline_config_Perception[config.Perception] | - | - 
+3+| Use the specified configuration
+
+|===
+
+[#Watch]
+== Watch
+
+Watch changes of perception configuration
+
+[#_blickfeld_percept_pipeline_services_PerceptionWatchResponse]
+=== Response Stream
+
+Continuous response on perception configuration changes
+
+.Available fields in blickfeld.percept_pipeline.services.PerceptionWatchResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *perception* | xref:blickfeld/percept_pipeline/config/perception.adoc#_blickfeld_percept_pipeline_config_Perception[config.Perception] | - | - 
+3+| The current set perception configuration
+
+|===
+
+[#ListTemplates]
+== ListTemplates
+
+Return list of names for named templates
+
+[#_blickfeld_percept_pipeline_services_PerceptionListTemplatesResponse]
+=== Response
+
+Response containing perception configuration templates
+
+.Available fields in blickfeld.percept_pipeline.services.PerceptionListTemplatesResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *named_templates* | repeated xref:blickfeld/percept_pipeline/services/perception.adoc#_blickfeld_percept_pipeline_services_PerceptionListTemplatesResponse_NamedTemplatesEntry[NamedTemplatesEntry] | - | - 
+3+| Mapping from a template name to the template itself. The template can be used to configure the perception 
+algorithms for certain use-cases.
+
+|===
+
+[#_blickfeld_percept_pipeline_services_PerceptionListTemplatesResponse_NamedTemplatesEntry]
+==== Named Templates Entry
+
+
+
+.Available fields in blickfeld.percept_pipeline.services.PerceptionListTemplatesResponse.NamedTemplatesEntry
+|===
+| Field | Type | Default | Unit
+
+| *key* | string| - | - 
+| *value* | xref:blickfeld/percept_pipeline/config/perception.adoc#_blickfeld_percept_pipeline_config_Perception[config.Perception] | - | - 
+|===
+

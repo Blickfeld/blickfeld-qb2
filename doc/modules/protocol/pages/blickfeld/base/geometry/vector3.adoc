@@ -1,0 +1,20 @@
+[#_blickfeld_base_geometry_Vector3]
+= Vector3
+
+A vector with three components to represent a 3D coordiante.
+
+.Available fields in blickfeld.base.geometry.Vector3
+|===
+| Field | Type | Default | Unit
+
+.2+| *x* | float| - | m 
+3+| The X component.
+
+.2+| *y* | float| - | m 
+3+| The Y component.
+
+.2+| *z* | float| - | m 
+3+| The Z component.
+
+|===
+

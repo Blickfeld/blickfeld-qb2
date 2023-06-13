@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+import "blickfeld/base/data/health.proto";
+package blickfeld.laser.data;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_ADMIN
+};
+
+message Health {
+  // High-level state of module
+  .blickfeld.base.data.Health.State state = 1;
+  // Reason for given state. Is not set if state is OK.
+  string state_reason = 2;
+}
+

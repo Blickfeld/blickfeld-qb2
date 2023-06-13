@@ -1,0 +1,15 @@
+[#_blickfeld_percept_pipeline_data_CoordinateSystem]
+= Coordinate System
+
+Specifies the coordinates system the data is expressed in
+
+.Available values for blickfeld.percept_pipeline.data.CoordinateSystem enum
+[cols='25h,5,~']
+|===
+| Name | Value | Description
+
+| COORDINATE_SYSTEM_UNSPECIFIED ^| 0 | Coordinate system not specified. Not accepted neither within a request nor as response
+| COORDINATE_SYSTEM_LOCAL ^| 1 | The data is expressed in the coordiante system of the data-source/device
+| COORDINATE_SYSTEM_TRANSFORMED ^| 2 | The data is expressed in a map coordinate system
+|===
+

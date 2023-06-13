@@ -1,0 +1,87 @@
+syntax = "proto2";
+
+import "blickfeld/base/options.proto";
+package blickfeld.system.config;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// *
+// The "Network" protocol message allows to define and setup the network configuration of the Qb2 device which can be further applied by
+// "SetConfig()" service API. The message specifies the desired network configuration mode: "dhcp", "link-local","static" or their
+// combination, and allows custom static configuration of the device. Modes "dhcp" and "static" can be applied together. In this scenario,
+// static configuration will be used if DHCP configuration fails. Applied configuration is persistent and will be available at Qb2 device
+// boot up.
+message Network {
+  // *
+  // Static configuration specifies IP settings configuration for IPv4, IPv6 or their combination. Settings deliver the list of supported
+  // IP addresses, netmask, gateway, list of DNS servers and DNS search domain.
+  message Static {
+    message Ipv4 {
+      // *
+      // List of IPv4 addresses. Each address should be specified in dot-decimal format (quad-dotted notation of four decimal
+      // integers, ranging from 0 to 255 each) including netmask prefix as follows "ip_address/prefix". Where netmask prefix
+      // should be set in CIDR notation (integer ranging from 0 to 32).
+      repeated string ip = 1 [(.blickfeld.base.regex) = ".."];
+      // Gateway IPv4 address
+      optional string gateway = 2 [(.blickfeld.base.regex) = "..", (.blickfeld.base.optional) = true];
+      // List of IPv4 DNS servers
+      repeated string dns_server = 3 [(.blickfeld.base.regex) = "..", (.blickfeld.base.optional) = true];
+    }
+    message Ipv6 {
+      // *
+      // List of IPv6 addresses. Each address should be specified as eight groups of four hexadecimal digits separated by colons and
+      // include netmask prefix as follows "ip/prefix". Where prefix should be set in CIDR notation (integer ranging from 0 to 128).
+      // IPv6 shortening rules are also supported.
+      repeated string ip = 1 [(.blickfeld.base.regex) = ".."];
+      // Gateway IPv6 address
+      optional string gateway = 2 [(.blickfeld.base.regex) = "..", (.blickfeld.base.optional) = true];
+      // List of IPv6 DNS servers
+      repeated string dns_server = 3 [(.blickfeld.base.regex) = "..", (.blickfeld.base.optional) = true];
+    }
+    // Static IPv4 settings
+    optional .blickfeld.system.config.Network.Static.Ipv4 ipv4 = 1 [(.blickfeld.base.optional) = true];
+    // Static IPv6 settings
+    optional .blickfeld.system.config.Network.Static.Ipv6 ipv6 = 2 [(.blickfeld.base.optional) = true];
+    // *
+    // The DNS domain field combined together with the hostname define FQDN (fully-qualified domain name), that specifies the exact
+    // location of Qb2 device in the tree hierarchy of Domain Name System.
+    optional string dns_domain = 3 [(.blickfeld.base.regex) = "..", (.blickfeld.base.optional) = true];
+  }
+  // If set, the device will turn of the Ethernet interface and connect to the given wireless access point.
+  // The Ethernet and WiFi interface cannot work simultanously.
+  // [NOTE]
+  // Always use the validate method of the network service to ensure that the given credentials are correct.
+  // If the credentials are incorrect or the wireless access point is down, the fallback IP address can
+  // be used via the Ethernet interface to reset the network configuration.
+  message Wireless {
+    // SSID of the wireless network
+    optional string ssid = 1;
+    // Password of the wireless network
+    // [NOTE]
+    // If the password is not set and the SSID did not change, the existing password is used.
+    // This mechanism is applied as the password is never returned via the GetConfig API.
+    optional string password = 2;
+  }
+  // *
+  // Specifies the persistent system-wide hostname which should be assigned to the network device
+  optional string hostname = 1;
+  // *
+  // This setting enables dynamic "DHCP" network configuration mode. The "DHCP" mode is used to dynamically get IPv4/v6 network
+  // configuration from DHCP server in automatic fashion. Can be used standalone or, if required, can be combined with "static"
+  // configuration settings.
+  optional bool dhcp = 2 [default = true];
+  // *
+  // This setting enables manual "Static" configuration. The "Static" mode allows to create custom static configurations for IPv4, IPv6 or
+  // their combination.
+  optional .blickfeld.system.config.Network.Static manual = 3 [(.blickfeld.base.optional) = true];
+  // *
+  // (WIP - attention, no fallbacks!) This settings enables automatic "Link-local" network configuration mode. In this scenario,
+  // device itself selects and assigns IP addresses from a particular range. For IPv4: from 169.254.0.0 through 169.254.255.255. The IPv6
+  // link-local prefix is FE80::/10 and is used to create a link-local IPv6 address on an interface
+  optional bool link_local = 4 [default = false];
+  // If the field is set, the device switches from the Ethernet to the WiFi interface.
+  optional .blickfeld.system.config.Network.Wireless wireless = 5 [(.blickfeld.base.optional) = true];
+}
+

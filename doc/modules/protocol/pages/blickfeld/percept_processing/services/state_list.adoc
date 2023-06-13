@@ -1,0 +1,49 @@
+= Service: State List
+
+NOTE: This API is officially released and maintained.
+
+An RPC service to request a stream of state list messages. If a pipeline is 
+already running, it will be used to stream the data. If no pipeline is 
+running, it will be started first and then the stream will start. NOTE: in 
+this second case, the pipeline will also be automatically stopped once the 
+this second case, the pipeline will also be automatically stopped once 
+there are no more clients requesting any stream type from the module.
+
+.Available methods
+|===
+| Method | Request | Response
+
+| *xref:#Stream[]* | xref:blickfeld/percept_processing/services/state_list.adoc#_blickfeld_percept_processing_services_StateListStreamRequest[StateListStreamRequest]| xref:blickfeld/percept_processing/services/state_list.adoc#_blickfeld_percept_processing_services_StateListStreamResponse[StateListStreamResponse]Stream 
+|===
+[#Stream]
+== Stream
+
+A method to get a stream of state list messages from the pipeline
+
+[#_blickfeld_percept_processing_services_StateListStreamRequest]
+=== Request
+
+A request to receive a stream of state list messages
+
+.Available fields in blickfeld.percept_processing.services.StateListStreamRequest
+|===
+| Field | Type | Default | Unit
+
+|===
+
+[#_blickfeld_percept_processing_services_StateListStreamResponse]
+=== Response Stream
+
+A response for getting a stream of state list messages from the running 
+pipeline
+
+.Available fields in blickfeld.percept_processing.services.StateListStreamResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *state_list* | xref:blickfeld/percept_processing/data/state_list.adoc#_blickfeld_percept_processing_data_StateList[data.StateList] | - | - 
+3+| The current state list with the information detected in the zones 
+configured in the running pipeline
+
+|===
+

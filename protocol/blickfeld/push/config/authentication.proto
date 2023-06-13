@@ -1,0 +1,25 @@
+// Copyright (c) 2023 Blickfeld GmbH.
+// All rights reserved.
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+package blickfeld.push.config;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// Authentication definition
+message Authentication {
+  // the user name used for authentication
+  string user = 1;
+  // the password used for authentication
+  string password = 2;
+  // the server certificate (will implicitly use SSL)
+  bytes server_certificate = 3;
+  // client certificate
+  bytes client_certificate = 4;
+  // client key
+  bytes client_key = 5;
+}
+

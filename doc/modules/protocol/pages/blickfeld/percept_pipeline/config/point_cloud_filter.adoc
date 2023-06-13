@@ -1,0 +1,31 @@
+[#_blickfeld_percept_pipeline_config_PointCloudFilter]
+= Point Cloud Filter
+
+Algorithm for filtering point clouds
+
+.Available fields in blickfeld.percept_pipeline.config.PointCloudFilter
+|===
+| Field | Type | Default | Unit
+
+.2+| *radius_outlier* | xref:blickfeld/percept_pipeline/config/point_cloud_filter.adoc#_blickfeld_percept_pipeline_config_PointCloudFilter_RadiusOutlier[RadiusOutlier] | - | - 
+3+| Use radius outlier filter for noise reduction on point clouds
+
+|===
+
+[#_blickfeld_percept_pipeline_config_PointCloudFilter_RadiusOutlier]
+== Radius Outlier
+
+Filter points based on the number of neighbors in a certain radius
+
+.Available fields in blickfeld.percept_pipeline.config.PointCloudFilter.RadiusOutlier
+|===
+| Field | Type | Default | Unit
+
+.2+| *min_neighbor_points* | uint32| - | - 
+3+| Minimum number of neighbors a point has to have to be retained
+
+.2+| *neighbor_radius* | double| - | - 
+3+| All points within this radius are considered neighbors of a point
+
+|===
+

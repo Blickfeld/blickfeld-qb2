@@ -1,0 +1,42 @@
+// Copyright (c) 2023 Blickfeld GmbH.
+// All rights reserved.
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+import "blickfeld/push/data/health.proto";
+import "blickfeld/push/data/status.proto";
+import "google/protobuf/empty.proto";
+package blickfeld.push.services;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// request get the health of the configured publisher
+message HealthGetResponse {
+  // health of push configurations
+  .blickfeld.push.data.Health health = 2;
+  reserved 1;
+}
+
+// request watch the health of the configured publisher
+message HealthWatchResponse {
+  // health of push configurations
+  .blickfeld.push.data.Health health = 2;
+  reserved 1;
+}
+
+// An gRPC service to request the status of push configurations
+service Health {
+  option (.blickfeld.base.access_control_service) = {
+    level: LEVEL_PUBLIC
+  };
+  option (.blickfeld.base.protocol_maturity_service) = {
+    level: LEVEL_EXPERIMENTAL
+  };
+  // Get Status for all configured push configurations
+  rpc Get(.google.protobuf.Empty) returns (.blickfeld.push.services.HealthGetResponse);
+  // Watch status changes for configured push configurations
+  rpc Watch(.google.protobuf.Empty) returns (stream .blickfeld.push.services.HealthWatchResponse);
+}
+

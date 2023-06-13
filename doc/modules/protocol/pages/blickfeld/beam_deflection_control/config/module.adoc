@@ -1,0 +1,16 @@
+[#_blickfeld_beam_deflection_control_config_Module]
+= Module
+
+This enum defines the different modules that can run the beam deflection control firmware and thus can be communicated with. 
+It needs to be passed as metadata when opening the gRPC channel in order to select the module.
+
+.Available values for blickfeld.beam_deflection_control.config.Module enum
+[cols='25h,5,~']
+|===
+| Name | Value | Description
+
+| MODULE_UNSPECIFIED ^| 0 | Unused zero value
+| MODULE_VERTICAL ^| 1 | Vertical beam deflection unit
+| MODULE_HORIZONTAL ^| 2 | Horizontal beam deflection unit
+|===
+

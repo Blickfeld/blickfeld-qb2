@@ -1,0 +1,75 @@
+syntax = "proto3";
+
+import "google/protobuf/descriptor.proto";
+// Options are not namespaced
+package blickfeld.base;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// Access Control message which specifies the required access level and licenses for protocol entities.
+// Protocol entities are usually gRPC services but can also be more fine grained on gRPC method
+// and Protobuf field level.
+message AccessControl {
+  // Available access levels
+  // The levels are ordered ascending, which means that each level also inherits the permissions
+  // of the levels above it.
+  enum Level {
+    // Access level is not specified
+    LEVEL_UNSPECIFIED = 0;
+    // Everyone can access
+    // The corresponding entities can be accessed by anyone who has access to the interface of the device.
+    // The access can not be disabled by the user.
+    LEVEL_PUBLIC = 1;
+    // Only authorized clients can access
+    // The corresponding entities can only be used by authorized clients.
+    // The access can be managed by clients with the ADMIN access level.
+    // If desired, the AUTHORIZED access level can be configured to act equally to the PUBLIC access level.
+    LEVEL_AUTHORIZED = 2;
+    // Only administrative clients can access
+    // The corresponding entities are mainly used to configure the access tokens of the AUTHORIZED access level.
+    // It may also be used to manage configuration which might void the warranty or specification of the device.
+    LEVEL_ADMIN = 3;
+    // Only clients of the Blickfeld support can access
+    // The corresponding entities can only be accessed by Blickfeld Support Tools & clients.
+    // The access tokens are bound to devices.
+    LEVEL_SUPPORT = 4;
+    // Only clients in production can access
+    // The corresponding entities are used for end-of-line & re-work processes.
+    LEVEL_PRODUCTION = 5;
+    // Only Blickfeld developers can access
+    LEVEL_DEVELOPER = 6;
+  }
+  // Minimum access level required for entity
+  .blickfeld.base.AccessControl.Level level = 1;
+}
+
+extend .google.protobuf.FileOptions {
+  .blickfeld.base.AccessControl access_control_file = 52100 [json_name = "accessControlFile"];
+}
+
+extend .google.protobuf.ServiceOptions {
+  .blickfeld.base.AccessControl access_control_service = 52100 [json_name = "accessControlService"];
+}
+
+extend .google.protobuf.MethodOptions {
+  .blickfeld.base.AccessControl access_control_method = 52100 [json_name = "accessControlMethod"];
+}
+
+extend .google.protobuf.FieldOptions {
+  .blickfeld.base.AccessControl access_control_field = 52100 [json_name = "accessControlField"];
+}
+
+extend .google.protobuf.MessageOptions {
+  .blickfeld.base.AccessControl access_control_message = 52100 [json_name = "accessControlMessage"];
+}
+
+extend .google.protobuf.EnumOptions {
+  .blickfeld.base.AccessControl access_control_enum = 52100 [json_name = "accessControlEnum"];
+}
+
+extend .google.protobuf.EnumValueOptions {
+  .blickfeld.base.AccessControl access_control_enum_value = 52100 [json_name = "accessControlEnumValue"];
+}
+

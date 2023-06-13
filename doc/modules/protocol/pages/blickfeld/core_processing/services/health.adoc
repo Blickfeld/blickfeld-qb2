@@ -1,0 +1,51 @@
+= Service: Health
+
+NOTE: This API is officially released and maintained.
+
+The health service provides methods to monitor operational status of the core_processing module
+
+.Available methods
+|===
+| Method | Request | Response
+
+| *xref:#Get[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/core_processing/services/health.adoc#_blickfeld_core_processing_services_HealthGetResponse[HealthGetResponse]
+| *xref:#Watch[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/core_processing/services/health.adoc#_blickfeld_core_processing_services_HealthWatchResponse[HealthWatchResponse]Stream 
+|===
+[#Get]
+== Get
+
+Returns the current health status of the core_processing module
+
+[#_blickfeld_core_processing_services_HealthGetResponse]
+=== Response
+
+Response to health get request
+
+.Available fields in blickfeld.core_processing.services.HealthGetResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *health* | xref:blickfeld/core_processing/data/health.adoc#_blickfeld_core_processing_data_Health[data.Health] | - | - 
+3+| Health state
+
+|===
+
+[#Watch]
+== Watch
+
+Can be used to attach to the health monitoring status information of the core_processing module
+
+[#_blickfeld_core_processing_services_HealthWatchResponse]
+=== Response Stream
+
+Stream response to health watch request
+
+.Available fields in blickfeld.core_processing.services.HealthWatchResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *health* | xref:blickfeld/core_processing/data/health.adoc#_blickfeld_core_processing_data_Health[data.Health] | - | - 
+3+| Health state
+
+|===
+

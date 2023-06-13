@@ -1,0 +1,114 @@
+= Scan Pattern
+
+[#_blickfeld_system_config_ScanPattern]
+== Scan Pattern
+
+ 
+The scan pattern defines the movement of the mirrors. 
+The key parameters of the pattern are the horizontal and vertical fields of view (FoV) as well as the number of scan lines per frame. 
+The frame rate is defined by the total number of scan lines and the oscillation frequency of the mirrors which is fixed and 
+device-spcific. 
+
+
+.Available fields in blickfeld.system.config.ScanPattern
+|===
+| Field | Type | Default | Unit
+
+| *horizontal* | xref:blickfeld/system/config/scan_pattern.adoc#_blickfeld_system_config_ScanPattern_Horizontal[Horizontal] | - | - 
+| *vertical* | xref:blickfeld/system/config/scan_pattern.adoc#_blickfeld_system_config_ScanPattern_Vertical[Vertical] | - | - 
+| *pulse* | xref:blickfeld/system/config/scan_pattern.adoc#_blickfeld_system_config_ScanPattern_Pulse[Pulse] | - | - 
+.2+| *read_only* | bool| false | - 
+3+| this is an read_only flag and it will be set if this is a default scan pattern, which can't be changed or deleted.
+
+|===
+
+[#_blickfeld_system_config_ScanPattern_Horizontal]
+=== Horizontal
+
+ 
+This section defines the movement of the horizontal mirror. 
+The mirror moves continuously with its own frequency. Each half-oscillation period of the mirror results in one scan line.
+
+.Available fields in blickfeld.system.config.ScanPattern.Horizontal
+|===
+| Field | Type | Default | Unit
+
+.2+| *field_of_view* | float| 1.57068062 | rad 
+3+|  
+Unit: [rad] 
+– 
+optical field of view of the horizontal mirror. 
+Note: In v2.2* and below, this was defined as a mechanical FoV.
+
+|===
+
+[#_blickfeld_system_config_ScanPattern_Vertical]
+=== Vertical
+
+ 
+This section defines the movement of the vertical mirror within one frame. 
+The mirror moves for from 0 degrees to the configured target FoV (up-ramping phase) and back to 0 degrees (down-ramping phase) with 
+its eigenfrequency. The number of scanlines for each phase can be configured. Due to the dynamics of the mirror, a certain number of 
+scan lines are required to reach the target FoV and then to reach 0 degrees again. Consequently, if the limit is reached, a lower 
+number of scan lines requires a reduced FoV. Thus, a higher number of scan lines allows a larger vertical FoV. The vertical FoV is 
+limited by the optical components. 
+ 
+Note: Due to the time required for one scan line, the rounded even number of scan lines directly scales inverse proportionally with 
+the frame rate.
+
+.Available fields in blickfeld.system.config.ScanPattern.Vertical
+|===
+| Field | Type | Default | Unit
+
+.2+| *field_of_view* | float| 0.942477822 | rad 
+3+|  
+Unit: [rad] 
+– 
+FoV in the center of the frame. 
+Due to the eye shape of the scan pattern, the vertical FoV decreases the outer boundaries of the horizontal mirror.
+
+.2+| *scanlines_up* | uint32| 40 | - 
+3+|  
+Configures the number of scan lines required for the up-ramping phase. 
+During the up-ramping phase, the vertical mirror increases its amplitude from 0 degrees to the target FoV. Default: 200
+
+.2+| *scanlines_down* | uint32| 40 | - 
+3+|  
+Configures the amount of scan lines required for the down-ramping phase. 
+During the down-ramping phase, the vertical mirror decreases its amplitude from the target FoV to 0 degrees. Default: 30
+
+|===
+
+[#_blickfeld_system_config_ScanPattern_Pulse]
+=== Pulse
+
+ 
+This section defines the pattern in which the laser pulses and captures sample points
+
+.Available fields in blickfeld.system.config.ScanPattern.Pulse
+|===
+| Field | Type | Default | Unit
+
+.2+| *angle_spacing* | float| 0.00872664619 | rad 
+3+|  
+Unit: [rad] 
+– 
+This defines the angle within which the horizontal mirror moves between two laser pulses. 
+This parameter therefore defines the horizontal sampling resolution.
+
+|===
+
+[#_blickfeld_system_config_NamedScanPattern]
+== Named Scan Pattern
+
+Temporary container used for config storage 
+TODO Remove when daedalus-config supports map type.
+
+.Available fields in blickfeld.system.config.NamedScanPattern
+|===
+| Field | Type | Default | Unit
+
+| *name* | optional string| - | - 
+| *scan_pattern* | xref:blickfeld/system/config/scan_pattern.adoc#_blickfeld_system_config_ScanPattern[ScanPattern] | - | - 
+|===
+

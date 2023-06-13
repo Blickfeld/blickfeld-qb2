@@ -1,0 +1,31 @@
+[#_blickfeld_base_geometry_Shape]
+= Shape
+
+A shape that represent a geometrical figure.
+
+.Available fields in blickfeld.base.geometry.Shape
+|===
+| Field | Type | Default | Unit
+
+.2+| *pose* | xref:blickfeld/base/geometry/pose.adoc#_blickfeld_base_geometry_Pose[Pose] | - | - 
+3+| Position and orientation of the center of the bounding box enclosing the shape.
+
+.2+| *box* | xref:blickfeld/base/geometry/shape.adoc#_blickfeld_base_geometry_Shape_Box[Box] | - | - 
+3+| Box shape
+
+|===
+
+[#_blickfeld_base_geometry_Shape_Box]
+== Box
+
+A 3 dimensional box.
+
+.Available fields in blickfeld.base.geometry.Shape.Box
+|===
+| Field | Type | Default | Unit
+
+.2+| *dimensions* | xref:blickfeld/base/geometry/vector3.adoc#_blickfeld_base_geometry_Vector3[Vector3] | - | - 
+3+| The X, Y and Z dimension.
+
+|===
+

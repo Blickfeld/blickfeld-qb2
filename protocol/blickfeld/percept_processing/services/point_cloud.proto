@@ -1,0 +1,61 @@
+// Copyright (c) 2023 Blickfeld GmbH.
+// All rights reserved.
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+import "blickfeld/core_processing/data/frame.proto";
+import "blickfeld/percept_pipeline/data/coordinate_system.proto";
+import "blickfeld/percept_pipeline/data/point_cloud_type.proto";
+package blickfeld.percept_processing.services;
+
+option cc_enable_arenas = true;
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// A request to receive a stream of point cloud messages.
+// Different point clouds can be streamed depending on the set fields:
+// - combined point cloud (the full point cloud of all the available devices
+// combined) in the map coordinate system
+// - the foreground of the combined point cloud in the map coordinate system
+// - the complete raw point cloud coming from one device, but only in map
+// coordinate system.
+message PointCloudStreamRequest {
+  // The type of point cloud to stream
+  .blickfeld.percept_pipeline.data.PointCloudType point_cloud_type = 1;
+  // The coordinate system the point cloud should be expressed in (local or
+  // transformed/map)
+  .blickfeld.percept_pipeline.data.CoordinateSystem coordinate_system = 2;
+  // The name of the source to get the point cloud from.
+  oneof point_cloud_source {    option (.blickfeld.base.optional_one_of) = true;
+
+    // fqdn of the data source to get the point cloud from
+    string fqdn = 3;
+  }
+}
+
+// A response for getting a stream of point cloud messages
+message PointCloudStreamResponse {
+  // The required point cloud, based on the fields set in the request
+  .blickfeld.core_processing.data.Frame point_cloud = 1;
+}
+
+// An RPC service to request a stream of point cloud messages. If a pipeline is
+// already running, it will be used to stream the data. If no pipeline is
+// running, it will be started first and then the stream will start. NOTE: in
+// this second case, the pipeline will also be automatically stopped once the
+// this second case, the pipeline will also be automatically stopped once
+// there are no more clients requesting any stream type from the module.
+service PointCloud {
+  option (.blickfeld.base.access_control_service) = {
+    level: LEVEL_PUBLIC
+  };
+  option (.blickfeld.base.protocol_maturity_service) = {
+    level: LEVEL_MAINTAINED
+  };
+  // A method to get a stream of point cloud messages from the pipeline.
+  // It is possible to stream different point clouds, depending on the fields
+  // set in the request
+  rpc Stream(.blickfeld.percept_processing.services.PointCloudStreamRequest) returns (stream .blickfeld.percept_processing.services.PointCloudStreamResponse);
+}
+

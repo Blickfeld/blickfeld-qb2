@@ -1,0 +1,39 @@
+// Copyright (c) 2022 Blickfeld GmbH.
+// All rights reserved.
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+import "blickfeld/percept_pipeline/data/health.proto";
+import "google/protobuf/empty.proto";
+package blickfeld.percept_pipeline.services;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// Stream response containing health of the module
+message HealthWatchResponse {
+  // The module health
+  .blickfeld.percept_pipeline.data.Health health = 1;
+}
+
+// Get response containing health of the module
+message HealthGetResponse {
+  // The module health
+  .blickfeld.percept_pipeline.data.Health health = 1;
+}
+
+// Reports the health of the pipeline module.
+service Health {
+  option (.blickfeld.base.access_control_service) = {
+    level: LEVEL_PUBLIC
+  };
+  option (.blickfeld.base.protocol_maturity_service) = {
+    level: LEVEL_EXPERIMENTAL
+  };
+  // Streams health information on a regular cadence or if certain incidents happen
+  rpc Watch(.google.protobuf.Empty) returns (stream .blickfeld.percept_pipeline.services.HealthWatchResponse);
+  // Returns the current health information
+  rpc Get(.google.protobuf.Empty) returns (.blickfeld.percept_pipeline.services.HealthGetResponse);
+}
+

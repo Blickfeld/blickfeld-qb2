@@ -1,0 +1,45 @@
+// Copyright (c) 2023 Blickfeld GmbH.
+// All rights reserved.
+syntax = "proto3";
+
+import "blickfeld/base/data/health.proto";
+import "blickfeld/base/options.proto";
+import "google/protobuf/timestamp.proto";
+package blickfeld.push.data;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// state of a push
+message Status {
+  // Connection status of the push
+  enum Connection {
+    // unspecified
+    CONNECTION_UNSPECIFIED = 0;
+    // push configuration is disabled
+    CONNECTION_DISABLED = 1;
+    // disconnected from destination
+    CONNECTION_DISCONNECTED = 2;
+    // connecting to destination
+    CONNECTION_CONNECTING = 3;
+    // connected to destination
+    CONNECTION_CONNECTED = 4;
+    // connected to input and destination
+    CONNECTION_PUSHING = 5;
+  }
+  // message statistics [default = 0]
+  uint32 sent_messages = 1;
+  // flag to indicate if it is working or not
+  .blickfeld.push.data.Status.Connection connection = 2;
+  // Average data rate
+  // The resulting value is averaged over the last 5 messages sent, peak or current values might be different.
+  float data_rate = 3 [(.blickfeld.base.unit) = "B/s"];
+  // Timestamp when last message was sent
+  .google.protobuf.Timestamp last_message = 4;
+  // State of push connection.
+  .blickfeld.base.data.Health.State state = 5;
+  // Reason for the given state. Needs to be set if state is not STATE_OK.
+  string state_reason = 6;
+}
+

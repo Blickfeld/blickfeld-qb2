@@ -1,0 +1,21 @@
+// Copyright (c) 2022 Blickfeld GmbH.
+// All rights reserved.
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+package blickfeld.percept_pipeline.data;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// Specifies the coordinates system the data is expressed in
+enum CoordinateSystem {
+  // Coordinate system not specified. Not accepted neither within a request nor as response
+  COORDINATE_SYSTEM_UNSPECIFIED = 0;
+  // The data is expressed in the coordiante system of the data-source/device
+  COORDINATE_SYSTEM_LOCAL = 1;
+  // The data is expressed in a map coordinate system
+  COORDINATE_SYSTEM_TRANSFORMED = 2;
+}
+

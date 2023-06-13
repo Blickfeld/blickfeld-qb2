@@ -1,0 +1,17 @@
+[#_blickfeld_laser_data_Health]
+= Health
+
+
+
+.Available fields in blickfeld.laser.data.Health
+|===
+| Field | Type | Default | Unit
+
+.2+| *state* | xref:blickfeld/base/data/health.adoc#_blickfeld_base_data_Health_State[base.data.Health.State] | - | - 
+3+| High-level state of module
+
+.2+| *state_reason* | string| - | - 
+3+| Reason for given state. Is not set if state is OK.
+
+|===
+

@@ -1,0 +1,54 @@
+= Service: Health
+
+CAUTION: This API is not yet officially released neither maintained.
+
+An RPC service to request information about the state of the pipeline and of 
+the module.
+
+.Available methods
+|===
+| Method | Request | Response
+
+| *xref:#Watch[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/percept_processing/services/health.adoc#_blickfeld_percept_processing_services_HealthWatchResponse[HealthWatchResponse]Stream 
+| *xref:#Get[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/percept_processing/services/health.adoc#_blickfeld_percept_processing_services_HealthGetResponse[HealthGetResponse]
+|===
+[#Watch]
+== Watch
+
+A method to get a stream of health messages, containing information about 
+the state of the pipeline
+
+[#_blickfeld_percept_processing_services_HealthWatchResponse]
+=== Response Stream
+
+A response for getting a stream of health messages about the pipeline
+
+.Available fields in blickfeld.percept_processing.services.HealthWatchResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *health* | xref:blickfeld/percept_processing/data/health.adoc#_blickfeld_percept_processing_data_Health[data.Health] | - | - 
+3+| The current health message with information about the state of the pipeline
+
+|===
+
+[#Get]
+== Get
+
+A method to get one health message, containing information about the state 
+of the pipeline
+
+[#_blickfeld_percept_processing_services_HealthGetResponse]
+=== Response
+
+A response for getting an health message about the pipeline
+
+.Available fields in blickfeld.percept_processing.services.HealthGetResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *health* | xref:blickfeld/percept_processing/data/health.adoc#_blickfeld_percept_processing_data_Health[data.Health] | - | - 
+3+| The current health message with information about the state of the pipeline
+
+|===
+

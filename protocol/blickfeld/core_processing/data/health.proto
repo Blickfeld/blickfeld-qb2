@@ -1,0 +1,188 @@
+syntax = "proto3";
+
+import "blickfeld/base/data/health.proto";
+import "blickfeld/base/options.proto";
+package blickfeld.core_processing.data;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// Message representing health
+message Health {
+  // Status for typed channels producing raw-data
+  message ChannelStatus {
+    // Status of Point Cloud channel
+    message PointCloud {
+      // Processed points per second
+      float point_rate = 1 [(.blickfeld.base.unit) = "Hz"];
+      // Scanlines per second
+      float scanline_rate = 2 [(.blickfeld.base.unit) = "Hz"];
+      // Frames per second
+      float frame_rate = 3 [(.blickfeld.base.unit) = "Hz"];
+      // Average data rate
+      // [NOTE]
+      // This value is averaged over 10 seconds, peak or current values might be different.
+      float data_rate = 4 [(.blickfeld.base.unit) = "B/s"];
+    }
+    // Status of Acceleration channel
+    message Acceleration {
+      // Processed buffers per second
+      float buffer_rate = 1 [(.blickfeld.base.unit) = "Hz"];
+      // Average data rate
+      // [NOTE]
+      // This value is averaged over 10 seconds, peak or current values might be different.
+      float data_rate = 2 [(.blickfeld.base.unit) = "B/s"];
+    }
+    // Status of Adc channel
+    message Adc {
+      // Processed buffers per second
+      float buffer_rate = 1 [(.blickfeld.base.unit) = "Hz"];
+      // Average data rate
+      // [NOTE]
+      // This value is averaged over 10 seconds, peak or current values might be different.
+      float data_rate = 2 [(.blickfeld.base.unit) = "B/s"];
+    }
+    // Status of BeamDeflectionControl channel
+    message BeamDeflectionControl {
+      // Produced buffers per second
+      float buffer_rate = 1 [(.blickfeld.base.unit) = "Hz"];
+      // Average data rate
+      // [NOTE]
+      // This value is averaged over 10 seconds, peak or current values might be different.
+      float data_rate = 2 [(.blickfeld.base.unit) = "B/s"];
+    }
+    // Status of Magnetic-Field channel
+    message MagneticField {
+      // Produced buffers per second
+      float buffer_rate = 1 [(.blickfeld.base.unit) = "Hz"];
+      // Average data rate
+      // [NOTE]
+      // This value is averaged over 10 seconds, peak or current values might be different.
+      float data_rate = 2 [(.blickfeld.base.unit) = "B/s"];
+    }
+    // Point Cloud status
+    .blickfeld.core_processing.data.Health.ChannelStatus.PointCloud point_cloud = 1;
+    // Acceleration status
+    .blickfeld.core_processing.data.Health.ChannelStatus.Acceleration acceleration = 2;
+    // Adc status
+    .blickfeld.core_processing.data.Health.ChannelStatus.Adc adc = 3;
+    // Vertical Beam Deflection Control status
+    .blickfeld.core_processing.data.Health.ChannelStatus.BeamDeflectionControl vertical_beam_deflection_control = 4;
+    // Horizontal Beam Deflection Control status
+    .blickfeld.core_processing.data.Health.ChannelStatus.BeamDeflectionControl horizontal_beam_deflection_control = 5;
+    // Magnetic Field status
+    .blickfeld.core_processing.data.Health.ChannelStatus.MagneticField magnetic_field = 6;
+  }
+  // Status for Server / Client activities
+  message ServerStatus {
+    // Status for Point Cloud service
+    message PointCloud {
+      // Number of currently open client connections
+      // [NOTE]
+      // This is a snapshot and does not distinguish between long running streams or single request / response methods.
+      uint32 number_of_clients = 1;
+      // Average data rate
+      // [NOTE]
+      // This value is averaged over 10 seconds, peak or current values might be different.
+      float data_rate = 2 [(.blickfeld.base.unit) = "B/s"];
+    }
+    // Status for Acceleration service
+    message Acceleration {
+      // Number of currently open client connections
+      // [NOTE]
+      // This is a snapshot and does not distinguish between long running streams or single request / response methods.
+      uint32 number_of_clients = 1;
+      // Average data rate
+      // [NOTE]
+      // This value is averaged over 10 seconds, peak or current values might be different.
+      float data_rate = 2 [(.blickfeld.base.unit) = "B/s"];
+    }
+    // Status for Adc service
+    message Adc {
+      // Number of currently open client connections
+      // [NOTE]
+      // This is a snapshot and does not distinguish between long running streams or single request / response methods.
+      uint32 number_of_clients = 1;
+      // Average data rate
+      // [NOTE]
+      // This value is averaged over 10 seconds, peak or current values might be different.
+      float data_rate = 2 [(.blickfeld.base.unit) = "B/s"];
+    }
+    // Status for BeamDeflectionControl service
+    message BeamDeflectionControl {
+      // Number of currently open client connections
+      // [NOTE]
+      // This is a snapshot and does not distinguish between long running streams or single request / response methods.
+      uint32 number_of_clients = 1;
+      // Average data rate
+      // [NOTE]
+      // This value is averaged over 10 seconds, peak or current values might be different.
+      float data_rate = 2 [(.blickfeld.base.unit) = "B/s"];
+    }
+    // Status for Health service
+    message Health {
+      // Number of currently open client connections
+      // [NOTE]
+      // This is a snapshot and does not distinguish between long running streams or single request / response methods.
+      uint32 number_of_clients = 1;
+      // Average data rate
+      // [NOTE]
+      // This value is averaged over 10 seconds, peak or current values might be different.
+      float data_rate = 2 [(.blickfeld.base.unit) = "B/s"];
+    }
+    // Status for Magnetic Field service
+    message MagneticField {
+      // Number of currently open client connections
+      // [NOTE]
+      // This is a snapshot and does not distinguish between long running streams or single request / response methods.
+      uint32 number_of_clients = 1;
+      // Average data rate
+      // [NOTE]
+      // This value is averaged over 10 seconds, peak or current values might be different.
+      float data_rate = 2 [(.blickfeld.base.unit) = "B/s"];
+    }
+    // Point Cloud service
+    .blickfeld.core_processing.data.Health.ServerStatus.PointCloud point_cloud = 1;
+    // Acceleration service
+    .blickfeld.core_processing.data.Health.ServerStatus.Acceleration acceleration = 2;
+    // Adc service
+    .blickfeld.core_processing.data.Health.ServerStatus.Adc adc = 3;
+    // Beam Deflection Control service
+    .blickfeld.core_processing.data.Health.ServerStatus.BeamDeflectionControl beam_deflection_control = 4;
+    // Health service
+    .blickfeld.core_processing.data.Health.ServerStatus.Health health = 5;
+    // Magnetic Field service
+    .blickfeld.core_processing.data.Health.ServerStatus.MagneticField magnetic_field = 6;
+  }
+  // Error flags of internal data handling mechanisms
+  message ErrorFlags {
+    // TLP counter mismatch for Packager DMA
+    bool packet_counter_mismatch_packager = 1;
+    // TLP counter mismatch for Debug DMA
+    bool packet_counter_mismatch_debug = 2;
+    // Dropping data because scanline buffers are exhausted
+    bool exhausted_scanline_buffers = 3;
+    // Dropping data because acceleration buffers are exhausted
+    bool exhausted_acceleration_buffers = 4;
+    // Dropping data because adc buffers are exhausted
+    bool exhausted_adc_buffers = 5;
+    // Dropping data because vertical beam deflection control buffers are exhausted
+    bool exhausted_vertical_beam_deflection_control_buffers = 6;
+    // Dropping data because horizontal beam deflection control buffers are exhausted
+    bool exhausted_horizontal_beam_deflection_control_buffers = 7;
+    // Dropping data because magnetic field buffers are exhausted
+    bool exhausted_magnetic_field_buffers = 8;
+  }
+  // High-level state of module
+  .blickfeld.base.data.Health.State state = 1;
+  // Reason for given state. Is not set if state is STATE_OK.
+  string state_reason = 2;
+  // Status of internal channels
+  .blickfeld.core_processing.data.Health.ChannelStatus channel_status = 3;
+  // Status of gRPC server
+  .blickfeld.core_processing.data.Health.ServerStatus server_status = 4;
+  // Error flags which give insight in fine-grained errors
+  .blickfeld.core_processing.data.Health.ErrorFlags error_flags = 5;
+}
+

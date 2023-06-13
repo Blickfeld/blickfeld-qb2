@@ -1,0 +1,76 @@
+= Service: Pipeline
+
+CAUTION: This API is not yet officially released neither maintained.
+
+An RPC service to start and stop pipelines. Note that currently it is 
+impossible to run more than one pipeline at the same time.
+
+.Available methods
+|===
+| Method | Request | Response
+
+| *xref:#Start[]* | xref:blickfeld/percept_processing/services/pipeline.adoc#_blickfeld_percept_processing_services_PipelineStartRequest[PipelineStartRequest]| xref:blickfeld/percept_processing/services/pipeline.adoc#_blickfeld_percept_processing_services_PipelineStartResponse[PipelineStartResponse]
+| *xref:#Stop[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:#_google_protobuf_Empty[google.protobuf.Empty]
+| *xref:#ListAvailableData[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/percept_processing/services/pipeline.adoc#_blickfeld_percept_processing_services_PipelineListAvailableDataResponse[PipelineListAvailableDataResponse]
+|===
+[#Start]
+== Start
+
+A method to start a headless pipeline. 
+This means that a pipeline started with this method will only be stopped 
+once the Stop method is explicitly called
+
+[#_blickfeld_percept_processing_services_PipelineStartRequest]
+=== Request
+
+A request to start a headless pipeline.
+
+.Available fields in blickfeld.percept_processing.services.PipelineStartRequest
+|===
+| Field | Type | Default | Unit
+
+|===
+
+[#_blickfeld_percept_processing_services_PipelineStartResponse]
+=== Response
+
+A response to PipelineStartRequest that contains the list of available 
+streams for the started pipeline.
+
+.Available fields in blickfeld.percept_processing.services.PipelineStartResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *data_types* | repeated xref:blickfeld/percept_processing/data/data_type.adoc#_blickfeld_percept_processing_data_DataType[data.DataType] | - | - 
+3+| List of available streams
+
+|===
+
+[#Stop]
+== Stop
+
+A method to stop the running pipeline. This will force-stop the pipeline, 
+no matter how the pipeline was created and no matter how many clients are 
+streaming from it.
+
+[#ListAvailableData]
+== ListAvailableData
+
+A method to get the list of the data streams available for the running 
+pipeline
+
+[#_blickfeld_percept_processing_services_PipelineListAvailableDataResponse]
+=== Response
+
+A response containing the list of the data types available for streaming in 
+the running pipeline
+
+.Available fields in blickfeld.percept_processing.services.PipelineListAvailableDataResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *data_types* | repeated xref:blickfeld/percept_processing/data/data_type.adoc#_blickfeld_percept_processing_data_DataType[data.DataType] | - | - 
+3+| A list of the data types available for streaming
+
+|===
+

@@ -1,0 +1,17 @@
+[#_blickfeld_percept_toolkit_data_Health]
+= Health
+
+A health message that contains information about the toolkit status.
+
+.Available fields in blickfeld.percept_toolkit.data.Health
+|===
+| Field | Type | Default | Unit
+
+.2+| *state* | xref:blickfeld/base/data/health.adoc#_blickfeld_base_data_Health_State[base.data.Health.State] | - | - 
+3+| High-level state of module.
+
+.2+| *state_reason* | string| - | - 
+3+| Reason for the given state. Needs to be set if state is not STATE_OK.
+
+|===
+

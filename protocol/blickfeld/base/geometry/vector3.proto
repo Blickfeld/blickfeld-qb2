@@ -1,0 +1,21 @@
+// Copyright (c) 2022 Blickfeld GmbH.
+// All rights reserved.
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+package blickfeld.base.geometry;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// A vector with three components to represent a 3D coordiante.
+message Vector3 {
+  // The X component.
+  float x = 1 [(.blickfeld.base.unit) = "m"];
+  // The Y component.
+  float y = 2 [(.blickfeld.base.unit) = "m"];
+  // The Z component.
+  float z = 3 [(.blickfeld.base.unit) = "m"];
+}
+

@@ -1,0 +1,46 @@
+// Copyright (c) 2022 Blickfeld GmbH.
+// All rights reserved.
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+package blickfeld.percept_pipeline.config;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// Algorithms seperating the input point cloud into foreground and background.
+message BackgroundSubtraction {
+  // Dynamic background subtraction using a mixture of gaussians. The algorithm automatically slowly updates the
+  // background model if the scene changes. The update rate is controlled via 'exponential_decay'.
+  message MixtureOfGaussians {
+    // How many frames of the first received frames are used to build the background
+    // Reasonable default: 10
+    uint32 num_initialization_frames = 1;
+    // Controls how fast objects switch between foreground and background. Exponential decay factor.
+    // Reasonable default: 0.005
+    float exponential_decay = 2;
+    // Controls how much noise the background/foreground is expected to have.
+    // Reasonable default: 0.25
+    float min_weight_threshold_for_background = 3;
+  }
+  // Uses the first received frames to build a static background map of the environment. The algorithm requires the
+  // scene to only contain the static parts of the scene on the start of the processing. The background model is not
+  // updated automatically afterwards. The ResetBackground grpc method allows to update the static map of the
+  // environment.
+  message Octree {
+    // How many frames of the first received frames are used to build the background
+    // Reasonable default: 10
+    uint32 num_initialization_frames = 1;
+    // Resolution for the octree storing a static background.
+    // Reasonable default: 0.15
+    float octree_resolution = 2 [(.blickfeld.base.unit) = "m"];
+  }
+  oneof background_subtraction_type {
+    // Use mixture of gaussians for foreground/background detection
+    .blickfeld.percept_pipeline.config.BackgroundSubtraction.MixtureOfGaussians mixture_of_gaussians = 1;
+    // Use a static octree for foreground/background detection.
+    .blickfeld.percept_pipeline.config.BackgroundSubtraction.Octree octree = 3;
+  }
+}
+

@@ -1,0 +1,20 @@
+[#_blickfeld_core_processing_data_Acceleration]
+= Acceleration
+
+A measurement of the Accelerometer
+
+.Available fields in blickfeld.core_processing.data.Acceleration
+|===
+| Field | Type | Default | Unit
+
+.2+| *x* | float| - | G 
+3+| X component of acceleration vector
+
+.2+| *y* | float| - | G 
+3+| Y component of acceleration vector
+
+.2+| *z* | float| - | G 
+3+| Z component of acceleration vector
+
+|===
+

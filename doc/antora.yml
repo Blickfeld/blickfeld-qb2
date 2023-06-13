@@ -1,0 +1,10 @@
+display_version: JAKOB v1.5.1
+name: Qb2
+nav:
+- modules/ROOT/nav.adoc
+- modules/guides/nav.adoc
+- modules/foundations/nav.adoc
+- modules/faq/nav.adoc
+- modules/protocol/nav.adoc
+title: Qb2
+version: v1.5

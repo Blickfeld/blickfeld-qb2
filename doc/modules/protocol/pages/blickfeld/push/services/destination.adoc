@@ -1,0 +1,31 @@
+= Service: Destination
+
+CAUTION: This API is not yet officially released neither maintained.
+
+An gRPC service to configure multiple push settings
+
+.Available methods
+|===
+| Method | Request | Response
+
+| *xref:#Validate[]* | xref:blickfeld/push/services/destination.adoc#_blickfeld_push_services_DestinationValidateRequest[DestinationValidateRequest]| xref:#_google_protobuf_Empty[google.protobuf.Empty]
+|===
+[#Validate]
+== Validate
+
+Setting validation
+
+[#_blickfeld_push_services_DestinationValidateRequest]
+=== Request
+
+request to validate a configured destination
+
+.Available fields in blickfeld.push.services.DestinationValidateRequest
+|===
+| Field | Type | Default | Unit
+
+.2+| *destination* | xref:blickfeld/push/config/destination.adoc#_blickfeld_push_config_Destination[config.Destination] | - | - 
+3+| the current (possibly incomplete) configuration entered
+
+|===
+

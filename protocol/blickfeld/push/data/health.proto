@@ -1,0 +1,23 @@
+// Copyright (c) 2023 Blickfeld GmbH.
+// All rights reserved.
+syntax = "proto3";
+
+import "blickfeld/base/data/health.proto";
+import "blickfeld/base/options.proto";
+import "blickfeld/push/data/status.proto";
+package blickfeld.push.data;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// A health message that contains information about the push status
+message Health {
+  // High-level state of module.
+  .blickfeld.base.data.Health.State state = 1;
+  // Reason for the given state. Needs to be set if state is not STATE_OK.
+  string state_reason = 2;
+  // map of push status
+  map<string, .blickfeld.push.data.Status> status = 3;
+}
+

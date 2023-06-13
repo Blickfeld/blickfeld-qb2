@@ -1,0 +1,95 @@
+= Service: Network
+
+CAUTION: This API is not yet officially released neither maintained.
+
+The network service allows to setup network configuration of Qb2 device. The exact structure of configuration settings is defined by 
+"Network" protocol message. Service provides "SetConfig()" and "GetConfig()" API which allow to apply and read out configuration settings 
+at run-time. The "GetStatus()" API brings configuration and statistical information about currently active network connection.
+
+.Available methods
+|===
+| Method | Request | Response
+
+| *xref:#GetStatus[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/system/data/network_status.adoc#_blickfeld_system_data_NetworkStatus[data.NetworkStatus]
+| *xref:#SetConfig[]* | xref:blickfeld/system/config/network.adoc#_blickfeld_system_config_Network[config.Network]| xref:#_google_protobuf_Empty[google.protobuf.Empty]
+| *xref:#GetConfig[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/system/config/network.adoc#_blickfeld_system_config_Network[config.Network]
+| *xref:#Validate[]* | xref:blickfeld/system/services/network.adoc#_blickfeld_system_services_NetworkValidateRequest[NetworkValidateRequest]| xref:blickfeld/system/services/network.adoc#_blickfeld_system_services_NetworkValidateResponse[NetworkValidateResponse]
+| *xref:#GetMacAddresses[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/system/services/network.adoc#_blickfeld_system_services_NetworkGetMacAddressesResponse[NetworkGetMacAddressesResponse]
+|===
+[#GetStatus]
+== GetStatus
+
+Brings information about currently active connection
+
+[#SetConfig]
+== SetConfig
+
+Applies specified network configuration
+
+[#GetConfig]
+== GetConfig
+
+Reads out provided network configuration
+
+[#Validate]
+== Validate
+
+Validates the network configuration by applying it shortly. 
+If DHCP is configured, it checks if it can acquire an IPv4 address. 
+For static IP address, the validation only works for wireless networks. 
+It then, still cannot allocate a manual IP address if the credentials are wrong. 
+ 
+[NOTE] 
+The validation does not yet separate error messages for misconfigured wireless credentials 
+or wrongly configured DHCP server. Thus, the issue is not necessarily on the device side.
+
+[#_blickfeld_system_services_NetworkValidateRequest]
+=== Request
+
+Request to validate method
+
+.Available fields in blickfeld.system.services.NetworkValidateRequest
+|===
+| Field | Type | Default | Unit
+
+.2+| *config* | xref:blickfeld/system/config/network.adoc#_blickfeld_system_config_Network[config.Network] | - | - 
+3+| Configuration which should be validated
+
+|===
+
+[#_blickfeld_system_services_NetworkValidateResponse]
+=== Response
+
+Response to validate method
+
+.Available fields in blickfeld.system.services.NetworkValidateResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *status* | xref:blickfeld/system/data/network_status.adoc#_blickfeld_system_data_NetworkStatus[data.NetworkStatus] | - | - 
+3+| Status message with allocated IP addresses
+
+|===
+
+[#GetMacAddresses]
+== GetMacAddresses
+
+Get MAC addresses of the available interfaces
+
+[#_blickfeld_system_services_NetworkGetMacAddressesResponse]
+=== Response
+
+Response with mac addresses
+
+.Available fields in blickfeld.system.services.NetworkGetMacAddressesResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *ethernet* | string| - | - 
+3+| Mac address of ethernet / LAN interface
+
+.2+| *wireless* | string| - | - 
+3+| Mac address of wireless / WiFi interface
+
+|===
+

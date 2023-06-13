@@ -1,0 +1,20 @@
+[#_blickfeld_percept_pipeline_data_Health]
+= Health
+
+A health message that contains information about the pipeline status and the module itself.
+
+.Available fields in blickfeld.percept_pipeline.data.Health
+|===
+| Field | Type | Default | Unit
+
+.2+| *state* | xref:blickfeld/base/data/health.adoc#_blickfeld_base_data_Health_State[base.data.Health.State] | - | - 
+3+| High-level state of module.
+
+.2+| *state_reason* | string| - | - 
+3+| Reason for the given state. It is not set if state is STATE_OK.
+
+.2+| *pipeline_state* | xref:blickfeld/percept_pipeline/data/state.adoc#_blickfeld_percept_pipeline_data_State[State] | - | - 
+3+| Current state of the pipeline. It indicates if the pipeline is stable, unstable or broken.
+
+|===
+

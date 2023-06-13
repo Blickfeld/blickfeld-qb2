@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+import "blickfeld/core_processing/data/acceleration.proto";
+import "blickfeld/core_processing/data/acceleration_buffer.proto";
+import "google/protobuf/empty.proto";
+package blickfeld.core_processing.services;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// Stream response to acceleration stream request
+message AccelerationStreamResponse {
+  // Buffer with acceleration
+  .blickfeld.core_processing.data.AccelerationBuffer buffer = 1;
+}
+
+// Response to acceleration get filtered request
+message AccelerationGetFilteredResponse {
+  // Single filtered acceleration
+  .blickfeld.core_processing.data.Acceleration acceleration = 1;
+}
+
+// The Acceleration Service provides access to the accelerometer of the device.
+service Acceleration {
+  option (.blickfeld.base.access_control_service) = {
+    level: LEVEL_PUBLIC
+  };
+  option (.blickfeld.base.protocol_maturity_service) = {
+    level: LEVEL_MAINTAINED
+  };
+  // Streams raw data from accelerometer
+  // [WARNING]
+  // Raw data is acquired with a high sampling frequency and sent out in larger chunks.
+  // To estimate the static state of the device the GetFiltered method should be used.
+  rpc Stream(.google.protobuf.Empty) returns (stream .blickfeld.core_processing.services.AccelerationStreamResponse);
+  // Get filtered sample from accelerometer
+  rpc GetFiltered(.google.protobuf.Empty) returns (.blickfeld.core_processing.services.AccelerationGetFilteredResponse);
+}
+

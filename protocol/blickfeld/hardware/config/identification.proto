@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+package blickfeld.hardware.config;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// Identification message of the Qb2 device.
+// It aggregates all hardware components.
+message Identification {
+  // This is the top-level product identification.
+  // The serial number will be used as label and API identifier for the device.
+  string serial_number = 1 [(.blickfeld.base.length) = 9];
+}
+

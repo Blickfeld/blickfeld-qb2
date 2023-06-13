@@ -1,0 +1,117 @@
+= Service: Scan Pattern
+
+CAUTION: This API is not yet officially released neither maintained.
+
+
+
+.Available methods
+|===
+| Method | Request | Response
+
+| *xref:#Get[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/system/services/scan_pattern.adoc#_blickfeld_system_services_ScanPatternGetResponse[ScanPatternGetResponse]
+| *xref:#Set[]* | xref:blickfeld/system/services/scan_pattern.adoc#_blickfeld_system_services_ScanPatternSetRequest[ScanPatternSetRequest]| xref:#_google_protobuf_Empty[google.protobuf.Empty]
+| *xref:#List[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/system/services/scan_pattern.adoc#_blickfeld_system_services_ScanPatternListResponse[ScanPatternListResponse]
+| *xref:#Store[]* | xref:blickfeld/system/services/scan_pattern.adoc#_blickfeld_system_services_ScanPatternStoreRequest[ScanPatternStoreRequest]| xref:#_google_protobuf_Empty[google.protobuf.Empty]
+| *xref:#Delete[]* | xref:blickfeld/system/services/scan_pattern.adoc#_blickfeld_system_services_ScanPatternDeleteRequest[ScanPatternDeleteRequest]| xref:#_google_protobuf_Empty[google.protobuf.Empty]
+|===
+[#Get]
+== Get
+
+Gets scan pattern configuration settings
+
+[#_blickfeld_system_services_ScanPatternGetResponse]
+=== Response
+
+
+
+.Available fields in blickfeld.system.services.ScanPatternGetResponse
+|===
+| Field | Type | Default | Unit
+
+| *name* | string| - | - 
+| *scan_pattern* | xref:blickfeld/system/config/scan_pattern.adoc#_blickfeld_system_config_ScanPattern[config.ScanPattern] | - | - 
+|===
+
+[#Set]
+== Set
+
+Sets scan pattern cofiguration settings
+
+[#_blickfeld_system_services_ScanPatternSetRequest]
+=== Request
+
+
+
+.Available fields in blickfeld.system.services.ScanPatternSetRequest
+|===
+| Field | Type | Default | Unit
+
+| *name* | string| - | - 
+| *scan_pattern* | xref:blickfeld/system/config/scan_pattern.adoc#_blickfeld_system_config_ScanPattern[config.ScanPattern] | - | - 
+|===
+
+[#List]
+== List
+
+Return list of named scan patterns
+
+[#_blickfeld_system_services_ScanPatternListResponse]
+=== Response
+
+
+
+.Available fields in blickfeld.system.services.ScanPatternListResponse
+|===
+| Field | Type | Default | Unit
+
+| *named_scan_patterns* | repeated xref:blickfeld/system/services/scan_pattern.adoc#_blickfeld_system_services_ScanPatternListResponse_NamedScanPatternsEntry[NamedScanPatternsEntry] | - | - 
+|===
+
+[#_blickfeld_system_services_ScanPatternListResponse_NamedScanPatternsEntry]
+==== Named Scan Patterns Entry
+
+
+
+.Available fields in blickfeld.system.services.ScanPatternListResponse.NamedScanPatternsEntry
+|===
+| Field | Type | Default | Unit
+
+| *key* | string| - | - 
+| *value* | xref:blickfeld/system/config/scan_pattern.adoc#_blickfeld_system_config_ScanPattern[config.ScanPattern] | - | - 
+|===
+
+[#Store]
+== Store
+
+Store scan pattern
+
+[#_blickfeld_system_services_ScanPatternStoreRequest]
+=== Request
+
+
+
+.Available fields in blickfeld.system.services.ScanPatternStoreRequest
+|===
+| Field | Type | Default | Unit
+
+| *name* | string| - | - 
+| *scan_pattern* | xref:blickfeld/system/config/scan_pattern.adoc#_blickfeld_system_config_ScanPattern[config.ScanPattern] | - | - 
+|===
+
+[#Delete]
+== Delete
+
+Delete stored scan pattern
+
+[#_blickfeld_system_services_ScanPatternDeleteRequest]
+=== Request
+
+
+
+.Available fields in blickfeld.system.services.ScanPatternDeleteRequest
+|===
+| Field | Type | Default | Unit
+
+| *name* | string| - | - 
+|===
+

@@ -1,0 +1,23 @@
+[#_blickfeld_base_geometry_Quaternion]
+= Quaternion
+
+A quaternion for representing an orientation.
+
+.Available fields in blickfeld.base.geometry.Quaternion
+|===
+| Field | Type | Default | Unit
+
+.2+| *x* | float| - | - 
+3+| The X component.
+
+.2+| *y* | float| - | - 
+3+| The Y component.
+
+.2+| *z* | float| - | - 
+3+| The Z component.
+
+.2+| *w* | float| - | - 
+3+| The W component (real part).
+
+|===
+

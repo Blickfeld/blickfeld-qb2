@@ -1,0 +1,57 @@
+[#_blickfeld_core_processing_data_Frame]
+= Frame
+
+This section describes the contents of a point cloud frame.
+
+.Available fields in blickfeld.core_processing.data.Frame
+|===
+| Field | Type | Default | Unit
+
+.2+| *id* | uint64| - | - 
+3+| Incremental frame ID since startup of the device.
+
+.2+| *timestamp* | uint64| - | ns 
+3+| Timestamp of start of frame. 
+Timestamp is synchronized if Time Synchronization is configured.
+
+.2+| *binary* | xref:blickfeld/core_processing/data/frame.adoc#_blickfeld_core_processing_data_Frame_Binary[Binary] | - | - 
+3+| Binary buffer with point cloud vectors
+
+|===
+
+[#_blickfeld_core_processing_data_Frame_Binary]
+== Binary
+
+The fields of a point cloud frame are encoded as binary arrays. 
+Binary types instead of native Protobuf types are used to improve the performance. 
+ 
+NOTE: All byte arrays are encoded in Little Endian.
+
+.Available fields in blickfeld.core_processing.data.Frame.Binary
+|===
+| Field | Type | Default | Unit
+
+.2+| *length* | uint32| - | - 
+3+| Number of entries in arrays below.
+
+.2+| *cartesian* | optional bytes| - | m 
+3+| Cartesian coordinates. 
+3-dimensional array in row-major format with [x, y, z] tuples. 
+Type: Float32
+
+.2+| *photon_count* | optional bytes| - | - 
+3+| Estimated number of photons. 
+1-dimensional array. 
+Type: UInt16
+
+.2+| *direction_id* | optional bytes| - | - 
+3+| Unique direction identifiers within a frame and scan pattern. 
+1-dimensional array. 
+Type: UInt32
+
+.2+| *timestamp* | optional bytes| - | ns 
+3+| Unix timestamp of points. 
+Type: UInt64
+
+|===
+

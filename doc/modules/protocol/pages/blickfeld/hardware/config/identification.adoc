@@ -1,0 +1,16 @@
+[#_blickfeld_hardware_config_Identification]
+= Identification
+
+Identification message of the Qb2 device. 
+It aggregates all hardware components.
+
+.Available fields in blickfeld.hardware.config.Identification
+|===
+| Field | Type | Default | Unit
+
+.2+| *serial_number* | string| - | - 
+3+| This is the top-level product identification. 
+The serial number will be used as label and API identifier for the device.
+
+|===
+

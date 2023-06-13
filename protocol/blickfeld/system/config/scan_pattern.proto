@@ -1,0 +1,77 @@
+syntax = "proto2";
+
+import "blickfeld/base/options.proto";
+package blickfeld.system.config;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// *
+// The scan pattern defines the movement of the mirrors.
+// The key parameters of the pattern are the horizontal and vertical fields of view (FoV) as well as the number of scan lines per frame.
+// The frame rate is defined by the total number of scan lines and the oscillation frequency of the mirrors which is fixed and
+// device-spcific.
+message ScanPattern {
+  // *
+  // This section defines the movement of the horizontal mirror.
+  // The mirror moves continuously with its own frequency. Each half-oscillation period of the mirror results in one scan line.
+  message Horizontal {
+    // *
+    // Unit: [rad]
+    // –
+    // optical field of view of the horizontal mirror.
+    // Note: In v2.2* and below, this was defined as a mechanical FoV.
+    optional float field_of_view = 1 [default = 1.57068062, (.blickfeld.base.unit) = "rad"];
+  }
+  // *
+  // This section defines the movement of the vertical mirror within one frame.
+  // The mirror moves for from 0 degrees to the configured target FoV (up-ramping phase) and back to 0 degrees (down-ramping phase) with
+  // its eigenfrequency. The number of scanlines for each phase can be configured. Due to the dynamics of the mirror, a certain number of
+  // scan lines are required to reach the target FoV and then to reach 0 degrees again. Consequently, if the limit is reached, a lower
+  // number of scan lines requires a reduced FoV. Thus, a higher number of scan lines allows a larger vertical FoV. The vertical FoV is
+  // limited by the optical components.
+  // Note: Due to the time required for one scan line, the rounded even number of scan lines directly scales inverse proportionally with
+  // the frame rate.
+  message Vertical {
+    // *
+    // Unit: [rad]
+    // –
+    // FoV in the center of the frame.
+    // Due to the eye shape of the scan pattern, the vertical FoV decreases the outer boundaries of the horizontal mirror.
+    optional float field_of_view = 1 [default = 0.942477822, (.blickfeld.base.unit) = "rad"];
+    // *
+    // Configures the number of scan lines required for the up-ramping phase.
+    // During the up-ramping phase, the vertical mirror increases its amplitude from 0 degrees to the target FoV. Default: 200
+    optional uint32 scanlines_up = 2 [default = 40, (.blickfeld.base.d_min) = 1];
+    // *
+    // Configures the amount of scan lines required for the down-ramping phase.
+    // During the down-ramping phase, the vertical mirror decreases its amplitude from the target FoV to 0 degrees. Default: 30
+    optional uint32 scanlines_down = 3 [default = 40, (.blickfeld.base.d_min) = 1];
+  }
+  // *
+  // This section defines the pattern in which the laser pulses and captures sample points
+  message Pulse {
+    // *
+    // Unit: [rad]
+    // –
+    // This defines the angle within which the horizontal mirror moves between two laser pulses.
+    // This parameter therefore defines the horizontal sampling resolution.
+    optional float angle_spacing = 1 [default = 0.00872664619, (.blickfeld.base.unit) = "rad"];
+    reserved 5;
+    reserved "pulse_type";
+  }
+  optional .blickfeld.system.config.ScanPattern.Horizontal horizontal = 1;
+  optional .blickfeld.system.config.ScanPattern.Vertical vertical = 2;
+  optional .blickfeld.system.config.ScanPattern.Pulse pulse = 3;
+  // this is an read_only flag and it will be set if this is a default scan pattern, which can't be changed or deleted.
+  optional bool read_only = 4 [default = false];
+}
+
+// Temporary container used for config storage
+// TODO Remove when daedalus-config supports map type.
+message NamedScanPattern {
+  optional string name = 1 [(.blickfeld.base.optional) = true];
+  optional .blickfeld.system.config.ScanPattern scan_pattern = 2;
+}
+

@@ -1,0 +1,28 @@
+// Copyright (c) 2022 Blickfeld GmbH.
+// All rights reserved.
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+package blickfeld.base.geometry;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// Axis of a coordinate system.
+message Axis {
+  // Type of the axis.
+  enum Type {
+    // The unspecified axis.
+    TYPE_UNSPECIFIED = 0;
+    // The x axix.
+    TYPE_X = 1;
+    // The y axis.
+    TYPE_Y = 2;
+    // The z axis.
+    TYPE_Z = 3;
+  }
+  // The selected axis.
+  .blickfeld.base.geometry.Axis.Type type = 1;
+}
+

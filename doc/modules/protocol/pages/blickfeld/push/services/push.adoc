@@ -1,0 +1,160 @@
+= Service: Push
+
+NOTE: This API is officially released and maintained.
+
+An gRPC service to configure multiple push settings
+
+.Available methods
+|===
+| Method | Request | Response
+
+| *xref:#Store[]* | xref:blickfeld/push/services/push.adoc#_blickfeld_push_services_PushStoreRequest[PushStoreRequest]| xref:#_google_protobuf_Empty[google.protobuf.Empty]
+| *xref:#Delete[]* | xref:blickfeld/push/services/push.adoc#_blickfeld_push_services_PushDeleteRequest[PushDeleteRequest]| xref:#_google_protobuf_Empty[google.protobuf.Empty]
+| *xref:#List[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/push/services/push.adoc#_blickfeld_push_services_PushListResponse[PushListResponse]
+| *xref:#Watch[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/push/services/push.adoc#_blickfeld_push_services_PushWatchResponse[PushWatchResponse]Stream 
+| *xref:#Enable[]* | xref:blickfeld/push/services/push.adoc#_blickfeld_push_services_PushEnableRequest[PushEnableRequest]| xref:#_google_protobuf_Empty[google.protobuf.Empty]
+| *xref:#Disable[]* | xref:blickfeld/push/services/push.adoc#_blickfeld_push_services_PushDisableRequest[PushDisableRequest]| xref:#_google_protobuf_Empty[google.protobuf.Empty]
+|===
+[#Store]
+== Store
+
+Store (Add or Update a push configuration)
+
+[#_blickfeld_push_services_PushStoreRequest]
+=== Request
+
+request to add a push configuration
+
+.Available fields in blickfeld.push.services.PushStoreRequest
+|===
+| Field | Type | Default | Unit
+
+.2+| *uuid* | string| - | - 
+3+| the uuid of the configuration (has to be generated on client side!)
+
+.2+| *push_config* | xref:blickfeld/push/config/push.adoc#_blickfeld_push_config_Push[config.Push] | - | - 
+3+| push configuration to add
+
+|===
+
+[#Delete]
+== Delete
+
+Delete an existing push configuration
+
+[#_blickfeld_push_services_PushDeleteRequest]
+=== Request
+
+request to delete a push configuration
+
+.Available fields in blickfeld.push.services.PushDeleteRequest
+|===
+| Field | Type | Default | Unit
+
+.2+| *uuid* | string| - | - 
+3+| configuration uuid to delete
+
+|===
+
+[#List]
+== List
+
+List configured push configuration
+
+[#_blickfeld_push_services_PushListResponse]
+=== Response
+
+request to list all configured push configurations
+
+.Available fields in blickfeld.push.services.PushListResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *push_configs* | repeated xref:blickfeld/push/services/push.adoc#_blickfeld_push_services_PushListResponse_PushConfigsEntry[PushConfigsEntry] | - | - 
+3+| current snapshot of configured push configurations
+
+|===
+
+[#_blickfeld_push_services_PushListResponse_PushConfigsEntry]
+==== Push Configs Entry
+
+
+
+.Available fields in blickfeld.push.services.PushListResponse.PushConfigsEntry
+|===
+| Field | Type | Default | Unit
+
+| *key* | string| - | - 
+| *value* | xref:blickfeld/push/config/push.adoc#_blickfeld_push_config_Push[config.Push] | - | - 
+|===
+
+[#Watch]
+== Watch
+
+Watch list of configured push configuration
+
+[#_blickfeld_push_services_PushWatchResponse]
+=== Response Stream
+
+request to watch all configured push configurations
+
+.Available fields in blickfeld.push.services.PushWatchResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *push_configs* | repeated xref:blickfeld/push/services/push.adoc#_blickfeld_push_services_PushWatchResponse_PushConfigsEntry[PushConfigsEntry] | - | - 
+3+| current snapshot of configured push configurations
+
+|===
+
+[#_blickfeld_push_services_PushWatchResponse_PushConfigsEntry]
+==== Push Configs Entry
+
+
+
+.Available fields in blickfeld.push.services.PushWatchResponse.PushConfigsEntry
+|===
+| Field | Type | Default | Unit
+
+| *key* | string| - | - 
+| *value* | xref:blickfeld/push/config/push.adoc#_blickfeld_push_config_Push[config.Push] | - | - 
+|===
+
+[#Enable]
+== Enable
+
+Enable a configured Push
+
+[#_blickfeld_push_services_PushEnableRequest]
+=== Request
+
+request to enable the push configuration with the given uuid
+
+.Available fields in blickfeld.push.services.PushEnableRequest
+|===
+| Field | Type | Default | Unit
+
+.2+| *uuid* | string| - | - 
+3+| configuration uuid to enable
+
+|===
+
+[#Disable]
+== Disable
+
+Disable a configured Push
+
+[#_blickfeld_push_services_PushDisableRequest]
+=== Request
+
+request to disable the push configuration with the given uuid
+
+.Available fields in blickfeld.push.services.PushDisableRequest
+|===
+| Field | Type | Default | Unit
+
+.2+| *uuid* | string| - | - 
+3+| configuration uuid to disable
+
+|===
+

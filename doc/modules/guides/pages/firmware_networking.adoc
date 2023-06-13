@@ -1,0 +1,39 @@
+= Network Configuration
+:imagesdir: ../assets/images
+
+Blickfeld Qb2 supports wired connection over Ethernet and wireless connection over WiFi for both IPv4 and IPv6 protocols. 
+
+== Accessing Qb2
+By default each Qb2 device is configured to use DHCP and will try to automatically retrieve an IP address from the network. Initially, the GUI of Qb2 device can be accessed from any internet browser of choice via the wired Ethernet connection by the hostname printed on the device label. Further network configuration can be performed via the Network Setup page. Network page for Qb2 with hostname ```qb2-mwuaaaaam``` is shown below. 
+
+.Network Configuration Page
+image::networking_page.png[1240,1080]
+
+When the initial connection is established, the hostname can be changed to the desired one using the ```Device name``` option. In order to connect Qb2 device to the wireless network, the SSID and network password should be set via the corresponding ```Wireless``` submenu. 
+
+NOTE: Wired Ethernet connection will be disabled (only used to power on Qb2) when the wireless WiFi connection is in use! 
+
+NOTE: Always use the ```validate``` button of the Network Setup page to ensure that the desired wireless credentials are correct. If credentials are incorrect the previous network configuration will be in use. 
+
+== Fall-back IP Address 
+All Qb2 devices have a pre-configured fallback IP address, which is ```192.168.26.26``` in the ```255.255.255.0 (/24)``` subnet. If there are any connectivity issues or a possibly incorrect configuration, the address can be used for a reconfiguration. To successfully establish a connection, it is required that the client uses an IP address in the same address and subnet, e.g., ```192.168.26.25/24```. It is not recommended to use the fallback IP address in production environments, as it causes conflicts in networks with multiple devices. 
+
+NOTE: If a network connection cannot be established, or if the network mode is unclear, the fallback IP address ```192.168.26.26/24```can always be used via the Ethernet interface for a device network reconfiguration. Please refer to the FAQ section of the documentation.
+
+Please use the manual IP configuration if DHCP is not available. The description of Qb2 networking modes and their configuration for both wireless and wired connections is explained in the subsection below. 
+
+== Network Modes 
+The following operation modes are supported by Qb2: automatic network configuration via Dynamic Host Configuration Protocol (DHCP), manual network configuration and Link-Local network configuration.
+
+=== DHCP configuration (Default)
+If Qb2 is used in a managed network, Qb2 can be configured to use Dynamic Host Configuration Protocol (DHCP) to automatically retrieve an IPv4 or IPv6 address from the network router. The corresponding ```Automatic IP address (DHCP)``` toggle should be used to enable this mode. 
+
+=== Manual configuration
+If Qb2 is used in an unmanaged network, a static IP address and a subnet can be manually configured for IPv4 or IPv6 protocols in the corresponding ```IPv4 settings``` or ```IPv6 settings``` submenus.  
+
+=== Link-Local configuration
+If Qb2 has not been configured manually or automatically by a DHCP server, a Link-Local IP address can be acquired within the subnetwork that the Qb2 is connected to. IP address will be automatically chosen from the particular reserved range of IP addresses via Address Resolution Protocol (ARP): ```169.254.0.0-169.254.255.255``` for IPv4 and ```FE80::/10``` for IPv6. 
+
+NOTE: Both DHCP and Manual modes can be applied together. In this scenario, static configuration will be used if DHCP configuration fails.
+
+After the network mode has been configured it should be applied with respective button. Applied configuration is persistent and will be active again after the reboot of Qb2 device.

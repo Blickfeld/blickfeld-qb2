@@ -1,0 +1,105 @@
+[#_blickfeld_percept_processing_data_State]
+= State
+
+A state transmits high-level information about the scene or setup. The 
+information it contains depends on the configuration. 
+States will get calculated on every frame of measurement.
+
+.Available fields in blickfeld.percept_processing.data.State
+|===
+| Field | Type | Default | Unit
+
+.2+| *timestamp* | xref:#_google_protobuf_Timestamp[google.protobuf.Timestamp] | - | - 
+3+| Timestamp of the lidar frame in which the state was measured
+
+.2+| *generator_uuid* | string| - | - 
+3+| The uuid of the entity generating this state
+
+.2+| *generator_name* | string| - | - 
+3+| The name of the entity generating this state
+
+.2+| *security* | xref:blickfeld/percept_processing/data/state.adoc#_blickfeld_percept_processing_data_State_Security[Security] | - | - 
+3+| The security state contains intrusion information of a zone
+
+.2+| *volume* | xref:blickfeld/percept_processing/data/state.adoc#_blickfeld_percept_processing_data_State_Volume[Volume] | - | - 
+3+| Current volume measured in the selected zone
+
+|===
+
+[#_blickfeld_percept_processing_data_State_Security]
+== Security
+
+A message containing an alarm state of a zone.
+
+.Available fields in blickfeld.percept_processing.data.State.Security
+|===
+| Field | Type | Default | Unit
+
+.2+| *alarm* | bool| - | - 
+3+| If there is an alarm or not in the zone
+
+.2+| *num_detected_points* | uint32| - | - 
+3+| The current number of lidar points detected in the zone
+
+|===
+
+[#_blickfeld_percept_processing_data_State_Volume]
+== Volume
+
+A message containing the volume state of a zone. 
+This is based on one volume zone.
+
+.Available fields in blickfeld.percept_processing.data.State.Volume
+|===
+| Field | Type | Default | Unit
+
+.2+| *volume* | float| - | - 
+3+| The current volume of the zone
+
+.2+| *tiles* | repeated xref:blickfeld/percept_processing/data/state.adoc#_blickfeld_percept_processing_data_State_Volume_VolumeTile[VolumeTile] | - | - 
+3+| The tiles of the volume map 
+The volume of a zone is approximated by a 'volume map' see 
+xref:blickfeld/percept_pipeline/config/zone_algorithm.adoc#_blickfeld_percept_pipeline_config_ZoneAlgorithm_Volume[Volume] 
+for more details.
+
+.2+| *tile_size* | float| - | - 
+3+| The tile size of the volume map
+
+.2+| *shape* | xref:blickfeld/base/geometry/shape.adoc#_blickfeld_base_geometry_Shape[base.geometry.Shape] | - | - 
+3+| The shape of the volume map, defining the pose and the dimension of the 
+volume map in world frame. The shape is similar to the shape of the input 
+zone with the following difference: 
+- shape.pose.position: (x=zone.pose.position.x, y=zone.pose.position.y, 
+z=0) 
+- shape.pose.rotation: (roll=0, pitch=0, yaw=zone.pose.rotation.yaw) 
+- shape.box.dimension: (x=zone.box.dimension.x, y=zone.box.dimension.y, 
+z=0)
+
+|===
+
+[#_blickfeld_percept_processing_data_State_Volume_VolumeTile]
+=== Volume Tile
+
+Message of a single volume tile
+
+.Available fields in blickfeld.percept_processing.data.State.Volume.VolumeTile
+|===
+| Field | Type | Default | Unit
+
+.2+| *index_x* | int32| - | - 
+3+| Grid Map Tile Index X (can be negative and positive)
+
+.2+| *index_y* | int32| - | - 
+3+| Grid Map Tile Index Y (can be negative and positive)
+
+.2+| *heights* | repeated float| - | - 
+3+| Height per cluster, ordered ascending
+
+.2+| *std_deviations* | repeated float| - | - 
+3+| Standard Deviation per cluster
+
+.2+| *number_points* | repeated float| - | - 
+3+| Points per cluster
+
+|===
+

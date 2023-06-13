@@ -1,0 +1,42 @@
+[#_blickfeld_system_config_Device]
+= Device
+
+This message describes a Blickfeld Lidar device
+
+.Available fields in blickfeld.system.config.Device
+|===
+| Field | Type | Default | Unit
+
+.2+| *fqdn_or_ip* | string| - | - 
+3+| Fully-qualified-domain-name / Hostname or IP address
+
+.2+| *name* | string| - | - 
+3+| Human-readable name of the device 
+Optional: Is filled out by the service if not given.
+
+.2+| *serial_number* | string| - | - 
+3+| Serial number of the device 
+Optional: Is filled out by the service if not given.
+
+.2+| *class* | xref:blickfeld/system/config/device.adoc#_blickfeld_system_config_Device_Class[Class] | - | - 
+3+| Device class 
+Optional: Is filled out by the service if not given.
+
+|===
+
+[#_blickfeld_system_config_Device_Class]
+== Class
+
+Enum to distinguish different device classes
+
+.Available values for blickfeld.system.config.Device.Class enum
+[cols='25h,5,~']
+|===
+| Name | Value | Description
+
+| CLASS_UNKNOWN ^| 0 | -
+| CUBE ^| 1 | -
+| CUBE_RANGE ^| 2 | -
+| QB2 ^| 3 | -
+|===
+

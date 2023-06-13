@@ -1,0 +1,55 @@
+= Service: Acceleration
+
+NOTE: This API is officially released and maintained.
+
+The Acceleration Service provides access to the accelerometer of the device.
+
+.Available methods
+|===
+| Method | Request | Response
+
+| *xref:#Stream[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/core_processing/services/acceleration.adoc#_blickfeld_core_processing_services_AccelerationStreamResponse[AccelerationStreamResponse]Stream 
+| *xref:#GetFiltered[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/core_processing/services/acceleration.adoc#_blickfeld_core_processing_services_AccelerationGetFilteredResponse[AccelerationGetFilteredResponse]
+|===
+[#Stream]
+== Stream
+
+Streams raw data from accelerometer 
+ 
+[WARNING] 
+Raw data is acquired with a high sampling frequency and sent out in larger chunks. 
+To estimate the static state of the device the GetFiltered method should be used.
+
+[#_blickfeld_core_processing_services_AccelerationStreamResponse]
+=== Response Stream
+
+Stream response to acceleration stream request
+
+.Available fields in blickfeld.core_processing.services.AccelerationStreamResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *buffer* | xref:blickfeld/core_processing/data/acceleration_buffer.adoc#_blickfeld_core_processing_data_AccelerationBuffer[data.AccelerationBuffer] | - | - 
+3+| Buffer with acceleration
+
+|===
+
+[#GetFiltered]
+== GetFiltered
+
+Get filtered sample from accelerometer
+
+[#_blickfeld_core_processing_services_AccelerationGetFilteredResponse]
+=== Response
+
+Response to acceleration get filtered request
+
+.Available fields in blickfeld.core_processing.services.AccelerationGetFilteredResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *acceleration* | xref:blickfeld/core_processing/data/acceleration.adoc#_blickfeld_core_processing_data_Acceleration[data.Acceleration] | - | - 
+3+| Single filtered acceleration
+
+|===
+

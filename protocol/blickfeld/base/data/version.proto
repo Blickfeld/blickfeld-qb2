@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+package blickfeld.base.data;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// General message which is used for version information.
+// https://semver.org[Semantic versioning] is used to identify a software state.
+// It additional adds the short hash of the corresponding commit.
+message Version {
+  // Increments when we make incompatible API changes.
+  uint32 major = 1;
+  // Increments when we add functionality in a backwards compatible manner.
+  uint32 minor = 2;
+  // Increments when we make backwards compatible bug fixes.
+  uint32 patch = 3;
+  // Short hash of the commit in the corresponding project repo.
+  string revision = 4 [(.blickfeld.base.length) = 8, (.blickfeld.base.optional) = true];
+  // This flag indicates a release. An official release is fully tested & reviewed.
+  bool is_release = 5;
+}
+

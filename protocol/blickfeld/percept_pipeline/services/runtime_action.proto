@@ -1,0 +1,57 @@
+// Copyright (c) 2022 Blickfeld GmbH.
+// All rights reserved.
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+import "blickfeld/percept_pipeline/config/zone_algorithm.proto";
+import "google/protobuf/empty.proto";
+package blickfeld.percept_pipeline.services;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// Request for the raw volume to be used for taring a volume zone
+message RuntimeActionGetTareVolumeRequest {
+  // The uuid of the volume zone
+  string zone_uuid = 1;
+}
+
+// Response containing the raw volume of the requested zone
+message RuntimeActionGetTareVolumeResponse {
+  // The raw volume of the volume zone without any offsets/modifications. The value is supposed to be configured as
+  // 'empty_volume' value of a volume zone. As a result the current volume of the zone will be '0' until more volume
+  // is added.
+  float tare_volume = 1 [(.blickfeld.base.unit) = "m^3"];
+}
+
+// Request to reset the background model of one, multiple or all devices
+message RuntimeActionResetBackgroundRequest {
+  // If the list is empty, the background models of all data sources are reset.
+  // If the background models of only specific devices should be rebuilt, the 'fqdn' of the respective devices
+  // has to be mentioned in the 'fqdns' list.
+  repeated string fqdns = 1;
+}
+
+// The RuntimeAction service enables the system to execute runtime actions and updates on a running pipeline.
+service RuntimeAction {
+  option (.blickfeld.base.access_control_service) = {
+    level: LEVEL_PUBLIC
+  };
+  option (.blickfeld.base.protocol_maturity_service) = {
+    level: LEVEL_EXPERIMENTAL
+  };
+  // Computes raw volume within a volume zone without any offsets.
+  rpc GetTareVolume(.blickfeld.percept_pipeline.services.RuntimeActionGetTareVolumeRequest) returns (.blickfeld.percept_pipeline.services.RuntimeActionGetTareVolumeResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      level: LEVEL_PUBLIC
+    };
+  }
+  // Resets the background of one, multiple or all devices
+  rpc ResetBackground(.blickfeld.percept_pipeline.services.RuntimeActionResetBackgroundRequest) returns (.google.protobuf.Empty) {
+    option (.blickfeld.base.access_control_method) = {
+      level: LEVEL_PUBLIC
+    };
+  }
+}
+

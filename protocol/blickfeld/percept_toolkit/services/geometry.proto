@@ -1,0 +1,61 @@
+syntax = "proto3";
+
+import "blickfeld/base/geometry/transform.proto";
+import "blickfeld/base/options.proto";
+import "blickfeld/core_processing/data/acceleration.proto";
+import "blickfeld/core_processing/data/frame.proto";
+package blickfeld.percept_toolkit.services;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// Request for estimating alignment to ground/gravity based on imu-data and optional point cloud frame.
+message GeometryComputeGroundAlignmentRequest {
+  // accelerometer data is assumed to be expressed in the lidar coordinate frame
+  .blickfeld.core_processing.data.Acceleration accelerometer_data = 1;
+  // if a lidar frame is provided, it is used to estimate the z-coordinate of the translation as well.
+  .blickfeld.core_processing.data.Frame lidar_frame = 2 [(.blickfeld.base.optional) = true];
+}
+
+// The estimated alignment to the ground/gravity.
+message GeometryComputeGroundAlignmentResponse {
+  // Estimated alignment of the sensor to the ground-plane/gravity.
+  // If no lidar frame is provided only roll, pitch of the rotation are estimated. Otherwise the z-component of the
+  // translation is additionally aligned with a flat ground.
+  // The transformation transforms the lidar point clouds such that the points are aligned with the ground.
+  .blickfeld.base.geometry.Transform alignment = 1;
+}
+
+// The request for transformation refinement based on 3d point clouds and an initial point cloud transformations.
+message GeometryComputeRegistrationRefinementRequest {
+  // lidar frame used for aligning the 3d point clouds
+  .blickfeld.core_processing.data.Frame frame = 1;
+  // Transform: the transformation transforming a point in from the local lidar coordinate system into a 'combined' reference system
+  // the 'combined' reference system can also be a lidar.
+  .blickfeld.base.geometry.Transform transform = 2;
+}
+
+// The refined lidar transformations.
+message GeometryComputeRegistrationRefinementResponse {
+  // Refined transformations.
+  // The array sequence is equal to the sequence in which the requests were received.
+  // The first element in the array corresponds to the lidar frame received in the first client stream message.
+  repeated .blickfeld.base.geometry.Transform transformations = 1;
+}
+
+// Service offering on-demand geometric processing tasks.
+service Geometry {
+  option (.blickfeld.base.access_control_service) = {
+    level: LEVEL_PUBLIC
+  };
+  option (.blickfeld.base.protocol_maturity_service) = {
+    level: LEVEL_MAINTAINED
+  };
+  // Computes the transformation aligning the lidar point cloud to the ground plane/gravity.
+  rpc ComputeGroundAlignment(.blickfeld.percept_toolkit.services.GeometryComputeGroundAlignmentRequest) returns (.blickfeld.percept_toolkit.services.GeometryComputeGroundAlignmentResponse);
+  // Refines the point cloud registration based on provided initial transformations.
+  // If the method succeeds, the refined transformation is returned. Otherwise an exception will be thrown.
+  rpc ComputeRegistrationRefinement(stream .blickfeld.percept_toolkit.services.GeometryComputeRegistrationRefinementRequest) returns (.blickfeld.percept_toolkit.services.GeometryComputeRegistrationRefinementResponse);
+}
+

@@ -1,0 +1,51 @@
+= Service: Health
+
+CAUTION: This API is not yet officially released neither maintained.
+
+An gRPC service to request the status of push configurations
+
+.Available methods
+|===
+| Method | Request | Response
+
+| *xref:#Get[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/push/services/health.adoc#_blickfeld_push_services_HealthGetResponse[HealthGetResponse]
+| *xref:#Watch[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/push/services/health.adoc#_blickfeld_push_services_HealthWatchResponse[HealthWatchResponse]Stream 
+|===
+[#Get]
+== Get
+
+Get Status for all configured push configurations
+
+[#_blickfeld_push_services_HealthGetResponse]
+=== Response
+
+request get the health of the configured publisher
+
+.Available fields in blickfeld.push.services.HealthGetResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *health* | xref:blickfeld/push/data/health.adoc#_blickfeld_push_data_Health[data.Health] | - | - 
+3+| health of push configurations
+
+|===
+
+[#Watch]
+== Watch
+
+Watch status changes for configured push configurations
+
+[#_blickfeld_push_services_HealthWatchResponse]
+=== Response Stream
+
+request watch the health of the configured publisher
+
+.Available fields in blickfeld.push.services.HealthWatchResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *health* | xref:blickfeld/push/data/health.adoc#_blickfeld_push_data_Health[data.Health] | - | - 
+3+| health of push configurations
+
+|===
+

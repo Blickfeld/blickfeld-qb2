@@ -1,0 +1,65 @@
+= Service: Point Cloud
+
+NOTE: This API is officially released and maintained.
+
+An RPC service to request a stream of point cloud messages. If a pipeline is 
+already running, it will be used to stream the data. If no pipeline is 
+running, it will be started first and then the stream will start. NOTE: in 
+this second case, the pipeline will also be automatically stopped once the 
+this second case, the pipeline will also be automatically stopped once 
+there are no more clients requesting any stream type from the module.
+
+.Available methods
+|===
+| Method | Request | Response
+
+| *xref:#Stream[]* | xref:blickfeld/percept_processing/services/point_cloud.adoc#_blickfeld_percept_processing_services_PointCloudStreamRequest[PointCloudStreamRequest]| xref:blickfeld/percept_processing/services/point_cloud.adoc#_blickfeld_percept_processing_services_PointCloudStreamResponse[PointCloudStreamResponse]Stream 
+|===
+[#Stream]
+== Stream
+
+A method to get a stream of point cloud messages from the pipeline. 
+It is possible to stream different point clouds, depending on the fields 
+set in the request
+
+[#_blickfeld_percept_processing_services_PointCloudStreamRequest]
+=== Request
+
+A request to receive a stream of point cloud messages. 
+Different point clouds can be streamed depending on the set fields: 
+- combined point cloud (the full point cloud of all the available devices 
+combined) in the map coordinate system 
+- the foreground of the combined point cloud in the map coordinate system 
+- the complete raw point cloud coming from one device, but only in map 
+coordinate system.
+
+.Available fields in blickfeld.percept_processing.services.PointCloudStreamRequest
+|===
+| Field | Type | Default | Unit
+
+.2+| *point_cloud_type* | xref:blickfeld/percept_pipeline/data/point_cloud_type.adoc#_blickfeld_percept_pipeline_data_PointCloudType[percept_pipeline.data.PointCloudType] | - | - 
+3+| The type of point cloud to stream
+
+.2+| *coordinate_system* | xref:blickfeld/percept_pipeline/data/coordinate_system.adoc#_blickfeld_percept_pipeline_data_CoordinateSystem[percept_pipeline.data.CoordinateSystem] | - | - 
+3+| The coordinate system the point cloud should be expressed in (local or 
+transformed/map)
+
+.2+| *fqdn* | string| - | - 
+3+| fqdn of the data source to get the point cloud from
+
+|===
+
+[#_blickfeld_percept_processing_services_PointCloudStreamResponse]
+=== Response Stream
+
+A response for getting a stream of point cloud messages
+
+.Available fields in blickfeld.percept_processing.services.PointCloudStreamResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *point_cloud* | xref:blickfeld/core_processing/data/frame.adoc#_blickfeld_core_processing_data_Frame[core_processing.data.Frame] | - | - 
+3+| The required point cloud, based on the fields set in the request
+
+|===
+

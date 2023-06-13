@@ -1,0 +1,70 @@
+syntax = "proto2";
+
+import "blickfeld/base/options.proto";
+import "blickfeld/system/config/scan_pattern.proto";
+import "google/protobuf/empty.proto";
+package blickfeld.system.services;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+message ScanPatternGetResponse {
+  optional string name = 1;
+  optional .blickfeld.system.config.ScanPattern scan_pattern = 2;
+}
+
+message ScanPatternSetRequest {
+  oneof type_oneof {
+    string name = 1;
+    .blickfeld.system.config.ScanPattern scan_pattern = 2;
+  }
+}
+
+message ScanPatternListResponse {
+  map<string, .blickfeld.system.config.ScanPattern> named_scan_patterns = 1;
+}
+
+message ScanPatternStoreRequest {
+  optional string name = 1;
+  optional .blickfeld.system.config.ScanPattern scan_pattern = 2;
+}
+
+message ScanPatternDeleteRequest {
+  optional string name = 1;
+}
+
+// *
+//  The scan pattern configuration service allows to setup Qb2 device scan pattern. Service integrates Beam Deflection Control (BDC) and
+//  Trigger APIs provided by corresonding hardware services. The exact structure of configuration settings is defined by
+//  "scan_pattern" protocol message. Service provides "Set()" and "Get()" API which allow to apply and read out configuration
+//  settings at run-time.
+
+service ScanPattern {
+  option (.blickfeld.base.access_control_service) = {
+    level: LEVEL_PUBLIC
+  };
+  // Gets scan pattern configuration settings
+  rpc Get(.google.protobuf.Empty) returns (.blickfeld.system.services.ScanPatternGetResponse);
+  // Sets scan pattern cofiguration settings
+  rpc Set(.blickfeld.system.services.ScanPatternSetRequest) returns (.google.protobuf.Empty) {
+    option (.blickfeld.base.access_control_method) = {
+      level: LEVEL_AUTHORIZED
+    };
+  }
+  // Return list of named scan patterns
+  rpc List(.google.protobuf.Empty) returns (.blickfeld.system.services.ScanPatternListResponse);
+  // Store scan pattern
+  rpc Store(.blickfeld.system.services.ScanPatternStoreRequest) returns (.google.protobuf.Empty) {
+    option (.blickfeld.base.access_control_method) = {
+      level: LEVEL_AUTHORIZED
+    };
+  }
+  // Delete stored scan pattern
+  rpc Delete(.blickfeld.system.services.ScanPatternDeleteRequest) returns (.google.protobuf.Empty) {
+    option (.blickfeld.base.access_control_method) = {
+      level: LEVEL_AUTHORIZED
+    };
+  }
+}
+

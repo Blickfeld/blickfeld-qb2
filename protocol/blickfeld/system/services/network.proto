@@ -1,0 +1,73 @@
+syntax = "proto2";
+
+import "blickfeld/base/options.proto";
+import "blickfeld/system/config/network.proto";
+import "blickfeld/system/data/network_status.proto";
+import "google/protobuf/empty.proto";
+package blickfeld.system.services;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// Request to validate method
+message NetworkValidateRequest {
+  // Configuration which should be validated
+  optional .blickfeld.system.config.Network config = 1;
+}
+
+// Response to validate method
+message NetworkValidateResponse {
+  // Status message with allocated IP addresses
+  optional .blickfeld.system.data.NetworkStatus status = 1;
+}
+
+// Response with mac addresses
+message NetworkGetMacAddressesResponse {
+  // Mac address of ethernet / LAN interface
+  optional string ethernet = 1 [(.blickfeld.base.length) = 17];
+  // Mac address of wireless / WiFi interface
+  optional string wireless = 2 [(.blickfeld.base.length) = 17];
+}
+
+// The network service allows to setup network configuration of Qb2 device. The exact structure of configuration settings is defined by
+// "Network" protocol message. Service provides "SetConfig()" and "GetConfig()" API which allow to apply and read out configuration settings
+// at run-time. The "GetStatus()" API brings configuration and statistical information about currently active network connection.
+service Network {
+  option (.blickfeld.base.access_control_service) = {
+    level: LEVEL_PUBLIC
+  };
+  // Brings information about currently active connection
+  rpc GetStatus(.google.protobuf.Empty) returns (.blickfeld.system.data.NetworkStatus);
+  // Applies specified network configuration
+  rpc SetConfig(.blickfeld.system.config.Network) returns (.google.protobuf.Empty) {
+    option (.blickfeld.base.access_control_method) = {
+      level: LEVEL_ADMIN
+    };
+  }
+  // Reads out provided network configuration
+  rpc GetConfig(.google.protobuf.Empty) returns (.blickfeld.system.config.Network) {
+    option (.blickfeld.base.access_control_method) = {
+      level: LEVEL_AUTHORIZED
+    };
+  }
+  // Validates the network configuration by applying it shortly.
+  // If DHCP is configured, it checks if it can acquire an IPv4 address.
+  // For static IP address, the validation only works for wireless networks.
+  // It then, still cannot allocate a manual IP address if the credentials are wrong.
+  // [NOTE]
+  // The validation does not yet separate error messages for misconfigured wireless credentials
+  // or wrongly configured DHCP server. Thus, the issue is not necessarily on the device side.
+  rpc Validate(.blickfeld.system.services.NetworkValidateRequest) returns (.blickfeld.system.services.NetworkValidateResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      level: LEVEL_ADMIN
+    };
+  }
+  // Get MAC addresses of the available interfaces
+  rpc GetMacAddresses(.google.protobuf.Empty) returns (.blickfeld.system.services.NetworkGetMacAddressesResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      level: LEVEL_AUTHORIZED
+    };
+  }
+}
+

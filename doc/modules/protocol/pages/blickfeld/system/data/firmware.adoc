@@ -1,0 +1,124 @@
+[#_blickfeld_system_data_Firmware]
+= Firmware
+
+The Firmware data message contains all relevant information about 
+the current firmware, uploaded firmware and the status of an firmware installation.
+
+[#_blickfeld_system_data_Firmware_Info]
+== Info
+
+contains information about rauc bundle parsed from the associated manifest file
+
+.Available fields in blickfeld.system.data.Firmware.Info
+|===
+| Field | Type | Default | Unit
+
+.2+| *label* | string| - | - 
+3+| Human-readable label / version of the firmware
+
+.2+| *version* | xref:blickfeld/base/data/version.adoc#_blickfeld_base_data_Version[base.data.Version] | - | - 
+3+| Version
+
+.2+| *allowed_downgrade_version* | xref:blickfeld/base/data/version.adoc#_blickfeld_base_data_Version[base.data.Version] | - | - 
+3+| Lowest allowed version which can be downgraded to if this firmware is installed
+
+|===
+
+[#_blickfeld_system_data_Firmware_Status]
+== Status
+
+contains information about rauc bridge status
+
+.Available fields in blickfeld.system.data.Firmware.Status
+|===
+| Field | Type | Default | Unit
+
+.2+| *idle* | xref:blickfeld/system/data/firmware.adoc#_blickfeld_system_data_Firmware_Status_Idle[Idle] | - | - 
+3+| no bundle is available and no installation is happenning
+
+.2+| *ready_to_install* | xref:blickfeld/system/data/firmware.adoc#_blickfeld_system_data_Firmware_Status_ReadyToInstall[ReadyToInstall] | - | - 
+3+| bundle is verified and available for installation
+
+.2+| *installation* | xref:blickfeld/system/data/firmware.adoc#_blickfeld_system_data_Firmware_Status_Installation[Installation] | - | - 
+3+| the installation process is ongoing
+
+.2+| *failure* | xref:blickfeld/system/data/firmware.adoc#_blickfeld_system_data_Firmware_Status_Failure[Failure] | - | - 
+3+| installation failed
+
+.2+| *reboot* | xref:blickfeld/system/data/firmware.adoc#_blickfeld_system_data_Firmware_Status_Reboot[Reboot] | - | - 
+3+| reboot has been triggered after successfull installation
+
+.2+| *installed_firmware_info* | xref:blickfeld/system/data/firmware.adoc#_blickfeld_system_data_Firmware_Info[Info] | - | - 
+3+| Currently installed firmware
+
+|===
+
+[#_blickfeld_system_data_Firmware_Status_Idle]
+=== Idle
+
+initial state when no bundle is available and no installation is happenning
+
+[#_blickfeld_system_data_Firmware_Status_ReadyToInstall]
+=== Ready To Install
+
+state when bundle is verified and available for installation
+
+.Available fields in blickfeld.system.data.Firmware.Status.ReadyToInstall
+|===
+| Field | Type | Default | Unit
+
+.2+| *uploaded_firmware_info* | xref:blickfeld/system/data/firmware.adoc#_blickfeld_system_data_Firmware_Info[Info] | - | - 
+3+| Firmware info of bundle which has been uploaded
+
+|===
+
+[#_blickfeld_system_data_Firmware_Status_Installation]
+=== Installation
+
+state when the installation process is ongoing
+
+.Available fields in blickfeld.system.data.Firmware.Status.Installation
+|===
+| Field | Type | Default | Unit
+
+.2+| *progress* | xref:blickfeld/system/data/firmware.adoc#_blickfeld_system_data_Firmware_Status_Installation_Progress[Progress] | - | - 
+3+| Current installation progress
+
+|===
+
+[#_blickfeld_system_data_Firmware_Status_Installation_Progress]
+==== Progress
+
+Contains information about current state of installation procedure inside the tree of progress
+
+.Available fields in blickfeld.system.data.Firmware.Status.Installation.Progress
+|===
+| Field | Type | Default | Unit
+
+.2+| *percent* | uint32| - | - 
+3+| progress of installation in percents (0%-100%)
+
+.2+| *message* | string| - | - 
+3+| log message describing the current installation step
+
+|===
+
+[#_blickfeld_system_data_Firmware_Status_Failure]
+=== Failure
+
+state when installation failed
+
+.Available fields in blickfeld.system.data.Firmware.Status.Failure
+|===
+| Field | Type | Default | Unit
+
+.2+| *reason* | string| - | - 
+3+| Human-readable reason for installation failure
+
+|===
+
+[#_blickfeld_system_data_Firmware_Status_Reboot]
+=== Reboot
+
+state when reboot of the device has been triggered after successfull installation
+

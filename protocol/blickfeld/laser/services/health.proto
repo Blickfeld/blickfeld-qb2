@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+import "blickfeld/laser/data/health.proto";
+import "google/protobuf/empty.proto";
+package blickfeld.laser.services;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_ADMIN
+};
+
+message HealthGetResponse {
+  // Please refer to <<data.Health>>
+  .blickfeld.laser.data.Health health = 1;
+}
+
+message HealthWatchResponse {
+  // Please refer to <<data.Health>>
+  .blickfeld.laser.data.Health health = 1;
+}
+
+// The health service provides methods to monitor the instant operational status of laser module
+service Health {
+  option (.blickfeld.base.access_control_service) = {
+    level: LEVEL_ADMIN
+  };
+  option (.blickfeld.base.protocol_maturity_service) = {
+    level: LEVEL_MAINTAINED
+  };
+  // Returns the current health status of the laser module
+  rpc Get(.google.protobuf.Empty) returns (.blickfeld.laser.services.HealthGetResponse);
+  // Can be used to attach to the health monitoring status information of the laser module
+  rpc Watch(.google.protobuf.Empty) returns (stream .blickfeld.laser.services.HealthWatchResponse);
+}
+

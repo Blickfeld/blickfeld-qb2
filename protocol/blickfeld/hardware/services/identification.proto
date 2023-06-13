@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+import "blickfeld/hardware/config/identification.proto";
+import "google/protobuf/empty.proto";
+package blickfeld.hardware.services;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// Response message for the identification get command
+message IdentificationGetResponse {
+  // The current identification
+  .blickfeld.hardware.config.Identification identification = 1;
+}
+
+// The identification service provides methods to set and read out identification data of the Qb2 device.
+service Identification {
+  option (.blickfeld.base.access_control_service) = {
+    level: LEVEL_PUBLIC
+  };
+  option (.blickfeld.base.protocol_maturity_service) = {
+    level: LEVEL_MAINTAINED
+  };
+  // Gets identification configuration
+  rpc Get(.google.protobuf.Empty) returns (.blickfeld.hardware.services.IdentificationGetResponse);
+}
+

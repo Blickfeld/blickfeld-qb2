@@ -1,0 +1,23 @@
+[#_blickfeld_push_config_Push]
+= Push
+
+defines a combination of stream and destination
+
+.Available fields in blickfeld.push.config.Push
+|===
+| Field | Type | Default | Unit
+
+.2+| *name* | string| - | - 
+3+| name of push
+
+.2+| *payload* | xref:blickfeld/push/config/payload.adoc#_blickfeld_push_config_Payload[Payload] | - | - 
+3+| stream payload
+
+.2+| *destination* | xref:blickfeld/push/config/destination.adoc#_blickfeld_push_config_Destination[Destination] | - | - 
+3+| push destination
+
+.2+| *enabled* | bool| - | - 
+3+| push enabled
+
+|===
+

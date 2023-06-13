@@ -1,0 +1,21 @@
+// Copyright (c) 2022 Blickfeld GmbH.
+// All rights reserved.
+syntax = "proto3";
+
+import "blickfeld/base/geometry/quaternion.proto";
+import "blickfeld/base/geometry/vector3.proto";
+import "blickfeld/base/options.proto";
+package blickfeld.base.geometry;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// A pose, consisting of a vector3 (3D coordinate) and a quaternion.
+message Pose {
+  // A vector representing the position.
+  .blickfeld.base.geometry.Vector3 position = 1;
+  // A quaternion representing the orientation.
+  .blickfeld.base.geometry.Quaternion orientation = 2;
+}
+

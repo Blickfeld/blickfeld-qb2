@@ -1,0 +1,26 @@
+[#_blickfeld_push_config_Authentication]
+= Authentication
+
+Authentication definition
+
+.Available fields in blickfeld.push.config.Authentication
+|===
+| Field | Type | Default | Unit
+
+.2+| *user* | string| - | - 
+3+| the user name used for authentication
+
+.2+| *password* | string| - | - 
+3+| the password used for authentication
+
+.2+| *server_certificate* | bytes| - | - 
+3+| the server certificate (will implicitly use SSL)
+
+.2+| *client_certificate* | bytes| - | - 
+3+| client certificate
+
+.2+| *client_key* | bytes| - | - 
+3+| client key
+
+|===
+

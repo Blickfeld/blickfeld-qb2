@@ -1,0 +1,13 @@
+[#_blickfeld_base_LinkData]
+= Link Data
+
+
+
+.Available fields in blickfeld.base.LinkData
+|===
+| Field | Type | Default | Unit
+
+| *type* | required string| - | - 
+| *directory* | required string| - | - 
+|===
+

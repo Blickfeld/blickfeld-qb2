@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+package blickfeld.system.config;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// This message describes a Blickfeld Lidar device
+message Device {
+  // Enum to distinguish different device classes
+  enum Class {
+    CLASS_UNKNOWN = 0;
+    CUBE = 1;
+    CUBE_RANGE = 2;
+    QB2 = 3;
+  }
+  // Fully-qualified-domain-name / Hostname or IP address
+  string fqdn_or_ip = 1;
+  // Human-readable name of the device
+  // Optional: Is filled out by the service if not given.
+  string name = 2;
+  // Serial number of the device
+  // Optional: Is filled out by the service if not given.
+  string serial_number = 3;
+  // Device class
+  // Optional: Is filled out by the service if not given.
+  .blickfeld.system.config.Device.Class class = 4;
+}
+

@@ -1,0 +1,79 @@
+= Service: Point Cloud
+
+NOTE: This API is officially released and maintained.
+
+Point Cloud service for core point cloud stream. 
+It is the direct result of the internal processing pipeline. 
+The output is not post-processed further. 
+The post-processed output can be retrieved from the percept-processing PointCloud service.
+
+.Available methods
+|===
+| Method | Request | Response
+
+| *xref:#Stream[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/core_processing/services/point_cloud.adoc#_blickfeld_core_processing_services_PointCloudStreamResponse[PointCloudStreamResponse]Stream 
+| *xref:#Get[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/core_processing/services/point_cloud.adoc#_blickfeld_core_processing_services_PointCloudGetResponse[PointCloudGetResponse]
+| *xref:#EnableDemo[]* | xref:blickfeld/core_processing/services/point_cloud.adoc#_blickfeld_core_processing_services_PointCloudEnableDemoRequest[PointCloudEnableDemoRequest]| xref:#_google_protobuf_Empty[google.protobuf.Empty]
+|===
+[#Stream]
+== Stream
+
+Stream a point cloud stream 
+ 
+NOTE: This activates the sensor if it is currently idle.
+
+[#_blickfeld_core_processing_services_PointCloudStreamResponse]
+=== Response Stream
+
+Stream response to point cloud stream request
+
+.Available fields in blickfeld.core_processing.services.PointCloudStreamResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *frame* | xref:blickfeld/core_processing/data/frame.adoc#_blickfeld_core_processing_data_Frame[data.Frame] | - | - 
+3+| Point cloud frame
+
+|===
+
+[#Get]
+== Get
+
+Get a single point cloud 
+ 
+NOTE: This activates the sensor if it is currently idle.
+
+[#_blickfeld_core_processing_services_PointCloudGetResponse]
+=== Response
+
+Response to point cloud get request
+
+.Available fields in blickfeld.core_processing.services.PointCloudGetResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *frame* | xref:blickfeld/core_processing/data/frame.adoc#_blickfeld_core_processing_data_Frame[data.Frame] | - | - 
+3+| Point cloud frame
+
+|===
+
+[#EnableDemo]
+== EnableDemo
+
+Enable demo data set 
+It will be re-played on Stream requests
+
+[#_blickfeld_core_processing_services_PointCloudEnableDemoRequest]
+=== Request
+
+Response to point cloud enable demo request
+
+.Available fields in blickfeld.core_processing.services.PointCloudEnableDemoRequest
+|===
+| Field | Type | Default | Unit
+
+.2+| *recording* | xref:blickfeld/core_processing/config/demo_recording.adoc#_blickfeld_core_processing_config_DemoRecording[config.DemoRecording] | - | - 
+3+| Select demo recording
+
+|===
+

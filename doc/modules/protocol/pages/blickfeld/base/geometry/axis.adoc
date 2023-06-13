@@ -1,0 +1,30 @@
+[#_blickfeld_base_geometry_Axis]
+= Axis
+
+Axis of a coordinate system.
+
+.Available fields in blickfeld.base.geometry.Axis
+|===
+| Field | Type | Default | Unit
+
+.2+| *type* | xref:blickfeld/base/geometry/axis.adoc#_blickfeld_base_geometry_Axis_Type[Type] | - | - 
+3+| The selected axis.
+
+|===
+
+[#_blickfeld_base_geometry_Axis_Type]
+== Type
+
+Type of the axis.
+
+.Available values for blickfeld.base.geometry.Axis.Type enum
+[cols='25h,5,~']
+|===
+| Name | Value | Description
+
+| TYPE_UNSPECIFIED ^| 0 | The unspecified axis.
+| TYPE_X ^| 1 | The x axix.
+| TYPE_Y ^| 2 | The y axis.
+| TYPE_Z ^| 3 | The z axis.
+|===
+

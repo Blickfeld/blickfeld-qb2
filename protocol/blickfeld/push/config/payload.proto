@@ -1,0 +1,29 @@
+// Copyright (c) 2023 Blickfeld GmbH.
+// All rights reserved.
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+import "blickfeld/percept_processing/data/data_type.proto";
+package blickfeld.push.config;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// defines what type of data stream to use as payload
+message Payload {
+  // define how the messages are serialized
+  enum Encoding {
+    // unspecified
+    ENCODING_UNSPECIFIED = 0;
+    // protobuf serialized as binary
+    ENCODING_PROTOBUF = 1;
+    // json representation of protobuf messages
+    ENCODING_JSON = 2;
+  }
+  // payload encoding
+  .blickfeld.push.config.Payload.Encoding encoding = 1;
+  // payload data type to stream
+  .blickfeld.percept_processing.data.DataType data_type = 3;
+}
+

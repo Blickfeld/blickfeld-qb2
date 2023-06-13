@@ -1,0 +1,49 @@
+[#_blickfeld_push_data_Status]
+= Status
+
+state of a push
+
+.Available fields in blickfeld.push.data.Status
+|===
+| Field | Type | Default | Unit
+
+.2+| *sent_messages* | uint32| - | - 
+3+| message statistics [default = 0]
+
+.2+| *connection* | xref:blickfeld/push/data/status.adoc#_blickfeld_push_data_Status_Connection[Connection] | - | - 
+3+| flag to indicate if it is working or not
+
+.2+| *data_rate* | float| - | B/s 
+3+| Average data rate 
+ 
+The resulting value is averaged over the last 5 messages sent, peak or current values might be different.
+
+.2+| *last_message* | xref:#_google_protobuf_Timestamp[google.protobuf.Timestamp] | - | - 
+3+| Timestamp when last message was sent
+
+.2+| *state* | xref:blickfeld/base/data/health.adoc#_blickfeld_base_data_Health_State[base.data.Health.State] | - | - 
+3+| State of push connection.
+
+.2+| *state_reason* | string| - | - 
+3+| Reason for the given state. Needs to be set if state is not STATE_OK.
+
+|===
+
+[#_blickfeld_push_data_Status_Connection]
+== Connection
+
+Connection status of the push
+
+.Available values for blickfeld.push.data.Status.Connection enum
+[cols='25h,5,~']
+|===
+| Name | Value | Description
+
+| CONNECTION_UNSPECIFIED ^| 0 | unspecified
+| CONNECTION_DISABLED ^| 1 | push configuration is disabled
+| CONNECTION_DISCONNECTED ^| 2 | disconnected from destination
+| CONNECTION_CONNECTING ^| 3 | connecting to destination
+| CONNECTION_CONNECTED ^| 4 | connected to destination
+| CONNECTION_PUSHING ^| 5 | connected to input and destination
+|===
+

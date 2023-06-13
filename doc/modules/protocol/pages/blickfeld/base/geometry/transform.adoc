@@ -1,0 +1,17 @@
+[#_blickfeld_base_geometry_Transform]
+= Transform
+
+A rigid transformation
+
+.Available fields in blickfeld.base.geometry.Transform
+|===
+| Field | Type | Default | Unit
+
+.2+| *translation* | xref:blickfeld/base/geometry/vector3.adoc#_blickfeld_base_geometry_Vector3[Vector3] | - | - 
+3+| A vector representing the position.
+
+.2+| *rotation* | xref:blickfeld/base/geometry/quaternion.adoc#_blickfeld_base_geometry_Quaternion[Quaternion] | - | - 
+3+| A quaternion representing the rotation.
+
+|===
+

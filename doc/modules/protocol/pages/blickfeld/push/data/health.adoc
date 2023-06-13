@@ -1,0 +1,33 @@
+[#_blickfeld_push_data_Health]
+= Health
+
+A health message that contains information about the push status
+
+.Available fields in blickfeld.push.data.Health
+|===
+| Field | Type | Default | Unit
+
+.2+| *state* | xref:blickfeld/base/data/health.adoc#_blickfeld_base_data_Health_State[base.data.Health.State] | - | - 
+3+| High-level state of module.
+
+.2+| *state_reason* | string| - | - 
+3+| Reason for the given state. Needs to be set if state is not STATE_OK.
+
+.2+| *status* | repeated xref:blickfeld/push/data/health.adoc#_blickfeld_push_data_Health_StatusEntry[StatusEntry] | - | - 
+3+| map of push status
+
+|===
+
+[#_blickfeld_push_data_Health_StatusEntry]
+== Status Entry
+
+
+
+.Available fields in blickfeld.push.data.Health.StatusEntry
+|===
+| Field | Type | Default | Unit
+
+| *key* | string| - | - 
+| *value* | xref:blickfeld/push/data/status.adoc#_blickfeld_push_data_Status[Status] | - | - 
+|===
+

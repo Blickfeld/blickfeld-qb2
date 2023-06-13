@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+package blickfeld.core_processing.data;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// A measurement of the Accelerometer
+message Acceleration {
+  // X component of acceleration vector
+  float x = 1 [(.blickfeld.base.unit) = "G"];
+  // Y component of acceleration vector
+  float y = 2 [(.blickfeld.base.unit) = "G"];
+  // Z component of acceleration vector
+  float z = 3 [(.blickfeld.base.unit) = "G"];
+}
+

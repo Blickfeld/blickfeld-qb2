@@ -1,0 +1,31 @@
+= Service: Identification
+
+NOTE: This API is officially released and maintained.
+
+The identification service provides methods to set and read out identification data of the Qb2 device.
+
+.Available methods
+|===
+| Method | Request | Response
+
+| *xref:#Get[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/hardware/services/identification.adoc#_blickfeld_hardware_services_IdentificationGetResponse[IdentificationGetResponse]
+|===
+[#Get]
+== Get
+
+Gets identification configuration
+
+[#_blickfeld_hardware_services_IdentificationGetResponse]
+=== Response
+
+Response message for the identification get command
+
+.Available fields in blickfeld.hardware.services.IdentificationGetResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *identification* | xref:blickfeld/hardware/config/identification.adoc#_blickfeld_hardware_config_Identification[config.Identification] | - | - 
+3+| The current identification
+
+|===
+

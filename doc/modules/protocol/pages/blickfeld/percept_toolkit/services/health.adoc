@@ -1,0 +1,51 @@
+= Service: Health
+
+CAUTION: This API is not yet officially released neither maintained.
+
+An gRPC service to request the health of toolkit
+
+.Available methods
+|===
+| Method | Request | Response
+
+| *xref:#Watch[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/percept_toolkit/services/health.adoc#_blickfeld_percept_toolkit_services_HealthWatchResponse[HealthWatchResponse]Stream 
+| *xref:#Get[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/percept_toolkit/services/health.adoc#_blickfeld_percept_toolkit_services_HealthGetResponse[HealthGetResponse]
+|===
+[#Watch]
+== Watch
+
+Streams health messages in regular intervals containing the state of toolkit
+
+[#_blickfeld_percept_toolkit_services_HealthWatchResponse]
+=== Response Stream
+
+Health Stream response of the toolkit module
+
+.Available fields in blickfeld.percept_toolkit.services.HealthWatchResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *health* | xref:blickfeld/percept_toolkit/data/health.adoc#_blickfeld_percept_toolkit_data_Health[data.Health] | - | - 
+3+| The current health state of the module
+
+|===
+
+[#Get]
+== Get
+
+Return health messages containing the state of toolkit
+
+[#_blickfeld_percept_toolkit_services_HealthGetResponse]
+=== Response
+
+Health Get response of the toolkit module
+
+.Available fields in blickfeld.percept_toolkit.services.HealthGetResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *health* | xref:blickfeld/percept_toolkit/data/health.adoc#_blickfeld_percept_toolkit_data_Health[data.Health] | - | - 
+3+| The current health state of the module
+
+|===
+

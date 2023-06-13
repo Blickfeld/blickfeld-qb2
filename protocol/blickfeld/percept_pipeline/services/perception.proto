@@ -1,0 +1,61 @@
+// Copyright (c) 2022 Blickfeld GmbH.
+// All rights reserved.
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+import "blickfeld/percept_pipeline/config/perception.proto";
+import "google/protobuf/empty.proto";
+package blickfeld.percept_pipeline.services;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// Response containing the current perception configuration
+message PerceptionGetResponse {
+  // The current perception configuration
+  .blickfeld.percept_pipeline.config.Perception perception = 1;
+}
+
+// Request for setting the perception configuration
+message PerceptionSetRequest {
+  oneof set_type {
+    // Use a template to set the configuration, templates are predefined perception configurations
+    string template_name = 1;
+    // Use the specified configuration
+    .blickfeld.percept_pipeline.config.Perception perception = 2;
+  }
+}
+
+// Continuous response on perception configuration changes
+message PerceptionWatchResponse {
+  // The current set perception configuration
+  .blickfeld.percept_pipeline.config.Perception perception = 1;
+}
+
+// Response containing perception configuration templates
+message PerceptionListTemplatesResponse {
+  // Mapping from a template name to the template itself. The template can be used to configure the perception
+  // algorithms for certain use-cases.
+  map<string, .blickfeld.percept_pipeline.config.Perception> named_templates = 1;
+}
+
+// The perception service allows getting, configuring and receiving updates of the perception configurations.
+// Perception configurations specify the algorithms used for e.g. for background subtraction etc.
+service Perception {
+  option (.blickfeld.base.access_control_service) = {
+    level: LEVEL_PUBLIC
+  };
+  option (.blickfeld.base.protocol_maturity_service) = {
+    level: LEVEL_EXPERIMENTAL
+  };
+  // Get current perception configuration
+  rpc Get(.google.protobuf.Empty) returns (.blickfeld.percept_pipeline.services.PerceptionGetResponse);
+  // Set the perception configuration
+  rpc Set(.blickfeld.percept_pipeline.services.PerceptionSetRequest) returns (.google.protobuf.Empty);
+  // Watch changes of perception configuration
+  rpc Watch(.google.protobuf.Empty) returns (stream .blickfeld.percept_pipeline.services.PerceptionWatchResponse);
+  // Return list of names for named templates
+  rpc ListTemplates(.google.protobuf.Empty) returns (.blickfeld.percept_pipeline.services.PerceptionListTemplatesResponse);
+}
+

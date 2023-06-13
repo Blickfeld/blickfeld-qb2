@@ -1,0 +1,91 @@
+= Service: Zone
+
+NOTE: This API is officially released and maintained.
+
+The zone service allows getting, configuring, deleting and receiving updates of the configured zones.
+
+.Available methods
+|===
+| Method | Request | Response
+
+| *xref:#List[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/percept_pipeline/services/zone.adoc#_blickfeld_percept_pipeline_services_ZoneListResponse[ZoneListResponse]
+| *xref:#Store[]* | xref:blickfeld/percept_pipeline/services/zone.adoc#_blickfeld_percept_pipeline_services_ZoneStoreRequest[ZoneStoreRequest]| xref:#_google_protobuf_Empty[google.protobuf.Empty]
+| *xref:#Delete[]* | xref:blickfeld/percept_pipeline/services/zone.adoc#_blickfeld_percept_pipeline_services_ZoneDeleteRequest[ZoneDeleteRequest]| xref:#_google_protobuf_Empty[google.protobuf.Empty]
+| *xref:#Watch[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/percept_pipeline/services/zone.adoc#_blickfeld_percept_pipeline_services_ZoneWatchResponse[ZoneWatchResponse]Stream 
+|===
+[#List]
+== List
+
+Returns the configured zones
+
+[#_blickfeld_percept_pipeline_services_ZoneListResponse]
+=== Response
+
+Response containing the configured list of zones
+
+.Available fields in blickfeld.percept_pipeline.services.ZoneListResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *zones* | repeated xref:blickfeld/percept_pipeline/config/zone_algorithm.adoc#_blickfeld_percept_pipeline_config_ZoneAlgorithm[config.ZoneAlgorithm] | - | - 
+3+| The currently configured zones
+
+|===
+
+[#Store]
+== Store
+
+Store / Update a zone
+
+[#_blickfeld_percept_pipeline_services_ZoneStoreRequest]
+=== Request
+
+Request to store or update an existing zone
+
+.Available fields in blickfeld.percept_pipeline.services.ZoneStoreRequest
+|===
+| Field | Type | Default | Unit
+
+.2+| *zone* | xref:blickfeld/percept_pipeline/config/zone_algorithm.adoc#_blickfeld_percept_pipeline_config_ZoneAlgorithm[config.ZoneAlgorithm] | - | - 
+3+| The new zone to be added. If there is a zone with the same uuid, that zone will get updated with this configuration.
+
+|===
+
+[#Delete]
+== Delete
+
+Delete a zone
+
+[#_blickfeld_percept_pipeline_services_ZoneDeleteRequest]
+=== Request
+
+Request to delete a zone
+
+.Available fields in blickfeld.percept_pipeline.services.ZoneDeleteRequest
+|===
+| Field | Type | Default | Unit
+
+.2+| *uuid* | string| - | - 
+3+| The uuid of the zone to be deleted
+
+|===
+
+[#Watch]
+== Watch
+
+Watch configuration for zone list
+
+[#_blickfeld_percept_pipeline_services_ZoneWatchResponse]
+=== Response Stream
+
+Continuous response on zone list changes
+
+.Available fields in blickfeld.percept_pipeline.services.ZoneWatchResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *zones* | repeated xref:blickfeld/percept_pipeline/config/zone_algorithm.adoc#_blickfeld_percept_pipeline_config_ZoneAlgorithm[config.ZoneAlgorithm] | - | - 
+3+| The current/updated list of zones
+
+|===
+

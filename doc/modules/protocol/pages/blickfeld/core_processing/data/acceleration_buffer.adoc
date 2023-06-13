@@ -1,0 +1,22 @@
+[#_blickfeld_core_processing_data_AccelerationBuffer]
+= Acceleration Buffer
+
+Buffer for multiple Acceleration samples
+
+.Available fields in blickfeld.core_processing.data.AccelerationBuffer
+|===
+| Field | Type | Default | Unit
+
+.2+| *timestamp* | uint64| - | ns 
+3+| Timestamp of the first sample in the buffer.
+
+.2+| *sampling_period* | uint64| - | ns 
+3+| Sampling period of the acceleration samples
+
+.2+| *cartesian* | bytes| - | G 
+3+| Cartesian 
+3-dimensional array in row-major format with [x, y, z] tuples. 
+Type: Float32
+
+|===
+

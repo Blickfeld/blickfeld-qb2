@@ -1,0 +1,17 @@
+= Service: Compute Module
+
+IMPORTANT: This API is deprecated. It will not be supported in upcoming releases.
+
+This service is used to control & observe the state of the compute module.
+
+.Available methods
+|===
+| Method | Request | Response
+
+| *xref:#Reboot[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:#_google_protobuf_Empty[google.protobuf.Empty]
+|===
+[#Reboot]
+== Reboot
+
+Reboots the CM4
+

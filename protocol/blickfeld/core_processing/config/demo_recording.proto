@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+package blickfeld.core_processing.config;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// Demo recording which can be replayed instead of the real sensor data.
+// This is also used for virtual devices which have no physical sensing unit.
+// WARNING: The recordings are still preliminary. The demo test data concept will be refactored soon.
+enum DemoRecording {
+  // No demo recoding is specified
+  DEMO_RECORDING_UNSPECIFIED = 0;
+  // High resolution recording in the office with 200 + 30 scanlines
+  DEMO_RECORDING_HIGH_RESOLUTION = 1;
+  // High resolution recording in the office with 30 + 30 scanlines
+  DEMO_RECORDING_HIGH_FRAME_RATE = 2;
+}
+

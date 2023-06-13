@@ -1,0 +1,51 @@
+= Service: Health
+
+NOTE: This API is officially released and maintained.
+
+The health service provides methods to monitor the instant operational status of the beam deflection controller
+
+.Available methods
+|===
+| Method | Request | Response
+
+| *xref:#Get[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/beam_deflection_control/services/health.adoc#_blickfeld_beam_deflection_control_services_HealthGetResponse[HealthGetResponse]
+| *xref:#Watch[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/beam_deflection_control/services/health.adoc#_blickfeld_beam_deflection_control_services_HealthWatchResponse[HealthWatchResponse]Stream 
+|===
+[#Get]
+== Get
+
+Returns the current health status of the beam deflection controller
+
+[#_blickfeld_beam_deflection_control_services_HealthGetResponse]
+=== Response
+
+Message containing the health data for a single get request
+
+.Available fields in blickfeld.beam_deflection_control.services.HealthGetResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *health* | xref:blickfeld/beam_deflection_control/data/health.adoc#_blickfeld_beam_deflection_control_data_Health[data.Health] | - | - 
+3+| Please refer to <<data.Health>>
+
+|===
+
+[#Watch]
+== Watch
+
+Can be used to attach to the health monitoring status information of the beam deflection controller
+
+[#_blickfeld_beam_deflection_control_services_HealthWatchResponse]
+=== Response Stream
+
+Message containing the health data for a watch stream
+
+.Available fields in blickfeld.beam_deflection_control.services.HealthWatchResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *health* | xref:blickfeld/beam_deflection_control/data/health.adoc#_blickfeld_beam_deflection_control_data_Health[data.Health] | - | - 
+3+| Please refer to <<data.Health>>
+
+|===
+

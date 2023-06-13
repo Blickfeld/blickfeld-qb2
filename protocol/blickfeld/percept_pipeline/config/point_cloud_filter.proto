@@ -1,0 +1,26 @@
+// Copyright (c) 2022 Blickfeld GmbH.
+// All rights reserved.
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+package blickfeld.percept_pipeline.config;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// Algorithm for filtering point clouds
+message PointCloudFilter {
+  // Filter points based on the number of neighbors in a certain radius
+  message RadiusOutlier {
+    // Minimum number of neighbors a point has to have to be retained
+    uint32 min_neighbor_points = 1;
+    // All points within this radius are considered neighbors of a point
+    double neighbor_radius = 2;
+  }
+  oneof point_cloud_filter_type {
+    // Use radius outlier filter for noise reduction on point clouds
+    .blickfeld.percept_pipeline.config.PointCloudFilter.RadiusOutlier radius_outlier = 1;
+  }
+}
+

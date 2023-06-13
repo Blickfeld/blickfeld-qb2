@@ -1,0 +1,51 @@
+= Service: Health
+
+CAUTION: This API is not yet officially released neither maintained.
+
+Reports the health of the pipeline module.
+
+.Available methods
+|===
+| Method | Request | Response
+
+| *xref:#Watch[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/percept_pipeline/services/health.adoc#_blickfeld_percept_pipeline_services_HealthWatchResponse[HealthWatchResponse]Stream 
+| *xref:#Get[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/percept_pipeline/services/health.adoc#_blickfeld_percept_pipeline_services_HealthGetResponse[HealthGetResponse]
+|===
+[#Watch]
+== Watch
+
+Streams health information on a regular cadence or if certain incidents happen
+
+[#_blickfeld_percept_pipeline_services_HealthWatchResponse]
+=== Response Stream
+
+Stream response containing health of the module
+
+.Available fields in blickfeld.percept_pipeline.services.HealthWatchResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *health* | xref:blickfeld/percept_pipeline/data/health.adoc#_blickfeld_percept_pipeline_data_Health[data.Health] | - | - 
+3+| The module health
+
+|===
+
+[#Get]
+== Get
+
+Returns the current health information
+
+[#_blickfeld_percept_pipeline_services_HealthGetResponse]
+=== Response
+
+Get response containing health of the module
+
+.Available fields in blickfeld.percept_pipeline.services.HealthGetResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *health* | xref:blickfeld/percept_pipeline/data/health.adoc#_blickfeld_percept_pipeline_data_Health[data.Health] | - | - 
+3+| The module health
+
+|===
+

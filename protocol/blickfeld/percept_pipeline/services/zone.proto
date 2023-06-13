@@ -1,0 +1,55 @@
+// Copyright (c) 2022 Blickfeld GmbH.
+// All rights reserved.
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+import "blickfeld/percept_pipeline/config/zone_algorithm.proto";
+import "google/protobuf/empty.proto";
+package blickfeld.percept_pipeline.services;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// Response containing the configured list of zones
+message ZoneListResponse {
+  // The currently configured zones
+  repeated .blickfeld.percept_pipeline.config.ZoneAlgorithm zones = 1;
+}
+
+// Request to store or update an existing zone
+message ZoneStoreRequest {
+  // The new zone to be added. If there is a zone with the same uuid, that zone will get updated with this configuration.
+  .blickfeld.percept_pipeline.config.ZoneAlgorithm zone = 1;
+}
+
+// Request to delete a zone
+message ZoneDeleteRequest {
+  // The uuid of the zone to be deleted
+  string uuid = 1;
+}
+
+// Continuous response on zone list changes
+message ZoneWatchResponse {
+  // The current/updated list of zones
+  repeated .blickfeld.percept_pipeline.config.ZoneAlgorithm zones = 1;
+}
+
+// The zone service allows getting, configuring, deleting and receiving updates of the configured zones.
+service Zone {
+  option (.blickfeld.base.access_control_service) = {
+    level: LEVEL_PUBLIC
+  };
+  option (.blickfeld.base.protocol_maturity_service) = {
+    level: LEVEL_MAINTAINED
+  };
+  // Returns the configured zones
+  rpc List(.google.protobuf.Empty) returns (.blickfeld.percept_pipeline.services.ZoneListResponse);
+  // Store / Update a zone
+  rpc Store(.blickfeld.percept_pipeline.services.ZoneStoreRequest) returns (.google.protobuf.Empty);
+  // Delete a zone
+  rpc Delete(.blickfeld.percept_pipeline.services.ZoneDeleteRequest) returns (.google.protobuf.Empty);
+  // Watch configuration for zone list
+  rpc Watch(.google.protobuf.Empty) returns (stream .blickfeld.percept_pipeline.services.ZoneWatchResponse);
+}
+

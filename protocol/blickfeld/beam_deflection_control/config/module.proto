@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+package blickfeld.beam_deflection_control.config;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_ADMIN
+};
+
+// This enum defines the different modules that can run the beam deflection control firmware and thus can be communicated with.
+// It needs to be passed as metadata when opening the gRPC channel in order to select the module.
+enum Module {
+  // Unused zero value
+  MODULE_UNSPECIFIED = 0;
+  // Vertical beam deflection unit
+  MODULE_VERTICAL = 1;
+  // Horizontal beam deflection unit
+  MODULE_HORIZONTAL = 2;
+}
+

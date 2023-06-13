@@ -1,0 +1,48 @@
+// Copyright (c) 2022 Blickfeld GmbH.
+// All rights reserved.
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+import "blickfeld/percept_pipeline/config/data_source.proto";
+import "google/protobuf/empty.proto";
+package blickfeld.percept_pipeline.services;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// Response containing the current data source
+message DataSourceGetResponse {
+  // The currently set data source
+  .blickfeld.percept_pipeline.config.DataSource data_source = 1;
+}
+
+// Request for setting the data source
+message DataSourceSetRequest {
+  // The data source to be set
+  .blickfeld.percept_pipeline.config.DataSource data_source = 1;
+}
+
+// Continuous response on data source changes
+message DataSourceWatchResponse {
+  // The currently set data source
+  .blickfeld.percept_pipeline.config.DataSource data_source = 1;
+}
+
+// The data source service allows getting, configuring and receiving updates of the data source used for processing pipelines.
+// The data source configuration specifies where to retrieve the point cloud data for further processing.
+service DataSource {
+  option (.blickfeld.base.access_control_service) = {
+    level: LEVEL_PUBLIC
+  };
+  option (.blickfeld.base.protocol_maturity_service) = {
+    level: LEVEL_MAINTAINED
+  };
+  // Get current data_source Configuration
+  rpc Get(.google.protobuf.Empty) returns (.blickfeld.percept_pipeline.services.DataSourceGetResponse);
+  // Set configuration for data_source
+  rpc Set(.blickfeld.percept_pipeline.services.DataSourceSetRequest) returns (.google.protobuf.Empty);
+  // Watch configuration for data_source
+  rpc Watch(.google.protobuf.Empty) returns (stream .blickfeld.percept_pipeline.services.DataSourceWatchResponse);
+}
+

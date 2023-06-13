@@ -1,0 +1,72 @@
+= Service: Data Source
+
+NOTE: This API is officially released and maintained.
+
+The data source service allows getting, configuring and receiving updates of the data source used for processing pipelines. 
+The data source configuration specifies where to retrieve the point cloud data for further processing.
+
+.Available methods
+|===
+| Method | Request | Response
+
+| *xref:#Get[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/percept_pipeline/services/data_source.adoc#_blickfeld_percept_pipeline_services_DataSourceGetResponse[DataSourceGetResponse]
+| *xref:#Set[]* | xref:blickfeld/percept_pipeline/services/data_source.adoc#_blickfeld_percept_pipeline_services_DataSourceSetRequest[DataSourceSetRequest]| xref:#_google_protobuf_Empty[google.protobuf.Empty]
+| *xref:#Watch[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/percept_pipeline/services/data_source.adoc#_blickfeld_percept_pipeline_services_DataSourceWatchResponse[DataSourceWatchResponse]Stream 
+|===
+[#Get]
+== Get
+
+Get current data_source Configuration
+
+[#_blickfeld_percept_pipeline_services_DataSourceGetResponse]
+=== Response
+
+Response containing the current data source
+
+.Available fields in blickfeld.percept_pipeline.services.DataSourceGetResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *data_source* | xref:blickfeld/percept_pipeline/config/data_source.adoc#_blickfeld_percept_pipeline_config_DataSource[config.DataSource] | - | - 
+3+| The currently set data source
+
+|===
+
+[#Set]
+== Set
+
+Set configuration for data_source
+
+[#_blickfeld_percept_pipeline_services_DataSourceSetRequest]
+=== Request
+
+Request for setting the data source
+
+.Available fields in blickfeld.percept_pipeline.services.DataSourceSetRequest
+|===
+| Field | Type | Default | Unit
+
+.2+| *data_source* | xref:blickfeld/percept_pipeline/config/data_source.adoc#_blickfeld_percept_pipeline_config_DataSource[config.DataSource] | - | - 
+3+| The data source to be set
+
+|===
+
+[#Watch]
+== Watch
+
+Watch configuration for data_source
+
+[#_blickfeld_percept_pipeline_services_DataSourceWatchResponse]
+=== Response Stream
+
+Continuous response on data source changes
+
+.Available fields in blickfeld.percept_pipeline.services.DataSourceWatchResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *data_source* | xref:blickfeld/percept_pipeline/config/data_source.adoc#_blickfeld_percept_pipeline_config_DataSource[config.DataSource] | - | - 
+3+| The currently set data source
+
+|===
+

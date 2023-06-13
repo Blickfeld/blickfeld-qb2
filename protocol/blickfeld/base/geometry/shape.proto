@@ -1,0 +1,29 @@
+// Copyright (c) 2022 Blickfeld GmbH.
+// All rights reserved.
+syntax = "proto3";
+
+import "blickfeld/base/geometry/pose.proto";
+import "blickfeld/base/geometry/vector3.proto";
+import "blickfeld/base/options.proto";
+package blickfeld.base.geometry;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// A shape that represent a geometrical figure.
+message Shape {
+  // A 3 dimensional box.
+  message Box {
+    // The X, Y and Z dimension.
+    .blickfeld.base.geometry.Vector3 dimensions = 1;
+  }
+  // Position and orientation of the center of the bounding box enclosing the shape.
+  .blickfeld.base.geometry.Pose pose = 1;
+  // The type of the shape.
+  oneof shape_type {
+    // Box shape
+    .blickfeld.base.geometry.Shape.Box box = 2;
+  }
+}
+

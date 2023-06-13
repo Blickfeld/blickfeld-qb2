@@ -1,0 +1,21 @@
+// Copyright (c) 2022 Blickfeld GmbH.
+// All rights reserved.
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+package blickfeld.percept_pipeline.data;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// The type of the point cloud
+enum PointCloudType {
+  // The zero value that is not accepted
+  POINT_CLOUD_TYPE_UNSPECIFIED = 0;
+  // Full point cloud (combined point cloud of all devices or unfiltered point cloud coming from one device)
+  POINT_CLOUD_TYPE_FULL = 1;
+  // Point cloud containing only foreground/points from moving objects
+  POINT_CLOUD_TYPE_FOREGROUND = 2;
+}
+

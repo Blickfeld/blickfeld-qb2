@@ -1,0 +1,70 @@
+= Point Cloud Fetch 
+:imagesdir: ../assets/images
+
+In this guide we establish a secure connection to a Qb2 device.
+Afterwards, the point cloud stream is requested and point cloud frames are received. 
+Finally, we get data from the received point cloud and plot a single point cloud frame.
+
+NOTE: Please follow the xref:api.adoc[API Guide] first to install the Python package.
+
+== Fetch point cloud from Qb2 
+
+We use the ```PointCloud``` service from ```blickfeld_qb2.core_processing.services``` namespace over the gRPC channel and make a streaming request to get a point cloud stream from the device. 
+The code snippet below shows an example of connecting to Qb2 with a hostname ```qb2-xxxxxxxxx``` and fetching three point cloud frames from it. 
+
+[source,python]
+----
+import blickfeld_qb2
+from blickfeld_qb2.base.grpc.channel import Channel
+
+# open secure connection to Qb2
+with Channel(fqdn_or_ip="qb2-xxxxxxxxx") as channel:
+    service = blickfeld_qb2.core_processing.services.PointCloud(channel)
+    # request point cloud stream from Qb2
+    for i, response in enumerate(service.stream()):
+        # extract point cloud frame from response 
+        frame = response.frame
+        # print frame id
+        print("received frame with id", frame.id) 
+        # get 3 frames and stop 
+        if i == 2: 
+            break
+----
+
+== Get data from point cloud frame
+In the code snippet below we read out the cartesian coordinates ```xyz``` for each point in the received point cloud frame. 
+We further use these values to calculate azimuth and elevation vectors. 
+
+[source,python]
+----
+import numpy as np
+
+# get x,y,z coordinates from the frame points 
+xyz = frame.binary.cartesian
+
+# calculate azimuth and elevation 
+distance = np.sqrt(xyz[:,0] ** 2 + xyz[:,1] ** 2 + xyz[:,2] ** 2)
+azimuth = np.arctan(xyz[:,0] / xyz[:,1])
+elevation = np.arcsin(xyz[:,2] / distance)
+----
+
+== Plot point cloud frame 
+
+Finally, ```azimuth```, ```elevation``` and ```photon_count``` vectors are used to plot the desired field of view from the point cloud frame as shown in the code snippet below. 
+
+[source,python]
+----
+
+import matplotlib.pyplot as plt
+
+index = np.argwhere((azimuth > np.deg2rad(20)) & (azimuth < np.deg2rad(30)) & (elevation > np.deg2rad(5)))
+plt.scatter(azimuth[index], elevation[index], c=frame.binary.photon_count[index], s=0.1)
+plt.xlabel("Azimuth [rad]")
+plt.ylabel("Elevation [rad]")
+plt.show()
+----
+
+The plot result is shown in the Figure below:
+
+.Point Cloud Frame
+image::point_cloud.png[840,680]

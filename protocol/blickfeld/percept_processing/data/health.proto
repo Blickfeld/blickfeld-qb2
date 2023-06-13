@@ -1,0 +1,28 @@
+// Copyright (c) 2023 Blickfeld GmbH.
+// All rights reserved.
+syntax = "proto3";
+
+import "blickfeld/base/data/health.proto";
+import "blickfeld/base/options.proto";
+import "blickfeld/percept_pipeline/data/state.proto";
+package blickfeld.percept_processing.data;
+
+option cc_enable_arenas = true;
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// A health message that contains information about the pipeline status and the
+// module itself.
+message Health {
+  // High-level state of module.
+  .blickfeld.base.data.Health.State state = 1;
+  // Reason for the given state. It is not set if state is STATE_OK.
+  string state_reason = 2;
+  // Current state of the pipeline. It indicates if the pipeline is stable,
+  // unstable or broken, based on the frequency of the data that is processed
+  // and published.
+  .blickfeld.percept_pipeline.data.State pipeline_state = 4;
+  reserved 3;
+}
+

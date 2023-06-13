@@ -1,0 +1,90 @@
+[#_blickfeld_percept_pipeline_config_DataSource]
+= Data Source
+
+The configuration storing the sources to retrieve the point cloud data for further processing.
+
+.Available fields in blickfeld.percept_pipeline.config.DataSource
+|===
+| Field | Type | Default | Unit
+
+.2+| *cube1_setup* | xref:blickfeld/percept_pipeline/config/data_source.adoc#_blickfeld_percept_pipeline_config_DataSource_Cube1Setup[Cube1Setup] | - | - 
+3+| Use Cube 1 lidars to retrieve point clouds
+
+.2+| *qb2_setup* | xref:blickfeld/percept_pipeline/config/data_source.adoc#_blickfeld_percept_pipeline_config_DataSource_Qb2Setup[Qb2Setup] | - | - 
+3+| Use Qb2 lidars to retrieve point clouds
+
+|===
+
+[#_blickfeld_percept_pipeline_config_DataSource_Cube1]
+== Cube1
+
+Configuration for retrieving point clouds from a Cube 1
+
+.Available fields in blickfeld.percept_pipeline.config.DataSource.Cube1
+|===
+| Field | Type | Default | Unit
+
+.2+| *fqdn* | string| - | - 
+3+| The fully qualified domain name of the Cube 1
+
+.2+| *map_from_lidar* | xref:blickfeld/base/geometry/transform.adoc#_blickfeld_base_geometry_Transform[base.geometry.Transform] | - | - 
+3+| Transformation from the lidar frame to the map frame. If this transform is not set, this will be interpreted as identify 
+transformation. Transforming all point cloud topics into the map frame results in a globally consistent combined point cloud in 
+map frame.
+
+|===
+
+[#_blickfeld_percept_pipeline_config_DataSource_Qb2]
+== Qb2
+
+Configuration for retrieving point clouds from a Qb2
+
+.Available fields in blickfeld.percept_pipeline.config.DataSource.Qb2
+|===
+| Field | Type | Default | Unit
+
+.2+| *fqdn* | string| - | - 
+3+| The fully qualified domain name of the Qb2 device. For on-device processing/configuration, 'fqdn' can be set 
+to an empty string to request the data of the current device.
+
+.2+| *map_from_lidar* | xref:blickfeld/base/geometry/transform.adoc#_blickfeld_base_geometry_Transform[base.geometry.Transform] | - | - 
+3+| Transformation from the lidar frame to the map frame. If this transform is not set, this will be interpreted as identify 
+transformation. Transforming all point cloud topics into the map frame results in a globally consistent combined point cloud in 
+map frame.
+
+|===
+
+[#_blickfeld_percept_pipeline_config_DataSource_Cube1Setup]
+== Cube1 Setup
+
+The configuration of a Cube 1 setup of the LiDAR devices
+
+.Available fields in blickfeld.percept_pipeline.config.DataSource.Cube1Setup
+|===
+| Field | Type | Default | Unit
+
+.2+| *lidars* | repeated xref:blickfeld/percept_pipeline/config/data_source.adoc#_blickfeld_percept_pipeline_config_DataSource_Cube1[Cube1] | - | - 
+3+| Cube1 lidars to retrieve the point clouds from
+
+.2+| *enable_time_sync* | bool| - | - 
+3+| If true: The same NTP server needs to be configured for each device before starting. The lidar clock and 
+and scan-patterns will be continously synchronized. Recommended in multi-sensor setups. 
+If false: the lidar measurements are timestamps with the receive time by the system. The receive time is less 
+accurate if the network is not reliable.
+
+|===
+
+[#_blickfeld_percept_pipeline_config_DataSource_Qb2Setup]
+== Qb2 Setup
+
+The configuration of a Qb2 setup of the LiDAR devices
+
+.Available fields in blickfeld.percept_pipeline.config.DataSource.Qb2Setup
+|===
+| Field | Type | Default | Unit
+
+.2+| *lidars* | repeated xref:blickfeld/percept_pipeline/config/data_source.adoc#_blickfeld_percept_pipeline_config_DataSource_Qb2[Qb2] | - | - 
+3+| the qb2 lidars to get the point clouds from
+
+|===
+

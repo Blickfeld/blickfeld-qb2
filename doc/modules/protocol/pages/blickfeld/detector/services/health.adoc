@@ -1,0 +1,51 @@
+= Service: Health
+
+NOTE: This API is officially released and maintained.
+
+The health service provides methods to monitor the instant operational status of the detector module
+
+.Available methods
+|===
+| Method | Request | Response
+
+| *xref:#Get[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/detector/services/health.adoc#_blickfeld_detector_services_HealthGetResponse[HealthGetResponse]
+| *xref:#Watch[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/detector/services/health.adoc#_blickfeld_detector_services_HealthWatchResponse[HealthWatchResponse]Stream 
+|===
+[#Get]
+== Get
+
+Returns the current health status of the detector module
+
+[#_blickfeld_detector_services_HealthGetResponse]
+=== Response
+
+Response message for get health request.
+
+.Available fields in blickfeld.detector.services.HealthGetResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *health* | xref:blickfeld/detector/data/health.adoc#_blickfeld_detector_data_Health[data.Health] | - | - 
+3+| Please refer to <<data.Health>>
+
+|===
+
+[#Watch]
+== Watch
+
+Can be used to attach to the health monitoring status information of the detector module
+
+[#_blickfeld_detector_services_HealthWatchResponse]
+=== Response Stream
+
+Response message for watch health request.
+
+.Available fields in blickfeld.detector.services.HealthWatchResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *health* | xref:blickfeld/detector/data/health.adoc#_blickfeld_detector_data_Health[data.Health] | - | - 
+3+| Please refer to <<data.Health>>
+
+|===
+

@@ -1,0 +1,52 @@
+[#_blickfeld_beam_deflection_control_data_Health]
+= Health
+
+Health message containing information about operation, status and error of a beam deflection controller.
+
+.Available fields in blickfeld.beam_deflection_control.data.Health
+|===
+| Field | Type | Default | Unit
+
+.2+| *state* | xref:blickfeld/base/data/health.adoc#_blickfeld_base_data_Health_State[base.data.Health.State] | - | - 
+3+| High-level state of module
+
+.2+| *state_reason* | string| - | - 
+3+| Reason for given state. Is not set if state is OK.
+
+|===
+
+[#_blickfeld_beam_deflection_control_data_Health_Stats]
+== Stats
+
+This message defines the stats that can be retrieved from a beam deflection controller.
+
+.Available fields in blickfeld.beam_deflection_control.data.Health.Stats
+|===
+| Field | Type | Default | Unit
+
+.2+| *time* | float| - | s 
+3+| Current time in s.
+
+.2+| *bb_frequency* | float| - | Hz 
+3+| Current BB frequency estimation (only set when running BB).
+
+.2+| *max_mechanical_scan_range* | float| - | rad 
+3+| Maximum MSR which occured. Observer q1 in case of CL, sensor atan in case of BB.
+
+.2+| *min_dac_u0* | uint32| - | - 
+3+| Minimum DAC value wich occured for piezo 0.
+
+.2+| *max_dac_u0* | uint32| - | - 
+3+| Maximum DAC value wich occured for piezo 0.
+
+.2+| *min_dac_u1* | uint32| - | - 
+3+| Minimum DAC value wich occured for piezo 1.
+
+.2+| *max_dac_u1* | uint32| - | - 
+3+| Maximum DAC value wich occured for piezo 1.
+
+.2+| *max_cycles* | uint32| - | - 
+3+| Maximum amount of cycles needed for control loop.
+
+|===
+

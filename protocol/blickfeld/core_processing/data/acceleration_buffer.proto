@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+package blickfeld.core_processing.data;
+
+option cc_enable_arenas = true;
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// Buffer for multiple Acceleration samples
+message AccelerationBuffer {
+  // Timestamp of the first sample in the buffer.
+  uint64 timestamp = 1 [(.blickfeld.base.unit) = "ns"];
+  // Sampling period of the acceleration samples
+  uint64 sampling_period = 2 [(.blickfeld.base.unit) = "ns"];
+  // Cartesian
+  // 3-dimensional array in row-major format with [x, y, z] tuples.
+  // Type: Float32
+  bytes cartesian = 3 [(.blickfeld.base.unit) = "G"];
+}
+

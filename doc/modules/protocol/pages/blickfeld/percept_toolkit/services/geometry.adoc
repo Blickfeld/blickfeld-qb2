@@ -1,0 +1,92 @@
+= Service: Geometry
+
+NOTE: This API is officially released and maintained.
+
+Service offering on-demand geometric processing tasks.
+
+.Available methods
+|===
+| Method | Request | Response
+
+| *xref:#ComputeGroundAlignment[]* | xref:blickfeld/percept_toolkit/services/geometry.adoc#_blickfeld_percept_toolkit_services_GeometryComputeGroundAlignmentRequest[GeometryComputeGroundAlignmentRequest]| xref:blickfeld/percept_toolkit/services/geometry.adoc#_blickfeld_percept_toolkit_services_GeometryComputeGroundAlignmentResponse[GeometryComputeGroundAlignmentResponse]
+| *xref:#ComputeRegistrationRefinement[]* | xref:blickfeld/percept_toolkit/services/geometry.adoc#_blickfeld_percept_toolkit_services_GeometryComputeRegistrationRefinementRequest[GeometryComputeRegistrationRefinementRequest]Stream | xref:blickfeld/percept_toolkit/services/geometry.adoc#_blickfeld_percept_toolkit_services_GeometryComputeRegistrationRefinementResponse[GeometryComputeRegistrationRefinementResponse]
+|===
+[#ComputeGroundAlignment]
+== ComputeGroundAlignment
+
+Computes the transformation aligning the lidar point cloud to the ground plane/gravity.
+
+[#_blickfeld_percept_toolkit_services_GeometryComputeGroundAlignmentRequest]
+=== Request
+
+Request for estimating alignment to ground/gravity based on imu-data and optional point cloud frame.
+
+.Available fields in blickfeld.percept_toolkit.services.GeometryComputeGroundAlignmentRequest
+|===
+| Field | Type | Default | Unit
+
+.2+| *accelerometer_data* | xref:blickfeld/core_processing/data/acceleration.adoc#_blickfeld_core_processing_data_Acceleration[core_processing.data.Acceleration] | - | - 
+3+| accelerometer data is assumed to be expressed in the lidar coordinate frame
+
+.2+| *lidar_frame* | optional xref:blickfeld/core_processing/data/frame.adoc#_blickfeld_core_processing_data_Frame[core_processing.data.Frame] | - | - 
+3+| if a lidar frame is provided, it is used to estimate the z-coordinate of the translation as well.
+
+|===
+
+[#_blickfeld_percept_toolkit_services_GeometryComputeGroundAlignmentResponse]
+=== Response
+
+The estimated alignment to the ground/gravity.
+
+.Available fields in blickfeld.percept_toolkit.services.GeometryComputeGroundAlignmentResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *alignment* | xref:blickfeld/base/geometry/transform.adoc#_blickfeld_base_geometry_Transform[base.geometry.Transform] | - | - 
+3+| Estimated alignment of the sensor to the ground-plane/gravity. 
+If no lidar frame is provided only roll, pitch of the rotation are estimated. Otherwise the z-component of the 
+translation is additionally aligned with a flat ground. 
+The transformation transforms the lidar point clouds such that the points are aligned with the ground.
+
+|===
+
+[#ComputeRegistrationRefinement]
+== ComputeRegistrationRefinement
+
+Refines the point cloud registration based on provided initial transformations. 
+If the method succeeds, the refined transformation is returned. Otherwise an exception will be thrown.
+
+[#_blickfeld_percept_toolkit_services_GeometryComputeRegistrationRefinementRequest]
+=== Request Stream
+
+The request for transformation refinement based on 3d point clouds and an initial point cloud transformations.
+
+.Available fields in blickfeld.percept_toolkit.services.GeometryComputeRegistrationRefinementRequest
+|===
+| Field | Type | Default | Unit
+
+.2+| *frame* | xref:blickfeld/core_processing/data/frame.adoc#_blickfeld_core_processing_data_Frame[core_processing.data.Frame] | - | - 
+3+| lidar frame used for aligning the 3d point clouds
+
+.2+| *transform* | xref:blickfeld/base/geometry/transform.adoc#_blickfeld_base_geometry_Transform[base.geometry.Transform] | - | - 
+3+| Transform: the transformation transforming a point in from the local lidar coordinate system into a 'combined' reference system 
+the 'combined' reference system can also be a lidar.
+
+|===
+
+[#_blickfeld_percept_toolkit_services_GeometryComputeRegistrationRefinementResponse]
+=== Response
+
+The refined lidar transformations.
+
+.Available fields in blickfeld.percept_toolkit.services.GeometryComputeRegistrationRefinementResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *transformations* | repeated xref:blickfeld/base/geometry/transform.adoc#_blickfeld_base_geometry_Transform[base.geometry.Transform] | - | - 
+3+| Refined transformations. 
+The array sequence is equal to the sequence in which the requests were received. 
+The first element in the array corresponds to the lidar frame received in the first client stream message.
+
+|===
+

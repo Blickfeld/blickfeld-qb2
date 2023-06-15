@@ -1,4 +1,4 @@
-display_version: JAKOB v1.5.1
+display_version: v1.5
 name: Qb2
 nav:
 - modules/ROOT/nav.adoc

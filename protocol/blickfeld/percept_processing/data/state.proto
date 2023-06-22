@@ -52,6 +52,7 @@ message State {
     // The volume of a zone is approximated by a 'volume map' see
     // xref:blickfeld/percept_pipeline/config/zone_algorithm.adoc#_blickfeld_percept_pipeline_config_ZoneAlgorithm_Volume[Volume]
     // for more details.
+    // NOTE: For performance reasons this field is currently not filled.
     repeated .blickfeld.percept_processing.data.State.Volume.VolumeTile tiles = 2;
     // The tile size of the volume map
     float tile_size = 3;

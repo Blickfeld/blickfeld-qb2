@@ -60,7 +60,8 @@ This is based on one volume zone.
 3+| The tiles of the volume map 
 The volume of a zone is approximated by a 'volume map' see 
 xref:blickfeld/percept_pipeline/config/zone_algorithm.adoc#_blickfeld_percept_pipeline_config_ZoneAlgorithm_Volume[Volume] 
-for more details.
+for more details. 
+NOTE: For performance reasons this field is currently not filled.
 
 .2+| *tile_size* | float| - | - 
 3+| The tile size of the volume map

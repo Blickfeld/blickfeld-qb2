@@ -1,0 +1,22 @@
+# Internal Blickfeld CI toolchain
+include:
+  - project: 'firmware/ci-helper'
+    ref: master
+    file: '/.gitlab-ci-template.yml'
+  - project: 'firmware/ci-helper'
+    ref: master
+    file: '/cpp/.gitlab-ci-template.yml'
+
+variables:
+  # Override: Do not format protocol files
+  CI_HELPER_CPP_SRC: cpp
+
+# Cross-domain build not required
+build cpp [sdk]:
+  rules:
+    - when: never
+
+build cpp [amd64]:
+  before_script:
+    # Install Protobuf & gRPC debian dev packages
+    - apt update && apt install -y libprotobuf-dev libgrpc++-dev protobuf-compiler-grpc

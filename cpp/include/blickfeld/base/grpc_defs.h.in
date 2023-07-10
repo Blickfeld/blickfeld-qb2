@@ -1,0 +1,15 @@
+#pragma once
+
+#include <chrono>
+#include <string>
+
+namespace blickfeld {
+namespace base {
+
+inline static const std::string GRPC_DEFAULT_DEVICE_CA = "@BF_TLS_DEVICE_CA_CONTENT@"; // default device ROOT CA certificate in PEM format
+inline static const std::chrono::duration<unsigned int> GRPC_DEFAULT_CONNECTION_TIMEOUT = std::chrono::seconds(10); // default gRPC connection timeout value
+inline static const uint GRPC_DEFAULT_SECURE_PORT   = 55551; // default gRPC port used for connections to Qb2 device secured with TLS
+inline static const uint GRPC_DEFAULT_INSECURE_PORT = 50051; // default gRPC port used for insecure connections to Qb2 device
+
+} // namespace base
+} // namespace blickfeld

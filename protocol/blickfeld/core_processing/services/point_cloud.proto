@@ -2,6 +2,7 @@ syntax = "proto3";
 
 import "blickfeld/base/options.proto";
 import "blickfeld/core_processing/config/demo_recording.proto";
+import "blickfeld/core_processing/config/point_cloud.proto";
 import "blickfeld/core_processing/data/frame.proto";
 import "google/protobuf/empty.proto";
 package blickfeld.core_processing.services;
@@ -9,6 +10,14 @@ package blickfeld.core_processing.services;
 option (.blickfeld.base.access_control_file) = {
   level: LEVEL_PUBLIC
 };
+
+// Request for point cloud stream request
+message PointCloudStreamRequest {
+}
+
+// Request for point cloud get request
+message PointCloudGetRequest {
+}
 
 // Stream response to point cloud stream request
 message PointCloudStreamResponse {
@@ -30,6 +39,18 @@ message PointCloudEnableDemoRequest {
   reserved "dump_fn";
 }
 
+// Request for setting the filter configuration
+message PointCloudSetFilterRequest {
+  // Filter configuration which should be applied on the point cloud frames.
+  .blickfeld.core_processing.config.PointCloud.Filter filter = 1;
+}
+
+// Response for retrieving the current filter configuration
+message PointCloudGetFilterResponse {
+  // Filter configuration which is currently applied on the point cloud frames.
+  .blickfeld.core_processing.config.PointCloud.Filter filter = 1;
+}
+
 // Point Cloud service for core point cloud stream.
 // It is the direct result of the internal processing pipeline.
 // The output is not post-processed further.
@@ -43,12 +64,17 @@ service PointCloud {
   };
   // Stream a point cloud stream
   // NOTE: This activates the sensor if it is currently idle.
-  rpc Stream(.google.protobuf.Empty) returns (stream .blickfeld.core_processing.services.PointCloudStreamResponse);
+  rpc Stream(.blickfeld.core_processing.services.PointCloudStreamRequest) returns (stream .blickfeld.core_processing.services.PointCloudStreamResponse);
   // Get a single point cloud
   // NOTE: This activates the sensor if it is currently idle.
-  rpc Get(.google.protobuf.Empty) returns (.blickfeld.core_processing.services.PointCloudGetResponse);
+  rpc Get(.blickfeld.core_processing.services.PointCloudGetRequest) returns (.blickfeld.core_processing.services.PointCloudGetResponse);
   // Enable demo data set
   // It will be re-played on Stream requests
   rpc EnableDemo(.blickfeld.core_processing.services.PointCloudEnableDemoRequest) returns (.google.protobuf.Empty);
+  // Set the filter configuration which is to be applied on the point cloud data
+  // NOTE: The new filter configuration is not applied on already active streams
+  rpc SetFilter(.blickfeld.core_processing.services.PointCloudSetFilterRequest) returns (.google.protobuf.Empty);
+  // Get the filter configuration which is currently applied on the point cloud data
+  rpc GetFilter(.google.protobuf.Empty) returns (.blickfeld.core_processing.services.PointCloudGetFilterResponse);
 }
 

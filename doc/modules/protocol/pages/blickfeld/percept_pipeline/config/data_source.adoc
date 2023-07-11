@@ -74,6 +74,22 @@ accurate if the network is not reliable.
 
 |===
 
+[#_blickfeld_percept_pipeline_config_DataSource_Trigger]
+== Trigger
+
+Configuration of Trigger Mode. In trigger mode the processing pipeline will reduce the frequency at which 
+point clouds and state lists are getting computed to reduce the amount of data transmitted between the processing 
+device and configured 'lidars'.
+
+.Available fields in blickfeld.percept_pipeline.config.DataSource.Trigger
+|===
+| Field | Type | Default | Unit
+
+.2+| *frequency* | float| - | Hz 
+3+| The frequency at which data is getting requested from the lidars and outputs are generated.
+
+|===
+
 [#_blickfeld_percept_pipeline_config_DataSource_Qb2Setup]
 == Qb2 Setup
 
@@ -85,6 +101,10 @@ The configuration of a Qb2 setup of the LiDAR devices
 
 .2+| *lidars* | repeated xref:blickfeld/percept_pipeline/config/data_source.adoc#_blickfeld_percept_pipeline_config_DataSource_Qb2[Qb2] | - | - 
 3+| the qb2 lidars to get the point clouds from
+
+.2+| *trigger* | optional xref:blickfeld/percept_pipeline/config/data_source.adoc#_blickfeld_percept_pipeline_config_DataSource_Trigger[Trigger] | - | - 
+3+| If the field is set trigger mode is enabled. If the field is not set, the pipeline outputs are computed 
+with the frequency of configured lidars, i.e. the scan pattern configured on those.
 
 |===
 

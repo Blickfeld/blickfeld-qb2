@@ -1,0 +1,52 @@
+= Service: Self Test
+
+NOTE: This API is officially released and maintained.
+
+The SelfTest service offers methods to trigger test routines. 
+The routines focus on automatic self tests without user interaction. 
+The reports give an indication what the potential root cause for an found issue could be.
+
+.Available methods
+|===
+| Method | Request | Response
+
+| *xref:#Run[]* | xref:blickfeld/diagnostics/services/self_test.adoc#_blickfeld_diagnostics_services_SelfTestRunRequest[SelfTestRunRequest]| xref:blickfeld/diagnostics/services/self_test.adoc#_blickfeld_diagnostics_services_SelfTestRunResponse[SelfTestRunResponse]
+|===
+[#Run]
+== Run
+
+This triggers the default test case routine
+
+[#_blickfeld_diagnostics_services_SelfTestRunRequest]
+=== Request
+
+The self test run can be configured with this request
+
+.Available fields in blickfeld.diagnostics.services.SelfTestRunRequest
+|===
+| Field | Type | Default | Unit
+
+.2+| *self_tests* | repeated xref:blickfeld/diagnostics/config/self_test.adoc#_blickfeld_diagnostics_config_SelfTest[config.SelfTest] | - | - 
+3+| Specify self tests which should be executed. 
+If not set, the default set will be executed.
+
+|===
+
+[#_blickfeld_diagnostics_services_SelfTestRunResponse]
+=== Response
+
+The response provides the self test report. 
+ 
+[NOTE] 
+The method will not throw an exception on API level if tests failed or have warnings. 
+The success flag in the report must be checked.
+
+.Available fields in blickfeld.diagnostics.services.SelfTestRunResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *report* | xref:blickfeld/diagnostics/data/self_test_report.adoc#_blickfeld_diagnostics_data_SelfTestReport[data.SelfTestReport] | - | - 
+3+| Test report
+
+|===
+

@@ -41,10 +41,20 @@ message DataSource {
     // accurate if the network is not reliable.
     bool enable_time_sync = 2;
   }
+  // Configuration of Trigger Mode. In trigger mode the processing pipeline will reduce the frequency at which
+  // point clouds and state lists are getting computed to reduce the amount of data transmitted between the processing
+  // device and configured 'lidars'.
+  message Trigger {
+    // The frequency at which data is getting requested from the lidars and outputs are generated.
+    float frequency = 1 [(.blickfeld.base.unit) = "Hz"];
+  }
   // The configuration of a Qb2 setup of the LiDAR devices
   message Qb2Setup {
     // the qb2 lidars to get the point clouds from
     repeated .blickfeld.percept_pipeline.config.DataSource.Qb2 lidars = 1;
+    // If the field is set trigger mode is enabled. If the field is not set, the pipeline outputs are computed
+    // with the frequency of configured lidars, i.e. the scan pattern configured on those.
+    .blickfeld.percept_pipeline.config.DataSource.Trigger trigger = 2 [(.blickfeld.base.optional) = true];
   }
   oneof data_source_type {
     // Use Cube 1 lidars to retrieve point clouds

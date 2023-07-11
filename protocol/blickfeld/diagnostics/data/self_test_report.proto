@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+import "blickfeld/diagnostics/config/self_test.proto";
+package blickfeld.diagnostics.data;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_ADMIN
+};
+
+// Report which contains the results of the selected self tests.
+message SelfTestReport {
+  // Result of test.
+  message Result {
+    // Result flags which indicates if test was sucessful.
+    enum Flag {
+      // Unknown result.
+      FLAG_UNSPECIFIED = 0;
+      // The test was successful.
+      FLAG_SUCCESS = 1;
+      // The test suceeded but it raised some warnings.
+      // Please report if this happens during production and the root-cause is unknown.
+      FLAG_WARNING = 2;
+      // The test failed.
+      // The tested module is most probably not functional.
+      FLAG_FAILURE = 3;
+    }
+    // Test case
+    .blickfeld.diagnostics.config.SelfTest test = 1;
+    // Unique identifier of test case
+    string identifier = 5;
+    // Flag which states test result
+    .blickfeld.diagnostics.data.SelfTestReport.Result.Flag flag = 2;
+    // Human-readable reason for test warning or failure.
+    // Is not set if test was successful.
+    string reason = 3 [(.blickfeld.base.optional) = true];
+    // Duration of test run
+    float duration = 4 [(.blickfeld.base.unit) = "s"];
+  }
+  // Aggregated result flag which is FLAG_SUCCESS if all tests passed without warnings
+  .blickfeld.diagnostics.data.SelfTestReport.Result.Flag result_flag = 1;
+  // List of test results
+  repeated .blickfeld.diagnostics.data.SelfTestReport.Result results = 2;
+}
+

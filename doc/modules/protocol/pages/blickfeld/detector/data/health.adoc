@@ -15,26 +15,3 @@ Health message giving information about operation status and possible errors.
 
 |===
 
-[#_blickfeld_detector_data_Health_Apd]
-== Apd
-
-Current status of APD operation.
-
-.Available fields in blickfeld.detector.data.Health.Apd
-|===
-| Field | Type | Default | Unit
-
-.2+| *bias_voltage* | float| - | - 
-3+| Current APD bias voltage.
-
-.2+| *temperature_compensation* | bool| - | - 
-3+| Flag indicating whether temperature compensation is used. If not, static voltage is used.
-
-.2+| *multiplication_factor* | uint32| - | - 
-3+| Currently used multiplication factor. Only valid if temperature compensation is used.
-
-.2+| *temperature* | float| - | °C 
-3+| Current temperature measured with dedicated temperature IC which is thermally coupled to the APD.
-
-|===
-

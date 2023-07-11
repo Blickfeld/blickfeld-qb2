@@ -1,0 +1,20 @@
+[#_blickfeld_diagnostics_config_SelfTest]
+= Self Test
+
+List of available self tests 
+ 
+NOTE: The test list is still incomplete.
+
+.Available values for blickfeld.diagnostics.config.SelfTest enum
+[cols='25h,5,~']
+|===
+| Name | Value | Description
+
+| SELF_TEST_UNSPECIFIED ^| 0 | No test is specified.
+| SELF_TEST_POINT_CLOUD ^| 1 | Simple test which starts up the device, requests a point cloud, validates its 
+properties and stops the device.
+| SELF_TEST_CONNECTION ^| 2 | Simple connection tests to basic peripherals: PCIe, laser, detector, vertical BDC & horizontal BDC. 
+It performs version requests to the modules.
+| SELF_TEST_BEAM_DEFLECTION_UNIT ^| 3 | Simple check for basic functionality of the beam deflection units
+|===
+

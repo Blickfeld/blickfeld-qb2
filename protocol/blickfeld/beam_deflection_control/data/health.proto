@@ -14,20 +14,6 @@ message Health {
   message Stats {
     // Current time in s.
     float time = 1 [(.blickfeld.base.unit) = "s"];
-    // Current BB frequency estimation (only set when running BB).
-    float bb_frequency = 2 [(.blickfeld.base.unit) = "Hz"];
-    // Maximum MSR which occured. Observer q1 in case of CL, sensor atan in case of BB.
-    float max_mechanical_scan_range = 3 [(.blickfeld.base.unit) = "rad"];
-    // Minimum DAC value wich occured for piezo 0.
-    uint32 min_dac_u0 = 4;
-    // Maximum DAC value wich occured for piezo 0.
-    uint32 max_dac_u0 = 5;
-    // Minimum DAC value wich occured for piezo 1.
-    uint32 min_dac_u1 = 6;
-    // Maximum DAC value wich occured for piezo 1.
-    uint32 max_dac_u1 = 7;
-    // Maximum amount of cycles needed for control loop.
-    uint32 max_cycles = 8;
   }
   // High-level state of module
   .blickfeld.base.data.Health.State state = 1;

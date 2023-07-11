@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+import "google/protobuf/empty.proto";
+package blickfeld.diagnostics.services;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_ADMIN
+};
+
+// Stream of the encrypted report in chunks of binary data
+message ReportGenerateResponse {
+  // Binary chunk of the diagnostics report.
+  bytes binary_chunk = 1;
+}
+
+// The Report service generates an encrypted diagnostics report containing information about
+// the state and health information of the Qb2 device.
+service Report {
+  option (.blickfeld.base.access_control_service) = {
+    level: LEVEL_ADMIN
+  };
+  option (.blickfeld.base.protocol_maturity_service) = {
+    level: LEVEL_MAINTAINED
+  };
+  // Returns a stream of the report's binary chunks
+  rpc Generate(.google.protobuf.Empty) returns (stream .blickfeld.diagnostics.services.ReportGenerateResponse);
+}
+

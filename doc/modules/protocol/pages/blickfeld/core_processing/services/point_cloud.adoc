@@ -11,9 +11,11 @@ The post-processed output can be retrieved from the percept-processing PointClou
 |===
 | Method | Request | Response
 
-| *xref:#Stream[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/core_processing/services/point_cloud.adoc#_blickfeld_core_processing_services_PointCloudStreamResponse[PointCloudStreamResponse]Stream 
-| *xref:#Get[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/core_processing/services/point_cloud.adoc#_blickfeld_core_processing_services_PointCloudGetResponse[PointCloudGetResponse]
+| *xref:#Stream[]* | xref:blickfeld/core_processing/services/point_cloud.adoc#_blickfeld_core_processing_services_PointCloudStreamRequest[PointCloudStreamRequest]| xref:blickfeld/core_processing/services/point_cloud.adoc#_blickfeld_core_processing_services_PointCloudStreamResponse[PointCloudStreamResponse]Stream 
+| *xref:#Get[]* | xref:blickfeld/core_processing/services/point_cloud.adoc#_blickfeld_core_processing_services_PointCloudGetRequest[PointCloudGetRequest]| xref:blickfeld/core_processing/services/point_cloud.adoc#_blickfeld_core_processing_services_PointCloudGetResponse[PointCloudGetResponse]
 | *xref:#EnableDemo[]* | xref:blickfeld/core_processing/services/point_cloud.adoc#_blickfeld_core_processing_services_PointCloudEnableDemoRequest[PointCloudEnableDemoRequest]| xref:#_google_protobuf_Empty[google.protobuf.Empty]
+| *xref:#SetFilter[]* | xref:blickfeld/core_processing/services/point_cloud.adoc#_blickfeld_core_processing_services_PointCloudSetFilterRequest[PointCloudSetFilterRequest]| xref:#_google_protobuf_Empty[google.protobuf.Empty]
+| *xref:#GetFilter[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/core_processing/services/point_cloud.adoc#_blickfeld_core_processing_services_PointCloudGetFilterResponse[PointCloudGetFilterResponse]
 |===
 [#Stream]
 == Stream
@@ -21,6 +23,11 @@ The post-processed output can be retrieved from the percept-processing PointClou
 Stream a point cloud stream 
  
 NOTE: This activates the sensor if it is currently idle.
+
+[#_blickfeld_core_processing_services_PointCloudStreamRequest]
+=== Request
+
+Request for point cloud stream request
 
 [#_blickfeld_core_processing_services_PointCloudStreamResponse]
 === Response Stream
@@ -42,6 +49,11 @@ Stream response to point cloud stream request
 Get a single point cloud 
  
 NOTE: This activates the sensor if it is currently idle.
+
+[#_blickfeld_core_processing_services_PointCloudGetRequest]
+=== Request
+
+Request for point cloud get request
 
 [#_blickfeld_core_processing_services_PointCloudGetResponse]
 === Response
@@ -74,6 +86,46 @@ Response to point cloud enable demo request
 
 .2+| *recording* | xref:blickfeld/core_processing/config/demo_recording.adoc#_blickfeld_core_processing_config_DemoRecording[config.DemoRecording] | - | - 
 3+| Select demo recording
+
+|===
+
+[#SetFilter]
+== SetFilter
+
+Set the filter configuration which is to be applied on the point cloud data 
+ 
+NOTE: The new filter configuration is not applied on already active streams
+
+[#_blickfeld_core_processing_services_PointCloudSetFilterRequest]
+=== Request
+
+Request for setting the filter configuration
+
+.Available fields in blickfeld.core_processing.services.PointCloudSetFilterRequest
+|===
+| Field | Type | Default | Unit
+
+.2+| *filter* | xref:blickfeld/core_processing/config/point_cloud.adoc#_blickfeld_core_processing_config_PointCloud_Filter[config.PointCloud.Filter] | - | - 
+3+| Filter configuration which should be applied on the point cloud frames.
+
+|===
+
+[#GetFilter]
+== GetFilter
+
+Get the filter configuration which is currently applied on the point cloud data
+
+[#_blickfeld_core_processing_services_PointCloudGetFilterResponse]
+=== Response
+
+Response for retrieving the current filter configuration
+
+.Available fields in blickfeld.core_processing.services.PointCloudGetFilterResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *filter* | xref:blickfeld/core_processing/config/point_cloud.adoc#_blickfeld_core_processing_config_PointCloud_Filter[config.PointCloud.Filter] | - | - 
+3+| Filter configuration which is currently applied on the point cloud frames.
 
 |===
 

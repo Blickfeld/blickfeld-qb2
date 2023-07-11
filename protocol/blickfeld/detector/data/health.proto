@@ -10,17 +10,6 @@ option (.blickfeld.base.access_control_file) = {
 
 // Health message giving information about operation status and possible errors.
 message Health {
-  // Current status of APD operation.
-  message Apd {
-    // Current APD bias voltage.
-    float bias_voltage = 1;
-    // Flag indicating whether temperature compensation is used. If not, static voltage is used.
-    bool temperature_compensation = 2;
-    // Currently used multiplication factor. Only valid if temperature compensation is used.
-    uint32 multiplication_factor = 3;
-    // Current temperature measured with dedicated temperature IC which is thermally coupled to the APD.
-    float temperature = 4 [(.blickfeld.base.unit) = "\302\260C"];
-  }
   // High-level state of the module.
   .blickfeld.base.data.Health.State state = 1;
   // Reason for given state. Is not set if state is OK.

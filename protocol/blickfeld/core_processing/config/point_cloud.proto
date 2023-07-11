@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+package blickfeld.core_processing.config;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// Configuration parameters for the point cloud
+message PointCloud {
+  // Filter configuration which can be applied on point cloud frames.
+  message Filter {
+    // Set maximum number of returns per point.
+    // By default, secondary returns are disabled. Set this, e.g. to 2, to enable secondary returns.
+    uint32 maximum_returns_per_point = 1 [(.blickfeld.base.optional) = true];
+  }
+}
+

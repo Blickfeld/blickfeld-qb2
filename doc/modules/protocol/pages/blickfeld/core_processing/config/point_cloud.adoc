@@ -1,0 +1,20 @@
+[#_blickfeld_core_processing_config_PointCloud]
+= Point Cloud
+
+Configuration parameters for the point cloud
+
+[#_blickfeld_core_processing_config_PointCloud_Filter]
+== Filter
+
+Filter configuration which can be applied on point cloud frames.
+
+.Available fields in blickfeld.core_processing.config.PointCloud.Filter
+|===
+| Field | Type | Default | Unit
+
+.2+| *maximum_returns_per_point* | optional uint32| - | - 
+3+| Set maximum number of returns per point. 
+By default, secondary returns are disabled. Set this, e.g. to 2, to enable secondary returns.
+
+|===
+

@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+package blickfeld.diagnostics.config;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_ADMIN
+};
+
+// List of available self tests
+// NOTE: The test list is still incomplete.
+enum SelfTest {
+  // No test is specified.
+  SELF_TEST_UNSPECIFIED = 0;
+  // Simple test which starts up the device, requests a point cloud, validates its
+  // properties and stops the device.
+  SELF_TEST_POINT_CLOUD = 1;
+  // Simple connection tests to basic peripherals: PCIe, laser, detector, vertical BDC & horizontal BDC.
+  // It performs version requests to the modules.
+  SELF_TEST_CONNECTION = 2;
+  // Simple check for basic functionality of the beam deflection units
+  SELF_TEST_BEAM_DEFLECTION_UNIT = 3;
+}
+

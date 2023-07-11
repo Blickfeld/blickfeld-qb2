@@ -25,6 +25,7 @@
 *** core_processing
 **** config
 ***** xref:protocol:blickfeld/core_processing/config/demo_recording.adoc[Demo Recording]
+***** xref:protocol:blickfeld/core_processing/config/point_cloud.adoc[Point Cloud]
 **** data
 ***** xref:protocol:blickfeld/core_processing/data/acceleration.adoc[Acceleration]
 ***** xref:protocol:blickfeld/core_processing/data/acceleration_buffer.adoc[Acceleration Buffer]
@@ -39,6 +40,14 @@
 ***** xref:protocol:blickfeld/detector/data/health.adoc[Health]
 **** services
 ***** xref:protocol:blickfeld/detector/services/health.adoc[Health]
+*** diagnostics
+**** config
+***** xref:protocol:blickfeld/diagnostics/config/self_test.adoc[Self Test]
+**** data
+***** xref:protocol:blickfeld/diagnostics/data/self_test_report.adoc[Self Test Report]
+**** services
+***** xref:protocol:blickfeld/diagnostics/services/report.adoc[Report]
+***** xref:protocol:blickfeld/diagnostics/services/self_test.adoc[Self Test]
 *** hardware
 **** config
 ***** xref:protocol:blickfeld/hardware/config/identification.adoc[Identification]

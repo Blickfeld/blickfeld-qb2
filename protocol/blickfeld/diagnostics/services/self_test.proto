@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+import "blickfeld/diagnostics/config/self_test.proto";
+import "blickfeld/diagnostics/data/self_test_report.proto";
+package blickfeld.diagnostics.services;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_ADMIN
+};
+
+// The self test run can be configured with this request
+message SelfTestRunRequest {
+  // Specify self tests which should be executed.
+  // If not set, the default set will be executed.
+  repeated .blickfeld.diagnostics.config.SelfTest self_tests = 1 [(.blickfeld.base.optional) = true];
+}
+
+// The response provides the self test report.
+// [NOTE]
+// The method will not throw an exception on API level if tests failed or have warnings.
+// The success flag in the report must be checked.
+message SelfTestRunResponse {
+  // Test report
+  .blickfeld.diagnostics.data.SelfTestReport report = 1;
+}
+
+// The SelfTest service offers methods to trigger test routines.
+// The routines focus on automatic self tests without user interaction.
+// The reports give an indication what the potential root cause for an found issue could be.
+service SelfTest {
+  option (.blickfeld.base.access_control_service) = {
+    level: LEVEL_ADMIN
+  };
+  option (.blickfeld.base.protocol_maturity_service) = {
+    level: LEVEL_MAINTAINED
+  };
+  // This triggers the default test case routine
+  rpc Run(.blickfeld.diagnostics.services.SelfTestRunRequest) returns (.blickfeld.diagnostics.services.SelfTestRunResponse);
+}
+

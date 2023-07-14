@@ -1,0 +1,49 @@
+= Ethernet Interface
+
+The Qb2 by default uses a 1000BASE-T Ethernet port for communication. The same port is used for powering the sensor via Power over Ethernet (PoE) technology.
+
+When the Qb2 is configured to communicate via the integrated WiFi interface, the Ethernet port is only used for powering the device.
+
+== Power over Ethernet
+
+The Qb2 is a Type 1 powered device (PD) according to the PoE standard IEEE 802.3at. It can be powered by any power supplying equipment (PSE) that conforms with the IEEE 802.3af and IEEE 802.3at standards.
+
+[NOTE]
+====
+Some PoE injectors available on the market (often designated as _passive_ PoE) use different voltage levels than those defined by the IEEE 802.3af/at standards. The Qb2 might not function properly if they are used. Make sure to always use PoE equipment that complies with the aforementioned IEEE standards.
+====
+
+== Connector specification
+
+The wired network port of the Qb2 is a IP67-rated M12 round connector (as per IEC 61076-2-109). The connector is supplied with a protective cap, which must be removed before the electrical installation. When no cable is connected to the Qb2 and during storage, please put the cap back onto the connector.
+
+[NOTE]
+====
+The Qb2 can only maintain its IP67 rating if either an Ethernet cable with IP67 rating or the protective cap is properly screwed onto the Ethernet port.
+====
+
+.Pinout of the M12 Ethernet receptacle on the sensor. For the pin assignment, see table below.
+image::Qb2_M12_connector_layout.svg[]
+
+.M12 Ethernet receptacle pin assignment in conjunction with figure above.
+|===
+|Signals 1/10 Gbit/s    |Assignment M12 X-coded |Color coding (TIA-568B)
+
+|BI_DA+                 |1                      |White/orange      
+
+|BI_DA-                 |2                      |Orange  
+
+|BI_DB+                 |3                      |White/green  
+
+|BI_DB-                 |4                      |Green  
+
+|BI_DC+                 |5                      |White/blue  
+
+|BI_DC-                 |6                      |Blue  
+
+|BI_DD+                 |7                      |White/brown  
+
+|BI_DD-                 |8                      |Brown
+
+|Shield                 |Housing                |Housing
+|===

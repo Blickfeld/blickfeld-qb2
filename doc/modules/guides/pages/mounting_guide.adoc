@@ -1,0 +1,49 @@
+= Mounting Guide
+
+The Qb2 must only be operated after it has been installed to a stable mounting base. 
+Blickfeld offers different mounting solutions for permanent or temporary installation purposes. Contact sales@blickfeld.com for further information.
+
+[TIP]
+====
+Sensor CAD data can be downloaded from http://www.blickfeld.com/resources[www.blickfeld.com].
+====
+
+== Requirements
+
+* Observe the operational and storage temperature limits at the mounting location.
+* Ensure that air flow at the heatsink of the device is not obstructed by leaving at least 20 cm of gap between the sensor and surrounding structures in all directions.
+* Always use the defined mounting interfaces of the Qb2 as shown below.
+* Ensure that the field-of-view of the sensos is not occluded by surrounding objects.
+* Avoid mounting to structures that exert or transmit vibrations or shaking to the sensor.
+* Avoid mounting configurations where the sensor would receive direct sunlight or sunlight reflections from shiny surfaces. 
+* Make sure that the device is only accessible to instructed personnel. 
+
+[NOTE]
+====
+Do not place the Qb2 in the immediate vicinity of sources of magnetic fields. This can degrade the performance of the sensor and, in extreme cases, lead to temporary malfunction.
+====
+
+== Mounting instructions
+
+It is recommended to perform the mounting process in two steps:
+
+. Mounting and rough alignment with the sensor switched off
+. Fine adjustment of sensor orientation while observing the point cloud 
+
+[CAUTION]
+====
+Hot surface!
+
+After longer periods of operation (> 5 min) the housing of the Qb2 can be hot. Avoid touching during operation or let the sensor cool down after operation.
+====
+
+== Sensor mounting interfaces
+
+.Mounting interfaces of the Qb2 standard version (left) and ETR version (right).
+image::Qb2_mounting_interfaces.svg[xref=qb2-mounting-interfaces]
+
+// == How to choose a sensor location for best performance
+//
+//The mounting position is important for a good coverage of the area you are interested to monitor. Sensors mounted too high might cover a larger area but will loose information because of the sparser point cloud in the distance. On the other hand, sensors that are mounted too low might not properly detect objects at close distance or because they are easily blocked by objects moving in front of the sensor.
+//
+//There are different kinds of occlusion. Some of them might happen through objects moving into the scene and blocking the view. If this is a problem consider a different mounting height/position. Another reason is static objects like walls or pillars. In this case, another sensor from a different side can help to reduce the blind spots.

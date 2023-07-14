@@ -1,0 +1,23 @@
+= Operating Principle
+:stem: latexmath
+ 
+The Qb2 is a scanning Light Detection and Ranging (LiDAR) sensor. It provides a three-dimensional map of the surrounding within the field-of-view (FoV), which it obtains by emitting short laser pulses and detecting the small portion of reflected light using the Time-of-Flight technique (ToF). Time-of-flight means that the sensor measures the time between emission of a laser pulse and the detection of the reflection signal. 
+The distance stem:[d] is calculated as the product of the lightspeed constant stem:[c] and the measured roundtrip time stem:[t] divided by stem:[2].
+
+[stem]
+++++
+d = \frac{c \times t}{2}
+++++
+
+In the Qb2, the laser source is a collimated laser diode with a wavelength of 905 nm. The emitted laser beam has a collimation of 0.25° x 0.25°. The laser is controlled in such a way that a regular pattern results in the point cloud with the configured horizontal resolution.
+
+The Qb2 scans the surroundings by deflecting the laser in two directions by employing Blickfeld's proprietary MEMS scanner technology. Every Qb2 contains two MEMS beam deflection units, which together form the scanner. They are oriented perpendicularly with respect to each other and thus allow the deflection of the beam in two perpendicular directions. The first mirror deflects the beam in the vertical, the second one in the horizontal direction. Figure 1 depicts the working principle of the scanner. When the scanner is running, both mirrors perform oscillating rotational movements. This simultaneous movement of both mirrors defines the trajectory for the laser beam and creates the “eye-shaped” scan pattern that is typical for the Qb2.
+
+.Working principle of the Qb2 
+image::LiDAR_operating_principle.svg[]
+. Laser source
+. Laser pulse
+. Beam splitter
+. Beam deflection units
+. Object within field-of-view
+. Photodetector

@@ -24,3 +24,8 @@ install(
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/blickfeld
     FILES_MATCHING PATTERN "*.h"
 )
+
+# Simple examples
+if (BF_BUILD_EXAMPLES)
+    add_subdirectory(examples)
+endif()

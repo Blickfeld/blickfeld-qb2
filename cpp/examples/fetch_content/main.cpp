@@ -8,7 +8,7 @@ int main() {
     auto                                                           service = blickfeld::core_processing::services::PointCloud::NewStub(channel);
     grpc::ClientContext                                            context;
     blickfeld::core_processing::services::PointCloudStreamResponse response;
-    auto                                                           stream = service->Stream(&context, google::protobuf::Empty());
+    auto stream = service->Stream(&context, blickfeld::core_processing::services::PointCloudStreamRequest());
     stream->Read(&response);
     std::cout << "Received a frame with the ID " << response.frame().id() << std::endl;
     context.TryCancel();

@@ -3,7 +3,6 @@
 syntax = "proto3";
 
 import "blickfeld/base/options.proto";
-import "blickfeld/percept_pipeline/config/zone_algorithm.proto";
 import "google/protobuf/empty.proto";
 package blickfeld.percept_pipeline.services;
 

@@ -2,15 +2,36 @@
 :imagesdir: ../assets/images
 
 In this guide we establish a secure connection to a Qb2 device.
-Afterwards, the point cloud stream is requested and point cloud frames are received. 
+Afterwards, the point cloud data is requested and one or multiple point cloud frames are received. 
 Finally, we get data from the received point cloud and plot a single point cloud frame.
 
 NOTE: Please follow the xref:api.adoc[API Guide] first to install the Python package.
 
 == Fetch point cloud from Qb2 
 
-We use the ```PointCloud``` service from ```blickfeld_qb2.core_processing.services``` namespace over the gRPC channel and make a streaming request to get a point cloud stream from the device. 
-The code snippet below shows an example of connecting to Qb2 with a hostname ```qb2-xxxxxxxxx``` and fetching three point cloud frames from it. 
+We use the ```PointCloud``` service from ```blickfeld_qb2.core_processing.services``` namespace over the gRPC channel and issue a single get (retrieve one point cloud frame) or streaming request (continuously receive point cloud frames) to the device.
+The code snippets below show examples of connecting to a Qb2 with hostname ```qb2-xxxxxxxxx``` and fetching point cloud frames from it.
+
+=== Get single frame
+
+The following example shows how to fetch a single point cloud frame using the ```Get``` method.
+
+[source,python]
+----
+import blickfeld_qb2
+from blickfeld_qb2.base.grpc.channel import Channel
+
+# open secure connection to Qb2
+with Channel(fqdn_or_ip="qb2-xxxxxxxxx") as channel:
+    service = blickfeld_qb2.core_processing.services.PointCloud(channel)
+    frame = service.get().frame
+    # print frame id
+    print("received frame with id", frame.id)
+----
+
+=== Continuously stream point cloud frames
+
+The following example shows how to continuously stream point cloud frames from a Qb2 device:
 
 [source,python]
 ----
@@ -25,14 +46,14 @@ with Channel(fqdn_or_ip="qb2-xxxxxxxxx") as channel:
         # extract point cloud frame from response 
         frame = response.frame
         # print frame id
-        print("received frame with id", frame.id) 
+        print("received frame with id", frame.id)
         # get 3 frames and stop 
         if i == 2: 
             break
 ----
 
 == Get data from point cloud frame
-In the code snippet below we read out the cartesian coordinates ```xyz``` for each point in the received point cloud frame. 
+In the code snippet below we read out the cartesian coordinates ```xyz``` for each point in the received point cloud frame.
 We further use these values to calculate azimuth and elevation vectors. 
 
 [source,python]
@@ -50,7 +71,7 @@ elevation = np.arcsin(xyz[:,2] / distance)
 
 == Plot point cloud frame 
 
-Finally, ```azimuth```, ```elevation``` and ```photon_count``` vectors are used to plot the desired field of view from the point cloud frame as shown in the code snippet below. 
+Finally, ```azimuth```, ```elevation``` and ```photon_count``` vectors are used to plot the desired field of view from the point cloud frame as shown in the code snippet below.
 
 [source,python]
 ----

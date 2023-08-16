@@ -33,6 +33,7 @@
 ***** xref:protocol:blickfeld/core_processing/data/health.adoc[Health]
 **** services
 ***** xref:protocol:blickfeld/core_processing/services/acceleration.adoc[Acceleration]
+***** xref:protocol:blickfeld/core_processing/services/distortion_correction.adoc[Distortion Correction]
 ***** xref:protocol:blickfeld/core_processing/services/health.adoc[Health]
 ***** xref:protocol:blickfeld/core_processing/services/point_cloud.adoc[Point Cloud]
 *** detector

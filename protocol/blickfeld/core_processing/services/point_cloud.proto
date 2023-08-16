@@ -72,7 +72,6 @@ service PointCloud {
   // It will be re-played on Stream requests
   rpc EnableDemo(.blickfeld.core_processing.services.PointCloudEnableDemoRequest) returns (.google.protobuf.Empty);
   // Set the filter configuration which is to be applied on the point cloud data
-  // NOTE: The new filter configuration is not applied on already active streams
   rpc SetFilter(.blickfeld.core_processing.services.PointCloudSetFilterRequest) returns (.google.protobuf.Empty);
   // Get the filter configuration which is currently applied on the point cloud data
   rpc GetFilter(.google.protobuf.Empty) returns (.blickfeld.core_processing.services.PointCloudGetFilterResponse);

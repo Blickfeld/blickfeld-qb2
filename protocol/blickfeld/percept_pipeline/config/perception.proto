@@ -17,5 +17,6 @@ message Perception {
   .blickfeld.percept_pipeline.config.BackgroundSubtraction background_subtraction = 1;
   // Filter the foreground point cloud
   repeated .blickfeld.percept_pipeline.config.PointCloudFilter foreground_point_cloud_filters = 2;
+  reserved 3, 4, 5, 6;
 }
 

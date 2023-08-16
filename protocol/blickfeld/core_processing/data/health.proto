@@ -78,14 +78,27 @@ message Health {
   message ServerStatus {
     // Status for Point Cloud service
     message PointCloud {
+      // Connected client information
+      message Client {
+        // Number of open streams belonging to the client.
+        uint32 number_of_streams = 1;
+        // Number of frames which have been lost due to slow reading from the client side.
+        uint64 lost_frames = 2;
+      }
       // Number of currently open client connections
       // [NOTE]
       // This is a snapshot and does not distinguish between long running streams or single request / response methods.
-      uint32 number_of_clients = 1;
+      // [NOTE]
+      // This field is deprecated, use the field `clients` instead.
+      uint32 number_of_clients = 1 [(.blickfeld.base.protocol_maturity_field) = {
+        level: LEVEL_DEPRECATED
+      }];
       // Average data rate
       // [NOTE]
       // This value is averaged over 10 seconds, peak or current values might be different.
       float data_rate = 2 [(.blickfeld.base.unit) = "B/s"];
+      // List of currently connected client IPs and their information
+      map<string, .blickfeld.core_processing.data.Health.ServerStatus.PointCloud.Client> clients = 3;
     }
     // Status for Acceleration service
     message Acceleration {
@@ -173,6 +186,8 @@ message Health {
     bool exhausted_horizontal_beam_deflection_control_buffers = 7;
     // Dropping data because magnetic field buffers are exhausted
     bool exhausted_magnetic_field_buffers = 8;
+    // One or multiple clients are loosing frames because they are reading too slow
+    bool client_loosing_frames = 9;
   }
   // High-level state of module
   .blickfeld.base.data.Health.State state = 1;

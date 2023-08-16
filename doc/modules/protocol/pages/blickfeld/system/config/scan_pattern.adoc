@@ -60,7 +60,7 @@ the frame rate.
 |===
 | Field | Type | Default | Unit
 
-.2+| *field_of_view* | float| 0.942477822 | rad 
+.2+| *field_of_view* | float| 0.87266463 | rad 
 3+|  
 Unit: [rad] 
 – 
@@ -89,7 +89,7 @@ This section defines the pattern in which the laser pulses and captures sample p
 |===
 | Field | Type | Default | Unit
 
-.2+| *angle_spacing* | float| 0.00872664619 | rad 
+.2+| *angle_spacing* | float| 0.0043633231 | rad 
 3+|  
 Unit: [rad] 
 – 

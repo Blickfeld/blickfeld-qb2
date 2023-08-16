@@ -47,5 +47,6 @@ message ZoneAlgorithm {
       level: LEVEL_PUBLIC
     }];
   }
+  reserved 4, 5, 6;
 }
 

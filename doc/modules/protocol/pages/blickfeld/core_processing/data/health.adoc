@@ -201,7 +201,10 @@ Status for Point Cloud service
 3+| Number of currently open client connections 
  
 [NOTE] 
-This is a snapshot and does not distinguish between long running streams or single request / response methods.
+This is a snapshot and does not distinguish between long running streams or single request / response methods. 
+ 
+[NOTE] 
+This field is deprecated, use the field `clients` instead.
 
 .2+| *data_rate* | float| - | B/s 
 3+| Average data rate 
@@ -209,6 +212,39 @@ This is a snapshot and does not distinguish between long running streams or sing
 [NOTE] 
 This value is averaged over 10 seconds, peak or current values might be different.
 
+.2+| *clients* | repeated xref:blickfeld/core_processing/data/health.adoc#_blickfeld_core_processing_data_Health_ServerStatus_PointCloud_ClientsEntry[ClientsEntry] | - | - 
+3+| List of currently connected client IPs and their information
+
+|===
+
+[#_blickfeld_core_processing_data_Health_ServerStatus_PointCloud_Client]
+==== Client
+
+Connected client information
+
+.Available fields in blickfeld.core_processing.data.Health.ServerStatus.PointCloud.Client
+|===
+| Field | Type | Default | Unit
+
+.2+| *number_of_streams* | uint32| - | - 
+3+| Number of open streams belonging to the client.
+
+.2+| *lost_frames* | uint64| - | - 
+3+| Number of frames which have been lost due to slow reading from the client side.
+
+|===
+
+[#_blickfeld_core_processing_data_Health_ServerStatus_PointCloud_ClientsEntry]
+==== Clients Entry
+
+
+
+.Available fields in blickfeld.core_processing.data.Health.ServerStatus.PointCloud.ClientsEntry
+|===
+| Field | Type | Default | Unit
+
+| *key* | string| - | - 
+| *value* | xref:blickfeld/core_processing/data/health.adoc#_blickfeld_core_processing_data_Health_ServerStatus_PointCloud_Client[Client] | - | - 
 |===
 
 [#_blickfeld_core_processing_data_Health_ServerStatus_Acceleration]
@@ -358,6 +394,9 @@ Error flags of internal data handling mechanisms
 
 .2+| *exhausted_magnetic_field_buffers* | bool| - | - 
 3+| Dropping data because magnetic field buffers are exhausted
+
+.2+| *client_loosing_frames* | bool| - | - 
+3+| One or multiple clients are loosing frames because they are reading too slow
 
 |===
 

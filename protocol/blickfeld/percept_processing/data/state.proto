@@ -78,5 +78,6 @@ message State {
     // Current volume measured in the selected zone
     .blickfeld.percept_processing.data.State.Volume volume = 7;
   }
+  reserved 3, 4, 6;
 }
 

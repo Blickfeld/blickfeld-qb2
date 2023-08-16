@@ -6,4 +6,12 @@ image::qb2_product_banner.png[alt=Qb2]
 
 Qb2 is based on Blickfeld’s proprietary solid-state software-defined LiDAR technology, and, as an industry first, enables the capturing and processing of 3D LiDAR data on a single device.
 
-The integrated compute module allows Blickfeld Percept software stack to run on the device providing data for volume monitoring purposes, crowd analytics and smart infrastructure. WiFi on the device removes the need for additional network cabling.
+The integrated compute module allows Blickfeld Percept software stack to run on the device providing data for volume monitoring purposes, and security applications. WiFi connectivity removes the need for additional network cabling.
+
+[IMPORTANT]
+====
+These documentation pages are a supplement to the Quick Start Manual (Blickfeld Publ. #49039) that is shipped with each unit. The instructions and safety information contained in this printed document apply at all times and take precendence over the present documentation pages.
+User must familiarize with the safety instructions contained in the manual shipped with the device. If you have lost the document, please contact support@blickfeld.com for a digital copy.
+====
+
+(C) Blickfeld GmbH, 2023-present

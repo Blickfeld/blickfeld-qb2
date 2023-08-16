@@ -42,5 +42,6 @@ message BackgroundSubtraction {
     // Use a static octree for foreground/background detection.
     .blickfeld.percept_pipeline.config.BackgroundSubtraction.Octree octree = 3;
   }
+  reserved 2;
 }
 

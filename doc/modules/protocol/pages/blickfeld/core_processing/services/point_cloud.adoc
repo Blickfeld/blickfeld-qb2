@@ -92,9 +92,7 @@ Response to point cloud enable demo request
 [#SetFilter]
 == SetFilter
 
-Set the filter configuration which is to be applied on the point cloud data 
- 
-NOTE: The new filter configuration is not applied on already active streams
+Set the filter configuration which is to be applied on the point cloud data
 
 [#_blickfeld_core_processing_services_PointCloudSetFilterRequest]
 === Request

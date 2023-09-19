@@ -1,0 +1,31 @@
+[#_blickfeld_flow_config_Flow]
+= Flow
+
+Blickfeld Flow configuration 
+ 
+This container is used to control high-level attributes of NodeRed flows.
+
+.Available fields in blickfeld.flow.config.Flow
+|===
+| Field | Type | Default | Unit
+
+.2+| *name* | string| - | - 
+3+| Human readable label of the flow
+
+.2+| *disabled* | bool| - | - 
+3+| Is it active?
+
+.2+| *locked* | bool| - | - 
+3+| Is it read only?
+
+.2+| *is_subflow* | bool| - | - 
+3+| Is it a subflow?
+
+.2+| *metadata* | xref:#_google_protobuf_Struct[google.protobuf.Struct] | - | - 
+3+| Other arbitrary metadata
+
+.2+| *nodes* | repeated xref:#_google_protobuf_Struct[google.protobuf.Struct] | - | - 
+3+| All nodes contained in the flow
+
+|===
+

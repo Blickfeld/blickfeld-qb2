@@ -1,7 +1,7 @@
 syntax = "proto2";
 
-import "google/protobuf/empty.proto";
 import "blickfeld/base/options.proto";
+import "google/protobuf/empty.proto";
 package blickfeld.hardware.services;
 
 option (.blickfeld.base.access_control_file) = {

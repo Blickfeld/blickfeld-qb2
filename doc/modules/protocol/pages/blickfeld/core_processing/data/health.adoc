@@ -398,5 +398,17 @@ Error flags of internal data handling mechanisms
 .2+| *client_loosing_frames* | bool| - | - 
 3+| One or multiple clients are loosing frames because they are reading too slow
 
+.2+| *point_cloud_stream_not_active* | bool| - | - 
+3+| The point cloud stream is not active
+
+.2+| *point_rate_too_low* | bool| - | - 
+3+| The number of points in the point cloud is too low. One of the reasons is that the device is covered. 
+The point rate limit that is used to trigger this flag can be configured with Health.SetConfig API method.
+
+.2+| *point_cloud_alignment_changed* | bool| - | - 
+3+| The point cloud alignment deviates from the reference alignment. 
+This might have an impact on the point cloud processing as e.g. the ground alignment got incorrect. 
+If this is expected, the alignment can be reconfigured with the Health.SetConfig API method.
+
 |===
 

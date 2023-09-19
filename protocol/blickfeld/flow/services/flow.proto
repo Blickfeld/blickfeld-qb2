@@ -1,0 +1,87 @@
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+import "blickfeld/flow/config/flow.proto";
+import "blickfeld/flow/config/node_red_json.proto";
+import "google/protobuf/empty.proto";
+package blickfeld.flow.services;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_AUTHORIZED
+};
+
+// Flow get request
+message FlowGetRequest {
+  // Flow id
+  string id = 1;
+  // If true, the request returns the NodeRed JSON format which can be directly imported.
+  bool as_node_red_json = 2;
+}
+
+// Flow get response
+message FlowGetResponse {
+  oneof kind {
+    // Blickfeld Flow config with well-defined high-level attributes
+    .blickfeld.flow.config.Flow flow = 1;
+    // NodeRed JSON format which can be directly imported
+    .blickfeld.flow.config.NodeRedJson node_red_json = 2;
+  }
+}
+
+// Flow list response
+message FlowListResponse {
+  // List of Blickfeld Flow identifiers.
+  repeated string ids = 1;
+}
+
+// Flow store request
+message FlowStoreRequest {
+  // ID of the flow
+  // NOTE: For node_red_json, this has to match the ID in the NodeRED JSON format.
+  string id = 1;
+  oneof kind {
+    // Blickfeld Flow config with well-defined high-level attributes
+    .blickfeld.flow.config.Flow flow = 2;
+    // NodeRed JSON format which can be directly exported from NodeRED Admin UI
+    .blickfeld.flow.config.NodeRedJson node_red_json = 3;
+  }
+}
+
+// Flow delete request
+message FlowDeleteRequest {
+  // Id of Blickfeld Flow
+  string id = 1;
+}
+
+// Flow store global nodes request
+message FlowStoreGlobalNodesRequest {
+  // NodeRed JSON format of all global configuration nodes
+  .blickfeld.flow.config.NodeRedJson node_red_json = 1;
+}
+
+// Flow get global nodes response
+message FlowGetGlobalNodesResponse {
+  // NodeRed JSON format of all global configuration nodes
+  .blickfeld.flow.config.NodeRedJson node_red_json = 1;
+}
+
+// Service to store and control Blickfeld flows.
+// It is used to implement the custom storage API: https://nodered.org/docs/api/storage/
+service Flow {
+  option (.blickfeld.base.access_control_service) = {
+    level: LEVEL_AUTHORIZED
+  };
+  // Get a flow by id
+  rpc Get(.blickfeld.flow.services.FlowGetRequest) returns (.blickfeld.flow.services.FlowGetResponse);
+  // Return list of flow ids
+  rpc List(.google.protobuf.Empty) returns (.blickfeld.flow.services.FlowListResponse);
+  // Store flow
+  rpc Store(.blickfeld.flow.services.FlowStoreRequest) returns (.google.protobuf.Empty);
+  // Delete stored flow
+  rpc Delete(.blickfeld.flow.services.FlowDeleteRequest) returns (.google.protobuf.Empty);
+  // Store global nodes
+  rpc StoreGlobalNodes(.blickfeld.flow.services.FlowStoreGlobalNodesRequest) returns (.google.protobuf.Empty);
+  // Get global nodes
+  rpc GetGlobalNodes(.google.protobuf.Empty) returns (.blickfeld.flow.services.FlowGetGlobalNodesResponse);
+}
+

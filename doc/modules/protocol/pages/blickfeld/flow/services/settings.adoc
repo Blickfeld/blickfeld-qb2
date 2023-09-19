@@ -1,0 +1,61 @@
+= Service: Settings
+
+CAUTION: This API is not yet officially released neither maintained.
+
+Configuration service to store the NodeRed Settings. 
+ 
+It is used to implement the custom storage API: https://nodered.org/docs/api/storage/
+
+.Available methods
+|===
+| Method | Request | Response
+
+| *xref:#Set[]* | xref:blickfeld/flow/services/settings.adoc#_blickfeld_flow_services_SettingsSetRequest[SettingsSetRequest]| xref:#_google_protobuf_Empty[google.protobuf.Empty]
+| *xref:#Get[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/flow/services/settings.adoc#_blickfeld_flow_services_SettingsGetResponse[SettingsGetResponse]
+|===
+[#Set]
+== Set
+
+Set settings 
+ 
+Used by https://nodered.org/docs/api/storage/methods/#storagesavesettingssettings
+
+[#_blickfeld_flow_services_SettingsSetRequest]
+=== Request
+
+Settings set request
+
+.Available fields in blickfeld.flow.services.SettingsSetRequest
+|===
+| Field | Type | Default | Unit
+
+.2+| *settings* | xref:#_google_protobuf_Struct[google.protobuf.Struct] | - | - 
+3+| Settings which should be stored 
+ 
+Generic JSON format which is defined by NodeRed.
+
+|===
+
+[#Get]
+== Get
+
+Get settings 
+ 
+Used by https://nodered.org/docs/api/storage/methods/#storagegetsettings
+
+[#_blickfeld_flow_services_SettingsGetResponse]
+=== Response
+
+Settings get request
+
+.Available fields in blickfeld.flow.services.SettingsGetResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *settings* | xref:#_google_protobuf_Struct[google.protobuf.Struct] | - | - 
+3+| Current settings 
+ 
+Generic JSON format which is defined by NodeRed.
+
+|===
+

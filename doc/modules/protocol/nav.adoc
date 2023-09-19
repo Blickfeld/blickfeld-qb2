@@ -25,6 +25,7 @@
 *** core_processing
 **** config
 ***** xref:protocol:blickfeld/core_processing/config/demo_recording.adoc[Demo Recording]
+***** xref:protocol:blickfeld/core_processing/config/health.adoc[Health]
 ***** xref:protocol:blickfeld/core_processing/config/point_cloud.adoc[Point Cloud]
 **** data
 ***** xref:protocol:blickfeld/core_processing/data/acceleration.adoc[Acceleration]
@@ -49,11 +50,20 @@
 **** services
 ***** xref:protocol:blickfeld/diagnostics/services/report.adoc[Report]
 ***** xref:protocol:blickfeld/diagnostics/services/self_test.adoc[Self Test]
+*** flow
+**** config
+***** xref:protocol:blickfeld/flow/config/flow.adoc[Flow]
+***** xref:protocol:blickfeld/flow/config/node_red_json.adoc[Node Red Json]
+**** services
+***** xref:protocol:blickfeld/flow/services/credentials.adoc[Credentials]
+***** xref:protocol:blickfeld/flow/services/flow.adoc[Flow]
+***** xref:protocol:blickfeld/flow/services/settings.adoc[Settings]
 *** hardware
 **** config
 ***** xref:protocol:blickfeld/hardware/config/identification.adoc[Identification]
 **** services
 ***** xref:protocol:blickfeld/hardware/services/compute_module.adoc[Compute Module]
+***** xref:protocol:blickfeld/hardware/services/device_operation.adoc[Device Operation]
 ***** xref:protocol:blickfeld/hardware/services/identification.adoc[Identification]
 *** laser
 **** data

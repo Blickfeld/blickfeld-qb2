@@ -1,0 +1,18 @@
+// Copyright (c) 2023 Blickfeld GmbH.
+// All rights reserved.
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+import "google/protobuf/struct.proto";
+package blickfeld.flow.config;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// Simple container for the node red import / export format
+message NodeRedJson {
+  // List of JSON nodes
+  repeated .google.protobuf.Struct nodes = 1;
+}
+

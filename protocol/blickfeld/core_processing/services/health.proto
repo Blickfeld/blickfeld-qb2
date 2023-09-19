@@ -1,6 +1,7 @@
 syntax = "proto3";
 
 import "blickfeld/base/options.proto";
+import "blickfeld/core_processing/config/health.proto";
 import "blickfeld/core_processing/data/health.proto";
 import "google/protobuf/empty.proto";
 package blickfeld.core_processing.services;
@@ -21,6 +22,18 @@ message HealthWatchResponse {
   .blickfeld.core_processing.data.Health health = 1;
 }
 
+// Health set config request
+message HealthSetConfigRequest {
+  // Health parameters
+  .blickfeld.core_processing.config.Health config = 1;
+}
+
+// Health get config response
+message HealthGetConfigResponse {
+  // Health parameters
+  .blickfeld.core_processing.config.Health config = 1;
+}
+
 // The health service provides methods to monitor operational status of the core_processing module
 service Health {
   option (.blickfeld.base.access_control_service) = {
@@ -33,5 +46,9 @@ service Health {
   rpc Get(.google.protobuf.Empty) returns (.blickfeld.core_processing.services.HealthGetResponse);
   // Can be used to attach to the health monitoring status information of the core_processing module
   rpc Watch(.google.protobuf.Empty) returns (stream .blickfeld.core_processing.services.HealthWatchResponse);
+  // Set the necessary parameters to generate the health message. It could be calibration flag, limits, etc.
+  rpc SetConfig(.blickfeld.core_processing.services.HealthSetConfigRequest) returns (.google.protobuf.Empty);
+  // Get the health config
+  rpc GetConfig(.google.protobuf.Empty) returns (.blickfeld.core_processing.services.HealthGetConfigResponse);
 }
 

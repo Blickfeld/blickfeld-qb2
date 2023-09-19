@@ -2,5 +2,6 @@
 ** xref:foundations:coordinate_system.adoc[]
 ** xref:foundations:customer_service_page.adoc[]
 ** xref:foundations:ethernet_interface.adoc[]
+** xref:foundations:flow.adoc[]
 ** xref:foundations:operating_principle.adoc[]
 ** xref:foundations:scan_pattern.adoc[]

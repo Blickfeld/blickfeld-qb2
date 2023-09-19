@@ -1,0 +1,31 @@
+= Service: Device Operation
+
+NOTE: This API is officially released and maintained.
+
+This service is used for starting and stopping the device operation. 
+Normally, the device is started and stopped based on the client connections. If there is a client using the Qb2, the 
+device will start and stay in operation until all clients disconnected. The start function of this service overrides 
+this behaviour, i.e. when started using the start function the device will stay operational even though no clients 
+are connected. This allows a faster retrieval of frames once a client connects as the startup phase is skipped.
+
+.Available methods
+|===
+| Method | Request | Response
+
+| *xref:#Start[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:#_google_protobuf_Empty[google.protobuf.Empty]
+| *xref:#Stop[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:#_google_protobuf_Empty[google.protobuf.Empty]
+|===
+[#Start]
+== Start
+
+Method to start the device operation. 
+This starts the operation ot the deflection mirrors and the laser triggering. 
+When this call is used, the device will stay in operation until stop is called (independent// of clients being 
+connected or not).
+
+[#Stop]
+== Stop
+
+Method to stop the device operation. 
+This will stop the deflection mirror operation and laser triggering.
+

@@ -10,6 +10,8 @@ The health service provides methods to monitor operational status of the core_pr
 
 | *xref:#Get[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/core_processing/services/health.adoc#_blickfeld_core_processing_services_HealthGetResponse[HealthGetResponse]
 | *xref:#Watch[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/core_processing/services/health.adoc#_blickfeld_core_processing_services_HealthWatchResponse[HealthWatchResponse]Stream 
+| *xref:#SetConfig[]* | xref:blickfeld/core_processing/services/health.adoc#_blickfeld_core_processing_services_HealthSetConfigRequest[HealthSetConfigRequest]| xref:#_google_protobuf_Empty[google.protobuf.Empty]
+| *xref:#GetConfig[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/core_processing/services/health.adoc#_blickfeld_core_processing_services_HealthGetConfigResponse[HealthGetConfigResponse]
 |===
 [#Get]
 == Get
@@ -46,6 +48,44 @@ Stream response to health watch request
 
 .2+| *health* | xref:blickfeld/core_processing/data/health.adoc#_blickfeld_core_processing_data_Health[data.Health] | - | - 
 3+| Health state
+
+|===
+
+[#SetConfig]
+== SetConfig
+
+Set the necessary parameters to generate the health message. It could be calibration flag, limits, etc.
+
+[#_blickfeld_core_processing_services_HealthSetConfigRequest]
+=== Request
+
+Health set config request
+
+.Available fields in blickfeld.core_processing.services.HealthSetConfigRequest
+|===
+| Field | Type | Default | Unit
+
+.2+| *config* | xref:blickfeld/core_processing/config/health.adoc#_blickfeld_core_processing_config_Health[config.Health] | - | - 
+3+| Health parameters
+
+|===
+
+[#GetConfig]
+== GetConfig
+
+Get the health config
+
+[#_blickfeld_core_processing_services_HealthGetConfigResponse]
+=== Response
+
+Health get config response
+
+.Available fields in blickfeld.core_processing.services.HealthGetConfigResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *config* | xref:blickfeld/core_processing/config/health.adoc#_blickfeld_core_processing_config_Health[config.Health] | - | - 
+3+| Health parameters
 
 |===
 

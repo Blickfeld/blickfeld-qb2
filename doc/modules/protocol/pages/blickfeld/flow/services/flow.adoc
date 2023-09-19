@@ -1,0 +1,161 @@
+= Service: Flow
+
+CAUTION: This API is not yet officially released neither maintained.
+
+Service to store and control Blickfeld flows. 
+ 
+It is used to implement the custom storage API: https://nodered.org/docs/api/storage/
+
+.Available methods
+|===
+| Method | Request | Response
+
+| *xref:#Get[]* | xref:blickfeld/flow/services/flow.adoc#_blickfeld_flow_services_FlowGetRequest[FlowGetRequest]| xref:blickfeld/flow/services/flow.adoc#_blickfeld_flow_services_FlowGetResponse[FlowGetResponse]
+| *xref:#List[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/flow/services/flow.adoc#_blickfeld_flow_services_FlowListResponse[FlowListResponse]
+| *xref:#Store[]* | xref:blickfeld/flow/services/flow.adoc#_blickfeld_flow_services_FlowStoreRequest[FlowStoreRequest]| xref:#_google_protobuf_Empty[google.protobuf.Empty]
+| *xref:#Delete[]* | xref:blickfeld/flow/services/flow.adoc#_blickfeld_flow_services_FlowDeleteRequest[FlowDeleteRequest]| xref:#_google_protobuf_Empty[google.protobuf.Empty]
+| *xref:#StoreGlobalNodes[]* | xref:blickfeld/flow/services/flow.adoc#_blickfeld_flow_services_FlowStoreGlobalNodesRequest[FlowStoreGlobalNodesRequest]| xref:#_google_protobuf_Empty[google.protobuf.Empty]
+| *xref:#GetGlobalNodes[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/flow/services/flow.adoc#_blickfeld_flow_services_FlowGetGlobalNodesResponse[FlowGetGlobalNodesResponse]
+|===
+[#Get]
+== Get
+
+Get a flow by id
+
+[#_blickfeld_flow_services_FlowGetRequest]
+=== Request
+
+Flow get request
+
+.Available fields in blickfeld.flow.services.FlowGetRequest
+|===
+| Field | Type | Default | Unit
+
+.2+| *id* | string| - | - 
+3+| Flow id
+
+.2+| *as_node_red_json* | bool| - | - 
+3+| If true, the request returns the NodeRed JSON format which can be directly imported.
+
+|===
+
+[#_blickfeld_flow_services_FlowGetResponse]
+=== Response
+
+Flow get response
+
+.Available fields in blickfeld.flow.services.FlowGetResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *flow* | xref:blickfeld/flow/config/flow.adoc#_blickfeld_flow_config_Flow[config.Flow] | - | - 
+3+| Blickfeld Flow config with well-defined high-level attributes
+
+.2+| *node_red_json* | xref:blickfeld/flow/config/node_red_json.adoc#_blickfeld_flow_config_NodeRedJson[config.NodeRedJson] | - | - 
+3+| NodeRed JSON format which can be directly imported
+
+|===
+
+[#List]
+== List
+
+Return list of flow ids
+
+[#_blickfeld_flow_services_FlowListResponse]
+=== Response
+
+Flow list response
+
+.Available fields in blickfeld.flow.services.FlowListResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *ids* | repeated string| - | - 
+3+| List of Blickfeld Flow identifiers.
+
+|===
+
+[#Store]
+== Store
+
+Store flow
+
+[#_blickfeld_flow_services_FlowStoreRequest]
+=== Request
+
+Flow store request
+
+.Available fields in blickfeld.flow.services.FlowStoreRequest
+|===
+| Field | Type | Default | Unit
+
+.2+| *id* | string| - | - 
+3+| ID of the flow 
+ 
+NOTE: For node_red_json, this has to match the ID in the NodeRED JSON format.
+
+.2+| *flow* | xref:blickfeld/flow/config/flow.adoc#_blickfeld_flow_config_Flow[config.Flow] | - | - 
+3+| Blickfeld Flow config with well-defined high-level attributes
+
+.2+| *node_red_json* | xref:blickfeld/flow/config/node_red_json.adoc#_blickfeld_flow_config_NodeRedJson[config.NodeRedJson] | - | - 
+3+| NodeRed JSON format which can be directly exported from NodeRED Admin UI
+
+|===
+
+[#Delete]
+== Delete
+
+Delete stored flow
+
+[#_blickfeld_flow_services_FlowDeleteRequest]
+=== Request
+
+Flow delete request
+
+.Available fields in blickfeld.flow.services.FlowDeleteRequest
+|===
+| Field | Type | Default | Unit
+
+.2+| *id* | string| - | - 
+3+| Id of Blickfeld Flow
+
+|===
+
+[#StoreGlobalNodes]
+== StoreGlobalNodes
+
+Store global nodes
+
+[#_blickfeld_flow_services_FlowStoreGlobalNodesRequest]
+=== Request
+
+Flow store global nodes request
+
+.Available fields in blickfeld.flow.services.FlowStoreGlobalNodesRequest
+|===
+| Field | Type | Default | Unit
+
+.2+| *node_red_json* | xref:blickfeld/flow/config/node_red_json.adoc#_blickfeld_flow_config_NodeRedJson[config.NodeRedJson] | - | - 
+3+| NodeRed JSON format of all global configuration nodes
+
+|===
+
+[#GetGlobalNodes]
+== GetGlobalNodes
+
+Get global nodes
+
+[#_blickfeld_flow_services_FlowGetGlobalNodesResponse]
+=== Response
+
+Flow get global nodes response
+
+.Available fields in blickfeld.flow.services.FlowGetGlobalNodesResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *node_red_json* | xref:blickfeld/flow/config/node_red_json.adoc#_blickfeld_flow_config_NodeRedJson[config.NodeRedJson] | - | - 
+3+| NodeRed JSON format of all global configuration nodes
+
+|===
+

@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+import "blickfeld/core_processing/data/acceleration.proto";
+package blickfeld.core_processing.config;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// Configuration parameters for the health message
+message Health {
+  // Set the point rate lower limit. If the point rate
+  // is lower than this limit, the device is considered to be covered.
+  uint32 point_rate_lower_limit = 1 [(.blickfeld.base.optional) = true];
+  // The limit to detect the alignment has changed.
+  float point_cloud_alignment_deviation_norm_upper_limit = 2 [(.blickfeld.base.optional) = true];
+  // Set the point cloud reference alignment.
+  .blickfeld.core_processing.data.Acceleration point_cloud_reference_alignment = 3 [(.blickfeld.base.optional) = true];
+}
+

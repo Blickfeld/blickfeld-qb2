@@ -1,0 +1,14 @@
+[#_blickfeld_flow_config_NodeRedJson]
+= Node Red Json
+
+Simple container for the node red import / export format
+
+.Available fields in blickfeld.flow.config.NodeRedJson
+|===
+| Field | Type | Default | Unit
+
+.2+| *nodes* | repeated xref:#_google_protobuf_Struct[google.protobuf.Struct] | - | - 
+3+| List of JSON nodes
+
+|===
+

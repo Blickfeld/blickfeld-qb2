@@ -1,0 +1,29 @@
+// Copyright (c) 2023 Blickfeld GmbH.
+// All rights reserved.
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+import "google/protobuf/struct.proto";
+package blickfeld.flow.config;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// Blickfeld Flow configuration
+// This container is used to control high-level attributes of NodeRed flows.
+message Flow {
+  // Human readable label of the flow
+  string name = 1;
+  // Is it active?
+  bool disabled = 2;
+  // Is it read only?
+  bool locked = 3;
+  // Is it a subflow?
+  bool is_subflow = 4;
+  // Other arbitrary metadata
+  .google.protobuf.Struct metadata = 5;
+  // All nodes contained in the flow
+  repeated .google.protobuf.Struct nodes = 6;
+}
+

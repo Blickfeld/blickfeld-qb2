@@ -1,0 +1,33 @@
+[#_blickfeld_percept_processing_data_States]
+= States
+
+A message that contains a map of states. A state is an information generated 
+by the system based on the select zone type or device. For example, a state 
+can contain information about the volume or the intrusion in the 
+zone.
+
+.Available fields in blickfeld.percept_processing.data.States
+|===
+| Field | Type | Default | Unit
+
+.2+| *timestamp* | uint64| - | ns 
+3+| The timestamp of the measurement(s) used to compute the states.
+
+.2+| *states* | repeated xref:blickfeld/percept_processing/data/states.adoc#_blickfeld_percept_processing_data_States_StatesEntry[StatesEntry] | - | - 
+3+| Map of states where the key is the generator UUID of the state.
+
+|===
+
+[#_blickfeld_percept_processing_data_States_StatesEntry]
+== States Entry
+
+
+
+.Available fields in blickfeld.percept_processing.data.States.StatesEntry
+|===
+| Field | Type | Default | Unit
+
+| *key* | string| - | - 
+| *value* | xref:blickfeld/percept_processing/data/state.adoc#_blickfeld_percept_processing_data_State[State] | - | - 
+|===
+

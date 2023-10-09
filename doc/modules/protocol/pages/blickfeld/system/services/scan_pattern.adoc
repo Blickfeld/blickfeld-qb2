@@ -10,6 +10,7 @@ CAUTION: This API is not yet officially released neither maintained.
 
 | *xref:#Get[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/system/services/scan_pattern.adoc#_blickfeld_system_services_ScanPatternGetResponse[ScanPatternGetResponse]
 | *xref:#Set[]* | xref:blickfeld/system/services/scan_pattern.adoc#_blickfeld_system_services_ScanPatternSetRequest[ScanPatternSetRequest]| xref:#_google_protobuf_Empty[google.protobuf.Empty]
+| *xref:#Watch[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/system/services/scan_pattern.adoc#_blickfeld_system_services_ScanPatternWatchResponse[ScanPatternWatchResponse]Stream 
 | *xref:#List[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/system/services/scan_pattern.adoc#_blickfeld_system_services_ScanPatternListResponse[ScanPatternListResponse]
 | *xref:#Store[]* | xref:blickfeld/system/services/scan_pattern.adoc#_blickfeld_system_services_ScanPatternStoreRequest[ScanPatternStoreRequest]| xref:#_google_protobuf_Empty[google.protobuf.Empty]
 | *xref:#Delete[]* | xref:blickfeld/system/services/scan_pattern.adoc#_blickfeld_system_services_ScanPatternDeleteRequest[ScanPatternDeleteRequest]| xref:#_google_protobuf_Empty[google.protobuf.Empty]
@@ -43,6 +44,24 @@ Sets scan pattern cofiguration settings
 
 
 .Available fields in blickfeld.system.services.ScanPatternSetRequest
+|===
+| Field | Type | Default | Unit
+
+| *name* | string| - | - 
+| *scan_pattern* | xref:blickfeld/system/config/scan_pattern.adoc#_blickfeld_system_config_ScanPattern[config.ScanPattern] | - | - 
+|===
+
+[#Watch]
+== Watch
+
+Watch active scan pattern
+
+[#_blickfeld_system_services_ScanPatternWatchResponse]
+=== Response Stream
+
+
+
+.Available fields in blickfeld.system.services.ScanPatternWatchResponse
 |===
 | Field | Type | Default | Unit
 

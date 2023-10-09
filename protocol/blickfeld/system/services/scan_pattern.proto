@@ -21,6 +21,11 @@ message ScanPatternSetRequest {
   }
 }
 
+message ScanPatternWatchResponse {
+  optional string name = 1;
+  optional .blickfeld.system.config.ScanPattern scan_pattern = 2;
+}
+
 message ScanPatternListResponse {
   map<string, .blickfeld.system.config.ScanPattern> named_scan_patterns = 1;
 }
@@ -52,6 +57,8 @@ service ScanPattern {
       level: LEVEL_AUTHORIZED
     };
   }
+  // Watch active scan pattern
+  rpc Watch(.google.protobuf.Empty) returns (stream .blickfeld.system.services.ScanPatternWatchResponse);
   // Return list of named scan patterns
   rpc List(.google.protobuf.Empty) returns (.blickfeld.system.services.ScanPatternListResponse);
   // Store scan pattern

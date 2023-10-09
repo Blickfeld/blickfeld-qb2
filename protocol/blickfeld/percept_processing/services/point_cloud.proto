@@ -32,6 +32,7 @@ message PointCloudStreamRequest {
     // fqdn of the data source to get the point cloud from
     string fqdn = 3;
   }
+  reserved 4;
 }
 
 // A response for getting a stream of point cloud messages

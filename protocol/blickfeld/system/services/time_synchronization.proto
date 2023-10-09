@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+import "blickfeld/system/config/time_synchronization.proto";
+import "google/protobuf/empty.proto";
+package blickfeld.system.services;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_ADMIN
+};
+
+// Request which is sent together with a SetConfig API call
+message TimeSynchronizationSetRequest {
+  // Time synchronization config to be used
+  .blickfeld.system.config.TimeSynchronization config = 1;
+}
+
+// Response which is sent as answer for a GetConfig call
+message TimeSynchronizationGetResponse {
+  // Currently used time synchronization config
+  .blickfeld.system.config.TimeSynchronization config = 1;
+}
+
+// This service provides methods to configure the time synchronization of the device.
+service TimeSynchronization {
+  option (.blickfeld.base.access_control_service) = {
+    level: LEVEL_ADMIN
+  };
+  option (.blickfeld.base.protocol_maturity_service) = {
+    level: LEVEL_MAINTAINED
+  };
+  // Set the time synchronization configuration for the device
+  rpc Set(.blickfeld.system.services.TimeSynchronizationSetRequest) returns (.google.protobuf.Empty);
+  // Get the time synchronization configuration of the device
+  rpc Get(.google.protobuf.Empty) returns (.blickfeld.system.services.TimeSynchronizationGetResponse);
+}
+

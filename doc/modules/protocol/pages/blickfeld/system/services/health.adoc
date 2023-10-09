@@ -1,0 +1,51 @@
+= Service: Health
+
+NOTE: This API is officially released and maintained.
+
+The health service provides methods to monitor operational status of the systen module
+
+.Available methods
+|===
+| Method | Request | Response
+
+| *xref:#Get[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/system/services/health.adoc#_blickfeld_system_services_HealthGetResponse[HealthGetResponse]
+| *xref:#Watch[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/system/services/health.adoc#_blickfeld_system_services_HealthWatchResponse[HealthWatchResponse]Stream 
+|===
+[#Get]
+== Get
+
+Returns the current health status of the systen module
+
+[#_blickfeld_system_services_HealthGetResponse]
+=== Response
+
+Response to health get request
+
+.Available fields in blickfeld.system.services.HealthGetResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *health* | xref:blickfeld/system/data/health.adoc#_blickfeld_system_data_Health[data.Health] | - | - 
+3+| Health state
+
+|===
+
+[#Watch]
+== Watch
+
+Can be used to attach to the health monitoring status information of the systen module
+
+[#_blickfeld_system_services_HealthWatchResponse]
+=== Response Stream
+
+Stream response to health watch request
+
+.Available fields in blickfeld.system.services.HealthWatchResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *health* | xref:blickfeld/system/data/health.adoc#_blickfeld_system_data_Health[data.Health] | - | - 
+3+| Health state
+
+|===
+

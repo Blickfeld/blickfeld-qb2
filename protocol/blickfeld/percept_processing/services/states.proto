@@ -1,0 +1,37 @@
+// Copyright (c) 2023 Blickfeld GmbH.
+// All rights reserved.
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+import "blickfeld/percept_processing/data/states.proto";
+import "google/protobuf/empty.proto";
+package blickfeld.percept_processing.services;
+
+option cc_enable_arenas = true;
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// A response for getting a stream of states messages from the running
+// pipeline
+message StatesStreamResponse {
+  // The current states with the information detected in the scene.
+  .blickfeld.percept_processing.data.States states = 1;
+}
+
+// An RPC service to request a stream of states messages. If a pipeline is
+// already running, it will be used to stream the data. If no pipeline is
+// running, it will be started first and then the stream will start. NOTE: in
+// this second case, the pipeline will also be automatically stopped once
+// there are no more clients requesting any stream type from the module.
+service States {
+  option (.blickfeld.base.access_control_service) = {
+    level: LEVEL_PUBLIC
+  };
+  option (.blickfeld.base.protocol_maturity_service) = {
+    level: LEVEL_MAINTAINED
+  };
+  // A method to get a stream of states messages from the pipeline
+  rpc Stream(.google.protobuf.Empty) returns (stream .blickfeld.percept_processing.services.StatesStreamResponse);
+}
+

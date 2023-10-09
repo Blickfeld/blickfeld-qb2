@@ -12,6 +12,7 @@ The zone service allows getting, configuring, deleting and receiving updates of 
 | *xref:#Store[]* | xref:blickfeld/percept_pipeline/services/zone.adoc#_blickfeld_percept_pipeline_services_ZoneStoreRequest[ZoneStoreRequest]| xref:#_google_protobuf_Empty[google.protobuf.Empty]
 | *xref:#Delete[]* | xref:blickfeld/percept_pipeline/services/zone.adoc#_blickfeld_percept_pipeline_services_ZoneDeleteRequest[ZoneDeleteRequest]| xref:#_google_protobuf_Empty[google.protobuf.Empty]
 | *xref:#Watch[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/percept_pipeline/services/zone.adoc#_blickfeld_percept_pipeline_services_ZoneWatchResponse[ZoneWatchResponse]Stream 
+| *xref:#GetTareVolume[]* | xref:blickfeld/percept_pipeline/services/zone.adoc#_blickfeld_percept_pipeline_services_ZoneGetTareVolumeRequest[ZoneGetTareVolumeRequest]| xref:blickfeld/percept_pipeline/services/zone.adoc#_blickfeld_percept_pipeline_services_ZoneGetTareVolumeResponse[ZoneGetTareVolumeResponse]
 |===
 [#List]
 == List
@@ -86,6 +87,41 @@ Continuous response on zone list changes
 
 .2+| *zones* | repeated xref:blickfeld/percept_pipeline/config/zone_algorithm.adoc#_blickfeld_percept_pipeline_config_ZoneAlgorithm[config.ZoneAlgorithm] | - | - 
 3+| The current/updated list of zones
+
+|===
+
+[#GetTareVolume]
+== GetTareVolume
+
+Computes raw volume within a volume zone without any offsets.
+
+[#_blickfeld_percept_pipeline_services_ZoneGetTareVolumeRequest]
+=== Request
+
+Request for the raw volume to be used for taring a volume zone
+
+.Available fields in blickfeld.percept_pipeline.services.ZoneGetTareVolumeRequest
+|===
+| Field | Type | Default | Unit
+
+.2+| *zone_uuid* | string| - | - 
+3+| The uuid of the volume zone
+
+|===
+
+[#_blickfeld_percept_pipeline_services_ZoneGetTareVolumeResponse]
+=== Response
+
+Response containing the raw volume of the requested zone
+
+.Available fields in blickfeld.percept_pipeline.services.ZoneGetTareVolumeResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *tare_volume* | float| - | m^3 
+3+| The raw volume of the volume zone without any offsets/modifications. The value is supposed to be configured as 
+'empty_volume' value of a volume zone. As a result the current volume of the zone will be '0' until more volume 
+is added.
 
 |===
 

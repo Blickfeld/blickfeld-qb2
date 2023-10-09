@@ -1,0 +1,30 @@
+[#_blickfeld_system_config_TimeSynchronization]
+= Time Synchronization
+
+Conifguration for the system time synchronization 
+ 
+The system time is used to fill timestamps in generated output data e.g. point cloud frames.
+
+.Available fields in blickfeld.system.config.TimeSynchronization
+|===
+| Field | Type | Default | Unit
+
+.2+| *ntp* | xref:blickfeld/system/config/time_synchronization.adoc#_blickfeld_system_config_TimeSynchronization_Ntp[Ntp] | - | - 
+3+| Configuration for NTP time synchronization
+
+|===
+
+[#_blickfeld_system_config_TimeSynchronization_Ntp]
+== Ntp
+
+Configuration message for NTP time synchronization
+
+.Available fields in blickfeld.system.config.TimeSynchronization.Ntp
+|===
+| Field | Type | Default | Unit
+
+.2+| *servers* | repeated string| - | - 
+3+| List of NTP time servers which are to be used
+
+|===
+

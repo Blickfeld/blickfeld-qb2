@@ -1,0 +1,51 @@
+= Service: Time Synchronization
+
+NOTE: This API is officially released and maintained.
+
+This service provides methods to configure the time synchronization of the device.
+
+.Available methods
+|===
+| Method | Request | Response
+
+| *xref:#Set[]* | xref:blickfeld/system/services/time_synchronization.adoc#_blickfeld_system_services_TimeSynchronizationSetRequest[TimeSynchronizationSetRequest]| xref:#_google_protobuf_Empty[google.protobuf.Empty]
+| *xref:#Get[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/system/services/time_synchronization.adoc#_blickfeld_system_services_TimeSynchronizationGetResponse[TimeSynchronizationGetResponse]
+|===
+[#Set]
+== Set
+
+Set the time synchronization configuration for the device
+
+[#_blickfeld_system_services_TimeSynchronizationSetRequest]
+=== Request
+
+Request which is sent together with a SetConfig API call
+
+.Available fields in blickfeld.system.services.TimeSynchronizationSetRequest
+|===
+| Field | Type | Default | Unit
+
+.2+| *config* | xref:blickfeld/system/config/time_synchronization.adoc#_blickfeld_system_config_TimeSynchronization[config.TimeSynchronization] | - | - 
+3+| Time synchronization config to be used
+
+|===
+
+[#Get]
+== Get
+
+Get the time synchronization configuration of the device
+
+[#_blickfeld_system_services_TimeSynchronizationGetResponse]
+=== Response
+
+Response which is sent as answer for a GetConfig call
+
+.Available fields in blickfeld.system.services.TimeSynchronizationGetResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *config* | xref:blickfeld/system/config/time_synchronization.adoc#_blickfeld_system_config_TimeSynchronization[config.TimeSynchronization] | - | - 
+3+| Currently used time synchronization config
+
+|===
+

@@ -64,5 +64,6 @@ message DataSource {
     // Use Qb2 lidars to retrieve point clouds
     .blickfeld.percept_pipeline.config.DataSource.Qb2Setup qb2_setup = 3;
   }
+  reserved 2;
 }
 

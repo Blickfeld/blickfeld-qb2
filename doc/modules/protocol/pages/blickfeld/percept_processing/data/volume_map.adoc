@@ -1,0 +1,69 @@
+[#_blickfeld_percept_processing_data_VolumeMap]
+= Volume Map
+
+A message containing the volume map of one volume zone.
+
+.Available fields in blickfeld.percept_processing.data.VolumeMap
+|===
+| Field | Type | Default | Unit
+
+.2+| *timestamp* | uint64| - | ns 
+3+| Timestamp of the lidar frame in which the volume map was calculated
+
+.2+| *generator_uuid* | string| - | - 
+3+| The uuid of the entity generating this state
+
+.2+| *generator_name* | string| - | - 
+3+| The name of the entity generating this state
+
+.2+| *shape* | xref:blickfeld/base/geometry/shape.adoc#_blickfeld_base_geometry_Shape[base.geometry.Shape] | - | - 
+3+| The shape of the volume map, defining the pose and the dimension of the volume map in world frame. The shape is similar to the shape 
+of the input zone with the following difference: 
+- shape.pose.position: (x=zone.pose.position.x, y=zone.pose.position.y, z=0) 
+- shape.pose.rotation: (roll=0, pitch=0, yaw=zone.pose.rotation.yaw) 
+- shape.box.dimension: (x=zone.box.dimension.x, y=zone.box.dimension.y,z=0)
+
+.2+| *tiles* | xref:blickfeld/percept_processing/data/volume_map.adoc#_blickfeld_percept_processing_data_VolumeMap_Tiles[Tiles] | - | - 
+3+| Volume map 'tiles' as defined in Tiles, providing information for each tile in the volume map.
+
+.2+| *tile_size* | float| - | m 
+3+| The tile size of the volume map (dimension of one tile in x and y direction)
+
+.2+| *volume* | float| - | m^3 
+3+| The current volume of the zone
+
+|===
+
+[#_blickfeld_percept_processing_data_VolumeMap_Tiles]
+== Tiles
+
+Tiles of the volume map
+
+.Available fields in blickfeld.percept_processing.data.VolumeMap.Tiles
+|===
+| Field | Type | Default | Unit
+
+.2+| *length* | uint32| - | - 
+3+| Number of tiles
+
+.2+| *index* | bytes| - | - 
+3+| Volume Map Tile Index X (Int16) and Y (Int16) (can be negative and positive) 
+The indices of Volume Tiles are expressed w.r.t the Volume Map coordinate system. The tile with index (0,0) will contain the 
+points from [0, tile_size), [0, tile_size). That means that (0,0,0) of the Volume Map frame does not coincide with the center of 
+the tile with index (0,0) but with the crossing of the 4 tiles [(0,0), (0, -1,), (-1,-1), (-1,0)]. 
+Type: (Int16, Int16)
+
+.2+| *height* | bytes| - | m 
+3+| Height per tile, ordered ascending 
+Type: Float32
+
+.2+| *std_deviation* | optional bytes| - | - 
+3+| Standard Deviation per tile 
+Type: Float32
+
+.2+| *number_points* | optional bytes| - | - 
+3+| Number Points per tile 
+Type: UInt16
+
+|===
+

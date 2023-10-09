@@ -25,12 +25,6 @@ once the Stop method is explicitly called
 
 A request to start a headless pipeline.
 
-.Available fields in blickfeld.percept_processing.services.PipelineStartRequest
-|===
-| Field | Type | Default | Unit
-
-|===
-
 [#_blickfeld_percept_processing_services_PipelineStartResponse]
 === Response
 

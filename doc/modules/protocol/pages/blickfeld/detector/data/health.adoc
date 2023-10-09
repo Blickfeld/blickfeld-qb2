@@ -13,5 +13,8 @@ Health message giving information about operation status and possible errors.
 .2+| *state_reason* | string| - | - 
 3+| Reason for given state. Is not set if state is OK.
 
+.2+| *mcu_temperature* | float| - | °C 
+3+| Current core temperature of microcontroller.
+
 |===
 

@@ -17,5 +17,7 @@ enum PointCloudType {
   POINT_CLOUD_TYPE_FULL = 1;
   // Point cloud containing only foreground/points from moving objects
   POINT_CLOUD_TYPE_FOREGROUND = 2;
+  // Same as 'POINT_CLOUD_TYPE_FULL' but with reduced point cloud density to reduce the size of the point cloud
+  POINT_CLOUD_TYPE_FULL_OPTIMIZED = 3;
 }
 

@@ -22,6 +22,8 @@ message Destination {
     .blickfeld.push.config.Authentication authentication = 3;
     // mqtt client identifier
     string client_identifier = 4;
+    // mqtt topic - if empty the 'blickfeld/{data_type}/{encoding_type}/{config_name}' pattern is used as a default
+    string topic = 5 [(.blickfeld.base.optional) = true];
   }
   oneof destination_type {
     // mqtt server destination

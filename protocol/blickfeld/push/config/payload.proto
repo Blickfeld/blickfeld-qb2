@@ -20,6 +20,8 @@ message Payload {
     ENCODING_PROTOBUF = 1;
     // json representation of protobuf messages
     ENCODING_JSON = 2;
+    // flattened json representation of protobuf messages
+    ENCODING_JSON_FLATTENED = 3;
   }
   // payload encoding
   .blickfeld.push.config.Payload.Encoding encoding = 1;

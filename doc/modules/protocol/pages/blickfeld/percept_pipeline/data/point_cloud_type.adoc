@@ -11,5 +11,6 @@ The type of the point cloud
 | POINT_CLOUD_TYPE_UNSPECIFIED ^| 0 | The zero value that is not accepted
 | POINT_CLOUD_TYPE_FULL ^| 1 | Full point cloud (combined point cloud of all devices or unfiltered point cloud coming from one device)
 | POINT_CLOUD_TYPE_FOREGROUND ^| 2 | Point cloud containing only foreground/points from moving objects
+| POINT_CLOUD_TYPE_FULL_OPTIMIZED ^| 3 | Same as 'POINT_CLOUD_TYPE_FULL' but with reduced point cloud density to reduce the size of the point cloud
 |===
 

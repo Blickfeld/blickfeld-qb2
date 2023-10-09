@@ -4,6 +4,7 @@ syntax = "proto3";
 
 import "blickfeld/base/data/health.proto";
 import "blickfeld/base/options.proto";
+import "blickfeld/percept_pipeline/data/point_cloud_type.proto";
 import "blickfeld/percept_pipeline/data/state.proto";
 package blickfeld.percept_processing.data;
 

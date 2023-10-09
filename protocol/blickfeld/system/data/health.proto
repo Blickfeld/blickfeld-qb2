@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+import "blickfeld/base/data/health.proto";
+import "blickfeld/base/options.proto";
+package blickfeld.system.data;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// Message representing health
+message Health {
+  // Status message for time synchronization
+  message TimeSynchronization {
+    // Status message representing the NTP time synchronization status
+    message Ntp {
+      // Flag indicating that the system time is synchronized with NTP
+      bool synchronized = 1;
+      // The server NTP time server which is used
+      string server = 2;
+      // Time offset between Qb2 system time and time server
+      float offset = 3 [(.blickfeld.base.unit) = "s"];
+      // Time delay from NTP request until server response is received
+      float delay = 4 [(.blickfeld.base.unit) = "s"];
+      // Jitter between multiple time comparisons
+      float jitter = 5 [(.blickfeld.base.unit) = "s"];
+      // Precision of the NTP time synchronization
+      float precision = 6 [(.blickfeld.base.unit) = "s"];
+    }
+    // High-level state of the time synchronization
+    .blickfeld.base.data.Health.State state = 1;
+    // Reason for given state. Is not set if state is STATE_OK.
+    string state_reason = 2;
+    // Current timestamp
+    uint64 current_system_timestamp = 3 [(.blickfeld.base.unit) = "ns"];
+    // Current time synchronization status
+    oneof type {
+      // Status for NTP time synchronization
+      .blickfeld.system.data.Health.TimeSynchronization.Ntp ntp = 4;
+    }
+  }
+  // High-level state of module
+  .blickfeld.base.data.Health.State state = 1;
+  // Reason for given state. Is not set if state is STATE_OK.
+  string state_reason = 2;
+  // Time synchronization status
+  .blickfeld.system.data.Health.TimeSynchronization time_synchronization = 3;
+}
+

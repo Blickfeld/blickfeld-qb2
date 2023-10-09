@@ -28,5 +28,6 @@ define how the messages are serialized
 | ENCODING_UNSPECIFIED ^| 0 | unspecified
 | ENCODING_PROTOBUF ^| 1 | protobuf serialized as binary
 | ENCODING_JSON ^| 2 | json representation of protobuf messages
+| ENCODING_JSON_FLATTENED ^| 3 | flattened json representation of protobuf messages
 |===
 

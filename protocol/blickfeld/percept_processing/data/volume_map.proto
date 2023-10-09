@@ -1,0 +1,54 @@
+// Copyright (c) 2023 Blickfeld GmbH.
+// All rights reserved.
+syntax = "proto3";
+
+import "blickfeld/base/geometry/shape.proto";
+import "blickfeld/base/options.proto";
+package blickfeld.percept_processing.data;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// A message containing the volume map of one volume zone.
+message VolumeMap {
+  // Tiles of the volume map
+  message Tiles {
+    // Number of tiles
+    uint32 length = 1;
+    // Volume Map Tile Index X (Int16) and Y (Int16) (can be negative and positive)
+    // The indices of Volume Tiles are expressed w.r.t the Volume Map coordinate system. The tile with index (0,0) will contain the
+    // points from [0, tile_size), [0, tile_size). That means that (0,0,0) of the Volume Map frame does not coincide with the center of
+    // the tile with index (0,0) but with the crossing of the 4 tiles [(0,0), (0, -1,), (-1,-1), (-1,0)].
+    // Type: (Int16, Int16)
+    bytes index = 2 [(.blickfeld.base.numpy_dtype) = "(2,)<i2"];
+    // Height per tile, ordered ascending
+    // Type: Float32
+    bytes height = 3 [(.blickfeld.base.unit) = "m", (.blickfeld.base.numpy_dtype) = "<f4"];
+    // Standard Deviation per tile
+    // Type: Float32
+    bytes std_deviation = 4 [(.blickfeld.base.optional) = true, (.blickfeld.base.numpy_dtype) = "<f4"];
+    // Number Points per tile
+    // Type: UInt16
+    bytes number_points = 5 [(.blickfeld.base.optional) = true, (.blickfeld.base.numpy_dtype) = "<u2"];
+  }
+  // Timestamp of the lidar frame in which the volume map was calculated
+  uint64 timestamp = 1 [(.blickfeld.base.unit) = "ns"];
+  // The uuid of the entity generating this state
+  string generator_uuid = 2;
+  // The name of the entity generating this state
+  string generator_name = 3;
+  // The shape of the volume map, defining the pose and the dimension of the volume map in world frame. The shape is similar to the shape
+  // of the input zone with the following difference:
+  // - shape.pose.position: (x=zone.pose.position.x, y=zone.pose.position.y, z=0)
+  // - shape.pose.rotation: (roll=0, pitch=0, yaw=zone.pose.rotation.yaw)
+  // - shape.box.dimension: (x=zone.box.dimension.x, y=zone.box.dimension.y,z=0)
+  .blickfeld.base.geometry.Shape shape = 4;
+  // Volume map 'tiles' as defined in Tiles, providing information for each tile in the volume map.
+  .blickfeld.percept_processing.data.VolumeMap.Tiles tiles = 5;
+  // The tile size of the volume map (dimension of one tile in x and y direction)
+  float tile_size = 6 [(.blickfeld.base.unit) = "m"];
+  // The current volume of the zone
+  float volume = 7 [(.blickfeld.base.unit) = "m^3"];
+}
+

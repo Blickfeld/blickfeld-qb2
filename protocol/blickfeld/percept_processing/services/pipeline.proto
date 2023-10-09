@@ -13,6 +13,7 @@ option (.blickfeld.base.access_control_file) = {
 
 // A request to start a headless pipeline.
 message PipelineStartRequest {
+  reserved 1;
 }
 
 // A response to PipelineStartRequest that contains the list of available

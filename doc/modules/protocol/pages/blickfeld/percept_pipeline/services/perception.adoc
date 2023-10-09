@@ -13,6 +13,7 @@ Perception configurations specify the algorithms used for e.g. for background su
 | *xref:#Set[]* | xref:blickfeld/percept_pipeline/services/perception.adoc#_blickfeld_percept_pipeline_services_PerceptionSetRequest[PerceptionSetRequest]| xref:#_google_protobuf_Empty[google.protobuf.Empty]
 | *xref:#Watch[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/percept_pipeline/services/perception.adoc#_blickfeld_percept_pipeline_services_PerceptionWatchResponse[PerceptionWatchResponse]Stream 
 | *xref:#ListTemplates[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/percept_pipeline/services/perception.adoc#_blickfeld_percept_pipeline_services_PerceptionListTemplatesResponse[PerceptionListTemplatesResponse]
+| *xref:#ResetBackground[]* | xref:blickfeld/percept_pipeline/services/perception.adoc#_blickfeld_percept_pipeline_services_PerceptionResetBackgroundRequest[PerceptionResetBackgroundRequest]| xref:#_google_protobuf_Empty[google.protobuf.Empty]
 |===
 [#Get]
 == Get
@@ -105,5 +106,26 @@ algorithms for certain use-cases.
 
 | *key* | string| - | - 
 | *value* | xref:blickfeld/percept_pipeline/config/perception.adoc#_blickfeld_percept_pipeline_config_Perception[config.Perception] | - | - 
+|===
+
+[#ResetBackground]
+== ResetBackground
+
+Resets the background of one, multiple or all devices
+
+[#_blickfeld_percept_pipeline_services_PerceptionResetBackgroundRequest]
+=== Request
+
+Request to reset the background model of one, multiple or all devices
+
+.Available fields in blickfeld.percept_pipeline.services.PerceptionResetBackgroundRequest
+|===
+| Field | Type | Default | Unit
+
+.2+| *fqdns* | repeated string| - | - 
+3+| If the list is empty, the background models of all data sources are reset. 
+If the background models of only specific devices should be rebuilt, the 'fqdn' of the respective devices 
+has to be mentioned in the 'fqdns' list.
+
 |===
 

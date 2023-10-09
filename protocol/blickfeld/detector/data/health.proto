@@ -14,5 +14,9 @@ message Health {
   .blickfeld.base.data.Health.State state = 1;
   // Reason for given state. Is not set if state is OK.
   string state_reason = 2;
+  // Current core temperature of microcontroller.
+  float mcu_temperature = 6 [(.blickfeld.base.unit) = "\302\260C", (.blickfeld.base.access_control_field) = {
+    level: LEVEL_ADMIN
+  }];
 }
 

@@ -35,6 +35,20 @@ message ZoneWatchResponse {
   repeated .blickfeld.percept_pipeline.config.ZoneAlgorithm zones = 1;
 }
 
+// Request for the raw volume to be used for taring a volume zone
+message ZoneGetTareVolumeRequest {
+  // The uuid of the volume zone
+  string zone_uuid = 1;
+}
+
+// Response containing the raw volume of the requested zone
+message ZoneGetTareVolumeResponse {
+  // The raw volume of the volume zone without any offsets/modifications. The value is supposed to be configured as
+  // 'empty_volume' value of a volume zone. As a result the current volume of the zone will be '0' until more volume
+  // is added.
+  float tare_volume = 1 [(.blickfeld.base.unit) = "m^3"];
+}
+
 // The zone service allows getting, configuring, deleting and receiving updates of the configured zones.
 service Zone {
   option (.blickfeld.base.access_control_service) = {
@@ -51,5 +65,7 @@ service Zone {
   rpc Delete(.blickfeld.percept_pipeline.services.ZoneDeleteRequest) returns (.google.protobuf.Empty);
   // Watch configuration for zone list
   rpc Watch(.google.protobuf.Empty) returns (stream .blickfeld.percept_pipeline.services.ZoneWatchResponse);
+  // Computes raw volume within a volume zone without any offsets.
+  rpc GetTareVolume(.blickfeld.percept_pipeline.services.ZoneGetTareVolumeRequest) returns (.blickfeld.percept_pipeline.services.ZoneGetTareVolumeResponse);
 }
 

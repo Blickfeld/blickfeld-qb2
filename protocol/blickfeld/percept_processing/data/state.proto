@@ -2,7 +2,6 @@
 // All rights reserved.
 syntax = "proto3";
 
-import "blickfeld/base/geometry/shape.proto";
 import "blickfeld/base/options.proto";
 import "google/protobuf/timestamp.proto";
 package blickfeld.percept_processing.data;
@@ -25,51 +24,10 @@ message State {
   // A message containing the volume state of a zone.
   // This is based on one volume zone.
   message Volume {
-    // Message of a single volume tile
-    message VolumeTile {
-      // Grid Map Tile Index X (can be negative and positive)
-      int32 index_x = 1;
-      // Grid Map Tile Index Y (can be negative and positive)
-      int32 index_y = 2;
-      // Height per cluster, ordered ascending
-      repeated float heights = 3;
-      // Standard Deviation per cluster
-      repeated float std_deviations = 4;
-      // Points per cluster
-      repeated float number_points = 5;
-    }
-    // The indices of Volume Tiles are expressed w.r.t the Volume Map
-    //  coordinate system. The tile with index (0,0) will contain the points
-    //  from [0, tile_size), [0, tile_size). That means that (0,0,0) of the
-    //  Volume Map frame does not coincide with the center of the tile with
-    //  index (0,0) but with the crossing of the 4 tiles [(0,0), (0, -1,),
-    //  (-1,-1), (-1,0)].
-    //  Additionally the volume tile could have multiple vertical clusters that
-    //  will represent the data inside the tile.
-    // The current volume of the zone
-    float volume = 1;
-    // The tiles of the volume map
-    // The volume of a zone is approximated by a 'volume map' see
-    // xref:blickfeld/percept_pipeline/config/zone_algorithm.adoc#_blickfeld_percept_pipeline_config_ZoneAlgorithm_Volume[Volume]
-    // for more details.
-    // NOTE: For performance reasons this field is currently not filled.
-    repeated .blickfeld.percept_processing.data.State.Volume.VolumeTile tiles = 2;
-    // The tile size of the volume map
-    float tile_size = 3;
-    // The shape of the volume map, defining the pose and the dimension of the
-    // volume map in world frame. The shape is similar to the shape of the input
-    // zone with the following difference:
-    // - shape.pose.position: (x=zone.pose.position.x, y=zone.pose.position.y,
-    // z=0)
-    // - shape.pose.rotation: (roll=0, pitch=0, yaw=zone.pose.rotation.yaw)
-    // - shape.box.dimension: (x=zone.box.dimension.x, y=zone.box.dimension.y,
-    // z=0)
-    .blickfeld.base.geometry.Shape shape = 4;
+    // The current numerical volume of the zone.
+    float volume = 1 [(.blickfeld.base.unit) = "m^3"];
+    reserved 2, 3, 4;
   }
-  // Timestamp of the lidar frame in which the state was measured
-  .google.protobuf.Timestamp timestamp = 1;
-  // The uuid of the entity generating this state
-  string generator_uuid = 2;
   // The name of the entity generating this state
   string generator_name = 8;
   oneof state_type {
@@ -78,6 +36,6 @@ message State {
     // Current volume measured in the selected zone
     .blickfeld.percept_processing.data.State.Volume volume = 7;
   }
-  reserved 3, 4, 6;
+  reserved 1, 2, 3, 4, 6;
 }
 

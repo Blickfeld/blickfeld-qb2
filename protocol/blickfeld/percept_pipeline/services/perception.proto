@@ -40,6 +40,14 @@ message PerceptionListTemplatesResponse {
   map<string, .blickfeld.percept_pipeline.config.Perception> named_templates = 1;
 }
 
+// Request to reset the background model of one, multiple or all devices
+message PerceptionResetBackgroundRequest {
+  // If the list is empty, the background models of all data sources are reset.
+  // If the background models of only specific devices should be rebuilt, the 'fqdn' of the respective devices
+  // has to be mentioned in the 'fqdns' list.
+  repeated string fqdns = 1;
+}
+
 // The perception service allows getting, configuring and receiving updates of the perception configurations.
 // Perception configurations specify the algorithms used for e.g. for background subtraction etc.
 service Perception {
@@ -57,5 +65,7 @@ service Perception {
   rpc Watch(.google.protobuf.Empty) returns (stream .blickfeld.percept_pipeline.services.PerceptionWatchResponse);
   // Return list of names for named templates
   rpc ListTemplates(.google.protobuf.Empty) returns (.blickfeld.percept_pipeline.services.PerceptionListTemplatesResponse);
+  // Resets the background of one, multiple or all devices
+  rpc ResetBackground(.blickfeld.percept_pipeline.services.PerceptionResetBackgroundRequest) returns (.google.protobuf.Empty);
 }
 

@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+package blickfeld.system.config;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// Conifguration for the system time synchronization
+// The system time is used to fill timestamps in generated output data e.g. point cloud frames.
+message TimeSynchronization {
+  // Configuration message for NTP time synchronization
+  message Ntp {
+    // List of NTP time servers which are to be used
+    repeated string servers = 1 [(.blickfeld.base.regex) = "[[:alnum:]\\.\\-]+"];
+  }
+  // Configuration depending on the time synchronization mechanism which is to be used
+  // By default, NTP with fallback servers is active.
+  oneof type {
+    // Configuration for NTP time synchronization
+    .blickfeld.system.config.TimeSynchronization.Ntp ntp = 1;
+  }
+}
+

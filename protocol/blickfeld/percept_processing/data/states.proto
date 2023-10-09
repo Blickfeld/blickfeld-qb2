@@ -4,21 +4,20 @@ syntax = "proto3";
 
 import "blickfeld/base/options.proto";
 import "blickfeld/percept_processing/data/state.proto";
-import "google/protobuf/timestamp.proto";
 package blickfeld.percept_processing.data;
 
 option (.blickfeld.base.access_control_file) = {
   level: LEVEL_PUBLIC
 };
 
-// A message that contains a list of states. A state is an information generated
+// A message that contains a map of states. A state is an information generated
 // by the system based on the select zone type or device. For example, a state
 // can contain information about the volume or the intrusion in the
 // zone.
-message StateList {
-  // The timestamp of the message construction.
-  .google.protobuf.Timestamp timestamp = 1;
-  // List of states.
-  repeated .blickfeld.percept_processing.data.State states = 2;
+message States {
+  // The timestamp of the measurement(s) used to compute the states.
+  uint64 timestamp = 1 [(.blickfeld.base.unit) = "ns"];
+  // Map of states where the key is the generator UUID of the state.
+  map<string, .blickfeld.percept_processing.data.State> states = 2;
 }
 

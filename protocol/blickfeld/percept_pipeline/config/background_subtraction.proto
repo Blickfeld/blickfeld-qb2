@@ -32,9 +32,7 @@ message BackgroundSubtraction {
     // How many frames of the first received frames are used to build the background
     // Reasonable default: 10
     uint32 num_initialization_frames = 1;
-    // Resolution for the octree storing a static background.
-    // Reasonable default: 0.15
-    float octree_resolution = 2 [(.blickfeld.base.unit) = "m"];
+    reserved 2;
   }
   oneof background_subtraction_type {
     // Use mixture of gaussians for foreground/background detection

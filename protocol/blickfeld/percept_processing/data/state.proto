@@ -3,7 +3,6 @@
 syntax = "proto3";
 
 import "blickfeld/base/options.proto";
-import "google/protobuf/timestamp.proto";
 package blickfeld.percept_processing.data;
 
 option (.blickfeld.base.access_control_file) = {

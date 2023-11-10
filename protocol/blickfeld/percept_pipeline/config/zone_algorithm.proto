@@ -30,6 +30,13 @@ message ZoneAlgorithm {
     // Minimum number of (foreground) points in the security zone to trigger the alarm.
     // Reasonable default: 10
     uint32 min_points = 1;
+    // Maximum number of (foreground) points in the security zone that still triggers an alarm.
+    // More points will disable the alarm. This logic can be disabled by setting max_points to '0'.
+    // Default: 0
+    uint32 max_points = 2;
+  }
+  // Algorithm that excludes points from the input point cloud
+  message Exclusion {
   }
   // The user readable zone algorithm name
   string name = 1;
@@ -44,6 +51,10 @@ message ZoneAlgorithm {
     }];
     // Run alarm detection within the zone
     .blickfeld.percept_pipeline.config.ZoneAlgorithm.Security security = 7 [(.blickfeld.base.access_control_field) = {
+      level: LEVEL_PUBLIC
+    }];
+    // Run exclusion zone
+    .blickfeld.percept_pipeline.config.ZoneAlgorithm.Exclusion exclusion = 10 [(.blickfeld.base.access_control_field) = {
       level: LEVEL_PUBLIC
     }];
   }

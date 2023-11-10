@@ -55,9 +55,5 @@ environment.
 3+| How many frames of the first received frames are used to build the background 
 Reasonable default: 10
 
-.2+| *octree_resolution* | float| - | m 
-3+| Resolution for the octree storing a static background. 
-Reasonable default: 0.15
-
 |===
 

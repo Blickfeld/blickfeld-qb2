@@ -61,15 +61,21 @@ message ScanPattern {
     reserved 5;
     reserved "pulse_type";
   }
+  // This section defines the frame rate of a scan pattern
+  message FrameRate {
+    // Read-only parameter for maximum achievable frame rate of the scan pattern
+    optional double maximum = 2 [(.blickfeld.base.optional) = true, (.blickfeld.base.unit) = "Hz"];
+  }
   optional .blickfeld.system.config.ScanPattern.Horizontal horizontal = 1;
   optional .blickfeld.system.config.ScanPattern.Vertical vertical = 2;
   optional .blickfeld.system.config.ScanPattern.Pulse pulse = 3;
   // this is an read_only flag and it will be set if this is a default scan pattern, which can't be changed or deleted.
   optional bool read_only = 4 [default = false];
+  optional .blickfeld.system.config.ScanPattern.FrameRate frame_rate = 5 [(.blickfeld.base.optional) = true];
 }
 
 // Temporary container used for config storage
-// TODO Remove when daedalus-config supports map type.
+// TODO Remove when map type is supported.
 message NamedScanPattern {
   optional string name = 1 [(.blickfeld.base.optional) = true];
   optional .blickfeld.system.config.ScanPattern scan_pattern = 2;

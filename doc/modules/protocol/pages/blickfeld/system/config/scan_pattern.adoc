@@ -20,6 +20,7 @@ device-spcific.
 .2+| *read_only* | bool| false | - 
 3+| this is an read_only flag and it will be set if this is a default scan pattern, which can't be changed or deleted.
 
+| *frame_rate* | optional xref:blickfeld/system/config/scan_pattern.adoc#_blickfeld_system_config_ScanPattern_FrameRate[FrameRate] | - | - 
 |===
 
 [#_blickfeld_system_config_ScanPattern_Horizontal]
@@ -98,11 +99,25 @@ This parameter therefore defines the horizontal sampling resolution.
 
 |===
 
+[#_blickfeld_system_config_ScanPattern_FrameRate]
+=== Frame Rate
+
+This section defines the frame rate of a scan pattern
+
+.Available fields in blickfeld.system.config.ScanPattern.FrameRate
+|===
+| Field | Type | Default | Unit
+
+.2+| *maximum* | optional double| - | Hz 
+3+| Read-only parameter for maximum achievable frame rate of the scan pattern
+
+|===
+
 [#_blickfeld_system_config_NamedScanPattern]
 == Named Scan Pattern
 
 Temporary container used for config storage 
-TODO Remove when daedalus-config supports map type.
+TODO Remove when map type is supported.
 
 .Available fields in blickfeld.system.config.NamedScanPattern
 |===

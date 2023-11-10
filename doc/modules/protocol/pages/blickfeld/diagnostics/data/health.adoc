@@ -1,0 +1,75 @@
+[#_blickfeld_diagnostics_data_Health]
+= Health
+
+Qb2 modules
+
+.Available fields in blickfeld.diagnostics.data.Health
+|===
+| Field | Type | Default | Unit
+
+.2+| *state* | xref:blickfeld/base/data/health.adoc#_blickfeld_base_data_Health_State[base.data.Health.State] | - | - 
+3+| High-level aggregated health state of the device (if one of the modules reports FAILED -> aggregated state is also FAILED)
+
+.2+| *state_reason* | string| - | - 
+3+| Reason for given state (user-friendly). Is not set if state is STATE_OK. Aggregated string from modules state reasons
+
+.2+| *module* | xref:blickfeld/diagnostics/data/health.adoc#_blickfeld_diagnostics_data_Health_Module[Module] | - | - 
+3+| Qb2 modules
+
+|===
+
+[#_blickfeld_diagnostics_data_Health_Module]
+== Module
+
+Qb2 modules
+
+.Available fields in blickfeld.diagnostics.data.Health.Module
+|===
+| Field | Type | Default | Unit
+
+.2+| *laser* | xref:blickfeld/diagnostics/data/health.adoc#_blickfeld_diagnostics_data_Health_Module_Health[Health] | - | - 
+3+| health of laser module
+
+.2+| *detector* | xref:blickfeld/diagnostics/data/health.adoc#_blickfeld_diagnostics_data_Health_Module_Health[Health] | - | - 
+3+| health of detector module
+
+.2+| *beam_deflection_control_vertical* | xref:blickfeld/diagnostics/data/health.adoc#_blickfeld_diagnostics_data_Health_Module_Health[Health] | - | - 
+3+| health of beam deflection control module (vertical)
+
+.2+| *beam_deflection_control_horizontal* | xref:blickfeld/diagnostics/data/health.adoc#_blickfeld_diagnostics_data_Health_Module_Health[Health] | - | - 
+3+| health of beam deflection control module (horizontal)
+
+.2+| *system* | xref:blickfeld/diagnostics/data/health.adoc#_blickfeld_diagnostics_data_Health_Module_Health[Health] | - | - 
+3+| health of the Blickfeld system module
+
+.2+| *core_processing* | xref:blickfeld/diagnostics/data/health.adoc#_blickfeld_diagnostics_data_Health_Module_Health[Health] | - | - 
+3+| health of the Blickfeld core processing module
+
+.2+| *percept_processing* | xref:blickfeld/diagnostics/data/health.adoc#_blickfeld_diagnostics_data_Health_Module_Health[Health] | - | - 
+3+| health of percept processing
+
+.2+| *percept_pipeline* | xref:blickfeld/diagnostics/data/health.adoc#_blickfeld_diagnostics_data_Health_Module_Health[Health] | - | - 
+3+| health of percept pipeline
+
+.2+| *push* | xref:blickfeld/diagnostics/data/health.adoc#_blickfeld_diagnostics_data_Health_Module_Health[Health] | - | - 
+3+| Health of the Blickfeld Push module
+
+|===
+
+[#_blickfeld_diagnostics_data_Health_Module_Health]
+=== Health
+
+Message representing health of a Qb2 module
+
+.Available fields in blickfeld.diagnostics.data.Health.Module.Health
+|===
+| Field | Type | Default | Unit
+
+.2+| *state* | xref:blickfeld/base/data/health.adoc#_blickfeld_base_data_Health_State[base.data.Health.State] | - | - 
+3+| High-level health state of the module
+
+.2+| *state_reason* | string| - | - 
+3+| Reason for given state (user-friendly). Is not set if state is STATE_OK.
+
+|===
+

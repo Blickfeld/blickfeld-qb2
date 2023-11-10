@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+import "blickfeld/base/data/health.proto";
+import "blickfeld/base/options.proto";
+import "blickfeld/diagnostics/data/health.proto";
+import "google/protobuf/empty.proto";
+package blickfeld.diagnostics.services;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// Response to health get request
+message HealthGetResponse {
+  // Aggregated health
+  .blickfeld.diagnostics.data.Health health = 1;
+}
+
+// Response to health watch request
+message HealthWatchResponse {
+  // Aggregated health
+  .blickfeld.diagnostics.data.Health health = 2;
+}
+
+// This service provides aggregated health state information about all Qb2 software modules (only state and state reason are delivered)
+//  Service can be used to get an instant overview of the overall Qb2 device health
+service Health {
+  option (.blickfeld.base.access_control_service) = {
+    level: LEVEL_PUBLIC
+  };
+  option (.blickfeld.base.protocol_maturity_service) = {
+    level: LEVEL_MAINTAINED
+  };
+  // Returns the current aggregated health status of Qb2 software modules
+  rpc Get(.google.protobuf.Empty) returns (.blickfeld.diagnostics.services.HealthGetResponse);
+  // Returns the aggregated health status stream of Qb2 software modules
+  rpc Watch(.google.protobuf.Empty) returns (stream .blickfeld.diagnostics.services.HealthWatchResponse);
+}
+

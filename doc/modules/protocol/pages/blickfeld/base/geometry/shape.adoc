@@ -13,6 +13,9 @@ A shape that represent a geometrical figure.
 .2+| *box* | xref:blickfeld/base/geometry/shape.adoc#_blickfeld_base_geometry_Shape_Box[Box] | - | - 
 3+| Box shape
 
+.2+| *cone* | xref:blickfeld/base/geometry/shape.adoc#_blickfeld_base_geometry_Shape_Cone[Cone] | - | - 
+3+| Cone shape
+
 |===
 
 [#_blickfeld_base_geometry_Shape_Box]
@@ -26,6 +29,21 @@ A 3 dimensional box.
 
 .2+| *dimensions* | xref:blickfeld/base/geometry/vector3.adoc#_blickfeld_base_geometry_Vector3[Vector3] | - | - 
 3+| The X, Y and Z dimension.
+
+|===
+
+[#_blickfeld_base_geometry_Shape_Cone]
+== Cone
+
+A 3 dimensional cone.
+
+.Available fields in blickfeld.base.geometry.Shape.Cone
+|===
+| Field | Type | Default | Unit
+
+.2+| *dimensions* | xref:blickfeld/base/geometry/vector3.adoc#_blickfeld_base_geometry_Vector3[Vector3] | - | - 
+3+| The X, Y and Z dimension of the cone. X and Y dimensions of the cone 
+define the ellipsoid at the bottom of the cone. The cone is narrowing along the z direction.
 
 |===
 

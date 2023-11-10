@@ -22,6 +22,9 @@ An algorithm that monitors the area within and around a zone.
 .2+| *security* | xref:blickfeld/percept_pipeline/config/zone_algorithm.adoc#_blickfeld_percept_pipeline_config_ZoneAlgorithm_Security[Security] | - | - 
 3+| Run alarm detection within the zone
 
+.2+| *exclusion* | xref:blickfeld/percept_pipeline/config/zone_algorithm.adoc#_blickfeld_percept_pipeline_config_ZoneAlgorithm_Exclusion[Exclusion] | - | - 
+3+| Run exclusion zone
+
 |===
 
 [#_blickfeld_percept_pipeline_config_ZoneAlgorithm_Volume]
@@ -61,5 +64,15 @@ Algorithm that triggers an alarm if movement was detected in the zone
 3+| Minimum number of (foreground) points in the security zone to trigger the alarm. 
 Reasonable default: 10
 
+.2+| *max_points* | uint32| - | - 
+3+| Maximum number of (foreground) points in the security zone that still triggers an alarm. 
+More points will disable the alarm. This logic can be disabled by setting max_points to '0'. 
+Default: 0
+
 |===
+
+[#_blickfeld_percept_pipeline_config_ZoneAlgorithm_Exclusion]
+== Exclusion
+
+Algorithm that excludes points from the input point cloud
 

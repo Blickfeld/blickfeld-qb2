@@ -18,12 +18,20 @@ message Shape {
     // The X, Y and Z dimension.
     .blickfeld.base.geometry.Vector3 dimensions = 1;
   }
+  // A 3 dimensional cone.
+  message Cone {
+    // The X, Y and Z dimension of the cone. X and Y dimensions of the cone
+    // define the ellipsoid at the bottom of the cone. The cone is narrowing along the z direction.
+    .blickfeld.base.geometry.Vector3 dimensions = 1;
+  }
   // Position and orientation of the center of the bounding box enclosing the shape.
   .blickfeld.base.geometry.Pose pose = 1;
   // The type of the shape.
   oneof shape_type {
     // Box shape
     .blickfeld.base.geometry.Shape.Box box = 2;
+    // Cone shape
+    .blickfeld.base.geometry.Shape.Cone cone = 3;
   }
 }
 

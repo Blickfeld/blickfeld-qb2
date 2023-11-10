@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+import "blickfeld/base/data/health.proto";
+import "blickfeld/base/options.proto";
+package blickfeld.diagnostics.data;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// Qb2 modules
+message Health {
+  // Qb2 modules
+  message Module {
+    // Message representing health of a Qb2 module
+    message Health {
+      // High-level health state of the module
+      .blickfeld.base.data.Health.State state = 1;
+      // Reason for given state (user-friendly). Is not set if state is STATE_OK.
+      string state_reason = 2;
+    }
+    // health of laser module
+    .blickfeld.diagnostics.data.Health.Module.Health laser = 1;
+    // health of detector module
+    .blickfeld.diagnostics.data.Health.Module.Health detector = 2;
+    // health of beam deflection control module (vertical)
+    .blickfeld.diagnostics.data.Health.Module.Health beam_deflection_control_vertical = 3;
+    // health of beam deflection control module (horizontal)
+    .blickfeld.diagnostics.data.Health.Module.Health beam_deflection_control_horizontal = 4;
+    // health of the Blickfeld system module
+    .blickfeld.diagnostics.data.Health.Module.Health system = 6;
+    // health of the Blickfeld core processing module
+    .blickfeld.diagnostics.data.Health.Module.Health core_processing = 7;
+    // health of percept processing
+    .blickfeld.diagnostics.data.Health.Module.Health percept_processing = 8;
+    // health of percept pipeline
+    .blickfeld.diagnostics.data.Health.Module.Health percept_pipeline = 9;
+    // Health of the Blickfeld Push module
+    .blickfeld.diagnostics.data.Health.Module.Health push = 10;
+  }
+  // High-level aggregated health state of the device (if one of the modules reports FAILED -> aggregated state is also FAILED)
+  .blickfeld.base.data.Health.State state = 1;
+  // Reason for given state (user-friendly). Is not set if state is STATE_OK. Aggregated string from modules state reasons
+  string state_reason = 2;
+  // Qb2 modules
+  .blickfeld.diagnostics.data.Health.Module module = 3;
+}
+

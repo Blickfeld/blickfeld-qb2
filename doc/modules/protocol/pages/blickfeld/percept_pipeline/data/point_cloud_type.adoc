@@ -12,5 +12,7 @@ The type of the point cloud
 | POINT_CLOUD_TYPE_FULL ^| 1 | Full point cloud (combined point cloud of all devices or unfiltered point cloud coming from one device)
 | POINT_CLOUD_TYPE_FOREGROUND ^| 2 | Point cloud containing only foreground/points from moving objects
 | POINT_CLOUD_TYPE_FULL_OPTIMIZED ^| 3 | Same as 'POINT_CLOUD_TYPE_FULL' but with reduced point cloud density to reduce the size of the point cloud
+| POINT_CLOUD_TYPE_FILTERED ^| 4 | Same as 'POINT_CLOUD_TYPE_FULL' but with all points excluded that are in exclusion zones
+| POINT_CLOUD_TYPE_FILTERED_FOREGROUND ^| 5 | Same as 'POINT_CLOUD_TYPE_FOREGROUND' but with all points excluded that are in exclusion zones
 |===
 

@@ -6,6 +6,9 @@ include:
   - project: 'firmware/ci-helper'
     ref: master
     file: '/cpp/.gitlab-ci-template.yml'
+  - project: 'blickfeld/blickfeld-qb2-doc'
+    ref: main
+    file: '/.public.gitlab-ci.yml'
 
 variables:
   # Override: Do not format protocol files

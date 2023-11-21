@@ -1,3 +1,5 @@
 # CMake
 build/
 install/
+# Documentation
+public/

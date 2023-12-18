@@ -16,10 +16,10 @@ contains information about rauc bundle parsed from the associated manifest file
 .2+| *label* | string| - | - 
 3+| Human-readable label / version of the firmware
 
-.2+| *version* | xref:blickfeld/base/data/version.adoc#_blickfeld_base_data_Version[base.data.Version] | - | - 
+.2+| *version* | xref:blickfeld/base/data/version.adoc[base.data.Version] | - | - 
 3+| Version
 
-.2+| *allowed_downgrade_version* | xref:blickfeld/base/data/version.adoc#_blickfeld_base_data_Version[base.data.Version] | - | - 
+.2+| *allowed_downgrade_version* | xref:blickfeld/base/data/version.adoc[base.data.Version] | - | - 
 3+| Lowest allowed version which can be downgraded to if this firmware is installed
 
 |===

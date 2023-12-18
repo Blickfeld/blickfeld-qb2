@@ -18,7 +18,7 @@ state of a push
  
 The resulting value is averaged over the last 5 messages sent, peak or current values might be different.
 
-.2+| *last_message* | xref:#_google_protobuf_Timestamp[google.protobuf.Timestamp] | - | - 
+.2+| *last_message* | https://protobuf.dev/reference/protobuf/google.protobuf/#timestamp[google.protobuf.Timestamp] | - | - 
 3+| Timestamp when last message was sent
 
 .2+| *state* | xref:blickfeld/base/data/health.adoc#_blickfeld_base_data_Health_State[base.data.Health.State] | - | - 

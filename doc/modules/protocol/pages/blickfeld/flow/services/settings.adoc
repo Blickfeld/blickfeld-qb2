@@ -10,8 +10,8 @@ It is used to implement the custom storage API: https://nodered.org/docs/api/sto
 |===
 | Method | Request | Response
 
-| *xref:#Set[]* | xref:blickfeld/flow/services/settings.adoc#_blickfeld_flow_services_SettingsSetRequest[SettingsSetRequest]| xref:#_google_protobuf_Empty[google.protobuf.Empty]
-| *xref:#Get[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/flow/services/settings.adoc#_blickfeld_flow_services_SettingsGetResponse[SettingsGetResponse]
+| *xref:#Set[]* | xref:blickfeld/flow/services/settings.adoc#_blickfeld_flow_services_SettingsSetRequest[SettingsSetRequest]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
+| *xref:#Get[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/flow/services/settings.adoc#_blickfeld_flow_services_SettingsGetResponse[SettingsGetResponse]
 |===
 [#Set]
 == Set
@@ -29,7 +29,7 @@ Settings set request
 |===
 | Field | Type | Default | Unit
 
-.2+| *settings* | xref:#_google_protobuf_Struct[google.protobuf.Struct] | - | - 
+.2+| *settings* | https://protobuf.dev/reference/protobuf/google.protobuf/#struct[google.protobuf.Struct] | - | - 
 3+| Settings which should be stored 
  
 Generic JSON format which is defined by NodeRed.
@@ -52,7 +52,7 @@ Settings get request
 |===
 | Field | Type | Default | Unit
 
-.2+| *settings* | xref:#_google_protobuf_Struct[google.protobuf.Struct] | - | - 
+.2+| *settings* | https://protobuf.dev/reference/protobuf/google.protobuf/#struct[google.protobuf.Struct] | - | - 
 3+| Current settings 
  
 Generic JSON format which is defined by NodeRed.

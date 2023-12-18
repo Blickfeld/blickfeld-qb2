@@ -26,7 +26,7 @@ The self test run can be configured with this request
 |===
 | Field | Type | Default | Unit
 
-.2+| *self_tests* | repeated xref:blickfeld/diagnostics/config/self_test.adoc#_blickfeld_diagnostics_config_SelfTest[config.SelfTest] | - | - 
+.2+| *self_tests* | repeated xref:blickfeld/diagnostics/config/self_test.adoc[config.SelfTest] | - | - 
 3+| Specify self tests which should be executed. 
 If not set, the default set will be executed.
 
@@ -45,7 +45,7 @@ The success flag in the report must be checked.
 |===
 | Field | Type | Default | Unit
 
-.2+| *report* | xref:blickfeld/diagnostics/data/self_test_report.adoc#_blickfeld_diagnostics_data_SelfTestReport[data.SelfTestReport] | - | - 
+.2+| *report* | xref:blickfeld/diagnostics/data/self_test_report.adoc[data.SelfTestReport] | - | - 
 3+| Test report
 
 |===

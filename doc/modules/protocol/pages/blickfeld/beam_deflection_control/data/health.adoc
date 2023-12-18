@@ -13,6 +13,9 @@ Health message containing information about operation, status and error of a bea
 .2+| *state_reason* | string| - | - 
 3+| Reason for given state. Is not set if state is OK.
 
+.2+| *stats* | xref:blickfeld/beam_deflection_control/data/health.adoc#_blickfeld_beam_deflection_control_data_Health_Stats[Stats] | - | - 
+3+| Stats giving basic information about the mirror operation
+
 |===
 
 [#_blickfeld_beam_deflection_control_data_Health_Stats]
@@ -25,7 +28,11 @@ This message defines the stats that can be retrieved from a beam deflection cont
 | Field | Type | Default | Unit
 
 .2+| *time* | float| - | s 
-3+| Current time in s.
+3+| Time in seconds since last operation start.
+
+.2+| *control_effort* | float| - | - 
+3+| Control effort usage. Relative value indicating how much of the maximum available effort is currently used 
+to control the deflection mirror.
 
 |===
 

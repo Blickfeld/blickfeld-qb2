@@ -1,0 +1,7 @@
+# Scope of delivery
+
+Each Qb2 delivery contains the following parts:
+
+*  Ordered variant of the Qb2
+*  Quick start manual and safety information
+*  Compliance Information 

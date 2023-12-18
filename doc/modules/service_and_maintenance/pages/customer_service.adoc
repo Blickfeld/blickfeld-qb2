@@ -1,0 +1,32 @@
+# Customer Service
+
+For any technical support or repair requests related to your Blickfeld Lidar sensor, we are here to assist you. 
+Please feel free to reach out to us using the following contact channels:
+
+[%autowidth, cols="1h,3"]
+|===
+| Telephone
+| +49 89 230 69 35 -91
+
+| E-mail
+| support@blickfeld.com
+
+| Online Form
+| Visit our website at https://www.blickfeld.com/contact to fill out our online contact form.
+|=== 
+
+Should you encounter any issues requiring service for your LiDARsensor, please follow these steps:
+
+Contact Us: Before sending your device for service, please get in touch with our customer service team. They will assist you in troubleshooting the issue and determine whether service is necessary.
+
+Service Address: If our customer service team determines that your device requires service, please send it to the following address:
+
+----
+Blickfeld GmbH
+Attn: Customer Service
+Barthstr. 12
+80339 Munich, Germany
+----
+
+[NOTE]
+Please Note: We kindly ask that you do not send your device to Blickfeld for service without prior authorization. Our technical support team will guide you through the necessary steps to ensure a smooth and efficient service process.

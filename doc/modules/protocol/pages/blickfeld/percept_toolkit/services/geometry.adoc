@@ -25,10 +25,10 @@ Request for estimating alignment to ground/gravity based on imu-data and optiona
 |===
 | Field | Type | Default | Unit
 
-.2+| *accelerometer_data* | xref:blickfeld/core_processing/data/acceleration.adoc#_blickfeld_core_processing_data_Acceleration[core_processing.data.Acceleration] | - | - 
+.2+| *accelerometer_data* | xref:blickfeld/core_processing/data/acceleration.adoc[core_processing.data.Acceleration] | - | - 
 3+| accelerometer data is assumed to be expressed in the lidar coordinate frame
 
-.2+| *lidar_frame* | optional xref:blickfeld/core_processing/data/frame.adoc#_blickfeld_core_processing_data_Frame[core_processing.data.Frame] | - | - 
+.2+| *lidar_frame* | optional xref:blickfeld/core_processing/data/frame.adoc[core_processing.data.Frame] | - | - 
 3+| if a lidar frame is provided, it is used to estimate the z-coordinate of the translation as well.
 
 |===
@@ -42,7 +42,7 @@ The estimated alignment to the ground/gravity.
 |===
 | Field | Type | Default | Unit
 
-.2+| *alignment* | xref:blickfeld/base/geometry/transform.adoc#_blickfeld_base_geometry_Transform[base.geometry.Transform] | - | - 
+.2+| *alignment* | xref:blickfeld/base/geometry/transform.adoc[base.geometry.Transform] | - | - 
 3+| Estimated alignment of the sensor to the ground-plane/gravity. 
 If no lidar frame is provided only roll, pitch of the rotation are estimated. Otherwise the z-component of the 
 translation is additionally aligned with a flat ground. 
@@ -65,10 +65,10 @@ The request for transformation refinement based on 3d point clouds and an initia
 |===
 | Field | Type | Default | Unit
 
-.2+| *frame* | xref:blickfeld/core_processing/data/frame.adoc#_blickfeld_core_processing_data_Frame[core_processing.data.Frame] | - | - 
+.2+| *frame* | xref:blickfeld/core_processing/data/frame.adoc[core_processing.data.Frame] | - | - 
 3+| lidar frame used for aligning the 3d point clouds
 
-.2+| *transform* | xref:blickfeld/base/geometry/transform.adoc#_blickfeld_base_geometry_Transform[base.geometry.Transform] | - | - 
+.2+| *transform* | xref:blickfeld/base/geometry/transform.adoc[base.geometry.Transform] | - | - 
 3+| Transform: the transformation transforming a point in from the local lidar coordinate system into a 'combined' reference system 
 the 'combined' reference system can also be a lidar.
 
@@ -83,7 +83,7 @@ The refined lidar transformations.
 |===
 | Field | Type | Default | Unit
 
-.2+| *transformations* | repeated xref:blickfeld/base/geometry/transform.adoc#_blickfeld_base_geometry_Transform[base.geometry.Transform] | - | - 
+.2+| *transformations* | repeated xref:blickfeld/base/geometry/transform.adoc[base.geometry.Transform] | - | - 
 3+| Refined transformations. 
 The array sequence is equal to the sequence in which the requests were received. 
 The first element in the array corresponds to the lidar frame received in the first client stream message.

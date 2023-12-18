@@ -8,8 +8,8 @@ Service interface for managing the point cloud distortion correction.
 |===
 | Method | Request | Response
 
-| *xref:#Enable[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:#_google_protobuf_Empty[google.protobuf.Empty]
-| *xref:#Disable[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:#_google_protobuf_Empty[google.protobuf.Empty]
+| *xref:#Enable[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
+| *xref:#Disable[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
 |===
 [#Enable]
 == Enable

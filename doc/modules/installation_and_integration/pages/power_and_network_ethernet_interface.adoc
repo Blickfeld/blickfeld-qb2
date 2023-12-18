@@ -1,4 +1,4 @@
-= Electrical Installation
+= Power and Network Ethernet Interface
 
 [IMPORTANT]
 ====
@@ -15,21 +15,26 @@ In addition to this guide, obey all instructions given in the user manual that w
 
 [TIP]
 ====
-Find more details regarding the Ethernet connector and PoE in the xref:foundations:ethernet_interface.adoc[Ethernet interface description]. +
+Find more details regarding the Ethernet connector and PoE in the xref:connection.adoc[Ethernet interface description]. +
 Blickfeld offers pre-assembled cables with the Qb2-specific connector. Contact sales@blickfeld.com for further information.
 ====
 
 == How to connect
 
-. Unscrew the protective cap from the Ethernet connector of the Qb2.
-. Connect the Ethernet cable to the Qb2 by screwing on the M12 connector and *hand-tighten*. The cable connector fits in only one orientation given by the alignment key in the center.
-. (Optional: Attached the supplied WiFi antenna and *hand-tighten*.)
-. Connect the Ethernet cable to the network installation or switch on Power over Ethernet.
+* Remove the protective cap from the Ethernet port. Connect the Qb2 to a Power-over-Ethernet power-supplying equipment using a cable with a matching connector. Observe the correct connector orientation and hand-tighten only.
+* Optionally, when using the WiFi feature: Remove the protective cap from the antenna port. Attach the antenna and hand-tighten it only.
+* When bundling cables, obey the applicable regulations and technical guidelines regarding the number of bundled cables and required wire cross-sections.
+* Keep protective caps attached to unused equipment ports.
+* Use appropriate PoE surge protection in outdoor installations.
 
 Once power is supplied to the sensor, it will automatically start into an idle state in which the web interface is available but laser scanning has not yet startet. Scanning starts automatically once a point cloud is requested from the sensor or the web viewer is opened.
 
+[NOTE]
+After switching on the power to the Qb2, it can take up to 120 seconds until the Qb2 is ready for use.
+
+
 .Wiring diagram for a simple indoor installation.
-image::Qb2_Wiring_diagram.svg[width=640, xref=qb2-wiring]
+image::Qb2_Wiring_diagram.svg[width=640]
 
 . Host computer
 . Qb2
@@ -47,7 +52,7 @@ While the Qb2 has a certified ingress protection rating of IP67, long-term expos
 A cable drip loop helps in protecting the electrical connector from prolonged exposure to moisture. An example is shown in the image below. The basic idea is to have the cable make a turn in a location below the sensor installation height. In this way any water drops forming on the cable drip down at the turning point instead of wetting the electrical connector.
 
 .Basic concept of a drip loop.
-image::Qb2_drip_loop.svg[width=320, xref=drip-loop]
+image::Qb2_drip_loop.svg[width=320]
 
 Cable length::
 The PoE standard supports cable lenths of up to 100 meters. Consider using fiber-optical communication for long distances instead. If only perception data and no live point cloud data is needed, the sensor's WiFi feature might also be an option.
@@ -57,7 +62,7 @@ The PoE standard supports cable lenths of up to 100 meters. Consider using fiber
 When mounted outdoors, and in particular when placed on elevated structures such as lighting poles, surges due to lightning strike present a hazard to electrical equipment that is connected to the sensor. In order to protect building installations, it is recommended to use appropriate surge protection devices (SPDs) close to the Qb2 as well as close to the building to which the sensor is connected. 
 
 .Surge protection in outdoor installations.
-image::Qb2_surge_protection.svg[width=400, xref=surge-protection]
+image::Qb2_surge_protection.svg[width=400]
 
 . Qb2 mounted to pole
 . Outdoor surge protection devices (SPDs)

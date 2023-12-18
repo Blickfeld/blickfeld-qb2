@@ -1,6 +1,7 @@
 syntax = "proto3";
 
 import "blickfeld/base/options.proto";
+import "blickfeld/base/data/version.proto";
 import "blickfeld/system/data/firmware.proto";
 import "google/protobuf/empty.proto";
 package blickfeld.system.services;
@@ -46,6 +47,25 @@ message FirmwareUploadAndInstallResponse {
   .blickfeld.system.data.Firmware.Status status = 1;
 }
 
+// Request for fetch & install request
+message FirmwareFetchAndInstallRequest {
+  // Select source for fetch operation.
+  // By default, the latest version will be fetched & installed.
+  oneof source {    option (.blickfeld.base.optional_one_of) = true;
+
+    // Select version to install
+    .blickfeld.base.data.Version version = 1;
+    // Pass url to firmware bundle
+    string url = 2;
+  }
+}
+
+// Please refer to <<_blickfeld_system_services_FirmwareInstallResponse, FirmwareInstallResponse>>.
+message FirmwareFetchAndInstallResponse {
+  // Please refer to <<_blickfeld_system_services_FirmwareInstallResponse, FirmwareInstallResponse>>.
+  .blickfeld.system.data.Firmware.Status status = 1;
+}
+
 // Response with snapshot of current status.
 message FirmwareGetStatusResponse {
   // Current firmware status
@@ -83,6 +103,12 @@ service Firmware {
   }
   // Combines the Upload and Install steps in a single method.
   rpc UploadAndInstall(stream .blickfeld.system.services.FirmwareUploadAndInstallRequest) returns (stream .blickfeld.system.services.FirmwareUploadAndInstallResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      level: LEVEL_AUTHORIZED
+    };
+  }
+  // Fetch a firmware bundle from a static file server and perform installation.
+  rpc FetchAndInstall(.blickfeld.system.services.FirmwareFetchAndInstallRequest) returns (stream .blickfeld.system.services.FirmwareFetchAndInstallResponse) {
     option (.blickfeld.base.access_control_method) = {
       level: LEVEL_AUTHORIZED
     };

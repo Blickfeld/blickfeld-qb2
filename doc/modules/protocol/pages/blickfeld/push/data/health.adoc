@@ -28,6 +28,6 @@ A health message that contains information about the push status
 | Field | Type | Default | Unit
 
 | *key* | string| - | - 
-| *value* | xref:blickfeld/push/data/status.adoc#_blickfeld_push_data_Status[Status] | - | - 
+| *value* | xref:blickfeld/push/data/status.adoc[Status] | - | - 
 |===
 

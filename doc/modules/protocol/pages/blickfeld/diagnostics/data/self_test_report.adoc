@@ -24,7 +24,7 @@ Result of test.
 |===
 | Field | Type | Default | Unit
 
-.2+| *test* | xref:blickfeld/diagnostics/config/self_test.adoc#_blickfeld_diagnostics_config_SelfTest[config.SelfTest] | - | - 
+.2+| *test* | xref:blickfeld/diagnostics/config/self_test.adoc[config.SelfTest] | - | - 
 3+| Test case
 
 .2+| *identifier* | string| - | - 

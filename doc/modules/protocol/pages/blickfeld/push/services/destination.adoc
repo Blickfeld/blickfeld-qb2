@@ -8,7 +8,7 @@ An gRPC service to configure multiple push settings
 |===
 | Method | Request | Response
 
-| *xref:#Validate[]* | xref:blickfeld/push/services/destination.adoc#_blickfeld_push_services_DestinationValidateRequest[DestinationValidateRequest]| xref:#_google_protobuf_Empty[google.protobuf.Empty]
+| *xref:#Validate[]* | xref:blickfeld/push/services/destination.adoc#_blickfeld_push_services_DestinationValidateRequest[DestinationValidateRequest]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
 |===
 [#Validate]
 == Validate
@@ -24,7 +24,7 @@ request to validate a configured destination
 |===
 | Field | Type | Default | Unit
 
-.2+| *destination* | xref:blickfeld/push/config/destination.adoc#_blickfeld_push_config_Destination[config.Destination] | - | - 
+.2+| *destination* | xref:blickfeld/push/config/destination.adoc[config.Destination] | - | - 
 3+| the current (possibly incomplete) configuration entered
 
 |===

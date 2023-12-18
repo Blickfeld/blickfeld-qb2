@@ -8,7 +8,7 @@ This service is used to control & observe the state of the compute module.
 |===
 | Method | Request | Response
 
-| *xref:#Reboot[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:#_google_protobuf_Empty[google.protobuf.Empty]
+| *xref:#Reboot[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
 |===
 [#Reboot]
 == Reboot

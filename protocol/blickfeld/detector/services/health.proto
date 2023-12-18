@@ -11,13 +11,13 @@ option (.blickfeld.base.access_control_file) = {
 
 // Response message for get health request.
 message HealthGetResponse {
-  // Please refer to <<data.Health>>
+  // Health state
   .blickfeld.detector.data.Health health = 1;
 }
 
 // Response message for watch health request.
 message HealthWatchResponse {
-  // Please refer to <<data.Health>>
+  // Health state
   .blickfeld.detector.data.Health health = 1;
 }
 

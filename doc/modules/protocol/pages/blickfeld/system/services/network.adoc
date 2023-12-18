@@ -10,11 +10,11 @@ at run-time. The "GetStatus()" API brings configuration and statistical informat
 |===
 | Method | Request | Response
 
-| *xref:#GetStatus[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/system/data/network_status.adoc#_blickfeld_system_data_NetworkStatus[data.NetworkStatus]
-| *xref:#SetConfig[]* | xref:blickfeld/system/config/network.adoc#_blickfeld_system_config_Network[config.Network]| xref:#_google_protobuf_Empty[google.protobuf.Empty]
-| *xref:#GetConfig[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/system/config/network.adoc#_blickfeld_system_config_Network[config.Network]
+| *xref:#GetStatus[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/system/data/network_status.adoc[data.NetworkStatus]
+| *xref:#SetConfig[]* | xref:blickfeld/system/config/network.adoc[config.Network]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
+| *xref:#GetConfig[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/system/config/network.adoc[config.Network]
 | *xref:#Validate[]* | xref:blickfeld/system/services/network.adoc#_blickfeld_system_services_NetworkValidateRequest[NetworkValidateRequest]| xref:blickfeld/system/services/network.adoc#_blickfeld_system_services_NetworkValidateResponse[NetworkValidateResponse]
-| *xref:#GetMacAddresses[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/system/services/network.adoc#_blickfeld_system_services_NetworkGetMacAddressesResponse[NetworkGetMacAddressesResponse]
+| *xref:#GetMacAddresses[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/system/services/network.adoc#_blickfeld_system_services_NetworkGetMacAddressesResponse[NetworkGetMacAddressesResponse]
 |===
 [#GetStatus]
 == GetStatus
@@ -52,7 +52,7 @@ Request to validate method
 |===
 | Field | Type | Default | Unit
 
-.2+| *config* | xref:blickfeld/system/config/network.adoc#_blickfeld_system_config_Network[config.Network] | - | - 
+.2+| *config* | xref:blickfeld/system/config/network.adoc[config.Network] | - | - 
 3+| Configuration which should be validated
 
 |===
@@ -66,7 +66,7 @@ Response to validate method
 |===
 | Field | Type | Default | Unit
 
-.2+| *status* | xref:blickfeld/system/data/network_status.adoc#_blickfeld_system_data_NetworkStatus[data.NetworkStatus] | - | - 
+.2+| *status* | xref:blickfeld/system/data/network_status.adoc[data.NetworkStatus] | - | - 
 3+| Status message with allocated IP addresses
 
 |===

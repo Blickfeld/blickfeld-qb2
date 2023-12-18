@@ -11,13 +11,13 @@ option (.blickfeld.base.access_control_file) = {
 
 // Message containing the health data for a single get request
 message HealthGetResponse {
-  // Please refer to <<data.Health>>
+  // Health state
   .blickfeld.beam_deflection_control.data.Health health = 1;
 }
 
 // Message containing the health data for a watch stream
 message HealthWatchResponse {
-  // Please refer to <<data.Health>>
+  // Health state
   .blickfeld.beam_deflection_control.data.Health health = 1;
 }
 

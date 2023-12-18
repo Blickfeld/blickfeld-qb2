@@ -8,7 +8,7 @@ The identification service provides methods to set and read out identification d
 |===
 | Method | Request | Response
 
-| *xref:#Get[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/hardware/services/identification.adoc#_blickfeld_hardware_services_IdentificationGetResponse[IdentificationGetResponse]
+| *xref:#Get[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/hardware/services/identification.adoc#_blickfeld_hardware_services_IdentificationGetResponse[IdentificationGetResponse]
 |===
 [#Get]
 == Get
@@ -24,7 +24,7 @@ Response message for the identification get command
 |===
 | Field | Type | Default | Unit
 
-.2+| *identification* | xref:blickfeld/hardware/config/identification.adoc#_blickfeld_hardware_config_Identification[config.Identification] | - | - 
+.2+| *identification* | xref:blickfeld/hardware/config/identification.adoc[config.Identification] | - | - 
 3+| The current identification
 
 |===

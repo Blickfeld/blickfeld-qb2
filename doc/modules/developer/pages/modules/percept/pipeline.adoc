@@ -1,0 +1,34 @@
+= Blickfeld Percept Pipeline
+
+The Blickfeld Percept Pipeline module provides a gRPC interface to configure the processing pipeline.
+
+This pipeline is built by applying various processing steps to the raw data obtained from one or multiple Qb2 devices, with the goal of extracting high-level information, like volume or intrusion status. The different components of this pipeline, including the data source, can be tailored to specific requirements using this module.
+
+Each stage of the pipeline can be individually customized using dedicated services, listed below. These components collaboratively function in a specific sequence to extract high-level insights from the scene.
+
+image::pipeline_overview.svg[Pipeline Overview]
+
+== Services
+
+Blickfeld Percept Pipeline offers the following services:
+
+* Data Source
+* Perception
+* Zone
+* Health
+
+=== Data Source
+
+The xref:protocol:blickfeld/percept_pipeline/services/data_source.adoc[Data Source service] facilitates the retrieval, configuration, and receipt of updates regarding the data source employed in the processing pipeline. A data source represents a specification for one or multiple devices utilized for collecting point cloud data.
+
+=== Perception
+
+Data obtained from one or multiple devices undergoes processing through various steps to extract high-level information. Depending on the specific application, the xref:protocol:blickfeld/percept_pipeline/services/perception.adoc[Perception service] enables users to access, configure, and receive updates regarding the details of these steps.
+
+=== Zone
+
+The xref:protocol:blickfeld/percept_pipeline/services/zone.adoc[Zone service] permits users to access, configure, delete, and receive updates on the defined zones. A zone is essentially a bounding box placed within the scene, designed for the extraction of high-level information from the data. Examples of these zones include volume measurement zones or security zones, which are used to detect intrusion within specific areas.
+
+=== Health
+
+The xref:protocol:blickfeld/percept_pipeline/services/health.adoc[Health service] provide information about the current status of both the pipeline and the module. Users can utilize this service to retrieve information or stream real-time updates regarding the operational health of the system.

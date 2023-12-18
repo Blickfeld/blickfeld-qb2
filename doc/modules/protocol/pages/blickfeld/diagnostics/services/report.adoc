@@ -9,7 +9,7 @@ the state and health information of the Qb2 device.
 |===
 | Method | Request | Response
 
-| *xref:#Generate[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/diagnostics/services/report.adoc#_blickfeld_diagnostics_services_ReportGenerateResponse[ReportGenerateResponse]Stream 
+| *xref:#Generate[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/diagnostics/services/report.adoc#_blickfeld_diagnostics_services_ReportGenerateResponse[ReportGenerateResponse]Stream 
 |===
 [#Generate]
 == Generate

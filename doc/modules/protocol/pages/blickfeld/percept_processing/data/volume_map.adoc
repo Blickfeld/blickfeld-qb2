@@ -16,7 +16,7 @@ A message containing the volume map of one volume zone.
 .2+| *generator_name* | string| - | - 
 3+| The name of the entity generating this state
 
-.2+| *shape* | xref:blickfeld/base/geometry/shape.adoc#_blickfeld_base_geometry_Shape[base.geometry.Shape] | - | - 
+.2+| *shape* | xref:blickfeld/base/geometry/shape.adoc[base.geometry.Shape] | - | - 
 3+| The shape of the volume map, defining the pose and the dimension of the volume map in world frame. The shape is similar to the shape 
 of the input zone with the following difference: 
 - shape.pose.position: (x=zone.pose.position.x, y=zone.pose.position.y, z=0) 

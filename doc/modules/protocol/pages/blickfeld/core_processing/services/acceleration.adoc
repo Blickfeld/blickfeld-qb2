@@ -8,8 +8,8 @@ The Acceleration Service provides access to the accelerometer of the device.
 |===
 | Method | Request | Response
 
-| *xref:#Stream[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/core_processing/services/acceleration.adoc#_blickfeld_core_processing_services_AccelerationStreamResponse[AccelerationStreamResponse]Stream 
-| *xref:#GetFiltered[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/core_processing/services/acceleration.adoc#_blickfeld_core_processing_services_AccelerationGetFilteredResponse[AccelerationGetFilteredResponse]
+| *xref:#Stream[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/core_processing/services/acceleration.adoc#_blickfeld_core_processing_services_AccelerationStreamResponse[AccelerationStreamResponse]Stream 
+| *xref:#GetFiltered[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/core_processing/services/acceleration.adoc#_blickfeld_core_processing_services_AccelerationGetFilteredResponse[AccelerationGetFilteredResponse]
 |===
 [#Stream]
 == Stream
@@ -29,7 +29,7 @@ Stream response to acceleration stream request
 |===
 | Field | Type | Default | Unit
 
-.2+| *buffer* | xref:blickfeld/core_processing/data/acceleration_buffer.adoc#_blickfeld_core_processing_data_AccelerationBuffer[data.AccelerationBuffer] | - | - 
+.2+| *buffer* | xref:blickfeld/core_processing/data/acceleration_buffer.adoc[data.AccelerationBuffer] | - | - 
 3+| Buffer with acceleration
 
 |===
@@ -48,7 +48,7 @@ Response to acceleration get filtered request
 |===
 | Field | Type | Default | Unit
 
-.2+| *acceleration* | xref:blickfeld/core_processing/data/acceleration.adoc#_blickfeld_core_processing_data_Acceleration[data.Acceleration] | - | - 
+.2+| *acceleration* | xref:blickfeld/core_processing/data/acceleration.adoc[data.Acceleration] | - | - 
 3+| Single filtered acceleration
 
 |===

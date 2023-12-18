@@ -1,4 +1,4 @@
-* Protocol
+* xref:protocol:index.adoc[]
 ** blickfeld
 *** base
 **** data
@@ -44,14 +44,18 @@
 ***** xref:protocol:blickfeld/detector/services/health.adoc[Health]
 *** diagnostics
 **** config
+***** xref:protocol:blickfeld/diagnostics/config/log.adoc[Log]
 ***** xref:protocol:blickfeld/diagnostics/config/self_test.adoc[Self Test]
 **** data
 ***** xref:protocol:blickfeld/diagnostics/data/health.adoc[Health]
+***** xref:protocol:blickfeld/diagnostics/data/log.adoc[Log]
 ***** xref:protocol:blickfeld/diagnostics/data/self_test_report.adoc[Self Test Report]
 **** services
 ***** xref:protocol:blickfeld/diagnostics/services/health.adoc[Health]
+***** xref:protocol:blickfeld/diagnostics/services/log.adoc[Log]
 ***** xref:protocol:blickfeld/diagnostics/services/report.adoc[Report]
 ***** xref:protocol:blickfeld/diagnostics/services/self_test.adoc[Self Test]
+**** xref:protocol:blickfeld/diagnostics/options.adoc[Options]
 *** flow
 **** config
 ***** xref:protocol:blickfeld/flow/config/flow.adoc[Flow]
@@ -70,6 +74,7 @@
 *** laser
 **** data
 ***** xref:protocol:blickfeld/laser/data/health.adoc[Health]
+***** xref:protocol:blickfeld/laser/data/mode.adoc[Mode]
 **** services
 ***** xref:protocol:blickfeld/laser/services/health.adoc[Health]
 *** percept_pipeline

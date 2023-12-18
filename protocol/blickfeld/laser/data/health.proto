@@ -2,6 +2,7 @@ syntax = "proto3";
 
 import "blickfeld/base/options.proto";
 import "blickfeld/base/data/health.proto";
+import "blickfeld/laser/data/mode.proto";
 package blickfeld.laser.data;
 
 option (.blickfeld.base.access_control_file) = {
@@ -13,5 +14,21 @@ message Health {
   .blickfeld.base.data.Health.State state = 1;
   // Reason for given state. Is not set if state is OK.
   string state_reason = 2;
+  // Current temperature measured with dedicated temperature IC on PCB
+  float reference_temperature = 6 [(.blickfeld.base.unit) = "\302\260C", (.blickfeld.base.access_control_field) = {
+    level: LEVEL_ADMIN
+  }];
+  // Current core temperature of microcontroller
+  float mcu_temperature = 7 [(.blickfeld.base.unit) = "\302\260C", (.blickfeld.base.access_control_field) = {
+    level: LEVEL_ADMIN
+  }];
+  // Current Laser operating mode, it has impact on pulse energy
+  .blickfeld.laser.data.Mode mode = 8 [(.blickfeld.base.access_control_field) = {
+    level: LEVEL_ADMIN
+  }];
+  // The frequency of the laser trigger with an error of +/-pre-scaler value
+  double trigger_frequency = 9 [(.blickfeld.base.unit) = "Hz", (.blickfeld.base.access_control_field) = {
+    level: LEVEL_ADMIN
+  }];
 }
 

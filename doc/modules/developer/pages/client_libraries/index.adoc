@@ -1,0 +1,33 @@
+= Client Libraries
+
+Additional client side libraries are provided by Blickfeld for selected languages to speed up the
+client development & integration and to ensure that all security features are activated by default.
+
+Intentionally, the client libraries are kept lightweight to avoid dependency conflicts with client applications.
+All libraries enable access to the xref:protocol:index.adoc[] and the available methods are auto-generated
+from the underlying https://github.com/Blickfeld/blickfeld-qb2/tree/main/protocol[Protobuf Definitions].
+
+[cols="1,1,5"]
+|===
+|Language | Library | Recommended usage
+
+| xref::./python.adoc[]
+| https://pypi.org/project/blickfeld-qb2/[blickfeld_qb2]
+| Rapid prototyping, data evaluation, live point cloud streaming & processing, and (maintenance) tools.
+
+| xref::./cpp.adoc[]
+| https://github.com/Blickfeld/blickfeld-qb2/tree/main/cpp[C++ CMake Client Library]
+| C++-based client applications and high-performance, multi-sensor real-time point cloud streaming & processing.
+
+| ROS2 Driver
+| https://github.com/Blickfeld/blickfeld_qb2_ros2_driver[Qb2 ROS2 Driver]
+| Integration in ROS2 processing networks.
+
+| https://grpc.io/docs/languages/[Others]
+| https://github.com/Blickfeld/blickfeld-qb2/tree/main/protocol[Protobuf Protocol]
+| 
+The raw gRPC Protobuf files are available on https://github.com/Blickfeld/blickfeld-qb2[Github] and can be compiled for various platforms.
+Note that all security-related additions, such as TLS authentication, or automatic decoders of
+binary data to platform-specific types need to be done manually.
+
+|===

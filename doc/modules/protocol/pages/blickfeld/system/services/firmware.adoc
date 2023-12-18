@@ -12,8 +12,9 @@ upgrade it, downgrade it and also configure auto-update mechanisms.
 | *xref:#Upload[]* | xref:blickfeld/system/services/firmware.adoc#_blickfeld_system_services_FirmwareUploadRequest[FirmwareUploadRequest]Stream | xref:blickfeld/system/services/firmware.adoc#_blickfeld_system_services_FirmwareUploadResponse[FirmwareUploadResponse]
 | *xref:#Install[]* | xref:blickfeld/system/services/firmware.adoc#_blickfeld_system_services_FirmwareInstallRequest[FirmwareInstallRequest]| xref:blickfeld/system/services/firmware.adoc#_blickfeld_system_services_FirmwareInstallResponse[FirmwareInstallResponse]Stream 
 | *xref:#UploadAndInstall[]* | xref:blickfeld/system/services/firmware.adoc#_blickfeld_system_services_FirmwareUploadAndInstallRequest[FirmwareUploadAndInstallRequest]Stream | xref:blickfeld/system/services/firmware.adoc#_blickfeld_system_services_FirmwareUploadAndInstallResponse[FirmwareUploadAndInstallResponse]Stream 
-| *xref:#GetStatus[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/system/services/firmware.adoc#_blickfeld_system_services_FirmwareGetStatusResponse[FirmwareGetStatusResponse]
-| *xref:#WatchStatus[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/system/services/firmware.adoc#_blickfeld_system_services_FirmwareWatchStatusResponse[FirmwareWatchStatusResponse]Stream 
+| *xref:#FetchAndInstall[]* | xref:blickfeld/system/services/firmware.adoc#_blickfeld_system_services_FirmwareFetchAndInstallRequest[FirmwareFetchAndInstallRequest]| xref:blickfeld/system/services/firmware.adoc#_blickfeld_system_services_FirmwareFetchAndInstallResponse[FirmwareFetchAndInstallResponse]Stream 
+| *xref:#GetStatus[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/system/services/firmware.adoc#_blickfeld_system_services_FirmwareGetStatusResponse[FirmwareGetStatusResponse]
+| *xref:#WatchStatus[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/system/services/firmware.adoc#_blickfeld_system_services_FirmwareWatchStatusResponse[FirmwareWatchStatusResponse]Stream 
 |===
 [#Upload]
 == Upload
@@ -108,6 +109,42 @@ Please refer to <<_blickfeld_system_services_FirmwareUploadRequest, FirmwareUplo
 Please refer to <<_blickfeld_system_services_FirmwareInstallResponse, FirmwareInstallResponse>>.
 
 .Available fields in blickfeld.system.services.FirmwareUploadAndInstallResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *status* | xref:blickfeld/system/data/firmware.adoc#_blickfeld_system_data_Firmware_Status[data.Firmware.Status] | - | - 
+3+| Please refer to <<_blickfeld_system_services_FirmwareInstallResponse, FirmwareInstallResponse>>.
+
+|===
+
+[#FetchAndInstall]
+== FetchAndInstall
+
+Fetch a firmware bundle from a static file server and perform installation.
+
+[#_blickfeld_system_services_FirmwareFetchAndInstallRequest]
+=== Request
+
+Request for fetch & install request
+
+.Available fields in blickfeld.system.services.FirmwareFetchAndInstallRequest
+|===
+| Field | Type | Default | Unit
+
+.2+| *version* | xref:blickfeld/base/data/version.adoc[base.data.Version] | - | - 
+3+| Select version to install
+
+.2+| *url* | string| - | - 
+3+| Pass url to firmware bundle
+
+|===
+
+[#_blickfeld_system_services_FirmwareFetchAndInstallResponse]
+=== Response Stream
+
+Please refer to <<_blickfeld_system_services_FirmwareInstallResponse, FirmwareInstallResponse>>.
+
+.Available fields in blickfeld.system.services.FirmwareFetchAndInstallResponse
 |===
 | Field | Type | Default | Unit
 

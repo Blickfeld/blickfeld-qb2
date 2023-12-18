@@ -8,12 +8,12 @@ CAUTION: This API is not yet officially released neither maintained.
 |===
 | Method | Request | Response
 
-| *xref:#Get[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/system/services/scan_pattern.adoc#_blickfeld_system_services_ScanPatternGetResponse[ScanPatternGetResponse]
-| *xref:#Set[]* | xref:blickfeld/system/services/scan_pattern.adoc#_blickfeld_system_services_ScanPatternSetRequest[ScanPatternSetRequest]| xref:#_google_protobuf_Empty[google.protobuf.Empty]
-| *xref:#Watch[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/system/services/scan_pattern.adoc#_blickfeld_system_services_ScanPatternWatchResponse[ScanPatternWatchResponse]Stream 
-| *xref:#List[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/system/services/scan_pattern.adoc#_blickfeld_system_services_ScanPatternListResponse[ScanPatternListResponse]
-| *xref:#Store[]* | xref:blickfeld/system/services/scan_pattern.adoc#_blickfeld_system_services_ScanPatternStoreRequest[ScanPatternStoreRequest]| xref:#_google_protobuf_Empty[google.protobuf.Empty]
-| *xref:#Delete[]* | xref:blickfeld/system/services/scan_pattern.adoc#_blickfeld_system_services_ScanPatternDeleteRequest[ScanPatternDeleteRequest]| xref:#_google_protobuf_Empty[google.protobuf.Empty]
+| *xref:#Get[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/system/services/scan_pattern.adoc#_blickfeld_system_services_ScanPatternGetResponse[ScanPatternGetResponse]
+| *xref:#Set[]* | xref:blickfeld/system/services/scan_pattern.adoc#_blickfeld_system_services_ScanPatternSetRequest[ScanPatternSetRequest]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
+| *xref:#Watch[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/system/services/scan_pattern.adoc#_blickfeld_system_services_ScanPatternWatchResponse[ScanPatternWatchResponse]Stream 
+| *xref:#List[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/system/services/scan_pattern.adoc#_blickfeld_system_services_ScanPatternListResponse[ScanPatternListResponse]
+| *xref:#Store[]* | xref:blickfeld/system/services/scan_pattern.adoc#_blickfeld_system_services_ScanPatternStoreRequest[ScanPatternStoreRequest]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
+| *xref:#Delete[]* | xref:blickfeld/system/services/scan_pattern.adoc#_blickfeld_system_services_ScanPatternDeleteRequest[ScanPatternDeleteRequest]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
 |===
 [#Get]
 == Get

@@ -1,31 +1,42 @@
-= Application Interface (API)
+= Python
 
-The Qb2 uses https://grpc.io/[gRPC Remote Procedure Calls] for communicating with the outside world. The corresponding `.proto` files are publicy available on https://github.com/Blickfeld/blickfeld-qb2[Github]. They can be compiled for various programming languages, listed https://grpc.io/docs/languages/[here].
-The gRPC API documentation can be found in the protocol section of this document.
+The pre-built python package *blickfeld_qb2* is available on https://pypi.org/project/blickfeld-qb2/[pypi].
+It contains all the necessary sources to communicate securely to a Qb2 device.
 
-Additionally, there is a pre-built python package available which will be used in the following examples.
+[NOTE]
+Python is recommended for rapid prototyping, data evaluation and tools.
+Usually, the performance is sufficient for live point cloud streaming & processing as e.g. 
+it directly provides efficient memory-mapped numpy arrays as output.
+In combination with https://github.com/isl-org/Open3D[Open3D], it can cover a lot of application scenarios.
+
 In this guide the Blickfeld Qb2 Python library will be first installed and a secure connection to a Qb2 device will be established.
 Then the version of the currently installed firmware is fetched from the device. Finally we take a look at asynchronous usage of the Blickfeld library.
 
 == Installing Blickfeld Qb2 Library 
 The python package to control the Qb2 device is called ```blickfeld_qb2``` and can be installed from the PyPI repository with the respective command shown below:
 
-[source,bash]
+[,console]
 ----
-pip3 install blickfeld_qb2
+$ pip3 install blickfeld_qb2
 ----
 
 == Connecting to Qb2 
-To interact with a Qb2 device, a gRPC connection has to be established. For that we use the gRPC ```Channel``` from the ```base.grpc.channel``` namespace of the ```blickfeld_qb2``` library: 
+To interact with a Qb2 device, a gRPC connection has to be established. For that we use the gRPC ```Channel``` from the ```blickfeld_qb2``` library.
+An IP address or a hostname of a Qb2 device can be used to establish a connection. The connection is by default encrypted and authenticated. 
 
+.Simple example which imports the blickfeld_qb2 python library and creates communication channel to a Qb2
 [source,python]
 ----
-from blickfeld_qb2.base.grpc.channel import Channel
+import blickfeld_qb2
+# open secure connection to Qb2
+with blickfeld_qb2.Channel(fqdn_or_ip="qb2-xxxxxxxxx") as channel:
+    # Call methods of services
+    # ..
 ----
 
-An IP address or a hostname of a Qb2 device can be used to establish a connection. The connection is by default encrypted and authenticated. The ```serial_number``` can be passed additionally to authenticate a particular device. If it is not supplied, the authentication only checks if it is a Blickfeld device.
+NOTE: The ```serial_number``` can be passed additionally to authenticate a particular device. If it is not supplied, the authentication only checks if it is a Blickfeld device.
 
-== Get Qb2 Firmware Version  
+== Simple API Requests
 
 The code snippet below shows an example of connecting to Qb2 with a hostname ```qb2-xxxxxxxxx``` and fetching information about its firmware version. 
 For that we use the ```Firmware``` service from ```blickfeld_qb2.system.services``` namespace over the gRPC channel and make a 
@@ -34,10 +45,9 @@ request ```get_status()``` to get a response with information about the currentl
 [source,python]
 ----
 import blickfeld_qb2
-from blickfeld_qb2.base.grpc.channel import Channel
 
 # open secure connection to Qb2
-with Channel(fqdn_or_ip="qb2-xxxxxxxxx") as channel:
+with blickfeld_qb2.Channel(fqdn_or_ip="qb2-xxxxxxxxx") as channel:
     # request firmware status 
     response = blickfeld_qb2.system.services.Firmware(channel).get_status()
     # extract firmware version 
@@ -60,19 +70,16 @@ FirmwareInfo(label='JAKOB v1.5.0', version=Version(major=1, minor=5, revision='e
 
 == Asynchronous Requests
 
-If needed, the Blickfeld library can be also used in a fully asynchronous mode. In the example shown below we introduce a coroutine ```get_firmware_version()```, which opens an asynchronous gRPC channel and makes use of an asynchronous request ```async_get_status()``` to get the same information about the Qb2 firmware status. 
-
-NOTE: This subsection is optional
+If needed, the Blickfeld library can be also used in a fully asynchronous mode. In the example shown below we introduce a coroutine ```get_firmware_version()```, which opens an asynchronous gRPC channel and makes use of an asynchronous request ```async_get_status()``` to get the same information about the Qb2 firmware status.
 
 [source,python]
 ----
 import asyncio
 import blickfeld_qb2
-from blickfeld_qb2.base.grpc.channel import Channel
 
 async def main():
     # open secure asynchronous connection to Qb2
-    async with Channel(fqdn_or_ip="qb2-xxxxxxxxx") as channel:
+    async with blickfeld_qb2.Channel(fqdn_or_ip="qb2-xxxxxxxxx") as channel:
         # request firmware status asynchronously and await for the response 
         response = await blickfeld_qb2.system.services.Firmware(channel).async_get_status()
         # get firmware version from the response 

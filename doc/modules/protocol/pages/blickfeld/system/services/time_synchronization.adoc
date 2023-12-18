@@ -8,8 +8,8 @@ This service provides methods to configure the time synchronization of the devic
 |===
 | Method | Request | Response
 
-| *xref:#Set[]* | xref:blickfeld/system/services/time_synchronization.adoc#_blickfeld_system_services_TimeSynchronizationSetRequest[TimeSynchronizationSetRequest]| xref:#_google_protobuf_Empty[google.protobuf.Empty]
-| *xref:#Get[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/system/services/time_synchronization.adoc#_blickfeld_system_services_TimeSynchronizationGetResponse[TimeSynchronizationGetResponse]
+| *xref:#Set[]* | xref:blickfeld/system/services/time_synchronization.adoc#_blickfeld_system_services_TimeSynchronizationSetRequest[TimeSynchronizationSetRequest]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
+| *xref:#Get[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/system/services/time_synchronization.adoc#_blickfeld_system_services_TimeSynchronizationGetResponse[TimeSynchronizationGetResponse]
 |===
 [#Set]
 == Set
@@ -25,7 +25,7 @@ Request which is sent together with a SetConfig API call
 |===
 | Field | Type | Default | Unit
 
-.2+| *config* | xref:blickfeld/system/config/time_synchronization.adoc#_blickfeld_system_config_TimeSynchronization[config.TimeSynchronization] | - | - 
+.2+| *config* | xref:blickfeld/system/config/time_synchronization.adoc[config.TimeSynchronization] | - | - 
 3+| Time synchronization config to be used
 
 |===
@@ -44,7 +44,7 @@ Response which is sent as answer for a GetConfig call
 |===
 | Field | Type | Default | Unit
 
-.2+| *config* | xref:blickfeld/system/config/time_synchronization.adoc#_blickfeld_system_config_TimeSynchronization[config.TimeSynchronization] | - | - 
+.2+| *config* | xref:blickfeld/system/config/time_synchronization.adoc[config.TimeSynchronization] | - | - 
 3+| Currently used time synchronization config
 
 |===

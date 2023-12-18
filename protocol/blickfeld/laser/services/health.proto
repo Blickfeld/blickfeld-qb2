@@ -10,12 +10,12 @@ option (.blickfeld.base.access_control_file) = {
 };
 
 message HealthGetResponse {
-  // Please refer to <<data.Health>>
+  // Health state
   .blickfeld.laser.data.Health health = 1;
 }
 
 message HealthWatchResponse {
-  // Please refer to <<data.Health>>
+  // Health state
   .blickfeld.laser.data.Health health = 1;
 }
 

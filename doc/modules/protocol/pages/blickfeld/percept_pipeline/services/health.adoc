@@ -8,8 +8,8 @@ Reports the health of the pipeline module.
 |===
 | Method | Request | Response
 
-| *xref:#Watch[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/percept_pipeline/services/health.adoc#_blickfeld_percept_pipeline_services_HealthWatchResponse[HealthWatchResponse]Stream 
-| *xref:#Get[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/percept_pipeline/services/health.adoc#_blickfeld_percept_pipeline_services_HealthGetResponse[HealthGetResponse]
+| *xref:#Watch[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/percept_pipeline/services/health.adoc#_blickfeld_percept_pipeline_services_HealthWatchResponse[HealthWatchResponse]Stream 
+| *xref:#Get[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/percept_pipeline/services/health.adoc#_blickfeld_percept_pipeline_services_HealthGetResponse[HealthGetResponse]
 |===
 [#Watch]
 == Watch
@@ -25,7 +25,7 @@ Stream response containing health of the module
 |===
 | Field | Type | Default | Unit
 
-.2+| *health* | xref:blickfeld/percept_pipeline/data/health.adoc#_blickfeld_percept_pipeline_data_Health[data.Health] | - | - 
+.2+| *health* | xref:blickfeld/percept_pipeline/data/health.adoc[data.Health] | - | - 
 3+| The module health
 
 |===
@@ -44,7 +44,7 @@ Get response containing health of the module
 |===
 | Field | Type | Default | Unit
 
-.2+| *health* | xref:blickfeld/percept_pipeline/data/health.adoc#_blickfeld_percept_pipeline_data_Health[data.Health] | - | - 
+.2+| *health* | xref:blickfeld/percept_pipeline/data/health.adoc[data.Health] | - | - 
 3+| The module health
 
 |===

@@ -12,7 +12,7 @@ there are no more clients requesting any stream type from the module.
 |===
 | Method | Request | Response
 
-| *xref:#Stream[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/percept_processing/services/states.adoc#_blickfeld_percept_processing_services_StatesStreamResponse[StatesStreamResponse]Stream 
+| *xref:#Stream[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/percept_processing/services/states.adoc#_blickfeld_percept_processing_services_StatesStreamResponse[StatesStreamResponse]Stream 
 |===
 [#Stream]
 == Stream
@@ -29,7 +29,7 @@ pipeline
 |===
 | Field | Type | Default | Unit
 
-.2+| *states* | xref:blickfeld/percept_processing/data/states.adoc#_blickfeld_percept_processing_data_States[data.States] | - | - 
+.2+| *states* | xref:blickfeld/percept_processing/data/states.adoc[data.States] | - | - 
 3+| The current states with the information detected in the scene.
 
 |===

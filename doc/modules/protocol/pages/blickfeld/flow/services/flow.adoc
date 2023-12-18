@@ -11,11 +11,11 @@ It is used to implement the custom storage API: https://nodered.org/docs/api/sto
 | Method | Request | Response
 
 | *xref:#Get[]* | xref:blickfeld/flow/services/flow.adoc#_blickfeld_flow_services_FlowGetRequest[FlowGetRequest]| xref:blickfeld/flow/services/flow.adoc#_blickfeld_flow_services_FlowGetResponse[FlowGetResponse]
-| *xref:#List[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/flow/services/flow.adoc#_blickfeld_flow_services_FlowListResponse[FlowListResponse]
-| *xref:#Store[]* | xref:blickfeld/flow/services/flow.adoc#_blickfeld_flow_services_FlowStoreRequest[FlowStoreRequest]| xref:#_google_protobuf_Empty[google.protobuf.Empty]
-| *xref:#Delete[]* | xref:blickfeld/flow/services/flow.adoc#_blickfeld_flow_services_FlowDeleteRequest[FlowDeleteRequest]| xref:#_google_protobuf_Empty[google.protobuf.Empty]
-| *xref:#StoreGlobalNodes[]* | xref:blickfeld/flow/services/flow.adoc#_blickfeld_flow_services_FlowStoreGlobalNodesRequest[FlowStoreGlobalNodesRequest]| xref:#_google_protobuf_Empty[google.protobuf.Empty]
-| *xref:#GetGlobalNodes[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/flow/services/flow.adoc#_blickfeld_flow_services_FlowGetGlobalNodesResponse[FlowGetGlobalNodesResponse]
+| *xref:#List[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/flow/services/flow.adoc#_blickfeld_flow_services_FlowListResponse[FlowListResponse]
+| *xref:#Store[]* | xref:blickfeld/flow/services/flow.adoc#_blickfeld_flow_services_FlowStoreRequest[FlowStoreRequest]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
+| *xref:#Delete[]* | xref:blickfeld/flow/services/flow.adoc#_blickfeld_flow_services_FlowDeleteRequest[FlowDeleteRequest]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
+| *xref:#StoreGlobalNodes[]* | xref:blickfeld/flow/services/flow.adoc#_blickfeld_flow_services_FlowStoreGlobalNodesRequest[FlowStoreGlobalNodesRequest]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
+| *xref:#GetGlobalNodes[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/flow/services/flow.adoc#_blickfeld_flow_services_FlowGetGlobalNodesResponse[FlowGetGlobalNodesResponse]
 |===
 [#Get]
 == Get
@@ -48,10 +48,10 @@ Flow get response
 |===
 | Field | Type | Default | Unit
 
-.2+| *flow* | xref:blickfeld/flow/config/flow.adoc#_blickfeld_flow_config_Flow[config.Flow] | - | - 
+.2+| *flow* | xref:blickfeld/flow/config/flow.adoc[config.Flow] | - | - 
 3+| Blickfeld Flow config with well-defined high-level attributes
 
-.2+| *node_red_json* | xref:blickfeld/flow/config/node_red_json.adoc#_blickfeld_flow_config_NodeRedJson[config.NodeRedJson] | - | - 
+.2+| *node_red_json* | xref:blickfeld/flow/config/node_red_json.adoc[config.NodeRedJson] | - | - 
 3+| NodeRed JSON format which can be directly imported
 
 |===
@@ -94,10 +94,10 @@ Flow store request
  
 NOTE: For node_red_json, this has to match the ID in the NodeRED JSON format.
 
-.2+| *flow* | xref:blickfeld/flow/config/flow.adoc#_blickfeld_flow_config_Flow[config.Flow] | - | - 
+.2+| *flow* | xref:blickfeld/flow/config/flow.adoc[config.Flow] | - | - 
 3+| Blickfeld Flow config with well-defined high-level attributes
 
-.2+| *node_red_json* | xref:blickfeld/flow/config/node_red_json.adoc#_blickfeld_flow_config_NodeRedJson[config.NodeRedJson] | - | - 
+.2+| *node_red_json* | xref:blickfeld/flow/config/node_red_json.adoc[config.NodeRedJson] | - | - 
 3+| NodeRed JSON format which can be directly exported from NodeRED Admin UI
 
 |===
@@ -135,7 +135,7 @@ Flow store global nodes request
 |===
 | Field | Type | Default | Unit
 
-.2+| *node_red_json* | xref:blickfeld/flow/config/node_red_json.adoc#_blickfeld_flow_config_NodeRedJson[config.NodeRedJson] | - | - 
+.2+| *node_red_json* | xref:blickfeld/flow/config/node_red_json.adoc[config.NodeRedJson] | - | - 
 3+| NodeRed JSON format of all global configuration nodes
 
 |===
@@ -154,7 +154,7 @@ Flow get global nodes response
 |===
 | Field | Type | Default | Unit
 
-.2+| *node_red_json* | xref:blickfeld/flow/config/node_red_json.adoc#_blickfeld_flow_config_NodeRedJson[config.NodeRedJson] | - | - 
+.2+| *node_red_json* | xref:blickfeld/flow/config/node_red_json.adoc[config.NodeRedJson] | - | - 
 3+| NodeRed JSON format of all global configuration nodes
 
 |===

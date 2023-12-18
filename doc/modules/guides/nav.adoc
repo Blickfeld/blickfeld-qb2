@@ -1,6 +1,3 @@
 * Guides
-** xref:guides:api.adoc[]
 ** xref:guides:core_processing_point_cloud.adoc[]
-** xref:guides:electrical_installation_guide.adoc[]
 ** xref:guides:firmware_networking.adoc[]
-** xref:guides:mounting_guide.adoc[]

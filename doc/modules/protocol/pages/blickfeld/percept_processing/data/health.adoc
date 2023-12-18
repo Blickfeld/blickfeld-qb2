@@ -14,10 +14,69 @@ module itself.
 .2+| *state_reason* | string| - | - 
 3+| Reason for the given state. It is not set if state is STATE_OK.
 
-.2+| *pipeline_state* | xref:blickfeld/percept_pipeline/data/state.adoc#_blickfeld_percept_pipeline_data_State[percept_pipeline.data.State] | - | - 
+.2+| *pipeline_state* | xref:blickfeld/percept_pipeline/data/state.adoc[percept_pipeline.data.State] | - | - 
 3+| Current state of the pipeline. It indicates if the pipeline is stable, 
 unstable or broken, based on the frequency of the data that is processed 
 and published.
 
+.2+| *clients* | repeated xref:blickfeld/percept_processing/data/health.adoc#_blickfeld_percept_processing_data_Health_Client[Client] | - | - 
+3+| Health information of all connected clients
+
 |===
+
+[#_blickfeld_percept_processing_data_Health_Client]
+== Client
+
+Health information of connected clients
+
+.Available fields in blickfeld.percept_processing.data.Health.Client
+|===
+| Field | Type | Default | Unit
+
+.2+| *uuid* | string| - | - 
+3+| Identifier of the client
+
+.2+| *peer_uri* | string| - | - 
+3+| The client peer uri
+
+.2+| *connection_timestamp* | uint64| - | - 
+3+| The timestamp of the moment the client connected to processing
+
+.2+| *lost_frames* | uint64| - | - 
+3+| The number of total lost frames since the start of the stream
+
+.2+| *point_cloud* | xref:blickfeld/percept_processing/data/health.adoc#_blickfeld_percept_processing_data_Health_Client_PointCloud[PointCloud] | - | - 
+3+| The client receives point cloud stream data
+
+.2+| *states* | xref:blickfeld/percept_processing/data/health.adoc#_blickfeld_percept_processing_data_Health_Client_States[States] | - | - 
+3+| The client receives states stream data
+
+.2+| *volume_map* | xref:blickfeld/percept_processing/data/health.adoc#_blickfeld_percept_processing_data_Health_Client_VolumeMap[VolumeMap] | - | - 
+3+| The client receives volume map stream data
+
+|===
+
+[#_blickfeld_percept_processing_data_Health_Client_PointCloud]
+=== Point Cloud
+
+Point Cloud specific information
+
+.Available fields in blickfeld.percept_processing.data.Health.Client.PointCloud
+|===
+| Field | Type | Default | Unit
+
+.2+| *point_cloud_type* | xref:blickfeld/percept_pipeline/data/point_cloud_type.adoc[percept_pipeline.data.PointCloudType] | - | - 
+3+| The point cloud type the client is receiving
+
+|===
+
+[#_blickfeld_percept_processing_data_Health_Client_States]
+=== States
+
+States specific information
+
+[#_blickfeld_percept_processing_data_Health_Client_VolumeMap]
+=== Volume Map
+
+Volume Map specific information
 

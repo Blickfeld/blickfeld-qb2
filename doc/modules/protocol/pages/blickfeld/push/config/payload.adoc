@@ -10,7 +10,7 @@ defines what type of data stream to use as payload
 .2+| *encoding* | xref:blickfeld/push/config/payload.adoc#_blickfeld_push_config_Payload_Encoding[Encoding] | - | - 
 3+| payload encoding
 
-.2+| *data_type* | xref:blickfeld/percept_processing/data/data_type.adoc#_blickfeld_percept_processing_data_DataType[percept_processing.data.DataType] | - | - 
+.2+| *data_type* | xref:blickfeld/percept_processing/data/data_type.adoc[percept_processing.data.DataType] | - | - 
 3+| payload data type to stream
 
 |===

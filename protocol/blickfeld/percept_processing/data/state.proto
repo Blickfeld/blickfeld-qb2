@@ -25,6 +25,8 @@ message State {
   message Volume {
     // The current numerical volume of the zone.
     float volume = 1 [(.blickfeld.base.unit) = "m^3"];
+    // The current zone volume surface coverage
+    float coverage = 5 [(.blickfeld.base.d_min) = 0, (.blickfeld.base.d_max) = 1];
     reserved 2, 3, 4;
   }
   // The name of the entity generating this state

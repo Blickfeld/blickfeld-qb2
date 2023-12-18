@@ -5,7 +5,7 @@ In this guide we establish a secure connection to a Qb2 device.
 Afterwards, the point cloud data is requested and one or multiple point cloud frames are received. 
 Finally, we get data from the received point cloud and plot a single point cloud frame.
 
-NOTE: Please follow the xref:api.adoc[API Guide] first to install the Python package.
+NOTE: Please follow the xref:developer:client_libraries/python.adoc[Python Client Library Guide] first to install the Python package.
 
 == Fetch point cloud from Qb2 
 
@@ -19,10 +19,9 @@ The following example shows how to fetch a single point cloud frame using the ``
 [source,python]
 ----
 import blickfeld_qb2
-from blickfeld_qb2.base.grpc.channel import Channel
 
 # open secure connection to Qb2
-with Channel(fqdn_or_ip="qb2-xxxxxxxxx") as channel:
+with blickfeld_qb2.Channel(fqdn_or_ip="qb2-xxxxxxxxx") as channel:
     service = blickfeld_qb2.core_processing.services.PointCloud(channel)
     frame = service.get().frame
     # print frame id
@@ -36,10 +35,9 @@ The following example shows how to continuously stream point cloud frames from a
 [source,python]
 ----
 import blickfeld_qb2
-from blickfeld_qb2.base.grpc.channel import Channel
 
 # open secure connection to Qb2
-with Channel(fqdn_or_ip="qb2-xxxxxxxxx") as channel:
+with blickfeld_qb2.Channel(fqdn_or_ip="qb2-xxxxxxxxx") as channel:
     service = blickfeld_qb2.core_processing.services.PointCloud(channel)
     # request point cloud stream from Qb2
     for i, response in enumerate(service.stream()):

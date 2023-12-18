@@ -60,7 +60,7 @@ The ramping phases are known as the up-ramping phase and the down-ramping phase.
 The orange line in the following figure 1 shows a plot of the vertical angle stem:[\theta_V] for an exemplary frame with a natural frequency stem:[f=270\ \mathrm{Hz}], a vertical field of view stem:[\theta_{V,max}=30^{\circ}], and the ramp function stem:[r(t)] defined in the previous example.
 
 .Movement of the horizontal mirror (blue) and the vertical mirror (orange).
-image::scan_pattern_mirror_movement.png[xref=mirror-movement]
+image::scan_pattern_mirror_movement.png[]
 
 === Scan lines
 
@@ -78,4 +78,4 @@ By altering the number of scanlines per frame, you can directly decrease or incr
 The horizontal mirror starts on the left and moves to the right. The vertical mirror starts at zero and moves to the bottom. As depicted in figure 2, the first scanline is nearly a straight line in the middle from left to right. The second scanline is above the first scanline and moves from right to left. The third scanline is below the first scanline and moves from left to right. The fourth scanline is above the second scanline and moves from right to left, and so on.
 
 .Movement of the laser beam.
-image::scan_pattern_buildup.png[xref=scanpattern]
+image::scan_pattern_buildup.png[]

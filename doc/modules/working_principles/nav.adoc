@@ -1,0 +1,5 @@
+* Working principles
+** xref:working_principles:coordinate_system.adoc[]
+** xref:working_principles:field_of_view.adoc[]
+** xref:working_principles:operating_principle.adoc[]
+** xref:working_principles:scan_pattern.adoc[]

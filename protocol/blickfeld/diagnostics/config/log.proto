@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+import "blickfeld/diagnostics/options.proto";
+package blickfeld.diagnostics.config;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_AUTHORIZED
+};
+
+// This message aggregates the configurations related to the log service.
+message Log {
+  // Filter configuration for filtering the requested log entries.
+  message Filter {
+    // This field specifies the list of software modules that can be accessed via the log service.
+    enum SoftwareModule {
+      // No module is selected
+      SOFTWARE_MODULE_UNSPECIFIED = 0;
+      // gRPC proxy where all clients requests are handled.
+      // Helps to review & audit calls of client applications.
+      SOFTWARE_MODULE_BLICKFELD_PROXY = 1 [(.blickfeld.diagnostics.software_module) = {
+        systemd_unit_name: "daedalus-proxy"
+      }];
+    }
+  }
+  // The direction in time in which the service provides new log entries
+  enum TimeDirection {
+    // No direction is specified
+    TIME_DIRECTION_UNSPECIFIED = 0;
+    // Streaming direction forward in time.
+    // The log entries are streamed towards the tail of the journal. When the tail is reached, the stream continues waiting for newly
+    // written logs.
+    TIME_DIRECTION_FORWARD = 1;
+    // Streaming direction backward in time.
+    // The log entries are streamed towards the head of the journal. When the head is reached, the stream terminates.
+    TIME_DIRECTION_BACKWARD = 2;
+  }
+}
+

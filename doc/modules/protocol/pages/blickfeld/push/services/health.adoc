@@ -8,8 +8,8 @@ An gRPC service to request the status of push configurations
 |===
 | Method | Request | Response
 
-| *xref:#Get[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/push/services/health.adoc#_blickfeld_push_services_HealthGetResponse[HealthGetResponse]
-| *xref:#Watch[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/push/services/health.adoc#_blickfeld_push_services_HealthWatchResponse[HealthWatchResponse]Stream 
+| *xref:#Get[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/push/services/health.adoc#_blickfeld_push_services_HealthGetResponse[HealthGetResponse]
+| *xref:#Watch[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/push/services/health.adoc#_blickfeld_push_services_HealthWatchResponse[HealthWatchResponse]Stream 
 |===
 [#Get]
 == Get
@@ -25,7 +25,7 @@ request get the health of the configured publisher
 |===
 | Field | Type | Default | Unit
 
-.2+| *health* | xref:blickfeld/push/data/health.adoc#_blickfeld_push_data_Health[data.Health] | - | - 
+.2+| *health* | xref:blickfeld/push/data/health.adoc[data.Health] | - | - 
 3+| health of push configurations
 
 |===
@@ -44,7 +44,7 @@ request watch the health of the configured publisher
 |===
 | Field | Type | Default | Unit
 
-.2+| *health* | xref:blickfeld/push/data/health.adoc#_blickfeld_push_data_Health[data.Health] | - | - 
+.2+| *health* | xref:blickfeld/push/data/health.adoc[data.Health] | - | - 
 3+| health of push configurations
 
 |===

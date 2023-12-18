@@ -27,7 +27,7 @@ Configuration for retrieving point clouds from a Cube 1
 .2+| *fqdn* | string| - | - 
 3+| The fully qualified domain name of the Cube 1
 
-.2+| *map_from_lidar* | xref:blickfeld/base/geometry/transform.adoc#_blickfeld_base_geometry_Transform[base.geometry.Transform] | - | - 
+.2+| *map_from_lidar* | xref:blickfeld/base/geometry/transform.adoc[base.geometry.Transform] | - | - 
 3+| Transformation from the lidar frame to the map frame. If this transform is not set, this will be interpreted as identify 
 transformation. Transforming all point cloud topics into the map frame results in a globally consistent combined point cloud in 
 map frame.
@@ -47,7 +47,7 @@ Configuration for retrieving point clouds from a Qb2
 3+| The fully qualified domain name of the Qb2 device. For on-device processing/configuration, 'fqdn' can be set 
 to an empty string to request the data of the current device.
 
-.2+| *map_from_lidar* | xref:blickfeld/base/geometry/transform.adoc#_blickfeld_base_geometry_Transform[base.geometry.Transform] | - | - 
+.2+| *map_from_lidar* | xref:blickfeld/base/geometry/transform.adoc[base.geometry.Transform] | - | - 
 3+| Transformation from the lidar frame to the map frame. If this transform is not set, this will be interpreted as identify 
 transformation. Transforming all point cloud topics into the map frame results in a globally consistent combined point cloud in 
 map frame.

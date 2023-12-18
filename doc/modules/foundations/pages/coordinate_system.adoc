@@ -1,6 +1,0 @@
-= Coordinate System
-
-Figure 1 shows the coordinate system definition and its origin for the Qb2 variants.
-
-.Qb2 coordinate system for Qb2 standard (left) and ETR (right) variants.
-image::Qb2_Coordinate_System.svg[]

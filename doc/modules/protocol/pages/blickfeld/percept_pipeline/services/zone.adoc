@@ -8,10 +8,10 @@ The zone service allows getting, configuring, deleting and receiving updates of 
 |===
 | Method | Request | Response
 
-| *xref:#List[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/percept_pipeline/services/zone.adoc#_blickfeld_percept_pipeline_services_ZoneListResponse[ZoneListResponse]
-| *xref:#Store[]* | xref:blickfeld/percept_pipeline/services/zone.adoc#_blickfeld_percept_pipeline_services_ZoneStoreRequest[ZoneStoreRequest]| xref:#_google_protobuf_Empty[google.protobuf.Empty]
-| *xref:#Delete[]* | xref:blickfeld/percept_pipeline/services/zone.adoc#_blickfeld_percept_pipeline_services_ZoneDeleteRequest[ZoneDeleteRequest]| xref:#_google_protobuf_Empty[google.protobuf.Empty]
-| *xref:#Watch[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/percept_pipeline/services/zone.adoc#_blickfeld_percept_pipeline_services_ZoneWatchResponse[ZoneWatchResponse]Stream 
+| *xref:#List[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/percept_pipeline/services/zone.adoc#_blickfeld_percept_pipeline_services_ZoneListResponse[ZoneListResponse]
+| *xref:#Store[]* | xref:blickfeld/percept_pipeline/services/zone.adoc#_blickfeld_percept_pipeline_services_ZoneStoreRequest[ZoneStoreRequest]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
+| *xref:#Delete[]* | xref:blickfeld/percept_pipeline/services/zone.adoc#_blickfeld_percept_pipeline_services_ZoneDeleteRequest[ZoneDeleteRequest]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
+| *xref:#Watch[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/percept_pipeline/services/zone.adoc#_blickfeld_percept_pipeline_services_ZoneWatchResponse[ZoneWatchResponse]Stream 
 | *xref:#GetTareVolume[]* | xref:blickfeld/percept_pipeline/services/zone.adoc#_blickfeld_percept_pipeline_services_ZoneGetTareVolumeRequest[ZoneGetTareVolumeRequest]| xref:blickfeld/percept_pipeline/services/zone.adoc#_blickfeld_percept_pipeline_services_ZoneGetTareVolumeResponse[ZoneGetTareVolumeResponse]
 |===
 [#List]
@@ -28,7 +28,7 @@ Response containing the configured list of zones
 |===
 | Field | Type | Default | Unit
 
-.2+| *zones* | repeated xref:blickfeld/percept_pipeline/config/zone_algorithm.adoc#_blickfeld_percept_pipeline_config_ZoneAlgorithm[config.ZoneAlgorithm] | - | - 
+.2+| *zones* | repeated xref:blickfeld/percept_pipeline/config/zone_algorithm.adoc[config.ZoneAlgorithm] | - | - 
 3+| The currently configured zones
 
 |===
@@ -47,7 +47,7 @@ Request to store or update an existing zone
 |===
 | Field | Type | Default | Unit
 
-.2+| *zone* | xref:blickfeld/percept_pipeline/config/zone_algorithm.adoc#_blickfeld_percept_pipeline_config_ZoneAlgorithm[config.ZoneAlgorithm] | - | - 
+.2+| *zone* | xref:blickfeld/percept_pipeline/config/zone_algorithm.adoc[config.ZoneAlgorithm] | - | - 
 3+| The new zone to be added. If there is a zone with the same uuid, that zone will get updated with this configuration.
 
 |===
@@ -85,7 +85,7 @@ Continuous response on zone list changes
 |===
 | Field | Type | Default | Unit
 
-.2+| *zones* | repeated xref:blickfeld/percept_pipeline/config/zone_algorithm.adoc#_blickfeld_percept_pipeline_config_ZoneAlgorithm[config.ZoneAlgorithm] | - | - 
+.2+| *zones* | repeated xref:blickfeld/percept_pipeline/config/zone_algorithm.adoc[config.ZoneAlgorithm] | - | - 
 3+| The current/updated list of zones
 
 |===

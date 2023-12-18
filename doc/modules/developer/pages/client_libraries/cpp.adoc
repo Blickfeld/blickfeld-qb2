@@ -1,0 +1,195 @@
+= C++
+
+To simplify the integration in pass:[C++] projects, a pass:[C++] CMake Client Library brings header files and CMake support to automate the protocol generation.
+
+[WARNING]
+Only choose C++ if your application is based on it or the high performance is required.
+Most of the time, the Python client library is also sufficiently performant
+and allows a more rapid prototyping & usage.
+
+== Dependencies
+
+* Protobuf (minimum 3.6.1) with Protobuf Compiler
+* gRPC (minimum 1.16.1) with gRPC Compiler Plugin
+
+In modern linux distributions (Ubuntu 20.04, Debian 10 and greater), the debian packages should be used:
+
+[,console]
+----
+$ sudo apt update
+$ sudo apt install -y libgrpc++-dev protobuf-compiler-grpc libprotobuf-dev
+----
+
+For old distributions, the dependencies have to be compiled manually and installed into the system.
+
+== How to add it to an existing CMake project
+
+One of the following approaches is recommended as they are tested.
+
+=== FetchContent
+
+This uses the https://cmake.org/cmake/help/latest/module/FetchContent.html[CMake FetchContent] module to populate the source code and target to your project.
+
+[,cmake]
+----
+include(FetchContent)
+FetchContent_Declare(blickfeld-qb2
+    GIT_REPOSITORY https://github.com/Blickfeld/blickfeld-qb2.git
+    GIT_TAG        main
+)
+FetchContent_MakeAvailable(blickfeld-qb2)
+----
+
+The `blickfeld-qb2` target is then available in the CMake project.
+
+=== Install
+
+In this approach, we clone the project, use CMake to configure it, build it and install it globally in the system.
+
+[,console]
+----
+$ git clone https://github.com/Blickfeld/blickfeld-qb2.git
+$ mkdir blickfeld-qb2/build
+$ cd blickfeld-qb2/build
+$ cmake ..
+$ make -j
+$ sudo make install
+----
+
+The library is now installed in the system and can be found by your CMake project.
+
+[,cmake]
+----
+find_package(blickfeld-qb2 REQUIRED)
+----
+
+The `blickfeld-qb2` target is then available in the CMake project.
+
+== How to use
+
+With the `target_link_libraries` statement, the `blickfeld-qb2` needs to be linked to your target executable or library.
+
+[,cmake]
+----
+find_package(blickfeld-qb2 REQUIRED) # or FetchContent
+
+add_executable(example main.cpp)
+target_link_libraries(example PUBLIC blickfeld-qb2)
+----
+
+In the source code, the library method `connect_to_device` can then be used to connect to a device.
+
+```cpp
+#include <blickfeld/hardware/client.h>
+
+int main() {
+    auto channel = blickfeld::hardware::connect_to_device("qb2-xxxxxxx");
+    ..
+    return 0;
+}
+```
+
+The various API services can then be used with the established channel.
+Note that the channel can also be reused.
+
+=== Fetch Point Cloud
+
+With the following code snippet, the established channel is used to fetch one point cloud frame.
+
+.A single point cloud frame is fetched from the sensor and the frame id is printed on the console.
+```cpp
+#include <blickfeld/hardware/client.h>
+#include <blickfeld/core_processing/services/point_cloud.grpc.pb.h>
+
+int main() {
+    auto channel = blickfeld::hardware::connect_to_device("qb2-xxxxxxx");
+
+    // Fetch one point cloud frame
+    auto service = blickfeld::core_processing::services::PointCloud::NewStub(channel);
+    grpc::ClientContext context;
+    auto response = service->Get(&context, blickfeld::core_processing::services::PointCloudGetRequest());
+    std::cout << "Received a frame with the ID " << response.frame().id() << std::endl;
+
+    return 0;
+}
+```
+
+=== Process Point Cloud
+
+The ```response``` object contains the ```frame``` which contains the binary point cloud data.
+The API reference can be found xref:protocol:blickfeld/core_processing/services/point_cloud.adoc#Get[here].
+
+For performance reasons, the frame is transported in a binary format.
+To access the binary fields of the frame, the have to be casted to their xref:protocol:blickfeld/core_processing/data/frame.adoc#_blickfeld_core_processing_data_Frame_Binary[corresponding types].
+
+.The binary data in the response is casted to the corresponding types and one point is printed.
+```cpp
+void process_frame(const blickfeld::core_processing::data::Frame& frame) {
+    // print frame parameters
+    printf("frame size: %d\n", frame.binary().length());
+
+    // access cartesian point data (flat array of floats)
+    auto xyz = (float*) frame.binary().cartesian().data();
+    // access photon count / intensity of the points
+    auto photon_counts = (uint16_t*) frame.binary().photon_count().data();
+    // access direction_id of the points
+    auto direction_ids = (uint32_t*) frame.binary().direction_id().data();
+
+    // read out x,y,z coordinates, photon count, direction_id of a point in the frame
+    int pointIndex = 10;
+    float x = xyz[pointIndex+0];
+    float y = xyz[pointIndex+1];
+    float z = xyz[pointIndex+2];
+    uint16_t photon_count = photon_counts[pointIndex];
+    uint32_t direction_id =  direction_ids[pointIndex];
+
+    printf("point: %d, x: %.3f m, y: %.3f m, z: %.3f m, photon count: %u, direction_id: %u\n",
+           pointIndex, x, y, z, photon_count, direction_id);
+}
+```
+
+=== Stream Point Clouds
+
+.A stream is requested and 10 frames are read in a sequence.
+```cpp
+#include <blickfeld/hardware/client.h>
+#include <blickfeld/core_processing/services/point_cloud.grpc.pb.h>
+
+int main() {
+    auto channel = blickfeld::hardware::connect_to_device("qb2-xxxxxxx");
+
+    // Fetch one point cloud frame
+    auto service = blickfeld::core_processing::services::PointCloud::NewStub(channel);
+    grpc::ClientContext context;
+    blickfeld::core_processing::services::PointCloudStreamResponse response;
+    auto stream = service->Stream(&context, blickfeld::core_processing::services::PointCloudStreamRequest());
+
+    for (int i = 0; i < 10; i++) {
+        stream->Read(&response);
+        std::cout << "Received a frame with the ID " << response.frame().id() << std::endl;
+        process_frame(response.frame());
+    }
+
+    // Stop stream
+    context.TryCancel();
+
+    return 0;
+}
+```
+
+.Example output of stream example
+[,console]
+----
+$ ./cpp/examples/stream_point_clouds/stream_point_clouds-example 
+Received a frame with the ID 27
+frame size: 144395
+point: 10, x: 2.238 m, y: -0.269 m, z: -2.248 m, photon count: 2343, direction_id: 10
+Received a frame with the ID 28
+frame size: 144398
+point: 10, x: 2.242 m, y: -0.269 m, z: -2.227 m, photon count: 2158, direction_id: 10
+...
+----
+
+The source code of the examples can be found in the examples section of the https://github.com/Blickfeld/blickfeld-qb2/tree/main/cpp/examples[Git Repository].
+
+Please refer to the https://grpc.io/docs/languages/cpp/quickstart/[gRPC C++ documentation] and further guides & examples in this documentation.

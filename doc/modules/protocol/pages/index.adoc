@@ -1,0 +1,16 @@
+= Application Programming Interface (API)
+
+The Qb2 uses a TLS-secured https://grpc.io/[gRPC] protocol as network protocol.
+The modern framework allows a simple and efficient integration in customer applications and 
+client libraries are available for various languages and platforms.
+
+gRPC implements a remote procedure call (RPC) pattern with a grouping by so-called services.
+RPC calls (= methods) usually have one request and one response.
+For continuous data transport, streams are supported which effectively just emit multiple requests or responses.
+The Blickfeld API additionally groups the methods by a module namespace to give them a context and allow
+the re-usage of service names with similar behaviors for multiple modules.
+
+The corresponding `.proto` files are publicly available on https://github.com/Blickfeld/blickfeld-qb2[Github].
+A rendered version of the protocol files can be found in the sub-navigation tree of this section.
+The documentation provides a complete documentation of all available methods, data structures and fields.
+Note that fields might have a varying format on different platforms e.g. Python uses snake_case and Typescript uses CamelCase.

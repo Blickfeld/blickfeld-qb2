@@ -14,7 +14,7 @@ is lower than this limit, the device is considered to be covered.
 .2+| *point_cloud_alignment_deviation_norm_upper_limit* | optional float| - | - 
 3+| The limit to detect the alignment has changed.
 
-.2+| *point_cloud_reference_alignment* | optional xref:blickfeld/core_processing/data/acceleration.adoc#_blickfeld_core_processing_data_Acceleration[data.Acceleration] | - | - 
+.2+| *point_cloud_reference_alignment* | optional xref:blickfeld/core_processing/data/acceleration.adoc[data.Acceleration] | - | - 
 3+| Set the point cloud reference alignment.
 
 |===

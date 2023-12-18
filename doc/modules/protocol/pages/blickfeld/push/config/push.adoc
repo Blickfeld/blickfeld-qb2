@@ -10,10 +10,10 @@ defines a combination of stream and destination
 .2+| *name* | string| - | - 
 3+| name of push
 
-.2+| *payload* | xref:blickfeld/push/config/payload.adoc#_blickfeld_push_config_Payload[Payload] | - | - 
+.2+| *payload* | xref:blickfeld/push/config/payload.adoc[Payload] | - | - 
 3+| stream payload
 
-.2+| *destination* | xref:blickfeld/push/config/destination.adoc#_blickfeld_push_config_Destination[Destination] | - | - 
+.2+| *destination* | xref:blickfeld/push/config/destination.adoc[Destination] | - | - 
 3+| push destination
 
 .2+| *enabled* | bool| - | - 

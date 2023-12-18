@@ -8,8 +8,8 @@ The health service provides methods to monitor operational status of the systen 
 |===
 | Method | Request | Response
 
-| *xref:#Get[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/system/services/health.adoc#_blickfeld_system_services_HealthGetResponse[HealthGetResponse]
-| *xref:#Watch[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/system/services/health.adoc#_blickfeld_system_services_HealthWatchResponse[HealthWatchResponse]Stream 
+| *xref:#Get[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/system/services/health.adoc#_blickfeld_system_services_HealthGetResponse[HealthGetResponse]
+| *xref:#Watch[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/system/services/health.adoc#_blickfeld_system_services_HealthWatchResponse[HealthWatchResponse]Stream 
 |===
 [#Get]
 == Get
@@ -25,7 +25,7 @@ Response to health get request
 |===
 | Field | Type | Default | Unit
 
-.2+| *health* | xref:blickfeld/system/data/health.adoc#_blickfeld_system_data_Health[data.Health] | - | - 
+.2+| *health* | xref:blickfeld/system/data/health.adoc[data.Health] | - | - 
 3+| Health state
 
 |===
@@ -44,7 +44,7 @@ Stream response to health watch request
 |===
 | Field | Type | Default | Unit
 
-.2+| *health* | xref:blickfeld/system/data/health.adoc#_blickfeld_system_data_Health[data.Health] | - | - 
+.2+| *health* | xref:blickfeld/system/data/health.adoc[data.Health] | - | - 
 3+| Health state
 
 |===

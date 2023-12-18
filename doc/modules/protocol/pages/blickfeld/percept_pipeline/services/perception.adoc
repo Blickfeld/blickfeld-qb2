@@ -9,11 +9,11 @@ Perception configurations specify the algorithms used for e.g. for background su
 |===
 | Method | Request | Response
 
-| *xref:#Get[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/percept_pipeline/services/perception.adoc#_blickfeld_percept_pipeline_services_PerceptionGetResponse[PerceptionGetResponse]
-| *xref:#Set[]* | xref:blickfeld/percept_pipeline/services/perception.adoc#_blickfeld_percept_pipeline_services_PerceptionSetRequest[PerceptionSetRequest]| xref:#_google_protobuf_Empty[google.protobuf.Empty]
-| *xref:#Watch[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/percept_pipeline/services/perception.adoc#_blickfeld_percept_pipeline_services_PerceptionWatchResponse[PerceptionWatchResponse]Stream 
-| *xref:#ListTemplates[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/percept_pipeline/services/perception.adoc#_blickfeld_percept_pipeline_services_PerceptionListTemplatesResponse[PerceptionListTemplatesResponse]
-| *xref:#ResetBackground[]* | xref:blickfeld/percept_pipeline/services/perception.adoc#_blickfeld_percept_pipeline_services_PerceptionResetBackgroundRequest[PerceptionResetBackgroundRequest]| xref:#_google_protobuf_Empty[google.protobuf.Empty]
+| *xref:#Get[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/percept_pipeline/services/perception.adoc#_blickfeld_percept_pipeline_services_PerceptionGetResponse[PerceptionGetResponse]
+| *xref:#Set[]* | xref:blickfeld/percept_pipeline/services/perception.adoc#_blickfeld_percept_pipeline_services_PerceptionSetRequest[PerceptionSetRequest]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
+| *xref:#Watch[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/percept_pipeline/services/perception.adoc#_blickfeld_percept_pipeline_services_PerceptionWatchResponse[PerceptionWatchResponse]Stream 
+| *xref:#ListTemplates[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/percept_pipeline/services/perception.adoc#_blickfeld_percept_pipeline_services_PerceptionListTemplatesResponse[PerceptionListTemplatesResponse]
+| *xref:#ResetBackground[]* | xref:blickfeld/percept_pipeline/services/perception.adoc#_blickfeld_percept_pipeline_services_PerceptionResetBackgroundRequest[PerceptionResetBackgroundRequest]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
 |===
 [#Get]
 == Get
@@ -29,7 +29,7 @@ Response containing the current perception configuration
 |===
 | Field | Type | Default | Unit
 
-.2+| *perception* | xref:blickfeld/percept_pipeline/config/perception.adoc#_blickfeld_percept_pipeline_config_Perception[config.Perception] | - | - 
+.2+| *perception* | xref:blickfeld/percept_pipeline/config/perception.adoc[config.Perception] | - | - 
 3+| The current perception configuration
 
 |===
@@ -51,7 +51,7 @@ Request for setting the perception configuration
 .2+| *template_name* | string| - | - 
 3+| Use a template to set the configuration, templates are predefined perception configurations
 
-.2+| *perception* | xref:blickfeld/percept_pipeline/config/perception.adoc#_blickfeld_percept_pipeline_config_Perception[config.Perception] | - | - 
+.2+| *perception* | xref:blickfeld/percept_pipeline/config/perception.adoc[config.Perception] | - | - 
 3+| Use the specified configuration
 
 |===
@@ -70,7 +70,7 @@ Continuous response on perception configuration changes
 |===
 | Field | Type | Default | Unit
 
-.2+| *perception* | xref:blickfeld/percept_pipeline/config/perception.adoc#_blickfeld_percept_pipeline_config_Perception[config.Perception] | - | - 
+.2+| *perception* | xref:blickfeld/percept_pipeline/config/perception.adoc[config.Perception] | - | - 
 3+| The current set perception configuration
 
 |===
@@ -105,7 +105,7 @@ algorithms for certain use-cases.
 | Field | Type | Default | Unit
 
 | *key* | string| - | - 
-| *value* | xref:blickfeld/percept_pipeline/config/perception.adoc#_blickfeld_percept_pipeline_config_Perception[config.Perception] | - | - 
+| *value* | xref:blickfeld/percept_pipeline/config/perception.adoc[config.Perception] | - | - 
 |===
 
 [#ResetBackground]

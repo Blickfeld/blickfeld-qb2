@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+import "blickfeld/diagnostics/config/log.proto";
+import "blickfeld/diagnostics/data/log.proto";
+package blickfeld.diagnostics.services;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_AUTHORIZED
+};
+
+// Stream request
+message LogStreamRequest {
+  // The cursor pointing to the log entry from which to start the stream from.
+  // This field is optional. If it is not set the stream will start from the tail of the journal.
+  // NOTE: To be able to set this field and to specify a valid start position in the journal, first, a valid cursor needs to be received
+  // via the response to this request. Further requests can then stream relatively to the received cursor.
+  .blickfeld.diagnostics.data.Log.Entry.Cursor cursor = 1 [(.blickfeld.base.optional) = true];
+  // The streaming direction is used to specify if the service should stream the log entries towards older or more recent messages: i.e.
+  // backward or forward in time. This way, the client can either continuously fetch log messages one-by-one from the most recent to the
+  // oldest or wait for the occurrence of new log entires.
+  .blickfeld.diagnostics.config.Log.TimeDirection time_direction = 2 [(.blickfeld.base.optional) = true];
+}
+
+// Stream response
+message LogStreamResponse {
+  // The requested log entry.
+  .blickfeld.diagnostics.data.Log.Entry entry = 1;
+}
+
+// The Log service provides methods to access the logs of selected software modules running on the device.
+// Via this service, the client is able to monitor events that happen on the device during operation. This allows to asses the state of the
+// device or to have additional information if the sensor is in a failed state.
+service Log {
+  option (.blickfeld.base.access_control_service) = {
+    level: LEVEL_AUTHORIZED
+  };
+  option (.blickfeld.base.protocol_maturity_service) = {
+    level: LEVEL_MAINTAINED
+  };
+  // Is used to request a stream of log entries from the logs of the device.
+  rpc Stream(.blickfeld.diagnostics.services.LogStreamRequest) returns (stream .blickfeld.diagnostics.services.LogStreamResponse);
+}
+

@@ -1,0 +1,47 @@
+[#stream_service]
+[[stream_service]]
+= Data Types Services
+
+There are multiple services that offer the possibility of retrieving data:
+
+* xref:protocol:blickfeld/percept_processing/services/states.adoc[percept_processing.services.States]
+* xref:protocol:blickfeld/percept_processing/services/point_cloud.adoc[percept_processing.services.PointCloud]
+* xref:protocol:blickfeld/percept_processing/services/volume_map.adoc[percept_processing.services.VolumeMap]
+
+They all offer a `Stream` method with a similar behavior, which will be described below. The only difference is that each service is dedicated to retrieving the data type specified by the service name itself.
+
+The method can be used to retrieve messages from a running pipeline and, if desired, also automatically start the pipeline itself. Here are the two options:
+
+* start a pipeline with the xref:protocol:blickfeld/percept_processing/services/pipeline.adoc[Start request] and then use the `Stream` method to retrieve the data. In this case, the pipeline then needs to be explicitly stopped using the xref:protocol:blickfeld/percept_processing/services/pipeline.adoc[Stop request]
+* directly use the `Stream` method both for starting a pipeline and for retrieving the data. In this case, the pipeline will be automatically stopped when the number of active streams reaches zero
+
+[[stream_request]]
+== Stream request
+
+This request can be used to stream a message of a specific data type from the running pipeline.
+
+[NOTE]
+====
+The retrieved data type depends on the specific service used (i.e., `States.Stream` will stream state list messages).
+====
+
+If this request is called and there is already a pipeline running, the requested data will be streamed (if available). If instead this request is called and no pipeline is running, the Blickfeld Percept Processing will first check the data types the required pipeline would contain, without starting it yet. If the pipeline would contain the requested data, then the Blickfeld Percept Processing will automatically start the pipeline.
+
+After this step, the data is streamed. In the end, when a stream is closed, if the number of streaming clients reached zero, the pipeline is automatically stopped.
+
+Note that it is possible to subscribe multiple times to the same data stream.
+
+=== Available Point Clouds
+
+Using the xref:protocol:blickfeld/percept_processing/services/point_cloud.adoc[PointCloud service], it is possible to retrieve different types of point clouds based on the fields set in the request.
+
+These are the supported point clouds:
+
+* a complete raw point cloud coming from a device, in the transformed/map coordinate system
+* the complete combined point cloud (the full point cloud of all the available devices combined), in the transformed/map coordinate system
+* the foreground of the combined point cloud, in the transformed/map frame
+
+Note that the point cloud of a single device can be requested by setting the 'fqdn' field to the fully-qualified domain name of the respective device. The 'fqdn' has to match the one of the data source of the pipeline configuration. 
+Leaving the `point_cloud_source` field unset will result in retrieving the combined point cloud.
+
+Setting the request to a different combination of point cloud type and coordinate system will result in an error.

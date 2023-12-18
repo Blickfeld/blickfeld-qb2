@@ -27,7 +27,7 @@ Mqtt Endpoint definition
 .2+| *server_port* | uint32| - | - 
 3+| mqtt server port will be set to 1883 if it is not set (server_port==0)
 
-.2+| *authentication* | xref:blickfeld/push/config/authentication.adoc#_blickfeld_push_config_Authentication[Authentication] | - | - 
+.2+| *authentication* | xref:blickfeld/push/config/authentication.adoc[Authentication] | - | - 
 3+| mqtt server authentication settings
 
 .2+| *client_identifier* | string| - | - 

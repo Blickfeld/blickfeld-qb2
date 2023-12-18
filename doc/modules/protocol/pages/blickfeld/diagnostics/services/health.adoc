@@ -9,8 +9,8 @@ This service provides aggregated health state information about all Qb2 software
 |===
 | Method | Request | Response
 
-| *xref:#Get[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/diagnostics/services/health.adoc#_blickfeld_diagnostics_services_HealthGetResponse[HealthGetResponse]
-| *xref:#Watch[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/diagnostics/services/health.adoc#_blickfeld_diagnostics_services_HealthWatchResponse[HealthWatchResponse]Stream 
+| *xref:#Get[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/diagnostics/services/health.adoc#_blickfeld_diagnostics_services_HealthGetResponse[HealthGetResponse]
+| *xref:#Watch[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/diagnostics/services/health.adoc#_blickfeld_diagnostics_services_HealthWatchResponse[HealthWatchResponse]Stream 
 |===
 [#Get]
 == Get
@@ -26,7 +26,7 @@ Response to health get request
 |===
 | Field | Type | Default | Unit
 
-.2+| *health* | xref:blickfeld/diagnostics/data/health.adoc#_blickfeld_diagnostics_data_Health[data.Health] | - | - 
+.2+| *health* | xref:blickfeld/diagnostics/data/health.adoc[data.Health] | - | - 
 3+| Aggregated health
 
 |===
@@ -45,7 +45,7 @@ Response to health watch request
 |===
 | Field | Type | Default | Unit
 
-.2+| *health* | xref:blickfeld/diagnostics/data/health.adoc#_blickfeld_diagnostics_data_Health[data.Health] | - | - 
+.2+| *health* | xref:blickfeld/diagnostics/data/health.adoc[data.Health] | - | - 
 3+| Aggregated health
 
 |===

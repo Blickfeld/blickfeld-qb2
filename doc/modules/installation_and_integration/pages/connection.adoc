@@ -1,10 +1,17 @@
-= Ethernet Interface
+= Connection
+
+== Requirements
+- For the data connection, a shielded Ethernet cable of Cat. 5E or higher is required.
+- For operating the Qb2, Power over Ethernet must be available. The corresponding equipment must support Type 1 powered devices (IEEE 802.3at) and be certified according to local safety standards and regulations.
+- For mounting the sensor, a mounting base is required. Contact Blickfeld for suitable mounting options.
+
+== Ethernet Interface
 
 The Qb2 by default uses a 1000BASE-T Ethernet port for communication. The same port is used for powering the sensor via Power over Ethernet (PoE) technology.
 
 When the Qb2 is configured to communicate via the integrated WiFi interface, the Ethernet port is only used for powering the device.
 
-== Power over Ethernet
+=== Power over Ethernet
 
 The Qb2 is a Type 1 powered device (PD) according to the PoE standard IEEE 802.3at. It can be powered by any power supplying equipment (PSE) that conforms with the IEEE 802.3af and IEEE 802.3at standards.
 
@@ -13,7 +20,7 @@ The Qb2 is a Type 1 powered device (PD) according to the PoE standard IEEE 802.3
 Some PoE injectors available on the market (often designated as _passive_ PoE) use different voltage levels than those defined by the IEEE 802.3af/at standards. The Qb2 might not function properly if they are used. Make sure to always use PoE equipment that complies with the aforementioned IEEE standards.
 ====
 
-== Connector specification
+=== Connector specification
 
 The wired network port of the Qb2 is a IP67-rated M12 round connector (as per IEC 61076-2-109). The connector is supplied with a protective cap, which must be removed before the electrical installation. When no cable is connected to the Qb2 and during storage, please put the cap back onto the connector.
 

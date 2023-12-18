@@ -1,0 +1,17 @@
+[#_blickfeld_laser_data_Mode]
+= Mode
+
+Operation mode of the laser module
+
+.Available values for blickfeld.laser.data.Mode enum
+[cols='25h,5,~']
+|===
+| Name | Value | Description
+
+| MODE_UNSPECIFIED ^| 0 | Unused
+| MODE_IDLE ^| 1 | Nothing is happening, waiting to start.
+| MODE_RAMP_UP ^| 2 | There were no triggers for a longer time, hence we have to ramp up. Only 90% of pulse energy is used during triggering.
+| MODE_ACTIVE ^| 3 | Normal mode with triggering happening frequently and laser is triggered with max pulse energy according to mode.
+| MODE_ERROR ^| 4 | Something went wrong, laser module is in error state. Please check the details in the health status of laser.
+|===
+

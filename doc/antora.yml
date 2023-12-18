@@ -1,10 +1,10 @@
-display_version: v1.10
+display_version: v1.11
 name: Qb2
 nav:
 - modules/ROOT/nav.adoc
-- modules/guides/nav.adoc
-- modules/foundations/nav.adoc
-- modules/faq/nav.adoc
-- modules/protocol/nav.adoc
+- modules/working_principles/nav.adoc
+- modules/installation_and_integration/nav.adoc
+- modules/developer/nav.adoc
+- modules/service_and_maintenance/nav.adoc
 title: Qb2
-version: v1.10
+version: v1.11

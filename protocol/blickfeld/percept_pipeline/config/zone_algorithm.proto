@@ -19,7 +19,7 @@ message ZoneAlgorithm {
   message Volume {
     // Grid resolution per tile used to measure the volume.
     // Reasonable default: 0.1
-    float resolution = 1 [(.blickfeld.base.unit) = "m"];
+    float resolution = 1 [(.blickfeld.base.d_min) = 0.1, (.blickfeld.base.d_max) = 0.5, (.blickfeld.base.unit) = "m"];
     // The measured volume while area covered by the zone is considered 'empty'. The value can be set using
     // TareVolume method while the area of the zone is empty.
     // Reasonable default: 0

@@ -1,0 +1,56 @@
+= Service: Log
+
+NOTE: This API is officially released and maintained.
+
+The Log service provides methods to access the logs of selected software modules running on the device. 
+Via this service, the client is able to monitor events that happen on the device during operation. This allows to asses the state of the 
+device or to have additional information if the sensor is in a failed state.
+
+.Available methods
+|===
+| Method | Request | Response
+
+| *xref:#Stream[]* | xref:blickfeld/diagnostics/services/log.adoc#_blickfeld_diagnostics_services_LogStreamRequest[LogStreamRequest]| xref:blickfeld/diagnostics/services/log.adoc#_blickfeld_diagnostics_services_LogStreamResponse[LogStreamResponse]Stream 
+|===
+[#Stream]
+== Stream
+
+Is used to request a stream of log entries from the logs of the device.
+
+[#_blickfeld_diagnostics_services_LogStreamRequest]
+=== Request
+
+Stream request
+
+.Available fields in blickfeld.diagnostics.services.LogStreamRequest
+|===
+| Field | Type | Default | Unit
+
+.2+| *cursor* | optional xref:blickfeld/diagnostics/data/log.adoc#_blickfeld_diagnostics_data_Log_Entry_Cursor[data.Log.Entry.Cursor] | - | - 
+3+| The cursor pointing to the log entry from which to start the stream from. 
+This field is optional. If it is not set the stream will start from the tail of the journal. 
+ 
+NOTE: To be able to set this field and to specify a valid start position in the journal, first, a valid cursor needs to be received 
+via the response to this request. Further requests can then stream relatively to the received cursor.
+
+.2+| *time_direction* | optional xref:blickfeld/diagnostics/config/log.adoc#_blickfeld_diagnostics_config_Log_TimeDirection[config.Log.TimeDirection] | - | - 
+3+| The streaming direction is used to specify if the service should stream the log entries towards older or more recent messages: i.e. 
+backward or forward in time. This way, the client can either continuously fetch log messages one-by-one from the most recent to the 
+oldest or wait for the occurrence of new log entires.
+
+|===
+
+[#_blickfeld_diagnostics_services_LogStreamResponse]
+=== Response Stream
+
+Stream response
+
+.Available fields in blickfeld.diagnostics.services.LogStreamResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *entry* | xref:blickfeld/diagnostics/data/log.adoc#_blickfeld_diagnostics_data_Log_Entry[data.Log.Entry] | - | - 
+3+| The requested log entry.
+
+|===
+

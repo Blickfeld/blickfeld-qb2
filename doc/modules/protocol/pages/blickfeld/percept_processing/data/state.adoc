@@ -50,5 +50,8 @@ This is based on one volume zone.
 .2+| *volume* | float| - | m^3 
 3+| The current numerical volume of the zone.
 
+.2+| *coverage* | float| - | - 
+3+| The current zone volume surface coverage
+
 |===
 

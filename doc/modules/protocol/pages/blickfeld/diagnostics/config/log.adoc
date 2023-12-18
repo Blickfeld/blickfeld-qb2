@@ -1,0 +1,43 @@
+[#_blickfeld_diagnostics_config_Log]
+= Log
+
+This message aggregates the configurations related to the log service.
+
+[#_blickfeld_diagnostics_config_Log_Filter]
+== Filter
+
+Filter configuration for filtering the requested log entries.
+
+[#_blickfeld_diagnostics_config_Log_Filter_SoftwareModule]
+=== Software Module
+
+This field specifies the list of software modules that can be accessed via the log service.
+
+.Available values for blickfeld.diagnostics.config.Log.Filter.SoftwareModule enum
+[cols='25h,5,~']
+|===
+| Name | Value | Description
+
+| SOFTWARE_MODULE_UNSPECIFIED ^| 0 | No module is selected
+| SOFTWARE_MODULE_BLICKFELD_PROXY ^| 1 | gRPC proxy where all clients requests are handled. 
+Helps to review & audit calls of client applications.
+|===
+
+[#_blickfeld_diagnostics_config_Log_TimeDirection]
+== Time Direction
+
+The direction in time in which the service provides new log entries
+
+.Available values for blickfeld.diagnostics.config.Log.TimeDirection enum
+[cols='25h,5,~']
+|===
+| Name | Value | Description
+
+| TIME_DIRECTION_UNSPECIFIED ^| 0 | No direction is specified
+| TIME_DIRECTION_FORWARD ^| 1 | Streaming direction forward in time. 
+The log entries are streamed towards the tail of the journal. When the tail is reached, the stream continues waiting for newly 
+written logs.
+| TIME_DIRECTION_BACKWARD ^| 2 | Streaming direction backward in time. 
+The log entries are streamed towards the head of the journal. When the head is reached, the stream terminates.
+|===
+

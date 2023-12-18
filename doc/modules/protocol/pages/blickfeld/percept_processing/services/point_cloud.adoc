@@ -37,10 +37,10 @@ coordinate system.
 |===
 | Field | Type | Default | Unit
 
-.2+| *point_cloud_type* | xref:blickfeld/percept_pipeline/data/point_cloud_type.adoc#_blickfeld_percept_pipeline_data_PointCloudType[percept_pipeline.data.PointCloudType] | - | - 
+.2+| *point_cloud_type* | xref:blickfeld/percept_pipeline/data/point_cloud_type.adoc[percept_pipeline.data.PointCloudType] | - | - 
 3+| The type of point cloud to stream
 
-.2+| *coordinate_system* | xref:blickfeld/percept_pipeline/data/coordinate_system.adoc#_blickfeld_percept_pipeline_data_CoordinateSystem[percept_pipeline.data.CoordinateSystem] | - | - 
+.2+| *coordinate_system* | xref:blickfeld/percept_pipeline/data/coordinate_system.adoc[percept_pipeline.data.CoordinateSystem] | - | - 
 3+| The coordinate system the point cloud should be expressed in (local or 
 transformed/map)
 
@@ -58,7 +58,7 @@ A response for getting a stream of point cloud messages
 |===
 | Field | Type | Default | Unit
 
-.2+| *point_cloud* | xref:blickfeld/core_processing/data/frame.adoc#_blickfeld_core_processing_data_Frame[core_processing.data.Frame] | - | - 
+.2+| *point_cloud* | xref:blickfeld/core_processing/data/frame.adoc[core_processing.data.Frame] | - | - 
 3+| The required point cloud, based on the fields set in the request
 
 |===

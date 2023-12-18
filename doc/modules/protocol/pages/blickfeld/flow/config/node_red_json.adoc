@@ -7,7 +7,7 @@ Simple container for the node red import / export format
 |===
 | Field | Type | Default | Unit
 
-.2+| *nodes* | repeated xref:#_google_protobuf_Struct[google.protobuf.Struct] | - | - 
+.2+| *nodes* | repeated https://protobuf.dev/reference/protobuf/google.protobuf/#struct[google.protobuf.Struct] | - | - 
 3+| List of JSON nodes
 
 |===

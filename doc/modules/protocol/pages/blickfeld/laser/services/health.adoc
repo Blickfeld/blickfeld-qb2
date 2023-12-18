@@ -8,8 +8,8 @@ The health service provides methods to monitor the instant operational status of
 |===
 | Method | Request | Response
 
-| *xref:#Get[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/laser/services/health.adoc#_blickfeld_laser_services_HealthGetResponse[HealthGetResponse]
-| *xref:#Watch[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/laser/services/health.adoc#_blickfeld_laser_services_HealthWatchResponse[HealthWatchResponse]Stream 
+| *xref:#Get[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/laser/services/health.adoc#_blickfeld_laser_services_HealthGetResponse[HealthGetResponse]
+| *xref:#Watch[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/laser/services/health.adoc#_blickfeld_laser_services_HealthWatchResponse[HealthWatchResponse]Stream 
 |===
 [#Get]
 == Get
@@ -25,8 +25,8 @@ Returns the current health status of the laser module
 |===
 | Field | Type | Default | Unit
 
-.2+| *health* | xref:blickfeld/laser/data/health.adoc#_blickfeld_laser_data_Health[data.Health] | - | - 
-3+| Please refer to <<data.Health>>
+.2+| *health* | xref:blickfeld/laser/data/health.adoc[data.Health] | - | - 
+3+| Health state
 
 |===
 
@@ -44,8 +44,8 @@ Can be used to attach to the health monitoring status information of the laser m
 |===
 | Field | Type | Default | Unit
 
-.2+| *health* | xref:blickfeld/laser/data/health.adoc#_blickfeld_laser_data_Health[data.Health] | - | - 
-3+| Please refer to <<data.Health>>
+.2+| *health* | xref:blickfeld/laser/data/health.adoc[data.Health] | - | - 
+3+| Health state
 
 |===
 

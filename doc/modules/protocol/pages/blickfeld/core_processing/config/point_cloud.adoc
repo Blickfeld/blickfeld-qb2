@@ -16,5 +16,32 @@ Filter configuration which can be applied on point cloud frames.
 3+| Set maximum number of returns per point. 
 By default, secondary returns are disabled. Set this, e.g. to 2, to enable secondary returns.
 
+.2+| *sorting* | optional xref:blickfeld/core_processing/config/point_cloud.adoc#_blickfeld_core_processing_config_PointCloud_Filter_Sorting[Sorting] | - | - 
+3+| Select sorting method for return candidates. 
+The default sorting is by intensity.
+
+.2+| *minimum_reflectivity* | optional uint32| - | - 
+3+| Set lower threshold for reflectivity. 
+This can be tuned to improve the SNR when low-reflectivity targets have a lower priority.
+
+|===
+
+[#_blickfeld_core_processing_config_PointCloud_Filter_Sorting]
+=== Sorting
+
+Configure sorting of return candidates. 
+The sorting is always descending thus the higher the value is, the lower is the return id.
+
+.Available values for blickfeld.core_processing.config.PointCloud.Filter.Sorting enum
+[cols='25h,5,~']
+|===
+| Name | Value | Description
+
+| SORTING_UNSPECIFIED ^| 0 | No sorting specified.
+| SORTING_INTENSITY ^| 1 | Sort returns by intensity (integral of return pulse).
+| SORTING_REFLECTIVITY ^| 2 | Sort returns by reflectivity (range-compensated intensity). 
+This can improve the SNR as closer points are getting a lower weight.
+| SORTING_RANGE ^| 3 | Sort returns by range. 
+This can improve the SNR for outdoor applications with rain and snow.
 |===
 

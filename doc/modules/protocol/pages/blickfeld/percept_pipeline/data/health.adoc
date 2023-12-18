@@ -13,7 +13,7 @@ A health message that contains information about the pipeline status and the mod
 .2+| *state_reason* | string| - | - 
 3+| Reason for the given state. It is not set if state is STATE_OK.
 
-.2+| *pipeline_state* | xref:blickfeld/percept_pipeline/data/state.adoc#_blickfeld_percept_pipeline_data_State[State] | - | - 
+.2+| *pipeline_state* | xref:blickfeld/percept_pipeline/data/state.adoc[State] | - | - 
 3+| Current state of the pipeline. It indicates if the pipeline is stable, unstable or broken.
 
 |===

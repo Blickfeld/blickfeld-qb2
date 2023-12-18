@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+package blickfeld.laser.data;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_ADMIN
+};
+
+// Operation mode of the laser module
+enum Mode {
+  // Unused
+  MODE_UNSPECIFIED = 0;
+  // Nothing is happening, waiting to start.
+  MODE_IDLE = 1;
+  // There were no triggers for a longer time, hence we have to ramp up. Only 90% of pulse energy is used during triggering.
+  MODE_RAMP_UP = 2;
+  // Normal mode with triggering happening frequently and laser is triggered with max pulse energy according to mode.
+  MODE_ACTIVE = 3;
+  // Something went wrong, laser module is in error state. Please check the details in the health status of laser.
+  MODE_ERROR = 4;
+}
+

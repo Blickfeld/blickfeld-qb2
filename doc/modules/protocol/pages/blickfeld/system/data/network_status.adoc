@@ -7,7 +7,7 @@ Carries information about active connection: current statistics and network conf
 |===
 | Field | Type | Default | Unit
 
-.2+| *active_config* | xref:blickfeld/system/config/network.adoc#_blickfeld_system_config_Network[config.Network] | - | - 
+.2+| *active_config* | xref:blickfeld/system/config/network.adoc[config.Network] | - | - 
 3+| Brings configuration information about currently active connection
 
 .2+| *statistics* | xref:blickfeld/system/data/network_status.adoc#_blickfeld_system_data_NetworkStatus_Statistics[Statistics] | - | - 

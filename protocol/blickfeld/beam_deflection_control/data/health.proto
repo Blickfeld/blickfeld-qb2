@@ -10,14 +10,22 @@ option (.blickfeld.base.access_control_file) = {
 
 // Health message containing information about operation, status and error of a beam deflection controller.
 message Health {
+  option (.blickfeld.base.access_control_message) = {
+    level: LEVEL_ADMIN
+  };
   // This message defines the stats that can be retrieved from a beam deflection controller.
   message Stats {
-    // Current time in s.
+    // Time in seconds since last operation start.
     float time = 1 [(.blickfeld.base.unit) = "s"];
+    // Control effort usage. Relative value indicating how much of the maximum available effort is currently used
+    // to control the deflection mirror.
+    float control_effort = 9;
   }
   // High-level state of module
   .blickfeld.base.data.Health.State state = 1;
   // Reason for given state. Is not set if state is OK.
   string state_reason = 2;
+  // Stats giving basic information about the mirror operation
+  .blickfeld.beam_deflection_control.data.Health.Stats stats = 6;
 }
 

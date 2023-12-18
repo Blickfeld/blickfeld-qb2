@@ -8,10 +8,10 @@ The health service provides methods to monitor operational status of the core_pr
 |===
 | Method | Request | Response
 
-| *xref:#Get[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/core_processing/services/health.adoc#_blickfeld_core_processing_services_HealthGetResponse[HealthGetResponse]
-| *xref:#Watch[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/core_processing/services/health.adoc#_blickfeld_core_processing_services_HealthWatchResponse[HealthWatchResponse]Stream 
-| *xref:#SetConfig[]* | xref:blickfeld/core_processing/services/health.adoc#_blickfeld_core_processing_services_HealthSetConfigRequest[HealthSetConfigRequest]| xref:#_google_protobuf_Empty[google.protobuf.Empty]
-| *xref:#GetConfig[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/core_processing/services/health.adoc#_blickfeld_core_processing_services_HealthGetConfigResponse[HealthGetConfigResponse]
+| *xref:#Get[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/core_processing/services/health.adoc#_blickfeld_core_processing_services_HealthGetResponse[HealthGetResponse]
+| *xref:#Watch[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/core_processing/services/health.adoc#_blickfeld_core_processing_services_HealthWatchResponse[HealthWatchResponse]Stream 
+| *xref:#SetConfig[]* | xref:blickfeld/core_processing/services/health.adoc#_blickfeld_core_processing_services_HealthSetConfigRequest[HealthSetConfigRequest]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
+| *xref:#GetConfig[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/core_processing/services/health.adoc#_blickfeld_core_processing_services_HealthGetConfigResponse[HealthGetConfigResponse]
 |===
 [#Get]
 == Get
@@ -27,7 +27,7 @@ Response to health get request
 |===
 | Field | Type | Default | Unit
 
-.2+| *health* | xref:blickfeld/core_processing/data/health.adoc#_blickfeld_core_processing_data_Health[data.Health] | - | - 
+.2+| *health* | xref:blickfeld/core_processing/data/health.adoc[data.Health] | - | - 
 3+| Health state
 
 |===
@@ -46,7 +46,7 @@ Stream response to health watch request
 |===
 | Field | Type | Default | Unit
 
-.2+| *health* | xref:blickfeld/core_processing/data/health.adoc#_blickfeld_core_processing_data_Health[data.Health] | - | - 
+.2+| *health* | xref:blickfeld/core_processing/data/health.adoc[data.Health] | - | - 
 3+| Health state
 
 |===
@@ -65,7 +65,7 @@ Health set config request
 |===
 | Field | Type | Default | Unit
 
-.2+| *config* | xref:blickfeld/core_processing/config/health.adoc#_blickfeld_core_processing_config_Health[config.Health] | - | - 
+.2+| *config* | xref:blickfeld/core_processing/config/health.adoc[config.Health] | - | - 
 3+| Health parameters
 
 |===
@@ -84,7 +84,7 @@ Health get config response
 |===
 | Field | Type | Default | Unit
 
-.2+| *config* | xref:blickfeld/core_processing/config/health.adoc#_blickfeld_core_processing_config_Health[config.Health] | - | - 
+.2+| *config* | xref:blickfeld/core_processing/config/health.adoc[config.Health] | - | - 
 3+| Health parameters
 
 |===

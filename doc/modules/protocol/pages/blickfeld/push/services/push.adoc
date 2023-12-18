@@ -8,12 +8,12 @@ An gRPC service to configure multiple push settings
 |===
 | Method | Request | Response
 
-| *xref:#Store[]* | xref:blickfeld/push/services/push.adoc#_blickfeld_push_services_PushStoreRequest[PushStoreRequest]| xref:#_google_protobuf_Empty[google.protobuf.Empty]
-| *xref:#Delete[]* | xref:blickfeld/push/services/push.adoc#_blickfeld_push_services_PushDeleteRequest[PushDeleteRequest]| xref:#_google_protobuf_Empty[google.protobuf.Empty]
-| *xref:#List[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/push/services/push.adoc#_blickfeld_push_services_PushListResponse[PushListResponse]
-| *xref:#Watch[]* | xref:#_google_protobuf_Empty[google.protobuf.Empty]| xref:blickfeld/push/services/push.adoc#_blickfeld_push_services_PushWatchResponse[PushWatchResponse]Stream 
-| *xref:#Enable[]* | xref:blickfeld/push/services/push.adoc#_blickfeld_push_services_PushEnableRequest[PushEnableRequest]| xref:#_google_protobuf_Empty[google.protobuf.Empty]
-| *xref:#Disable[]* | xref:blickfeld/push/services/push.adoc#_blickfeld_push_services_PushDisableRequest[PushDisableRequest]| xref:#_google_protobuf_Empty[google.protobuf.Empty]
+| *xref:#Store[]* | xref:blickfeld/push/services/push.adoc#_blickfeld_push_services_PushStoreRequest[PushStoreRequest]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
+| *xref:#Delete[]* | xref:blickfeld/push/services/push.adoc#_blickfeld_push_services_PushDeleteRequest[PushDeleteRequest]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
+| *xref:#List[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/push/services/push.adoc#_blickfeld_push_services_PushListResponse[PushListResponse]
+| *xref:#Watch[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/push/services/push.adoc#_blickfeld_push_services_PushWatchResponse[PushWatchResponse]Stream 
+| *xref:#Enable[]* | xref:blickfeld/push/services/push.adoc#_blickfeld_push_services_PushEnableRequest[PushEnableRequest]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
+| *xref:#Disable[]* | xref:blickfeld/push/services/push.adoc#_blickfeld_push_services_PushDisableRequest[PushDisableRequest]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
 |===
 [#Store]
 == Store
@@ -32,7 +32,7 @@ request to add a push configuration
 .2+| *uuid* | string| - | - 
 3+| the uuid of the configuration (has to be generated on client side!)
 
-.2+| *push_config* | xref:blickfeld/push/config/push.adoc#_blickfeld_push_config_Push[config.Push] | - | - 
+.2+| *push_config* | xref:blickfeld/push/config/push.adoc[config.Push] | - | - 
 3+| push configuration to add
 
 |===
@@ -85,7 +85,7 @@ request to list all configured push configurations
 | Field | Type | Default | Unit
 
 | *key* | string| - | - 
-| *value* | xref:blickfeld/push/config/push.adoc#_blickfeld_push_config_Push[config.Push] | - | - 
+| *value* | xref:blickfeld/push/config/push.adoc[config.Push] | - | - 
 |===
 
 [#Watch]
@@ -117,7 +117,7 @@ request to watch all configured push configurations
 | Field | Type | Default | Unit
 
 | *key* | string| - | - 
-| *value* | xref:blickfeld/push/config/push.adoc#_blickfeld_push_config_Push[config.Push] | - | - 
+| *value* | xref:blickfeld/push/config/push.adoc[config.Push] | - | - 
 |===
 
 [#Enable]

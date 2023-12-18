@@ -21,10 +21,10 @@ This container is used to control high-level attributes of NodeRed flows.
 .2+| *is_subflow* | bool| - | - 
 3+| Is it a subflow?
 
-.2+| *metadata* | xref:#_google_protobuf_Struct[google.protobuf.Struct] | - | - 
+.2+| *metadata* | https://protobuf.dev/reference/protobuf/google.protobuf/#struct[google.protobuf.Struct] | - | - 
 3+| Other arbitrary metadata
 
-.2+| *nodes* | repeated xref:#_google_protobuf_Struct[google.protobuf.Struct] | - | - 
+.2+| *nodes* | repeated https://protobuf.dev/reference/protobuf/google.protobuf/#struct[google.protobuf.Struct] | - | - 
 3+| All nodes contained in the flow
 
 |===

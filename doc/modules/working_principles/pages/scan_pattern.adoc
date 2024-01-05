@@ -1,35 +1,29 @@
 = Scan Pattern
+:imagesdir: ../assets/images
 :stem: latexmath
 
-Qb2 sensors are scanning LiDARs. Scanning LiDARs usually perform subsequent measurements, each comprising only single or a couple of points in space in one direction at a time. In contrast to flash LiDARs, the whole field of view is, therefore, not covered at once but rather within a certain time frame. Qb2 sensors use two MEMS mirrors to deflect a collimated laser beam in the desired direction. The angle of both mirrors define the direction the system is looking at. A ‘time of flight’ measurement then determines the distance of the object to the LiDAR. Both mirrors oscillate at a given eigenfrequency and the relative phase of both mirrors defines the trajectory. The resulting laser beam trajectory for maximum amplitude of both scanners circumscribes the field of view (FoV).
+Qb2 is a scanning LiDARs. A scanning LiDAR typically performs subsequent measurements, each producing only a single or a couple of points in one spacial direction at a time. Unlike a flash LiDAR, the entire field of view is not covered at once but rather within a certain time frame. Qb2 sensors use two MEMS mirrors to deflect a collimated laser beam in the desired direction. The angles of both mirrors define the direction the system is looking at. A 'time-of-flight' measurement then determines the distance of the object to the LiDAR. Both mirrors oscillate at a given eigenfrequency, and the relative phase of both mirrors defines the trajectory. The resulting laser beam trajectory for the maximum amplitude of both scanners circumscribes the field of view (FoV).
 
-////
-[TIP]
-====
-Learn how to change the scan pattern in the xref:guides:scan_pattern.adoc[scan pattern guide].
-====
-////
-
-== Simplified mathematical description of the Blickfeld Scanner
+== Simplified mathematical description of the Blickfeld scanner
 
 Blickfeld LiDARs comprise two mirrors that oscillate with the same frequency. Both mirrors are identical and differ only in their orientation (one vertical, one horizontal) and in their relative phase and amplitude. Together, they create a Lissajous curve with a frequency ratio of stem:[1:1], a phase difference of stem:[\Delta\phi=1/4\pi], and a variable amplitude ratio.
 
 === Horizontal mirror
 
-The two mirrors, both with the natural frequency, create a scan pattern with the frame duration stem:[T]. Hereby, stem:[T] is always an integer multiple of stem:[1/f], where stem:[f] is the mirror's oscillation frequency. The horizontal mirror oscillates in a continuous sinusoidal motion. One frame is comprised of one full oscillation period of the mirror. The resulting horizontal angle stem:[\theta_H] can be described as follows:
+The two mirrors, both with the natural frequency, create a scan pattern with the frame duration stem:[T]. Hereby, stem:[T] is always an integer multiple of stem:[1/f], where stem:[f] is the mirror's oscillation frequency. The horizontal mirror oscillates in a continuous sinusoidal motion. One frame comprises one full oscillation period of the mirror. The resulting horizontal angle stem:[\theta_H] can be described as follows:
 
 [stem] 
 ++++
 \theta_H(t) = \theta_{H,max} / 2 \times \cos(2\pi f t)
 ++++
 
-With the horizontal field of view stem:[\theta_{H,max}] (which can be chosen freely within the physical limitations of the horizontal mirror).
+With the horizontal field of view stem:[\theta_{H,max}], which can be chosen freely within the physical limitations of the horizontal mirror.
 
-The blue line in Figure 1 below shows a plot of the horizontal angle \theta_H for an exemplary frame with an eigenfrequency of stem:[f=270\ \mathrm{Hz}], a horizontal Field of View stem:[\theta_{H,max}=80^{\circ}], 40 scanlines (20 periods) and a duration of stem:[T=2/f].
+The blue graph in Figure <<MIRROR_MOVEMENT>> shows a plot of the horizontal angle stem:[\theta_H] for an exemplary frame with an eigenfrequency of stem:[f=270\ \mathrm{Hz}], a horizontal field of view stem:[\theta_{H,max}=80^{\circ}], 40 scanlines (20 periods) and a duration of stem:[T=2/f].
 
 === Vertical mirror
 
-The vertical mirror has a phase offset of stem:[\Delta \phi = \pi / 4] with respect to the horizontal mirror and a variable amplitude that is described by the ramp function r(t).
+The vertical mirror has a phase offset of stem:[\Delta \phi = \pi / 4] with respect to the horizontal mirror and a variable amplitude that is described by the ramp function stem:[r(t)].
 The vertical angle can therefore be written as: 
 
 [stem] 
@@ -53,20 +47,21 @@ r(t) = 4/3 t / T      \ \text{for} \ t \in [ 0; 3/4 T ]
 r(t) = 4 - 4t / T     \ \text{for} \ t \in ] 3/4 T; T ]
 ++++
 
-Note that these linear functions are only exemplary. To create different densities of scanlines, throughout the scan pattern, ramp functions with varying slopes, or nonlinear ramp functions can be chosen (the maximum slope of these functions is limited by the characteristics of the mirror). The spacing of the scanlines can therefore be controlled by adjusting the ramp function stem:[r(t)].
+Note that these linear functions are only exemplary. To create different densities of scanlines throughout the scan pattern, ramp functions with varying slopes, or nonlinear ramp functions can be chosen (the maximum slope of these functions is limited by the characteristics of the mirror). The spacing of the scanlines can therefore be controlled by adjusting the ramp function stem:[r(t)].
 
 The ramping phases are known as the up-ramping phase and the down-ramping phase.
 
-The orange line in the following figure 1 shows a plot of the vertical angle stem:[\theta_V] for an exemplary frame with a natural frequency stem:[f=270\ \mathrm{Hz}], a vertical field of view stem:[\theta_{V,max}=30^{\circ}], and the ramp function stem:[r(t)] defined in the previous example.
+The orange graph in Figure <<MIRROR_MOVEMENT>> shows a plot of the vertical angle stem:[\theta_V] for an exemplary frame with a natural frequency stem:[f=270\ \mathrm{Hz}], a vertical field of view stem:[\theta_{V,max}=30^{\circ}], and the ramp function stem:[r(t)] defined in the previous example.
 
-.Movement of the horizontal mirror (blue) and the vertical mirror (orange).
+.Movement of the Horizontal Mirror (blue) and the Vertical Mirror (orange)
+[[MIRROR_MOVEMENT]]
 image::scan_pattern_mirror_movement.png[]
 
-=== Scan lines
+=== Scanlines
 
-One scanline is defined as half of the period of the horizontal mirror’s oscillation, i.e. a movement of the laser beam from right to left or from left to right.
+One scanline is defined as half of the period of the horizontal mirror's oscillation, i.e. a movement of the laser beam from right to left or from left to right.
 
-The number of scanlines per frame N results from the following equation:
+The number of scanlines per frame stem:[N] results from the following equation:
 
 [stem] 
 ++++
@@ -75,7 +70,8 @@ N = 2 T f
 
 By altering the number of scanlines per frame, you can directly decrease or increase the frame duration stem:[T]. As the frame rate of the system is equal to stem:[1/T], the frame rate is inversely proportional to the number of scanlines per frame.
 
-The horizontal mirror starts on the left and moves to the right. The vertical mirror starts at zero and moves to the bottom. As depicted in figure 2, the first scanline is nearly a straight line in the middle from left to right. The second scanline is above the first scanline and moves from right to left. The third scanline is below the first scanline and moves from left to right. The fourth scanline is above the second scanline and moves from right to left, and so on.
+The horizontal mirror starts on the left and moves to the right. The vertical mirror starts at zero and moves to the bottom. As depicted in Figure <<LASER_MOVEMENT>>, the first scanline is nearly a straight line in the middle from left to right. The second scanline is above the first scanline and moves from right to left. The third scanline is below the first scanline and moves from left to right. The fourth scanline is above the second scanline and moves from right to left, and so on.
 
-.Movement of the laser beam.
+.Movement of the Laser Beam
+[[LASER_MOVEMENT]]
 image::scan_pattern_buildup.png[]

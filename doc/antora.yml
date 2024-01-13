@@ -4,6 +4,7 @@ nav:
 - modules/ROOT/nav.adoc
 - modules/working_principles/nav.adoc
 - modules/installation_and_integration/nav.adoc
+- modules/operation/nav.adoc
 - modules/developer/nav.adoc
 - modules/service_and_maintenance/nav.adoc
 title: Qb2

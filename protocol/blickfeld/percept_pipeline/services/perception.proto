@@ -8,7 +8,7 @@ import "google/protobuf/empty.proto";
 package blickfeld.percept_pipeline.services;
 
 option (.blickfeld.base.access_control_file) = {
-  level: LEVEL_PUBLIC
+  level: LEVEL_AUTHORIZED
 };
 
 // Response containing the current perception configuration
@@ -52,19 +52,31 @@ message PerceptionResetBackgroundRequest {
 // Perception configurations specify the algorithms used for e.g. for background subtraction etc.
 service Perception {
   option (.blickfeld.base.access_control_service) = {
-    level: LEVEL_PUBLIC
+    level: LEVEL_AUTHORIZED
   };
   option (.blickfeld.base.protocol_maturity_service) = {
     level: LEVEL_EXPERIMENTAL
   };
   // Get current perception configuration
-  rpc Get(.google.protobuf.Empty) returns (.blickfeld.percept_pipeline.services.PerceptionGetResponse);
+  rpc Get(.google.protobuf.Empty) returns (.blickfeld.percept_pipeline.services.PerceptionGetResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
   // Set the perception configuration
   rpc Set(.blickfeld.percept_pipeline.services.PerceptionSetRequest) returns (.google.protobuf.Empty);
   // Watch changes of perception configuration
-  rpc Watch(.google.protobuf.Empty) returns (stream .blickfeld.percept_pipeline.services.PerceptionWatchResponse);
+  rpc Watch(.google.protobuf.Empty) returns (stream .blickfeld.percept_pipeline.services.PerceptionWatchResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
   // Return list of names for named templates
-  rpc ListTemplates(.google.protobuf.Empty) returns (.blickfeld.percept_pipeline.services.PerceptionListTemplatesResponse);
+  rpc ListTemplates(.google.protobuf.Empty) returns (.blickfeld.percept_pipeline.services.PerceptionListTemplatesResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
   // Resets the background of one, multiple or all devices
   rpc ResetBackground(.blickfeld.percept_pipeline.services.PerceptionResetBackgroundRequest) returns (.google.protobuf.Empty);
 }

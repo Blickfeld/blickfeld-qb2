@@ -1,0 +1,43 @@
+= Service: Session
+
+CAUTION: This API is not yet officially released nor maintained.
+
+Session service which implements all methods for session-bound security features. 
+ 
+A session is recreated after the following events: 
+ Power-cycle of the device 
+ Every day (UTC) 
+ Manual invalidation via gRPC call
+
+.Available methods
+|===
+| Method | Request | Response
+
+| *xref:#GetNonce[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/secure/services/session.adoc#_blickfeld_secure_services_SessionGetNonceResponse[SessionGetNonceResponse]
+| *xref:#Invalidate[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
+|===
+[#GetNonce]
+== GetNonce
+
+Get cryptographic session nonce.
+
+[#_blickfeld_secure_services_SessionGetNonceResponse]
+=== Response
+
+Response for GetNonce request.
+
+.Available fields in blickfeld.secure.services.SessionGetNonceResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *nonce* | string| - | - 
+3+| Cryptographic session nonce.
+
+|===
+
+[#Invalidate]
+== Invalidate
+
+Invalidates the current session. 
+A new session will be created automatically.
+

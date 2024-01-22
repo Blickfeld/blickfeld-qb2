@@ -1,6 +1,6 @@
 = Service: Destination
 
-CAUTION: This API is not yet officially released neither maintained.
+CAUTION: This API is not yet officially released nor maintained.
 
 An gRPC service to configure multiple push settings
 

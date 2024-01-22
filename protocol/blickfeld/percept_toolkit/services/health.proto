@@ -8,7 +8,7 @@ import "google/protobuf/empty.proto";
 package blickfeld.percept_toolkit.services;
 
 option (.blickfeld.base.access_control_file) = {
-  level: LEVEL_PUBLIC
+  level: LEVEL_AUTHORIZED
 };
 
 // Health Stream response of the toolkit module
@@ -26,14 +26,22 @@ message HealthGetResponse {
 // An gRPC service to request the health of toolkit
 service Health {
   option (.blickfeld.base.access_control_service) = {
-    level: LEVEL_PUBLIC
+    level: LEVEL_AUTHORIZED
   };
   option (.blickfeld.base.protocol_maturity_service) = {
     level: LEVEL_EXPERIMENTAL
   };
   // Streams health messages in regular intervals containing the state of toolkit
-  rpc Watch(.google.protobuf.Empty) returns (stream .blickfeld.percept_toolkit.services.HealthWatchResponse);
+  rpc Watch(.google.protobuf.Empty) returns (stream .blickfeld.percept_toolkit.services.HealthWatchResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
   // Return health messages containing the state of toolkit
-  rpc Get(.google.protobuf.Empty) returns (.blickfeld.percept_toolkit.services.HealthGetResponse);
+  rpc Get(.google.protobuf.Empty) returns (.blickfeld.percept_toolkit.services.HealthGetResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
 }
 

@@ -1,16 +1,16 @@
 [#_blickfeld_base_data_Health]
 = Health
 
-The Health message and corresponding services are used to indicate their health & status. 
+The Health message and corresponding services are used to indicate their health and status. 
  
 They are available on different layers. 
-Upstream / higher layers usually aggregate the Health of their child modules. 
-In the end, the goal is, to get an aggregated product Health which reliably indicates if everything is functional.
+Upstream or higher layers usually aggregate the health of their child modules. 
+The goal is to provide an aggregated product health that reliably indicates if everything is functional.
 
 [#_blickfeld_base_data_Health_State]
 == State
 
-High-level state which indicates the current health state of the module. 
+A high-level state which indicates the current health state of the module. 
 If the State is not OK, please refer to the details fields in the Health message to trace the root cause.
 
 .Available values for blickfeld.base.data.Health.State enum

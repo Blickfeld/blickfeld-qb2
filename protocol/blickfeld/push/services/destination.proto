@@ -8,7 +8,7 @@ import "google/protobuf/empty.proto";
 package blickfeld.push.services;
 
 option (.blickfeld.base.access_control_file) = {
-  level: LEVEL_PUBLIC
+  level: LEVEL_AUTHORIZED
 };
 
 // request to validate a configured destination
@@ -20,12 +20,16 @@ message DestinationValidateRequest {
 // An gRPC service to configure multiple push settings
 service Destination {
   option (.blickfeld.base.access_control_service) = {
-    level: LEVEL_PUBLIC
+    level: LEVEL_AUTHORIZED
   };
   option (.blickfeld.base.protocol_maturity_service) = {
     level: LEVEL_EXPERIMENTAL
   };
   // Setting validation
-  rpc Validate(.blickfeld.push.services.DestinationValidateRequest) returns (.google.protobuf.Empty);
+  rpc Validate(.blickfeld.push.services.DestinationValidateRequest) returns (.google.protobuf.Empty) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
 }
 

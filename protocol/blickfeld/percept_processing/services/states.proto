@@ -9,7 +9,7 @@ package blickfeld.percept_processing.services;
 
 option cc_enable_arenas = true;
 option (.blickfeld.base.access_control_file) = {
-  level: LEVEL_PUBLIC
+  level: LEVEL_AUTHORIZED
 };
 
 // A response for getting a stream of states messages from the running
@@ -26,12 +26,16 @@ message StatesStreamResponse {
 // there are no more clients requesting any stream type from the module.
 service States {
   option (.blickfeld.base.access_control_service) = {
-    level: LEVEL_PUBLIC
+    level: LEVEL_AUTHORIZED
   };
   option (.blickfeld.base.protocol_maturity_service) = {
     level: LEVEL_MAINTAINED
   };
   // A method to get a stream of states messages from the pipeline
-  rpc Stream(.google.protobuf.Empty) returns (stream .blickfeld.percept_processing.services.StatesStreamResponse);
+  rpc Stream(.google.protobuf.Empty) returns (stream .blickfeld.percept_processing.services.StatesStreamResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
 }
 

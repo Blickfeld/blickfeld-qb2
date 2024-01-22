@@ -6,7 +6,7 @@ import "google/protobuf/empty.proto";
 package blickfeld.detector.services;
 
 option (.blickfeld.base.access_control_file) = {
-  level: LEVEL_ADMIN
+  level: LEVEL_AUTHORIZED
 };
 
 // Response message for get health request.
@@ -24,14 +24,22 @@ message HealthWatchResponse {
 // The health service provides methods to monitor the instant operational status of the detector module
 service Health {
   option (.blickfeld.base.access_control_service) = {
-    level: LEVEL_ADMIN
+    level: LEVEL_AUTHORIZED
   };
   option (.blickfeld.base.protocol_maturity_service) = {
     level: LEVEL_MAINTAINED
   };
   // Returns the current health status of the detector module
-  rpc Get(.google.protobuf.Empty) returns (.blickfeld.detector.services.HealthGetResponse);
+  rpc Get(.google.protobuf.Empty) returns (.blickfeld.detector.services.HealthGetResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
   // Can be used to attach to the health monitoring status information of the detector module
-  rpc Watch(.google.protobuf.Empty) returns (stream .blickfeld.detector.services.HealthWatchResponse);
+  rpc Watch(.google.protobuf.Empty) returns (stream .blickfeld.detector.services.HealthWatchResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
 }
 

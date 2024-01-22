@@ -1,7 +1,7 @@
 [#_blickfeld_base_geometry_Vector3]
 = Vector3
 
-A vector with three components to represent a 3D coordiante.
+A vector with three components to represent a 3D coordinate.
 
 .Available fields in blickfeld.base.geometry.Vector3
 |===

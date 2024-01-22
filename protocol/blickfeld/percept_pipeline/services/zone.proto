@@ -8,7 +8,7 @@ import "google/protobuf/empty.proto";
 package blickfeld.percept_pipeline.services;
 
 option (.blickfeld.base.access_control_file) = {
-  level: LEVEL_PUBLIC
+  level: LEVEL_AUTHORIZED
 };
 
 // Response containing the configured list of zones
@@ -52,20 +52,32 @@ message ZoneGetTareVolumeResponse {
 // The zone service allows getting, configuring, deleting and receiving updates of the configured zones.
 service Zone {
   option (.blickfeld.base.access_control_service) = {
-    level: LEVEL_PUBLIC
+    level: LEVEL_AUTHORIZED
   };
   option (.blickfeld.base.protocol_maturity_service) = {
     level: LEVEL_MAINTAINED
   };
   // Returns the configured zones
-  rpc List(.google.protobuf.Empty) returns (.blickfeld.percept_pipeline.services.ZoneListResponse);
+  rpc List(.google.protobuf.Empty) returns (.blickfeld.percept_pipeline.services.ZoneListResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
   // Store / Update a zone
   rpc Store(.blickfeld.percept_pipeline.services.ZoneStoreRequest) returns (.google.protobuf.Empty);
   // Delete a zone
   rpc Delete(.blickfeld.percept_pipeline.services.ZoneDeleteRequest) returns (.google.protobuf.Empty);
   // Watch configuration for zone list
-  rpc Watch(.google.protobuf.Empty) returns (stream .blickfeld.percept_pipeline.services.ZoneWatchResponse);
+  rpc Watch(.google.protobuf.Empty) returns (stream .blickfeld.percept_pipeline.services.ZoneWatchResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
   // Computes raw volume within a volume zone without any offsets.
-  rpc GetTareVolume(.blickfeld.percept_pipeline.services.ZoneGetTareVolumeRequest) returns (.blickfeld.percept_pipeline.services.ZoneGetTareVolumeResponse);
+  rpc GetTareVolume(.blickfeld.percept_pipeline.services.ZoneGetTareVolumeRequest) returns (.blickfeld.percept_pipeline.services.ZoneGetTareVolumeResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
 }
 

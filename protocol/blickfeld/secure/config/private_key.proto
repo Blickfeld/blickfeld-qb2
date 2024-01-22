@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+package blickfeld.secure.config;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_ADMIN
+};
+
+// Private device key which is deployed on the Qb2 device and used for TLS authentification by Daedalus Proxy
+message PrivateKey {
+  // Key bytes as binary
+  bytes binary = 1;
+  // String giving information about which key type is used
+  string type = 2;
+}
+

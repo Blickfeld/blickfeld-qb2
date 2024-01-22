@@ -1,0 +1,87 @@
+= Service: Authentication
+
+CAUTION: This API is not yet officially released nor maintained.
+
+Service for authentication to the Qb2 device.
+
+.Available methods
+|===
+| Method | Request | Response
+
+| *xref:#Login[]* | xref:blickfeld/secure/services/authentication.adoc#_blickfeld_secure_services_AuthenticationLoginRequest[AuthenticationLoginRequest]| xref:blickfeld/secure/services/authentication.adoc#_blickfeld_secure_services_AuthenticationLoginResponse[AuthenticationLoginResponse]
+|===
+[#Login]
+== Login
+
+User-Accounts managed by Qb2 have to use the Login method with an existing account 
+in order to receive a JWT Token for access to priviliged parts of the device API. 
+ 
+The factory user has the username "admin". 
+The password is printed on the device label.
+
+[#_blickfeld_secure_services_AuthenticationLoginRequest]
+=== Request
+
+Request for authentication
+
+.Available fields in blickfeld.secure.services.AuthenticationLoginRequest
+|===
+| Field | Type | Default | Unit
+
+.2+| *user* | xref:blickfeld/secure/services/authentication.adoc#_blickfeld_secure_services_AuthenticationLoginRequest_User[User] | - | - 
+3+| Authenticate with user credentials
+
+.2+| *application* | xref:blickfeld/secure/services/authentication.adoc#_blickfeld_secure_services_AuthenticationLoginRequest_Application[Application] | - | - 
+3+| Authenticate with application key credentials
+
+|===
+
+[#_blickfeld_secure_services_AuthenticationLoginRequest_User]
+==== User
+
+User credentials
+
+.Available fields in blickfeld.secure.services.AuthenticationLoginRequest.User
+|===
+| Field | Type | Default | Unit
+
+.2+| *name* | string| - | - 
+3+| the username
+
+.2+| *password* | string| - | - 
+3+| the password of the user in plain text
+
+|===
+
+[#_blickfeld_secure_services_AuthenticationLoginRequest_Application]
+==== Application
+
+Application Key credentials
+
+.Available fields in blickfeld.secure.services.AuthenticationLoginRequest.Application
+|===
+| Field | Type | Default | Unit
+
+.2+| *key* | string| - | - 
+3+| the key in plain text
+
+.2+| *http_digest* | string| - | - 
+3+| the key as md5 checksum
+
+|===
+
+[#_blickfeld_secure_services_AuthenticationLoginResponse]
+=== Response
+
+Response containing the issued JWT token.
+
+.Available fields in blickfeld.secure.services.AuthenticationLoginResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *token* | string| - | - 
+3+| The JWT token which needs to be sent with the key "token" in the metadata of a gRPC call. 
+The token is bound to a xref:blickfeld/secure/services/session.adoc[].
+
+|===
+

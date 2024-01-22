@@ -10,7 +10,7 @@ package blickfeld.percept_processing.services;
 
 option cc_enable_arenas = true;
 option (.blickfeld.base.access_control_file) = {
-  level: LEVEL_PUBLIC
+  level: LEVEL_AUTHORIZED
 };
 
 // A request to receive a stream of point cloud messages.
@@ -49,7 +49,7 @@ message PointCloudStreamResponse {
 // there are no more clients requesting any stream type from the module.
 service PointCloud {
   option (.blickfeld.base.access_control_service) = {
-    level: LEVEL_PUBLIC
+    level: LEVEL_AUTHORIZED
   };
   option (.blickfeld.base.protocol_maturity_service) = {
     level: LEVEL_MAINTAINED
@@ -57,6 +57,10 @@ service PointCloud {
   // A method to get a stream of point cloud messages from the pipeline.
   // It is possible to stream different point clouds, depending on the fields
   // set in the request
-  rpc Stream(.blickfeld.percept_processing.services.PointCloudStreamRequest) returns (stream .blickfeld.percept_processing.services.PointCloudStreamResponse);
+  rpc Stream(.blickfeld.percept_processing.services.PointCloudStreamRequest) returns (stream .blickfeld.percept_processing.services.PointCloudStreamResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
 }
 

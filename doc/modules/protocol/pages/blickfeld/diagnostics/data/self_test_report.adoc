@@ -45,7 +45,7 @@ Is not set if test was successful.
 [#_blickfeld_diagnostics_data_SelfTestReport_Result_Flag]
 === Flag
 
-Result flags which indicates if test was sucessful.
+Result flags which indicate if test was successful.
 
 .Available values for blickfeld.diagnostics.data.SelfTestReport.Result.Flag enum
 [cols='25h,5,~']
@@ -54,7 +54,7 @@ Result flags which indicates if test was sucessful.
 
 | FLAG_UNSPECIFIED ^| 0 | Unknown result.
 | FLAG_SUCCESS ^| 1 | The test was successful.
-| FLAG_WARNING ^| 2 | The test suceeded but it raised some warnings. 
+| FLAG_WARNING ^| 2 | The test succeeded but it raised some warnings. 
 Please report if this happens during production and the root-cause is unknown.
 | FLAG_FAILURE ^| 3 | The test failed. 
 The tested module is most probably not functional.

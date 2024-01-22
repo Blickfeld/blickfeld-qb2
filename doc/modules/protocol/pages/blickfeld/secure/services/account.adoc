@@ -1,0 +1,209 @@
+= Service: Account
+
+CAUTION: This API is not yet officially released nor maintained.
+
+This service supports the complete lifecycle of accounts which are managed by the current Qb2 device. 
+
+
+.Available methods
+|===
+| Method | Request | Response
+
+| *xref:#List[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/secure/services/account.adoc#_blickfeld_secure_services_AccountListResponse[AccountListResponse]
+| *xref:#Create[]* | xref:blickfeld/secure/services/account.adoc#_blickfeld_secure_services_AccountCreateRequest[AccountCreateRequest]| xref:blickfeld/secure/services/account.adoc#_blickfeld_secure_services_AccountCreateResponse[AccountCreateResponse]
+| *xref:#Reset[]* | xref:blickfeld/secure/services/account.adoc#_blickfeld_secure_services_AccountResetRequest[AccountResetRequest]| xref:blickfeld/secure/services/account.adoc#_blickfeld_secure_services_AccountResetResponse[AccountResetResponse]
+| *xref:#Delete[]* | xref:blickfeld/secure/services/account.adoc#_blickfeld_secure_services_AccountDeleteRequest[AccountDeleteRequest]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
+| *xref:#Get[]* | xref:blickfeld/secure/services/account.adoc#_blickfeld_secure_services_AccountGetRequest[AccountGetRequest]| xref:blickfeld/secure/services/account.adoc#_blickfeld_secure_services_AccountGetResponse[AccountGetResponse]
+| *xref:#Store[]* | xref:blickfeld/secure/services/account.adoc#_blickfeld_secure_services_AccountStoreRequest[AccountStoreRequest]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
+|===
+[#List]
+== List
+
+List registered accounts.
+
+[#_blickfeld_secure_services_AccountListResponse]
+=== Response
+
+Response for list of accounts
+
+.Available fields in blickfeld.secure.services.AccountListResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *account* | repeated xref:blickfeld/secure/services/account.adoc#_blickfeld_secure_services_AccountListResponse_AccountEntry[AccountEntry] | - | - 
+3+| Accounts mapping from account-uuid (key) to account details (value).
+
+|===
+
+[#_blickfeld_secure_services_AccountListResponse_AccountEntry]
+==== Account Entry
+
+
+
+.Available fields in blickfeld.secure.services.AccountListResponse.AccountEntry
+|===
+| Field | Type | Default | Unit
+
+| *key* | string| - | - 
+| *value* | xref:blickfeld/secure/config/account.adoc[config.Account] | - | - 
+|===
+
+[#Create]
+== Create
+
+Create a new account.
+
+[#_blickfeld_secure_services_AccountCreateRequest]
+=== Request
+
+Request to create a new user
+
+.Available fields in blickfeld.secure.services.AccountCreateRequest
+|===
+| Field | Type | Default | Unit
+
+.2+| *account* | xref:blickfeld/secure/config/account.adoc[config.Account] | - | - 
+3+| the account to create
+
+|===
+
+[#_blickfeld_secure_services_AccountCreateResponse]
+=== Response
+
+Response after account has been created. 
+ 
+[NOTE] 
+==== 
+The generated activation password in plain text will be returned only once. 
+====
+
+.Available fields in blickfeld.secure.services.AccountCreateResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *activation_password* | string| - | - 
+3+| the activation password in plain text
+
+|===
+
+[#Reset]
+== Reset
+
+Reset account by setting the state to WAITING_FOR_ACTIVATION & generating a new activation password.
+
+[#_blickfeld_secure_services_AccountResetRequest]
+=== Request
+
+Request to reset an existing account
+
+.Available fields in blickfeld.secure.services.AccountResetRequest
+|===
+| Field | Type | Default | Unit
+
+.2+| *uuid* | string| - | - 
+3+| the uuid of the account to reset
+
+|===
+
+[#_blickfeld_secure_services_AccountResetResponse]
+=== Response
+
+Response after account has been reset. 
+ 
+[NOTE] 
+==== 
+The generated activation password in plain text will be returned only once. 
+====
+
+.Available fields in blickfeld.secure.services.AccountResetResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *activation_password* | string| - | - 
+3+| the activation password in plain text
+
+|===
+
+[#Delete]
+== Delete
+
+Delete an Account.
+
+[#_blickfeld_secure_services_AccountDeleteRequest]
+=== Request
+
+Request to delete an Account
+
+.Available fields in blickfeld.secure.services.AccountDeleteRequest
+|===
+| Field | Type | Default | Unit
+
+.2+| *uuid* | optional string| - | - 
+3+| Optional uuid of the account to delete. If left empty the uuid from the presented JWT token will be used.
+
+|===
+
+[#Get]
+== Get
+
+Get Account information.
+
+[#_blickfeld_secure_services_AccountGetRequest]
+=== Request
+
+Request to query account details
+
+.Available fields in blickfeld.secure.services.AccountGetRequest
+|===
+| Field | Type | Default | Unit
+
+.2+| *uuid* | optional string| - | - 
+3+| Optional uuid of the account to get. If left empty the uuid from the presented JWT token will be used.
+
+|===
+
+[#_blickfeld_secure_services_AccountGetResponse]
+=== Response
+
+Response for the currently authenticated account.
+
+.Available fields in blickfeld.secure.services.AccountGetResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *account* | xref:blickfeld/secure/config/account.adoc[config.Account] | - | - 
+3+| The account details
+
+|===
+
+[#Store]
+== Store
+
+Store updated account data. 
+ 
+[NOTE] 
+==== 
+During account activation this method can be accessed using a JWT token with access level `LEVEL_PUBLIC`. 
+It will fail with `UNAUTHENTICATED` if no JWT token is presented. 
+====
+
+[#_blickfeld_secure_services_AccountStoreRequest]
+=== Request
+
+Store updated account details.
+
+.Available fields in blickfeld.secure.services.AccountStoreRequest
+|===
+| Field | Type | Default | Unit
+
+.2+| *uuid* | optional string| - | - 
+3+| Optional uuid of the account to store. If not provided the uuid from the presented JWT token will be used.
+
+.2+| *account* | xref:blickfeld/secure/config/account.adoc[config.Account] | - | - 
+3+| the updated account data to store
+
+.2+| *password* | optional string| - | - 
+3+| the updated password
+
+|===
+

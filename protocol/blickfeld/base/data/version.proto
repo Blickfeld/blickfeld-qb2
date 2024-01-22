@@ -7,9 +7,9 @@ option (.blickfeld.base.access_control_file) = {
   level: LEVEL_PUBLIC
 };
 
-// General message which is used for version information.
+// A general message used for version information.
 // https://semver.org[Semantic versioning] is used to identify a software state.
-// It additional adds the short hash of the corresponding commit.
+// It additionaly adds the short hash of the corresponding commit.
 message Version {
   // Increments when we make incompatible API changes.
   uint32 major = 1;

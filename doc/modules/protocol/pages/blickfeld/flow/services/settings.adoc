@@ -1,6 +1,6 @@
 = Service: Settings
 
-CAUTION: This API is not yet officially released neither maintained.
+CAUTION: This API is not yet officially released nor maintained.
 
 Configuration service to store the NodeRed Settings. 
  

@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+package blickfeld.secure.config;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_AUTHORIZED
+};
+
+// Public key which is used for verification or encryption.
+// Verification keys are either hard-coded in applications or fused in hardware registers.
+message PublicKey {
+  // Key bytes as binary
+  bytes binary = 1;
+  // String giving information about which key type is used
+  string type = 2;
+}
+

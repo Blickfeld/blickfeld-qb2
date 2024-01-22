@@ -5,7 +5,7 @@ import "google/protobuf/empty.proto";
 package blickfeld.hardware.services;
 
 option (.blickfeld.base.access_control_file) = {
-  level: LEVEL_PUBLIC
+  level: LEVEL_AUTHORIZED
 };
 
 // This service is used for starting and stopping the device operation.
@@ -15,7 +15,7 @@ option (.blickfeld.base.access_control_file) = {
 // are connected. This allows a faster retrieval of frames once a client connects as the startup phase is skipped.
 service DeviceOperation {
   option (.blickfeld.base.access_control_service) = {
-    level: LEVEL_PUBLIC
+    level: LEVEL_AUTHORIZED
   };
   option (.blickfeld.base.protocol_maturity_service) = {
     level: LEVEL_MAINTAINED

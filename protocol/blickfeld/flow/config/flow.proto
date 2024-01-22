@@ -7,7 +7,7 @@ import "google/protobuf/struct.proto";
 package blickfeld.flow.config;
 
 option (.blickfeld.base.access_control_file) = {
-  level: LEVEL_PUBLIC
+  level: LEVEL_AUTHORIZED
 };
 
 // Blickfeld Flow configuration

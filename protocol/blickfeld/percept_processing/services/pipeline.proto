@@ -8,7 +8,7 @@ import "google/protobuf/empty.proto";
 package blickfeld.percept_processing.services;
 
 option (.blickfeld.base.access_control_file) = {
-  level: LEVEL_PUBLIC
+  level: LEVEL_AUTHORIZED
 };
 
 // A request to start a headless pipeline.
@@ -34,7 +34,7 @@ message PipelineListAvailableDataResponse {
 // impossible to run more than one pipeline at the same time.
 service Pipeline {
   option (.blickfeld.base.access_control_service) = {
-    level: LEVEL_PUBLIC
+    level: LEVEL_AUTHORIZED
   };
   option (.blickfeld.base.protocol_maturity_service) = {
     level: LEVEL_EXPERIMENTAL
@@ -49,6 +49,10 @@ service Pipeline {
   rpc Stop(.google.protobuf.Empty) returns (.google.protobuf.Empty);
   // A method to get the list of the data streams available for the running
   // pipeline
-  rpc ListAvailableData(.google.protobuf.Empty) returns (.blickfeld.percept_processing.services.PipelineListAvailableDataResponse);
+  rpc ListAvailableData(.google.protobuf.Empty) returns (.blickfeld.percept_processing.services.PipelineListAvailableDataResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
 }
 

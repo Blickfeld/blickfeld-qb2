@@ -1,29 +1,29 @@
-= Flow (BETA)
+= Blickfeld Flow (BETA)
 
-CAUTION: This feature is currently in the testing phase and not yet completed. Changes in upcoming firmware releases may cause behaviourals and APIs created with Flow to break.
+CAUTION: This feature is currently in the testing phase and not yet completed. Changes in upcoming firmware releases may cause behaviours and APIs created with Flow to break.
 
-Blickfeld Flow is a low-code prototyping and integration tool for customizing and extending the functionality of a Qb2 sensor.
+Blickfeld Flow is a low-code prototyping and integration tool for customizing and extending the functionality of the Qb2 sensor.
 It is based on the open-source tool https://nodered.org[Node-Red], an efficient and state-of-the-art flow-based programming tool for event-driven applications.
-It is seamlessly integrated in the Blickfeld sensor while maintaining the flexibility and the https://flows.nodered.org/[library] provided by the open source community.
+The tool is seamlessly integrated in the Blickfeld sensor while maintaining the flexibility and the https://flows.nodered.org/[library] provided by the open-source community.
 
-== Key Features
+== Key features
 
 * Simple access to the Blickfeld Qb2 API through built-in nodes
 * Browser-based wiring and editing of flows with the WebGUI
 * Support for various input and output interfaces such as REST, Websocket, MQTT, Kafka, ..
 * Live deployment of changes with status and debug messages
-* Deployment of custom Javscript methods
+* Deployment of custom Javascript methods
 * Import, export and library support to re-use flows
-* Fully integrated and on-device execution (the flows can be configured to start automatically with the power-up of the Qb2)
+* Fully integrated and on-device execution (flows can be configured to start automatically with the power-up of Qb2)
 
 == How to get started?
 
-NOTE: Ensure that the Qb2 sensor is running a firmware version that is at least v1.8 or higher. If it is not, please proceed to download the most recent release from https://github.com/Blickfeld/blickfeld-qb2/releases[Github] and then upload it to the sensor using the firmware page.
+NOTE: Ensure that the sensor is running the firmware version v1.8 or higher. If it is not, please proceed to download the most recent release from https://github.com/Blickfeld/blickfeld-qb2/releases[Github] and then upload it to the sensor using the firmware page.
 
 Blickfeld Flow is available in the WebGUI under Configuration / Flow.
-With Blickfeld Flow, users have the ability to generate new flows by simply dragging nodes into the workspace and establishing connections between them.
+With Blickfeld Flow, users can generate new flows by simply dragging nodes into the workspace and establishing connections between them.
 
-Overall, it is highly recommended to follow the https://nodered.org/docs/[Node-Red documentation] with its https://nodered.org/docs/tutorials/first-flow[tutorials].
+Overall, it is highly recommended to follow the https://nodered.org/docs/[Node-Red documentation] and its https://nodered.org/docs/tutorials/first-flow[tutorials].
 
 == Qb2 API access
 
@@ -36,32 +36,32 @@ Additionally, built-in flows are available for reference.
 
 == Limitations
 
-=== Compute Power
+=== Compute power
 
-The Qb2 devices leverage a quad-core ARM Cortex-A72 processor for on-device processing tasks.
+Qb2 devices leverage a quad-core ARM Cortex-A72 processor for on-device processing tasks.
 Only a fraction of this computational capacity is allocated to Blickfeld flows.
 Consequently, resource-intensive flows might exhibit reduced performance.
 It is worth highlighting that this adjustment does not significantly impact the fundamental operations of the core device. This is because Blickfeld Flows are executed with a lower process priority, ensuring the stability of core device functionalities.
 
-Simple recommended optimizations:
+Here are some simple recommended optimizations:
 
 * https://cookbook.nodered.org/basic/rate-limit-messages[Slow down messages passing through a flow]
 * Dive into https://nodered.org/docs/user-guide/messages[Message Guides] to understand the potential compute & memory impact
 
-=== Point Cloud Processing
+=== Point cloud processing
 
-At the moment, it is not recommended to process point clouds with Blickfeld flows.
+At the moment, processing point clouds with Blickfeld flows is not recommended.
 It's a resource-intensive operation that usually requires optimizations to run in real-time.
 
 Please approach the Blickfeld Support with the corresponding use-case where point cloud processing is required.
-We can probably provide a suitable solution.
+We can likely provide a suitable solution.
 
 === Storage
 
-The custom packages are installed on a 2GB large data partition.
+Custom packages are installed on a 2GB large data partition.
 Depending on the dependencies, the storage limit may be reached.
 
 === Maintainability of complex flows
 
-Even though it is very easy to get started with Blickfeld Flows, large and complex flows can lead to higher maintainability efforts in the future.
+Even though it is straightforward to get started with Blickfeld Flow, large and complex flows can lead to higher maintainability efforts in the future.
 It is highly recommended to carefully read through the https://nodered.org/docs/developing-flows/[Developing Flows] guide of Node-Red.

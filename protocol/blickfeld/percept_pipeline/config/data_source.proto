@@ -7,7 +7,7 @@ import "blickfeld/base/options.proto";
 package blickfeld.percept_pipeline.config;
 
 option (.blickfeld.base.access_control_file) = {
-  level: LEVEL_PUBLIC
+  level: LEVEL_AUTHORIZED
 };
 
 // The configuration storing the sources to retrieve the point cloud data for further processing.

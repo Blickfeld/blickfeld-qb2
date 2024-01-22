@@ -4,7 +4,7 @@ import "blickfeld/base/options.proto";
 package blickfeld.laser.data;
 
 option (.blickfeld.base.access_control_file) = {
-  level: LEVEL_ADMIN
+  level: LEVEL_AUTHORIZED
 };
 
 // Operation mode of the laser module

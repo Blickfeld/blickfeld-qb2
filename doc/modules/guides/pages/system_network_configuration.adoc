@@ -1,0 +1,91 @@
+= Network Configuration
+
+This guide demonstrates the network configuration of Qb2. 
+
+NOTE: Please follow the xref:developer:client_libraries/python.adoc[Python Client Library Guide] to install the Python package first.
+
+== Getting the network configuration
+
+With the use of the gRPC xref:protocol:blickfeld/system/services/network.adoc[Network] service, the current network configuration of the qb2 can be fetched.
+The following code snipped sends a request via the xref:protocol:blickfeld/system/services/network.adoc#GetConfig[GetConfig] method and receives a response containing the current active configuration.  
+
+[source, python]
+----
+import blickfeld_qb2
+
+# Open a secure connection to Qb2
+with blickfeld_qb2.Channel(fqdn_or_ip="qb2-xxxxxxxxx") as channel:
+    service = blickfeld_qb2.system.services.Network(channel)
+
+    response = service.get_config()
+    print(response)
+----
+
+Output:
+
+[source, text]
+----
+Network(
+    hostname='', dhcp=True, manual=NetworkStatic(), link_local=False
+)
+----
+
+The output shows the default configuration of Qb2.
+The Dynamic Host Configuration Protocol (DHCP) is enabled so that the device tries to automatically retrieve an IPv4 and IPv6 address.
+from the network router.
+
+== Setting a manual network configuration
+
+If Qb2 is not in a managed network, i.e. it does not obtain its IPv4 address from a local router, it can be set manually as demonstrated in the following code snippet. 
+
+[source, python]
+----
+import blickfeld_qb2
+
+request = blickfeld_qb2.system.config.Network()
+
+request.manual.ipv4.ip.extend([ "10.0.2.15/24", "10.0.2.43/24"])
+request.manual.ipv4.gateway = "10.0.2.2"
+request.manual.ipv4.dns_server.extend(["8.8.4.4", "8.8.8.0"])
+
+# Open a secure connection to Qb2
+with blickfeld_qb2.Channel(fqdn_or_ip="qb2-xxxxxxxxx") as channel:
+    service = blickfeld_qb2.system.services.Network(channel)
+
+    # Set the configuration
+    service.set_config(
+        manual=request.manual,
+    )
+----
+
+== Setting a wireless configuration
+
+The following code snippet enables WIFI connection at Qb2
+
+[source, python]
+----
+import blickfeld_qb2
+
+with blickfeld_qb2.Channel(fqdn_or_ip="qb2-xxxxxxxxx") as channel:
+    service = blickfeld_qb2.system.services.Network(channel)
+    
+    # Create a new configuration
+    configuration = blickfeld_qb2.system.config.Network()
+
+    # Activate DHCP
+    configuration.dhcp = True
+
+    # Configure the wifi settings
+    configuration.wireless.ssid = "your_wifi_ssid"
+    configuration.wireless.password = "your_wifi_password"
+    
+    # Validate the wireless configuration
+    response = service.validate(config=configuration)
+    print(response)
+
+    # Apply the configuration
+    service.set_config(configuration)
+
+    # Note that the IP address of the device is probably changed now.
+    # The response of the validation method contains the new IP address.
+----

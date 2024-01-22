@@ -6,7 +6,7 @@ import "google/protobuf/empty.proto";
 package blickfeld.system.services;
 
 option (.blickfeld.base.access_control_file) = {
-  level: LEVEL_PUBLIC
+  level: LEVEL_AUTHORIZED
 };
 
 // Response to health get request
@@ -24,14 +24,22 @@ message HealthWatchResponse {
 // The health service provides methods to monitor operational status of the systen module
 service Health {
   option (.blickfeld.base.access_control_service) = {
-    level: LEVEL_PUBLIC
+    level: LEVEL_AUTHORIZED
   };
   option (.blickfeld.base.protocol_maturity_service) = {
     level: LEVEL_MAINTAINED
   };
   // Returns the current health status of the systen module
-  rpc Get(.google.protobuf.Empty) returns (.blickfeld.system.services.HealthGetResponse);
+  rpc Get(.google.protobuf.Empty) returns (.blickfeld.system.services.HealthGetResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
   // Can be used to attach to the health monitoring status information of the systen module
-  rpc Watch(.google.protobuf.Empty) returns (stream .blickfeld.system.services.HealthWatchResponse);
+  rpc Watch(.google.protobuf.Empty) returns (stream .blickfeld.system.services.HealthWatchResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
 }
 

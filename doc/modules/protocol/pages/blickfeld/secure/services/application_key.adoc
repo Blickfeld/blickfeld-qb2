@@ -1,0 +1,125 @@
+= Service: Application Key
+
+CAUTION: This API is not yet officially released nor maintained.
+
+Service for managing application keys. 
+
+
+.Available methods
+|===
+| Method | Request | Response
+
+| *xref:#List[]* | xref:blickfeld/secure/services/application_key.adoc#_blickfeld_secure_services_ApplicationKeyListRequest[ApplicationKeyListRequest]| xref:blickfeld/secure/services/application_key.adoc#_blickfeld_secure_services_ApplicationKeyListResponse[ApplicationKeyListResponse]
+| *xref:#Create[]* | xref:blickfeld/secure/services/application_key.adoc#_blickfeld_secure_services_ApplicationKeyCreateRequest[ApplicationKeyCreateRequest]| xref:blickfeld/secure/services/application_key.adoc#_blickfeld_secure_services_ApplicationKeyCreateResponse[ApplicationKeyCreateResponse]
+| *xref:#Delete[]* | xref:blickfeld/secure/services/application_key.adoc#_blickfeld_secure_services_ApplicationKeyDeleteRequest[ApplicationKeyDeleteRequest]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
+|===
+[#List]
+== List
+
+List existing application keys for the authenticated account.
+
+[#_blickfeld_secure_services_ApplicationKeyListRequest]
+=== Request
+
+Request to list applicaion keys
+
+.Available fields in blickfeld.secure.services.ApplicationKeyListRequest
+|===
+| Field | Type | Default | Unit
+
+.2+| *account_uuid* | optional string| - | - 
+3+| Optional uuid of the account for which to list the application keys. If not provided the uuid from the presented JWT token will be 
+used.
+
+|===
+
+[#_blickfeld_secure_services_ApplicationKeyListResponse]
+=== Response
+
+Response for listing existing application keys.
+
+.Available fields in blickfeld.secure.services.ApplicationKeyListResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *application_key* | repeated xref:blickfeld/secure/services/application_key.adoc#_blickfeld_secure_services_ApplicationKeyListResponse_ApplicationKeyEntry[ApplicationKeyEntry] | - | - 
+3+| Application key mapping from application-key-uuid (key) to application key details (value).
+
+|===
+
+[#_blickfeld_secure_services_ApplicationKeyListResponse_ApplicationKeyEntry]
+==== Application Key Entry
+
+
+
+.Available fields in blickfeld.secure.services.ApplicationKeyListResponse.ApplicationKeyEntry
+|===
+| Field | Type | Default | Unit
+
+| *key* | string| - | - 
+| *value* | xref:blickfeld/secure/config/application_key.adoc[config.ApplicationKey] | - | - 
+|===
+
+[#Create]
+== Create
+
+Create an application key for the authenticated account.
+
+[#_blickfeld_secure_services_ApplicationKeyCreateRequest]
+=== Request
+
+Request to create an application key.
+
+.Available fields in blickfeld.secure.services.ApplicationKeyCreateRequest
+|===
+| Field | Type | Default | Unit
+
+.2+| *account_uuid* | optional string| - | - 
+3+| Optional uuid of the account to which the application key is associated. If not provided the uuid from the presented JWT token will 
+be used.
+
+.2+| *application_key* | xref:blickfeld/secure/config/application_key.adoc[config.ApplicationKey] | - | - 
+3+| The application key to create. Minimum (optional) input is the value set in the `purpose` field. Everything else will be generated 
+and added on the server side.
+
+|===
+
+[#_blickfeld_secure_services_ApplicationKeyCreateResponse]
+=== Response
+
+Response containing the plain-text key information of the generated application key. 
+ 
+[NOTE] 
+==== 
+The generated key in plain text will be returned only once. 
+====
+
+.Available fields in blickfeld.secure.services.ApplicationKeyCreateResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *key* | string| - | - 
+3+| The generated key in plain text. This key has to be used whenever an application needs a token for authenticated access.
+
+|===
+
+[#Delete]
+== Delete
+
+Delete an application key from the authenticated account.
+
+[#_blickfeld_secure_services_ApplicationKeyDeleteRequest]
+=== Request
+
+Request to delete an application key.
+
+.Available fields in blickfeld.secure.services.ApplicationKeyDeleteRequest
+|===
+| Field | Type | Default | Unit
+
+.2+| *uuid* | string| - | - 
+3+| The uuid of the application key to delete. Once the application key has been deleted all future authentication attempts with this 
+application key will be blocked.
+
+|===
+

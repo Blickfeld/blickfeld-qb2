@@ -39,6 +39,10 @@ service Log {
     level: LEVEL_MAINTAINED
   };
   // Is used to request a stream of log entries from the logs of the device.
-  rpc Stream(.blickfeld.diagnostics.services.LogStreamRequest) returns (stream .blickfeld.diagnostics.services.LogStreamResponse);
+  rpc Stream(.blickfeld.diagnostics.services.LogStreamRequest) returns (stream .blickfeld.diagnostics.services.LogStreamResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
 }
 

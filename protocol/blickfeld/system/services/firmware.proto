@@ -114,9 +114,17 @@ service Firmware {
     };
   }
   // Get the current firmware status which includes the currently installed firmware but also ongoing or failed installations.
-  rpc GetStatus(.google.protobuf.Empty) returns (.blickfeld.system.services.FirmwareGetStatusResponse);
+  rpc GetStatus(.google.protobuf.Empty) returns (.blickfeld.system.services.FirmwareGetStatusResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
   // Continously watch the status stream and get updates on changes.
   // This can be used to attach to an ongoing installation.
-  rpc WatchStatus(.google.protobuf.Empty) returns (stream .blickfeld.system.services.FirmwareWatchStatusResponse);
+  rpc WatchStatus(.google.protobuf.Empty) returns (stream .blickfeld.system.services.FirmwareWatchStatusResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
 }
 

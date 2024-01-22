@@ -9,7 +9,7 @@ import "google/protobuf/empty.proto";
 package blickfeld.push.services;
 
 option (.blickfeld.base.access_control_file) = {
-  level: LEVEL_PUBLIC
+  level: LEVEL_AUTHORIZED
 };
 
 // request get the health of the configured publisher
@@ -29,14 +29,22 @@ message HealthWatchResponse {
 // An gRPC service to request the status of push configurations
 service Health {
   option (.blickfeld.base.access_control_service) = {
-    level: LEVEL_PUBLIC
+    level: LEVEL_AUTHORIZED
   };
   option (.blickfeld.base.protocol_maturity_service) = {
     level: LEVEL_EXPERIMENTAL
   };
   // Get Status for all configured push configurations
-  rpc Get(.google.protobuf.Empty) returns (.blickfeld.push.services.HealthGetResponse);
+  rpc Get(.google.protobuf.Empty) returns (.blickfeld.push.services.HealthGetResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
   // Watch status changes for configured push configurations
-  rpc Watch(.google.protobuf.Empty) returns (stream .blickfeld.push.services.HealthWatchResponse);
+  rpc Watch(.google.protobuf.Empty) returns (stream .blickfeld.push.services.HealthWatchResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
 }
 

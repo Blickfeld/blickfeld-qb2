@@ -1,75 +1,78 @@
 = Point Cloud Fetch 
 :imagesdir: ../assets/images
 
-In this guide we establish a secure connection to a Qb2 device.
-Afterwards, the point cloud data is requested and one or multiple point cloud frames are received. 
-Finally, we get data from the received point cloud and plot a single point cloud frame.
+In this guide, a secure connection to a Qb2 device is established in order to fetch a point cloud frame, extract its point cloud data, and display it in a 2D plot.
 
-NOTE: Please follow the xref:developer:client_libraries/python.adoc[Python Client Library Guide] first to install the Python package.
+NOTE: Please follow the xref:developer:client_libraries/python.adoc[Python Client Library Guide] to install the Python package first.
 
-== Fetch point cloud from Qb2 
+== Fetching point cloud frames from Qb2 
 
-We use the ```PointCloud``` service from ```blickfeld_qb2.core_processing.services``` namespace over the gRPC channel and issue a single get (retrieve one point cloud frame) or streaming request (continuously receive point cloud frames) to the device.
-The code snippets below show examples of connecting to a Qb2 with hostname ```qb2-xxxxxxxxx``` and fetching point cloud frames from it.
+First a single point cloud frame, then a stream of frames is requested using the gRPC ```PointCloud``` service from the ```blickfeld_qb2.core_processing.services``` namespace. The code snippets below provide examples of how to connect to a Qb2 using the hostname ```qb2-xxxxxxxxx```, and of how to fetch point cloud frames from it.
 
-=== Get single frame
+=== Getting a single point cloud frame
 
-The following example shows how to fetch a single point cloud frame using the ```Get``` method.
+The following example shows how to fetch a single point cloud frame using the ```get``` method.
 
 [source,python]
 ----
 import blickfeld_qb2
 
-# open secure connection to Qb2
+# Open a secure connection to Qb2
 with blickfeld_qb2.Channel(fqdn_or_ip="qb2-xxxxxxxxx") as channel:
     service = blickfeld_qb2.core_processing.services.PointCloud(channel)
+
     frame = service.get().frame
-    # print frame id
-    print("received frame with id", frame.id)
+
+    # Print the frame ID
+    print("Received frame with ID:", frame.id)
 ----
 
-=== Continuously stream point cloud frames
+=== Continuously streaming point cloud frames
 
-The following example shows how to continuously stream point cloud frames from a Qb2 device:
+The following example shows how to continuously stream point cloud frames from a Qb2 device.
 
 [source,python]
 ----
 import blickfeld_qb2
 
-# open secure connection to Qb2
+# Open a secure connection to Qb2
 with blickfeld_qb2.Channel(fqdn_or_ip="qb2-xxxxxxxxx") as channel:
     service = blickfeld_qb2.core_processing.services.PointCloud(channel)
-    # request point cloud stream from Qb2
+
+    # Request a point cloud stream from Qb2
     for i, response in enumerate(service.stream()):
-        # extract point cloud frame from response 
+
+        # Extract a point cloud frame from the response 
         frame = response.frame
-        # print frame id
-        print("received frame with id", frame.id)
-        # get 3 frames and stop 
+
+        # Print the frame ID
+        print("Received frame with ID:", frame.id)
+
+        # Get 3 frames and stop 
         if i == 2: 
             break
 ----
 
-== Get data from point cloud frame
-In the code snippet below we read out the cartesian coordinates ```xyz``` for each point in the received point cloud frame.
-We further use these values to calculate azimuth and elevation vectors. 
+== Getting the data from a point cloud frame
+In the code snippet below, the Cartesian coordinates ```xyz``` for each point in the received frame are extracted.
+These values are then used to calculate the azimuth and elevation vectors. 
 
 [source,python]
 ----
 import numpy as np
 
-# get x,y,z coordinates from the frame points 
+# Get the x,y,z coordinates of the points in the frame 
 xyz = frame.binary.cartesian
 
-# calculate azimuth and elevation 
+# Calculate the azimuth and elevation 
 distance = np.sqrt(xyz[:,0] ** 2 + xyz[:,1] ** 2 + xyz[:,2] ** 2)
 azimuth = np.arctan(xyz[:,0] / xyz[:,1])
 elevation = np.arcsin(xyz[:,2] / distance)
 ----
 
-== Plot point cloud frame 
+== Plotting a point cloud frame 
 
-Finally, ```azimuth```, ```elevation``` and ```photon_count``` vectors are used to plot the desired field of view from the point cloud frame as shown in the code snippet below.
+Finally, ```azimuth```, ```elevation```, and ```photon_count``` vectors are used to plot the desired field of view from the point cloud frame as shown in the code snippet below.
 
 [source,python]
 ----
@@ -83,7 +86,7 @@ plt.ylabel("Elevation [rad]")
 plt.show()
 ----
 
-The plot result is shown in the Figure below:
+The plot result is shown in the figure below:
 
 .Point Cloud Frame
 image::point_cloud.png[840,680]

@@ -7,7 +7,7 @@ import "google/protobuf/empty.proto";
 package blickfeld.core_processing.services;
 
 option (.blickfeld.base.access_control_file) = {
-  level: LEVEL_PUBLIC
+  level: LEVEL_AUTHORIZED
 };
 
 // Response to health get request
@@ -37,18 +37,30 @@ message HealthGetConfigResponse {
 // The health service provides methods to monitor operational status of the core_processing module
 service Health {
   option (.blickfeld.base.access_control_service) = {
-    level: LEVEL_PUBLIC
+    level: LEVEL_AUTHORIZED
   };
   option (.blickfeld.base.protocol_maturity_service) = {
     level: LEVEL_MAINTAINED
   };
   // Returns the current health status of the core_processing module
-  rpc Get(.google.protobuf.Empty) returns (.blickfeld.core_processing.services.HealthGetResponse);
+  rpc Get(.google.protobuf.Empty) returns (.blickfeld.core_processing.services.HealthGetResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
   // Can be used to attach to the health monitoring status information of the core_processing module
-  rpc Watch(.google.protobuf.Empty) returns (stream .blickfeld.core_processing.services.HealthWatchResponse);
+  rpc Watch(.google.protobuf.Empty) returns (stream .blickfeld.core_processing.services.HealthWatchResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
   // Set the necessary parameters to generate the health message. It could be calibration flag, limits, etc.
   rpc SetConfig(.blickfeld.core_processing.services.HealthSetConfigRequest) returns (.google.protobuf.Empty);
   // Get the health config
-  rpc GetConfig(.google.protobuf.Empty) returns (.blickfeld.core_processing.services.HealthGetConfigResponse);
+  rpc GetConfig(.google.protobuf.Empty) returns (.blickfeld.core_processing.services.HealthGetConfigResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
 }
 

@@ -1,0 +1,20 @@
+[#_blickfeld_secure_config_Certificate]
+= Certificate
+
+Public key certificate during the TLS handshake process
+
+.Available fields in blickfeld.secure.config.Certificate
+|===
+| Field | Type | Default | Unit
+
+.2+| *binary* | bytes| - | - 
+3+| Certificate bytes (DER format)
+
+.2+| *type* | string| - | - 
+3+| String giving information about which key type was used for generation (e.g. RSA, key length)
+
+.2+| *serial* | string| - | - 
+3+| Serial number of certificate in padded hex format. Automatically assigned by the service when issued.
+
+|===
+

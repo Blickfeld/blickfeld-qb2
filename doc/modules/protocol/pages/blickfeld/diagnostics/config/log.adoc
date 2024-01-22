@@ -21,6 +21,8 @@ This field specifies the list of software modules that can be accessed via the l
 | SOFTWARE_MODULE_UNSPECIFIED ^| 0 | No module is selected
 | SOFTWARE_MODULE_BLICKFELD_PROXY ^| 1 | gRPC proxy where all clients requests are handled. 
 Helps to review & audit calls of client applications.
+| SOFTWARE_MODULE_BLICKFELD_FLOW ^| 2 | Logs of the embedded node-red instance. 
+Helps to trace & understand blickfeld flow behaviourals or crashes.
 |===
 
 [#_blickfeld_diagnostics_config_Log_TimeDirection]

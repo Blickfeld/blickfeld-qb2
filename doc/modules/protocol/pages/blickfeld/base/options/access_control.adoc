@@ -2,7 +2,7 @@
 = Access Control
 
  
-Access Control message which specifies the required access level and licenses for protocol entities. 
+The Access Control message specifies the required access level and licenses for protocol entities. 
 Protocol entities are usually gRPC services but can also be more fine grained on gRPC method 
 and Protobuf field level.
 
@@ -13,6 +13,9 @@ and Protobuf field level.
 .2+| *level* | xref:blickfeld/base/options/access_control.adoc#_blickfeld_base_AccessControl_Level[Level] | - | - 
 3+| Minimum access level required for entity
 
+.2+| *read_only* | bool| - | - 
+3+| True if the entity can be accessed with read-only permissions
+
 |===
 
 [#_blickfeld_base_AccessControl_Level]
@@ -21,7 +24,7 @@ and Protobuf field level.
  
 Available access levels 
  
-The levels are ordered ascending, which means that each level also inherits the permissions 
+The levels are ordered in ascending order, which means that each level also inherits the permissions 
 of the levels above it.
 
 .Available values for blickfeld.base.AccessControl.Level enum
@@ -44,8 +47,7 @@ If desired, the AUTHORIZED access level can be configured to act equally to the 
 | LEVEL_ADMIN ^| 3 |  
 Only administrative clients can access 
  
-The corresponding entities are mainly used to configure the access tokens of the AUTHORIZED access level. 
-It may also be used to manage configuration which might void the warranty or specification of the device.
+The corresponding entities are mainly used to configure the accounts with AUTHORIZED & ADMIN access levels.
 | LEVEL_SUPPORT ^| 4 |  
 Only clients of the Blickfeld support can access 
  

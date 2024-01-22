@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+package blickfeld.secure.config;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_AUTHORIZED
+};
+
+// An application key is linked to a user account.
+message ApplicationKey {
+  // Human readable purpose for this application key. It is recommended to briefly describe the purpose of the application key here. The
+  // field should help users to quickly identify different application keys but can also be left empty.
+  string purpose = 1;
+  // Access level which is granted to this application key.
+  .blickfeld.base.AccessControl.Level access_level = 2 [(.blickfeld.base.optional) = true, (.blickfeld.base.access_control_field) = {
+    level: LEVEL_ADMIN
+  }];
+  // Last time the application key was used to authenticate. This is just for information purposes and might not be reliable.
+  uint64 last_login_ts = 4;
+}
+

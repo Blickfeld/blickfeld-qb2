@@ -8,7 +8,7 @@ import "blickfeld/push/config/payload.proto";
 package blickfeld.push.config;
 
 option (.blickfeld.base.access_control_file) = {
-  level: LEVEL_PUBLIC
+  level: LEVEL_AUTHORIZED
 };
 
 // defines a combination of stream and destination

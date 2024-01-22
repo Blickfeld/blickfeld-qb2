@@ -2,8 +2,8 @@
 
 NOTE: This API is officially released and maintained.
 
-This service provides aggregated health state information about all Qb2 software modules (only state and state reason are delivered) 
- Service can be used to get an instant overview of the overall Qb2 device health
+This service provides the aggregated health state information of all Qb2 software modules (only state and state reason are included). 
+Service can be used to get an instant overview of the overall Qb2 device health.
 
 .Available methods
 |===
@@ -15,12 +15,12 @@ This service provides aggregated health state information about all Qb2 software
 [#Get]
 == Get
 
-Returns the current aggregated health status of Qb2 software modules
+Returns the current aggregated health status of Qb2 software modules.
 
 [#_blickfeld_diagnostics_services_HealthGetResponse]
 === Response
 
-Response to health get request
+Response to health get request.
 
 .Available fields in blickfeld.diagnostics.services.HealthGetResponse
 |===
@@ -34,12 +34,12 @@ Response to health get request
 [#Watch]
 == Watch
 
-Returns the aggregated health status stream of Qb2 software modules
+Returns the aggregated health status stream of Qb2 software modules.
 
 [#_blickfeld_diagnostics_services_HealthWatchResponse]
 === Response Stream
 
-Response to health watch request
+Response to health watch request.
 
 .Available fields in blickfeld.diagnostics.services.HealthWatchResponse
 |===

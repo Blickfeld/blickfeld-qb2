@@ -6,7 +6,7 @@ import "google/protobuf/empty.proto";
 package blickfeld.beam_deflection_control.services;
 
 option (.blickfeld.base.access_control_file) = {
-  level: LEVEL_ADMIN
+  level: LEVEL_AUTHORIZED
 };
 
 // Message containing the health data for a single get request
@@ -24,14 +24,22 @@ message HealthWatchResponse {
 // The health service provides methods to monitor the instant operational status of the beam deflection controller
 service Health {
   option (.blickfeld.base.access_control_service) = {
-    level: LEVEL_ADMIN
+    level: LEVEL_AUTHORIZED
   };
   option (.blickfeld.base.protocol_maturity_service) = {
     level: LEVEL_MAINTAINED
   };
   // Returns the current health status of the beam deflection controller
-  rpc Get(.google.protobuf.Empty) returns (.blickfeld.beam_deflection_control.services.HealthGetResponse);
+  rpc Get(.google.protobuf.Empty) returns (.blickfeld.beam_deflection_control.services.HealthGetResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
   // Can be used to attach to the health monitoring status information of the beam deflection controller
-  rpc Watch(.google.protobuf.Empty) returns (stream .blickfeld.beam_deflection_control.services.HealthWatchResponse);
+  rpc Watch(.google.protobuf.Empty) returns (stream .blickfeld.beam_deflection_control.services.HealthWatchResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
 }
 

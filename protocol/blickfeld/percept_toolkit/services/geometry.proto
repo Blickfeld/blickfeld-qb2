@@ -7,7 +7,7 @@ import "blickfeld/core_processing/data/frame.proto";
 package blickfeld.percept_toolkit.services;
 
 option (.blickfeld.base.access_control_file) = {
-  level: LEVEL_PUBLIC
+  level: LEVEL_AUTHORIZED
 };
 
 // Request for estimating alignment to ground/gravity based on imu-data and optional point cloud frame.
@@ -47,15 +47,23 @@ message GeometryComputeRegistrationRefinementResponse {
 // Service offering on-demand geometric processing tasks.
 service Geometry {
   option (.blickfeld.base.access_control_service) = {
-    level: LEVEL_PUBLIC
+    level: LEVEL_AUTHORIZED
   };
   option (.blickfeld.base.protocol_maturity_service) = {
     level: LEVEL_MAINTAINED
   };
   // Computes the transformation aligning the lidar point cloud to the ground plane/gravity.
-  rpc ComputeGroundAlignment(.blickfeld.percept_toolkit.services.GeometryComputeGroundAlignmentRequest) returns (.blickfeld.percept_toolkit.services.GeometryComputeGroundAlignmentResponse);
+  rpc ComputeGroundAlignment(.blickfeld.percept_toolkit.services.GeometryComputeGroundAlignmentRequest) returns (.blickfeld.percept_toolkit.services.GeometryComputeGroundAlignmentResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
   // Refines the point cloud registration based on provided initial transformations.
   // If the method succeeds, the refined transformation is returned. Otherwise an exception will be thrown.
-  rpc ComputeRegistrationRefinement(stream .blickfeld.percept_toolkit.services.GeometryComputeRegistrationRefinementRequest) returns (.blickfeld.percept_toolkit.services.GeometryComputeRegistrationRefinementResponse);
+  rpc ComputeRegistrationRefinement(stream .blickfeld.percept_toolkit.services.GeometryComputeRegistrationRefinementRequest) returns (.blickfeld.percept_toolkit.services.GeometryComputeRegistrationRefinementResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
 }
 

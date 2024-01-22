@@ -5,22 +5,18 @@ import "google/protobuf/empty.proto";
 package blickfeld.hardware.services;
 
 option (.blickfeld.base.access_control_file) = {
-  level: LEVEL_PUBLIC
+  level: LEVEL_AUTHORIZED
 };
 
 // This service is used to control & observe the state of the compute module.
 service ComputeModule {
   option (.blickfeld.base.access_control_service) = {
-    level: LEVEL_PUBLIC
+    level: LEVEL_AUTHORIZED
   };
   option (.blickfeld.base.protocol_maturity_service) = {
     level: LEVEL_DEPRECATED
   };
   // Reboots the CM4
-  rpc Reboot(.google.protobuf.Empty) returns (.google.protobuf.Empty) {
-    option (.blickfeld.base.access_control_method) = {
-      level: LEVEL_AUTHORIZED
-    };
-  }
+  rpc Reboot(.google.protobuf.Empty) returns (.google.protobuf.Empty);
 }
 

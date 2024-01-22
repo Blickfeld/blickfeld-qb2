@@ -1,0 +1,128 @@
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+import "blickfeld/secure/config/account.proto";
+import "google/protobuf/empty.proto";
+package blickfeld.secure.services;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// Response for list of accounts
+message AccountListResponse {
+  // Accounts mapping from account-uuid (key) to account details (value).
+  map<string, .blickfeld.secure.config.Account> account = 1;
+}
+
+// Request to create a new user
+message AccountCreateRequest {
+  // the account to create
+  .blickfeld.secure.config.Account account = 1;
+}
+
+// Response after account has been created.
+// [NOTE]
+// ====
+// The generated activation password in plain text will be returned only once.
+// ====
+message AccountCreateResponse {
+  // the activation password in plain text
+  string activation_password = 1;
+}
+
+// Request to reset an existing account
+message AccountResetRequest {
+  // the uuid of the account to reset
+  string uuid = 1;
+}
+
+// Response after account has been reset.
+// [NOTE]
+// ====
+// The generated activation password in plain text will be returned only once.
+// ====
+message AccountResetResponse {
+  // the activation password in plain text
+  string activation_password = 1;
+}
+
+// Request to delete an Account
+message AccountDeleteRequest {
+  // Optional uuid of the account to delete. If left empty the uuid from the presented JWT token will be used.
+  string uuid = 1 [(.blickfeld.base.optional) = true, (.blickfeld.base.access_control_field) = {
+    level: LEVEL_ADMIN
+  }];
+}
+
+// Request to query account details
+message AccountGetRequest {
+  // Optional uuid of the account to get. If left empty the uuid from the presented JWT token will be used.
+  string uuid = 1 [(.blickfeld.base.optional) = true, (.blickfeld.base.access_control_field) = {
+    level: LEVEL_ADMIN
+  }];
+}
+
+// Response for the currently authenticated account.
+message AccountGetResponse {
+  // The account details
+  .blickfeld.secure.config.Account account = 1;
+}
+
+// Store updated account details.
+message AccountStoreRequest {
+  // Optional uuid of the account to store. If not provided the uuid from the presented JWT token will be used.
+  string uuid = 1 [(.blickfeld.base.optional) = true, (.blickfeld.base.access_control_field) = {
+    level: LEVEL_ADMIN
+  }];
+  // the updated account data to store
+  .blickfeld.secure.config.Account account = 2;
+  // the updated password
+  string password = 3 [(.blickfeld.base.optional) = true];
+}
+
+// This service supports the complete lifecycle of accounts which are managed by the current Qb2 device.
+service Account {
+  option (.blickfeld.base.access_control_service) = {
+    level: LEVEL_PUBLIC
+  };
+  // List registered accounts.
+  rpc List(.google.protobuf.Empty) returns (.blickfeld.secure.services.AccountListResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      level: LEVEL_ADMIN
+      read_only: true
+    };
+  }
+  // Create a new account.
+  rpc Create(.blickfeld.secure.services.AccountCreateRequest) returns (.blickfeld.secure.services.AccountCreateResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      level: LEVEL_ADMIN
+    };
+  }
+  // Reset account by setting the state to WAITING_FOR_ACTIVATION & generating a new activation password.
+  rpc Reset(.blickfeld.secure.services.AccountResetRequest) returns (.blickfeld.secure.services.AccountResetResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      level: LEVEL_ADMIN
+    };
+  }
+  // Delete an Account.
+  rpc Delete(.blickfeld.secure.services.AccountDeleteRequest) returns (.google.protobuf.Empty) {
+    option (.blickfeld.base.access_control_method) = {
+      level: LEVEL_ADMIN
+    };
+  }
+  // Get Account information.
+  rpc Get(.blickfeld.secure.services.AccountGetRequest) returns (.blickfeld.secure.services.AccountGetResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
+  // Store updated account data.
+  // [NOTE]
+  // ====
+  // During account activation this method can be accessed using a JWT token with access level `LEVEL_PUBLIC`.
+  // It will fail with `UNAUTHENTICATED` if no JWT token is presented.
+  // ====
+  rpc Store(.blickfeld.secure.services.AccountStoreRequest) returns (.google.protobuf.Empty);
+}
+

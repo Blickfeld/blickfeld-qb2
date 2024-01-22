@@ -5,13 +5,13 @@ import "blickfeld/base/options.proto";
 package blickfeld.beam_deflection_control.data;
 
 option (.blickfeld.base.access_control_file) = {
-  level: LEVEL_ADMIN
+  level: LEVEL_AUTHORIZED
 };
 
 // Health message containing information about operation, status and error of a beam deflection controller.
 message Health {
   option (.blickfeld.base.access_control_message) = {
-    level: LEVEL_ADMIN
+    level: LEVEL_AUTHORIZED
   };
   // This message defines the stats that can be retrieved from a beam deflection controller.
   message Stats {

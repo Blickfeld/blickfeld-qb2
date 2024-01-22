@@ -1,0 +1,44 @@
+= Blickfeld Percept Push
+
+The Blickfeld Push module provides a gRPC interface for subscribing to streams from the  xref:developer:modules/percept/processing/index.adoc[Blickfeld Percept Processing] service and "pushing" the data to a desired destination.
+
+== Architecture
+
+The following image shows an overview of the Blickfeld Push data flow architecture.
+
+image::architecture.svg[Blickfeld Push Data Flow Architecture]
+
+
+* Blickfeld Percept Processing gRPC Client
++
+The Blickfeld Push module acts as a client to xref:developer:modules/percept/processing/index.adoc[Blickfeld Percept Processing] to access data streams and push it to configured destinations.
+
+* Push API gRPC Server
++
+To serve its own API, the module runs a gRPC server that manages all API calls defined in the xref:protocol:blickfeld/push/services/push.adoc[Push] service.
+
+[NOTE]
+====
+For further details on various push configurations, you can refer to the: xref:developer:modules/push/push_configuration.adoc[Push Configuration Overview]
+====
+
+== Services
+
+Blickfeld Push offers the following services:
+
+* Push
+* Destination
+* Health
+
+=== Push
+
+Provides services for storing, deleting, enabling, and disabling one or multiple push configurations. When a push configuration is enabled, Blickfeld Push will automatically publish the data stream provided by Blickfeld Percept Processing to the configured destination.
+See xref:protocol:blickfeld/push/services/push.adoc[Push] for the service definition.
+
+=== Destination
+
+A service to validate the push configuration, e.g. if the destination is correct, see xref:protocol:blickfeld/push/services/destination.adoc[Destination].
+
+=== Health
+
+The xref:protocol:blickfeld/push/services/health.adoc[Health service] can be used to obtain or stream information regarding the current status of the push configurations and the module itself.

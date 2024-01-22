@@ -6,7 +6,7 @@ import "google/protobuf/empty.proto";
 package blickfeld.system.services;
 
 option (.blickfeld.base.access_control_file) = {
-  level: LEVEL_ADMIN
+  level: LEVEL_AUTHORIZED
 };
 
 // Request which is sent together with a SetConfig API call
@@ -24,7 +24,7 @@ message TimeSynchronizationGetResponse {
 // This service provides methods to configure the time synchronization of the device.
 service TimeSynchronization {
   option (.blickfeld.base.access_control_service) = {
-    level: LEVEL_ADMIN
+    level: LEVEL_AUTHORIZED
   };
   option (.blickfeld.base.protocol_maturity_service) = {
     level: LEVEL_MAINTAINED
@@ -32,6 +32,10 @@ service TimeSynchronization {
   // Set the time synchronization configuration for the device
   rpc Set(.blickfeld.system.services.TimeSynchronizationSetRequest) returns (.google.protobuf.Empty);
   // Get the time synchronization configuration of the device
-  rpc Get(.google.protobuf.Empty) returns (.blickfeld.system.services.TimeSynchronizationGetResponse);
+  rpc Get(.google.protobuf.Empty) returns (.blickfeld.system.services.TimeSynchronizationGetResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
 }
 

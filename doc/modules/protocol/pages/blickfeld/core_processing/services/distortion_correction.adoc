@@ -1,6 +1,6 @@
 = Service: Distortion Correction
 
-CAUTION: This API is not yet officially released neither maintained.
+CAUTION: This API is not yet officially released nor maintained.
 
 Service interface for managing the point cloud distortion correction.
 

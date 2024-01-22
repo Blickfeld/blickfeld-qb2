@@ -4,7 +4,7 @@ import "blickfeld/base/options.proto";
 package blickfeld.core_processing.config;
 
 option (.blickfeld.base.access_control_file) = {
-  level: LEVEL_PUBLIC
+  level: LEVEL_AUTHORIZED
 };
 
 // Configuration parameters for the point cloud
@@ -34,6 +34,9 @@ message PointCloud {
     // Set lower threshold for reflectivity.
     // This can be tuned to improve the SNR when low-reflectivity targets have a lower priority.
     uint32 minimum_reflectivity = 4 [(.blickfeld.base.optional) = true];
+    // Set lower threshold for range.
+    // Default value is 1m.
+    float minimum_range = 5 [(.blickfeld.base.optional) = true, (.blickfeld.base.unit) = "m"];
   }
 }
 

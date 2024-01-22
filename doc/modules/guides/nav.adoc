@@ -1,3 +1,7 @@
 * Guides
 ** xref:guides:core_processing_point_cloud.adoc[]
-** xref:guides:firmware_networking.adoc[]
+** xref:guides:core_processing_point_cloud_o3d.adoc[]
+** xref:guides:diagnostics_health.adoc[]
+** xref:guides:system_firmware_update.adoc[]
+** xref:guides:system_network_configuration.adoc[]
+** xref:guides:system_scan_pattern.adoc[]

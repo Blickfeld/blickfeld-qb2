@@ -5,7 +5,7 @@ import "blickfeld/base/options.proto";
 package blickfeld.detector.data;
 
 option (.blickfeld.base.access_control_file) = {
-  level: LEVEL_ADMIN
+  level: LEVEL_AUTHORIZED
 };
 
 // Health message giving information about operation status and possible errors.
@@ -15,8 +15,6 @@ message Health {
   // Reason for given state. Is not set if state is OK.
   string state_reason = 2;
   // Current core temperature of microcontroller.
-  float mcu_temperature = 6 [(.blickfeld.base.unit) = "\302\260C", (.blickfeld.base.access_control_field) = {
-    level: LEVEL_ADMIN
-  }];
+  float mcu_temperature = 6 [(.blickfeld.base.unit) = "\302\260C"];
 }
 

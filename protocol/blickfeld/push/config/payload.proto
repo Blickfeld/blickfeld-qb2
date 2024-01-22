@@ -7,7 +7,7 @@ import "blickfeld/percept_processing/data/data_type.proto";
 package blickfeld.push.config;
 
 option (.blickfeld.base.access_control_file) = {
-  level: LEVEL_PUBLIC
+  level: LEVEL_AUTHORIZED
 };
 
 // defines what type of data stream to use as payload

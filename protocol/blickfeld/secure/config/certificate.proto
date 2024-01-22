@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+package blickfeld.secure.config;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// Public key certificate during the TLS handshake process
+message Certificate {
+  // Certificate bytes (DER format)
+  bytes binary = 1;
+  // String giving information about which key type was used for generation (e.g. RSA, key length)
+  string type = 2;
+  // Serial number of certificate in padded hex format. Automatically assigned by the service when issued.
+  string serial = 3;
+}
+

@@ -8,12 +8,12 @@ option (.blickfeld.base.access_control_file) = {
   level: LEVEL_PUBLIC
 };
 
-// Access Control message which specifies the required access level and licenses for protocol entities.
+// The Access Control message specifies the required access level and licenses for protocol entities.
 // Protocol entities are usually gRPC services but can also be more fine grained on gRPC method
 // and Protobuf field level.
 message AccessControl {
   // Available access levels
-  // The levels are ordered ascending, which means that each level also inherits the permissions
+  // The levels are ordered in ascending order, which means that each level also inherits the permissions
   // of the levels above it.
   enum Level {
     // Access level is not specified
@@ -28,8 +28,7 @@ message AccessControl {
     // If desired, the AUTHORIZED access level can be configured to act equally to the PUBLIC access level.
     LEVEL_AUTHORIZED = 2;
     // Only administrative clients can access
-    // The corresponding entities are mainly used to configure the access tokens of the AUTHORIZED access level.
-    // It may also be used to manage configuration which might void the warranty or specification of the device.
+    // The corresponding entities are mainly used to configure the accounts with AUTHORIZED & ADMIN access levels.
     LEVEL_ADMIN = 3;
     // Only clients of the Blickfeld support can access
     // The corresponding entities can only be accessed by Blickfeld Support Tools & clients.
@@ -43,6 +42,8 @@ message AccessControl {
   }
   // Minimum access level required for entity
   .blickfeld.base.AccessControl.Level level = 1;
+  // True if the entity can be accessed with read-only permissions
+  bool read_only = 2;
 }
 
 extend .google.protobuf.FileOptions {

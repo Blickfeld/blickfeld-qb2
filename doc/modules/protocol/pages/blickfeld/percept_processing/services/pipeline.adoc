@@ -1,6 +1,6 @@
 = Service: Pipeline
 
-CAUTION: This API is not yet officially released neither maintained.
+CAUTION: This API is not yet officially released nor maintained.
 
 An RPC service to start and stop pipelines. Note that currently it is 
 impossible to run more than one pipeline at the same time.

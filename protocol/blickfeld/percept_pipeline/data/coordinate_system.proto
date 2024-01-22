@@ -6,7 +6,7 @@ import "blickfeld/base/options.proto";
 package blickfeld.percept_pipeline.data;
 
 option (.blickfeld.base.access_control_file) = {
-  level: LEVEL_PUBLIC
+  level: LEVEL_AUTHORIZED
 };
 
 // Specifies the coordinates system the data is expressed in

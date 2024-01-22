@@ -8,7 +8,7 @@ import "blickfeld/push/data/status.proto";
 package blickfeld.push.data;
 
 option (.blickfeld.base.access_control_file) = {
-  level: LEVEL_PUBLIC
+  level: LEVEL_AUTHORIZED
 };
 
 // A health message that contains information about the push status

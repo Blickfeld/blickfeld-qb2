@@ -1,6 +1,6 @@
 = Service: Scan Pattern
 
-CAUTION: This API is not yet officially released neither maintained.
+NOTE: This API is officially released and maintained.
 
 
 

@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+import "google/protobuf/empty.proto";
+package blickfeld.secure.services;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// Request for authentication
+message AuthenticationLoginRequest {
+  // User credentials
+  message User {
+    // the username
+    string name = 1;
+    // the password of the user in plain text
+    string password = 2;
+  }
+  // Application Key credentials
+  message Application {
+    // the application key
+    oneof type {
+      // the key in plain text
+      string key = 1;
+      // the key as md5 checksum
+      string http_digest = 2;
+    }
+  }
+  oneof credentials {
+    // Authenticate with user credentials
+    .blickfeld.secure.services.AuthenticationLoginRequest.User user = 1;
+    // Authenticate with application key credentials
+    .blickfeld.secure.services.AuthenticationLoginRequest.Application application = 2;
+  }
+}
+
+// Response containing the issued JWT token.
+message AuthenticationLoginResponse {
+  // The JWT token which needs to be sent with the key "token" in the metadata of a gRPC call.
+  // The token is bound to a xref:blickfeld/secure/services/session.adoc[].
+  string token = 1;
+}
+
+// Service for authentication to the Qb2 device.
+service Authentication {
+  option (.blickfeld.base.access_control_service) = {
+    level: LEVEL_PUBLIC
+  };
+  // User-Accounts managed by Qb2 have to use the Login method with an existing account
+  // in order to receive a JWT Token for access to priviliged parts of the device API.
+  // The factory user has the username "admin".
+  // The password is printed on the device label.
+  rpc Login(.blickfeld.secure.services.AuthenticationLoginRequest) returns (.blickfeld.secure.services.AuthenticationLoginResponse);
+}
+

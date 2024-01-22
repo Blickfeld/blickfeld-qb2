@@ -1,6 +1,6 @@
 = Service: Health
 
-CAUTION: This API is not yet officially released neither maintained.
+CAUTION: This API is not yet officially released nor maintained.
 
 An gRPC service to request the status of push configurations
 

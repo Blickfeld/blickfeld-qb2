@@ -1,6 +1,6 @@
 = Service: Flow
 
-CAUTION: This API is not yet officially released neither maintained.
+CAUTION: This API is not yet officially released nor maintained.
 
 Service to store and control Blickfeld flows. 
  
@@ -14,8 +14,10 @@ It is used to implement the custom storage API: https://nodered.org/docs/api/sto
 | *xref:#List[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/flow/services/flow.adoc#_blickfeld_flow_services_FlowListResponse[FlowListResponse]
 | *xref:#Store[]* | xref:blickfeld/flow/services/flow.adoc#_blickfeld_flow_services_FlowStoreRequest[FlowStoreRequest]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
 | *xref:#Delete[]* | xref:blickfeld/flow/services/flow.adoc#_blickfeld_flow_services_FlowDeleteRequest[FlowDeleteRequest]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
+| *xref:#Watch[]* | xref:blickfeld/flow/services/flow.adoc#_blickfeld_flow_services_FlowWatchRequest[FlowWatchRequest]| xref:blickfeld/flow/services/flow.adoc#_blickfeld_flow_services_FlowWatchResponse[FlowWatchResponse]Stream 
 | *xref:#StoreGlobalNodes[]* | xref:blickfeld/flow/services/flow.adoc#_blickfeld_flow_services_FlowStoreGlobalNodesRequest[FlowStoreGlobalNodesRequest]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
 | *xref:#GetGlobalNodes[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/flow/services/flow.adoc#_blickfeld_flow_services_FlowGetGlobalNodesResponse[FlowGetGlobalNodesResponse]
+| *xref:#WatchGlobalNodes[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/flow/services/flow.adoc#_blickfeld_flow_services_FlowWatchGlobalNodesResponse[FlowWatchGlobalNodesResponse]
 |===
 [#Get]
 == Get
@@ -121,6 +123,48 @@ Flow delete request
 
 |===
 
+[#Watch]
+== Watch
+
+Watch flow changes
+
+[#_blickfeld_flow_services_FlowWatchRequest]
+=== Request
+
+Flow watch request
+
+.Available fields in blickfeld.flow.services.FlowWatchRequest
+|===
+| Field | Type | Default | Unit
+
+.2+| *as_node_red_json* | bool| - | - 
+3+| If true, the request returns the NodeRed JSON format which can be directly imported.
+
+|===
+
+[#_blickfeld_flow_services_FlowWatchResponse]
+=== Response Stream
+
+Per change, a response is emitted
+
+.Available fields in blickfeld.flow.services.FlowWatchResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *id* | string| - | - 
+3+| Id of Blickfeld Flow
+
+.2+| *flow* | xref:blickfeld/flow/config/flow.adoc[config.Flow] | - | - 
+3+| Blickfeld Flow config with well-defined high-level attributes
+
+.2+| *node_red_json* | xref:blickfeld/flow/config/node_red_json.adoc[config.NodeRedJson] | - | - 
+3+| NodeRed JSON format which can be directly exported from NodeRED Admin UI
+
+.2+| *type* | xref:blickfeld/config/data/watch_event.adoc#_blickfeld_config_data_WatchEvent_Type[config.data.WatchEvent.Type] | - | - 
+3+| Type of change
+
+|===
+
 [#StoreGlobalNodes]
 == StoreGlobalNodes
 
@@ -151,6 +195,25 @@ Get global nodes
 Flow get global nodes response
 
 .Available fields in blickfeld.flow.services.FlowGetGlobalNodesResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *node_red_json* | xref:blickfeld/flow/config/node_red_json.adoc[config.NodeRedJson] | - | - 
+3+| NodeRed JSON format of all global configuration nodes
+
+|===
+
+[#WatchGlobalNodes]
+== WatchGlobalNodes
+
+Watch global nodes
+
+[#_blickfeld_flow_services_FlowWatchGlobalNodesResponse]
+=== Response
+
+Flow watch global nodes response
+
+.Available fields in blickfeld.flow.services.FlowWatchGlobalNodesResponse
 |===
 | Field | Type | Default | Unit
 

@@ -6,7 +6,7 @@ import "blickfeld/base/options.proto";
 package blickfeld.percept_pipeline.config;
 
 option (.blickfeld.base.access_control_file) = {
-  level: LEVEL_PUBLIC
+  level: LEVEL_AUTHORIZED
 };
 
 // Algorithms seperating the input point cloud into foreground and background.

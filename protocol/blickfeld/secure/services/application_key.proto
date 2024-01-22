@@ -1,0 +1,72 @@
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+import "blickfeld/secure/config/application_key.proto";
+import "google/protobuf/empty.proto";
+package blickfeld.secure.services;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_AUTHORIZED
+};
+
+// Request to list applicaion keys
+message ApplicationKeyListRequest {
+  // Optional uuid of the account for which to list the application keys. If not provided the uuid from the presented JWT token will be
+  // used.
+  string account_uuid = 1 [(.blickfeld.base.optional) = true, (.blickfeld.base.access_control_field) = {
+    level: LEVEL_ADMIN
+  }];
+}
+
+// Response for listing existing application keys.
+message ApplicationKeyListResponse {
+  // Application key mapping from application-key-uuid (key) to application key details (value).
+  map<string, .blickfeld.secure.config.ApplicationKey> application_key = 1;
+}
+
+// Request to create an application key.
+message ApplicationKeyCreateRequest {
+  // Optional uuid of the account to which the application key is associated. If not provided the uuid from the presented JWT token will
+  // be used.
+  string account_uuid = 1 [(.blickfeld.base.optional) = true, (.blickfeld.base.access_control_field) = {
+    level: LEVEL_ADMIN
+  }];
+  // The application key to create. Minimum (optional) input is the value set in the `purpose` field. Everything else will be generated
+  // and added on the server side.
+  .blickfeld.secure.config.ApplicationKey application_key = 2;
+}
+
+// Response containing the plain-text key information of the generated application key.
+// [NOTE]
+// ====
+// The generated key in plain text will be returned only once.
+// ====
+message ApplicationKeyCreateResponse {
+  // The generated key in plain text. This key has to be used whenever an application needs a token for authenticated access.
+  string key = 1;
+}
+
+// Request to delete an application key.
+message ApplicationKeyDeleteRequest {
+  // The uuid of the application key to delete. Once the application key has been deleted all future authentication attempts with this
+  // application key will be blocked.
+  string uuid = 1;
+}
+
+// Service for managing application keys.
+service ApplicationKey {
+  option (.blickfeld.base.access_control_service) = {
+    level: LEVEL_AUTHORIZED
+  };
+  // List existing application keys for the authenticated account.
+  rpc List(.blickfeld.secure.services.ApplicationKeyListRequest) returns (.blickfeld.secure.services.ApplicationKeyListResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
+  // Create an application key for the authenticated account.
+  rpc Create(.blickfeld.secure.services.ApplicationKeyCreateRequest) returns (.blickfeld.secure.services.ApplicationKeyCreateResponse);
+  // Delete an application key from the authenticated account.
+  rpc Delete(.blickfeld.secure.services.ApplicationKeyDeleteRequest) returns (.google.protobuf.Empty);
+}
+

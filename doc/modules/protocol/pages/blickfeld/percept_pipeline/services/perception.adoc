@@ -1,6 +1,6 @@
 = Service: Perception
 
-CAUTION: This API is not yet officially released neither maintained.
+CAUTION: This API is not yet officially released nor maintained.
 
 The perception service allows getting, configuring and receiving updates of the perception configurations. 
 Perception configurations specify the algorithms used for e.g. for background subtraction etc.

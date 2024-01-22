@@ -12,13 +12,13 @@ option (.blickfeld.base.access_control_file) = {
 message SelfTestReport {
   // Result of test.
   message Result {
-    // Result flags which indicates if test was sucessful.
+    // Result flags which indicate if test was successful.
     enum Flag {
       // Unknown result.
       FLAG_UNSPECIFIED = 0;
       // The test was successful.
       FLAG_SUCCESS = 1;
-      // The test suceeded but it raised some warnings.
+      // The test succeeded but it raised some warnings.
       // Please report if this happens during production and the root-cause is unknown.
       FLAG_WARNING = 2;
       // The test failed.

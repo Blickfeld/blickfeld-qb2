@@ -1,6 +1,7 @@
 syntax = "proto3";
 
 import "blickfeld/base/options.proto";
+import "blickfeld/config/data/watch_event.proto";
 import "blickfeld/flow/config/flow.proto";
 import "blickfeld/flow/config/node_red_json.proto";
 import "google/protobuf/empty.proto";
@@ -53,6 +54,26 @@ message FlowDeleteRequest {
   string id = 1;
 }
 
+// Flow watch request
+message FlowWatchRequest {
+  // If true, the request returns the NodeRed JSON format which can be directly imported.
+  bool as_node_red_json = 1;
+}
+
+// Per change, a response is emitted
+message FlowWatchResponse {
+  // Id of Blickfeld Flow
+  string id = 1;
+  oneof kind {
+    // Blickfeld Flow config with well-defined high-level attributes
+    .blickfeld.flow.config.Flow flow = 2;
+    // NodeRed JSON format which can be directly exported from NodeRED Admin UI
+    .blickfeld.flow.config.NodeRedJson node_red_json = 3;
+  }
+  // Type of change
+  .blickfeld.config.data.WatchEvent.Type type = 4;
+}
+
 // Flow store global nodes request
 message FlowStoreGlobalNodesRequest {
   // NodeRed JSON format of all global configuration nodes
@@ -65,6 +86,12 @@ message FlowGetGlobalNodesResponse {
   .blickfeld.flow.config.NodeRedJson node_red_json = 1;
 }
 
+// Flow watch global nodes response
+message FlowWatchGlobalNodesResponse {
+  // NodeRed JSON format of all global configuration nodes
+  .blickfeld.flow.config.NodeRedJson node_red_json = 1;
+}
+
 // Service to store and control Blickfeld flows.
 // It is used to implement the custom storage API: https://nodered.org/docs/api/storage/
 service Flow {
@@ -72,16 +99,40 @@ service Flow {
     level: LEVEL_AUTHORIZED
   };
   // Get a flow by id
-  rpc Get(.blickfeld.flow.services.FlowGetRequest) returns (.blickfeld.flow.services.FlowGetResponse);
+  rpc Get(.blickfeld.flow.services.FlowGetRequest) returns (.blickfeld.flow.services.FlowGetResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
   // Return list of flow ids
-  rpc List(.google.protobuf.Empty) returns (.blickfeld.flow.services.FlowListResponse);
+  rpc List(.google.protobuf.Empty) returns (.blickfeld.flow.services.FlowListResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
   // Store flow
   rpc Store(.blickfeld.flow.services.FlowStoreRequest) returns (.google.protobuf.Empty);
   // Delete stored flow
   rpc Delete(.blickfeld.flow.services.FlowDeleteRequest) returns (.google.protobuf.Empty);
+  // Watch flow changes
+  rpc Watch(.blickfeld.flow.services.FlowWatchRequest) returns (stream .blickfeld.flow.services.FlowWatchResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
   // Store global nodes
   rpc StoreGlobalNodes(.blickfeld.flow.services.FlowStoreGlobalNodesRequest) returns (.google.protobuf.Empty);
   // Get global nodes
-  rpc GetGlobalNodes(.google.protobuf.Empty) returns (.blickfeld.flow.services.FlowGetGlobalNodesResponse);
+  rpc GetGlobalNodes(.google.protobuf.Empty) returns (.blickfeld.flow.services.FlowGetGlobalNodesResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
+  // Watch global nodes
+  rpc WatchGlobalNodes(.google.protobuf.Empty) returns (.blickfeld.flow.services.FlowWatchGlobalNodesResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
 }
 

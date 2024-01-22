@@ -7,7 +7,7 @@ import "blickfeld/push/config/authentication.proto";
 package blickfeld.push.config;
 
 option (.blickfeld.base.access_control_file) = {
-  level: LEVEL_PUBLIC
+  level: LEVEL_AUTHORIZED
 };
 
 // Push destination definition

@@ -1,0 +1,27 @@
+[#_blickfeld_config_data_WatchEvent]
+= Watch Event
+
+Watch event which is emitted on a config change
+
+.Available fields in blickfeld.config.data.WatchEvent
+|===
+| Field | Type | Default | Unit
+
+|===
+
+[#_blickfeld_config_data_WatchEvent_Type]
+== Type
+
+Type of watch event
+
+.Available values for blickfeld.config.data.WatchEvent.Type enum
+[cols='25h,5,~']
+|===
+| Name | Value | Description
+
+| TYPE_UNSPECIFIED ^| 0 | Unspecified type
+| TYPE_CREATED ^| 1 | A value for a key or map entry has been stored the first time
+| TYPE_UPDATED ^| 2 | A value for a key or map entry has been updated
+| TYPE_DELETED ^| 3 | A value for a key or map entry has been deleted
+|===
+

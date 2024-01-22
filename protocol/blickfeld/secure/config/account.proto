@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+import "blickfeld/secure/config/application_key.proto";
+package blickfeld.secure.config;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// An account identifies a single user defined on the Qb2 device. By presenting credentials linked to an account a client can be
+// authenticated.
+message Account {
+  // Account state
+  enum State {
+    // status is unspecified.
+    STATE_UNSPECIFIED = 0;
+    // waiting for activation, account has to be activated by the user.
+    STATE_WAITING_FOR_ACTIVATION = 1;
+    // active, account can be used to authenticate.
+    STATE_ACTIVE = 2;
+    // blocked, account can not be used for authentication.
+    STATE_BLOCKED = 3;
+  }
+  // Account name. This field is used as the username during login.
+  string name = 1;
+  // Access level which is granted to this account.
+  .blickfeld.base.AccessControl.Level access_level = 2;
+  // Last time the account was used to login as observed on system time. This is just for information purposes and might not be reliable.
+  uint64 last_login_ts = 4;
+  // The account state.
+  .blickfeld.secure.config.Account.State state = 6;
+}
+

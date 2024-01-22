@@ -8,7 +8,7 @@ package blickfeld.percept_processing.services;
 
 option cc_enable_arenas = true;
 option (.blickfeld.base.access_control_file) = {
-  level: LEVEL_PUBLIC
+  level: LEVEL_AUTHORIZED
 };
 
 // A request to receive a stream of state list messages
@@ -26,12 +26,16 @@ message VolumeMapStreamResponse {
 // An RPC service to request a stream of volume map messages.
 service VolumeMap {
   option (.blickfeld.base.access_control_service) = {
-    level: LEVEL_PUBLIC
+    level: LEVEL_AUTHORIZED
   };
   option (.blickfeld.base.protocol_maturity_service) = {
     level: LEVEL_MAINTAINED
   };
   // A method to get a stream of volume map messages of one volume zone from the pipeline
-  rpc Stream(.blickfeld.percept_processing.services.VolumeMapStreamRequest) returns (stream .blickfeld.percept_processing.services.VolumeMapStreamResponse);
+  rpc Stream(.blickfeld.percept_processing.services.VolumeMapStreamRequest) returns (stream .blickfeld.percept_processing.services.VolumeMapStreamResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
 }
 

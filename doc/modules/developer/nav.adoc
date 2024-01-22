@@ -7,10 +7,17 @@
 **** xref:developer:modules/percept/processing/index.adoc[]
 ***** xref:developer:modules/percept/processing/stream.adoc[]
 **** xref:developer:modules/percept/pipeline.adoc[]
+**** xref:developer:modules/percept/toolkit.adoc[]
+*** xref:developer:modules/push/index.adoc[]
+**** xref:developer:modules/push/push_configuration.adoc[]
 *** xref:developer:modules/flow.adoc[]
 ** Guides
 *** xref:guides:core_processing_point_cloud.adoc[]
-*** xref:guides:firmware_networking.adoc[]
+*** xref:guides:core_processing_point_cloud_o3d.adoc[]
+*** xref:guides:diagnostics_health.adoc[]
+*** xref:guides:system_firmware_update.adoc[]
+*** xref:guides:system_network_configuration.adoc[]
+*** xref:guides:system_scan_pattern.adoc[]
 ** xref:protocol:index.adoc[]
 *** blickfeld
 **** base
@@ -35,9 +42,11 @@
 ****** xref:protocol:blickfeld/beam_deflection_control/data/health.adoc[Health]
 ***** services
 ****** xref:protocol:blickfeld/beam_deflection_control/services/health.adoc[Health]
+**** config
+***** data
+****** xref:protocol:blickfeld/config/data/watch_event.adoc[Watch Event]
 **** core_processing
 ***** config
-****** xref:protocol:blickfeld/core_processing/config/demo_recording.adoc[Demo Recording]
 ****** xref:protocol:blickfeld/core_processing/config/health.adoc[Health]
 ****** xref:protocol:blickfeld/core_processing/config/point_cloud.adoc[Point Cloud]
 ***** data
@@ -68,7 +77,6 @@
 ****** xref:protocol:blickfeld/diagnostics/services/log.adoc[Log]
 ****** xref:protocol:blickfeld/diagnostics/services/report.adoc[Report]
 ****** xref:protocol:blickfeld/diagnostics/services/self_test.adoc[Self Test]
-***** xref:protocol:blickfeld/diagnostics/options.adoc[Options]
 **** flow
 ***** config
 ****** xref:protocol:blickfeld/flow/config/flow.adoc[Flow]
@@ -139,6 +147,20 @@
 ****** xref:protocol:blickfeld/push/services/destination.adoc[Destination]
 ****** xref:protocol:blickfeld/push/services/health.adoc[Health]
 ****** xref:protocol:blickfeld/push/services/push.adoc[Push]
+**** secure
+***** config
+****** xref:protocol:blickfeld/secure/config/account.adoc[Account]
+****** xref:protocol:blickfeld/secure/config/application_key.adoc[Application Key]
+****** xref:protocol:blickfeld/secure/config/certificate.adoc[Certificate]
+****** xref:protocol:blickfeld/secure/config/device_credentials.adoc[Device Credentials]
+****** xref:protocol:blickfeld/secure/config/private_key.adoc[Private Key]
+****** xref:protocol:blickfeld/secure/config/public_key.adoc[Public Key]
+***** services
+****** xref:protocol:blickfeld/secure/services/account.adoc[Account]
+****** xref:protocol:blickfeld/secure/services/application_key.adoc[Application Key]
+****** xref:protocol:blickfeld/secure/services/authentication.adoc[Authentication]
+****** xref:protocol:blickfeld/secure/services/device_credentials.adoc[Device Credentials]
+****** xref:protocol:blickfeld/secure/services/session.adoc[Session]
 **** system
 ***** config
 ****** xref:protocol:blickfeld/system/config/device.adoc[Device]

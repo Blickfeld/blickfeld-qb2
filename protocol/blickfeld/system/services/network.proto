@@ -7,7 +7,7 @@ import "google/protobuf/empty.proto";
 package blickfeld.system.services;
 
 option (.blickfeld.base.access_control_file) = {
-  level: LEVEL_PUBLIC
+  level: LEVEL_AUTHORIZED
 };
 
 // Request to validate method
@@ -35,20 +35,23 @@ message NetworkGetMacAddressesResponse {
 // at run-time. The "GetStatus()" API brings configuration and statistical information about currently active network connection.
 service Network {
   option (.blickfeld.base.access_control_service) = {
-    level: LEVEL_PUBLIC
+    level: LEVEL_AUTHORIZED
+  };
+  option (.blickfeld.base.protocol_maturity_service) = {
+    level: LEVEL_MAINTAINED
   };
   // Brings information about currently active connection
-  rpc GetStatus(.google.protobuf.Empty) returns (.blickfeld.system.data.NetworkStatus);
-  // Applies specified network configuration
-  rpc SetConfig(.blickfeld.system.config.Network) returns (.google.protobuf.Empty) {
+  rpc GetStatus(.google.protobuf.Empty) returns (.blickfeld.system.data.NetworkStatus) {
     option (.blickfeld.base.access_control_method) = {
-      level: LEVEL_ADMIN
+      read_only: true
     };
   }
+  // Applies specified network configuration
+  rpc SetConfig(.blickfeld.system.config.Network) returns (.google.protobuf.Empty);
   // Reads out provided network configuration
   rpc GetConfig(.google.protobuf.Empty) returns (.blickfeld.system.config.Network) {
     option (.blickfeld.base.access_control_method) = {
-      level: LEVEL_AUTHORIZED
+      read_only: true
     };
   }
   // Validates the network configuration by applying it shortly.
@@ -58,15 +61,11 @@ service Network {
   // [NOTE]
   // The validation does not yet separate error messages for misconfigured wireless credentials
   // or wrongly configured DHCP server. Thus, the issue is not necessarily on the device side.
-  rpc Validate(.blickfeld.system.services.NetworkValidateRequest) returns (.blickfeld.system.services.NetworkValidateResponse) {
-    option (.blickfeld.base.access_control_method) = {
-      level: LEVEL_ADMIN
-    };
-  }
+  rpc Validate(.blickfeld.system.services.NetworkValidateRequest) returns (.blickfeld.system.services.NetworkValidateResponse);
   // Get MAC addresses of the available interfaces
   rpc GetMacAddresses(.google.protobuf.Empty) returns (.blickfeld.system.services.NetworkGetMacAddressesResponse) {
     option (.blickfeld.base.access_control_method) = {
-      level: LEVEL_AUTHORIZED
+      read_only: true
     };
   }
 }

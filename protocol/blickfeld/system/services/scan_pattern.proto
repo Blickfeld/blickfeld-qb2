@@ -6,7 +6,7 @@ import "google/protobuf/empty.proto";
 package blickfeld.system.services;
 
 option (.blickfeld.base.access_control_file) = {
-  level: LEVEL_PUBLIC
+  level: LEVEL_AUTHORIZED
 };
 
 message ScanPatternGetResponse {
@@ -47,31 +47,34 @@ message ScanPatternDeleteRequest {
 
 service ScanPattern {
   option (.blickfeld.base.access_control_service) = {
-    level: LEVEL_PUBLIC
+    level: LEVEL_AUTHORIZED
+  };
+  option (.blickfeld.base.protocol_maturity_service) = {
+    level: LEVEL_MAINTAINED
   };
   // Gets scan pattern configuration settings
-  rpc Get(.google.protobuf.Empty) returns (.blickfeld.system.services.ScanPatternGetResponse);
+  rpc Get(.google.protobuf.Empty) returns (.blickfeld.system.services.ScanPatternGetResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
   // Sets scan pattern cofiguration settings
-  rpc Set(.blickfeld.system.services.ScanPatternSetRequest) returns (.google.protobuf.Empty) {
-    option (.blickfeld.base.access_control_method) = {
-      level: LEVEL_AUTHORIZED
-    };
-  }
+  rpc Set(.blickfeld.system.services.ScanPatternSetRequest) returns (.google.protobuf.Empty);
   // Watch active scan pattern
-  rpc Watch(.google.protobuf.Empty) returns (stream .blickfeld.system.services.ScanPatternWatchResponse);
+  rpc Watch(.google.protobuf.Empty) returns (stream .blickfeld.system.services.ScanPatternWatchResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
   // Return list of named scan patterns
-  rpc List(.google.protobuf.Empty) returns (.blickfeld.system.services.ScanPatternListResponse);
+  rpc List(.google.protobuf.Empty) returns (.blickfeld.system.services.ScanPatternListResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
   // Store scan pattern
-  rpc Store(.blickfeld.system.services.ScanPatternStoreRequest) returns (.google.protobuf.Empty) {
-    option (.blickfeld.base.access_control_method) = {
-      level: LEVEL_AUTHORIZED
-    };
-  }
+  rpc Store(.blickfeld.system.services.ScanPatternStoreRequest) returns (.google.protobuf.Empty);
   // Delete stored scan pattern
-  rpc Delete(.blickfeld.system.services.ScanPatternDeleteRequest) returns (.google.protobuf.Empty) {
-    option (.blickfeld.base.access_control_method) = {
-      level: LEVEL_AUTHORIZED
-    };
-  }
+  rpc Delete(.blickfeld.system.services.ScanPatternDeleteRequest) returns (.google.protobuf.Empty);
 }
 

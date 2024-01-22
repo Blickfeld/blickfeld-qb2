@@ -1,0 +1,75 @@
+= Qb2 Health
+:imagesdir: ../assets/images
+
+Blickfeld Qb2 provides a health service, which can be used to get the current, or continuously stream the health state of the sensor. This state is an aggregation of the health state of each of the software modules and therefore indicates if the sensor is operational or eventually in a failed state.
+
+NOTE: Please follow the xref:developer:client_libraries/python.adoc[Python Client Library Guide] to install the Python package first.
+
+== Getting the health of Qb2
+
+In the following code snippet, the ```Health``` service of the ```blickfeld.diagnostics.services``` namespace is used to get the current health state of the sensor.
+
+[source, python]
+----
+import blickfeld_qb2
+
+# Open a secure connection to Qb2
+with blickfeld_qb2.Channel(fqdn_or_ip="qb2-xxxxxxxxx") as channel:
+    service = blickfeld_qb2.diagnostics.services.Health(channel)
+    
+    response = service.get()
+    print(response)
+----
+
+Output:
+
+[,console]
+----
+HealthGetResponse(
+    health=Health(
+        state=2, state_reason='Core Processing: Point cloud stream not active', 
+        module=HealthModule(
+            laser=HealthModuleHealth(state=1), 
+            detector=HealthModuleHealth(state=1), 
+            beam_deflection_control_vertical=HealthModuleHealth(state=1), 
+            beam_deflection_control_horizontal=HealthModuleHealth(state=1), 
+            system=HealthModuleHealth(state=1), 
+            core_processing=HealthModuleHealth(
+                state=2, state_reason='Point cloud stream not active'
+            ), 
+            percept_processing=HealthModuleHealth(state=1), 
+            percept_pipeline=HealthModuleHealth(state=1), 
+            push=HealthModuleHealth(state=1)
+        )
+    )
+)
+----
+
+== Watching the health of Qb2
+
+The ```watch``` method of the ```Health``` service can be used to monitor the health of the device continuously over a period of time. This method provides a stream from the device that periodically sends a health message about the current state of the sensor.
+
+[source, python]
+----
+import blickfeld_qb2
+
+# Open a secure connection to Qb2
+with blickfeld_qb2.Channel(fqdn_or_ip="qb2-xxxxxxxxx") as channel:
+    service = blickfeld_qb2.diagnostics.services.Health(channel)
+
+    for i, response in enumerate(service.watch()):
+        print(response)
+        if i == 2:
+            break
+----
+
+Ouput:
+
+[,console]
+----
+HealthWatchResponse(health=Health(state=2, state_reason='Core Processing: Point cloud stream not active', module=HealthModule(laser=HealthModuleHealth(state=1), detector=HealthModuleHealth(state=1), beam_deflection_control_vertical=HealthModuleHealth(state=1), beam_deflection_control_horizontal=HealthModuleHealth(state=1), system=HealthModuleHealth(state=1), core_processing=HealthModuleHealth(state=2, state_reason='Point cloud stream not active'), percept_processing=HealthModuleHealth(state=1), percept_pipeline=HealthModuleHealth(state=1), push=HealthModuleHealth(state=1))))
+
+HealthWatchResponse(health=Health(state=2, state_reason='Core Processing: Point cloud stream not active', module=HealthModule(laser=HealthModuleHealth(state=1), detector=HealthModuleHealth(state=1), beam_deflection_control_vertical=HealthModuleHealth(state=1), beam_deflection_control_horizontal=HealthModuleHealth(state=1), system=HealthModuleHealth(state=1), core_processing=HealthModuleHealth(state=2, state_reason='Point cloud stream not active'), percept_processing=HealthModuleHealth(state=1), percept_pipeline=HealthModuleHealth(state=1), push=HealthModuleHealth(state=1))))
+
+HealthWatchResponse(health=Health(state=2, state_reason='Core Processing: Point cloud stream not active', module=HealthModule(laser=HealthModuleHealth(state=1), detector=HealthModuleHealth(state=1), beam_deflection_control_vertical=HealthModuleHealth(state=1), beam_deflection_control_horizontal=HealthModuleHealth(state=1), system=HealthModuleHealth(state=1), core_processing=HealthModuleHealth(state=2, state_reason='Point cloud stream not active'), percept_processing=HealthModuleHealth(state=1), percept_pipeline=HealthModuleHealth(state=1), push=HealthModuleHealth(state=1))))
+----

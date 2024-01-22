@@ -9,7 +9,7 @@ option (.blickfeld.base.access_control_file) = {
   level: LEVEL_PUBLIC
 };
 
-// A vector with three components to represent a 3D coordiante.
+// A vector with three components to represent a 3D coordinate.
 message Vector3 {
   // The X component.
   float x = 1 [(.blickfeld.base.unit) = "m"];

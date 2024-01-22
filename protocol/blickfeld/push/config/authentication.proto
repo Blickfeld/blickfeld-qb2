@@ -6,7 +6,7 @@ import "blickfeld/base/options.proto";
 package blickfeld.push.config;
 
 option (.blickfeld.base.access_control_file) = {
-  level: LEVEL_PUBLIC
+  level: LEVEL_AUTHORIZED
 };
 
 // Authentication definition

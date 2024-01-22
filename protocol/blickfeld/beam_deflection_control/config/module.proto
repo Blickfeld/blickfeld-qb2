@@ -4,7 +4,7 @@ import "blickfeld/base/options.proto";
 package blickfeld.beam_deflection_control.config;
 
 option (.blickfeld.base.access_control_file) = {
-  level: LEVEL_ADMIN
+  level: LEVEL_AUTHORIZED
 };
 
 // This enum defines the different modules that can run the beam deflection control firmware and thus can be communicated with.

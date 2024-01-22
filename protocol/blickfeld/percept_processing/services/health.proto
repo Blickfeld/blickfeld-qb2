@@ -8,7 +8,7 @@ import "google/protobuf/empty.proto";
 package blickfeld.percept_processing.services;
 
 option (.blickfeld.base.access_control_file) = {
-  level: LEVEL_PUBLIC
+  level: LEVEL_AUTHORIZED
 };
 
 // A response for getting a stream of health messages about the pipeline
@@ -27,16 +27,24 @@ message HealthGetResponse {
 // the module.
 service Health {
   option (.blickfeld.base.access_control_service) = {
-    level: LEVEL_PUBLIC
+    level: LEVEL_AUTHORIZED
   };
   option (.blickfeld.base.protocol_maturity_service) = {
     level: LEVEL_EXPERIMENTAL
   };
   // A method to get a stream of health messages, containing information about
   // the state of the pipeline
-  rpc Watch(.google.protobuf.Empty) returns (stream .blickfeld.percept_processing.services.HealthWatchResponse);
+  rpc Watch(.google.protobuf.Empty) returns (stream .blickfeld.percept_processing.services.HealthWatchResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
   // A method to get one health message, containing information about the state
   // of the pipeline
-  rpc Get(.google.protobuf.Empty) returns (.blickfeld.percept_processing.services.HealthGetResponse);
+  rpc Get(.google.protobuf.Empty) returns (.blickfeld.percept_processing.services.HealthGetResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
 }
 

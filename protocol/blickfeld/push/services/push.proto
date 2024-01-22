@@ -8,7 +8,7 @@ import "google/protobuf/empty.proto";
 package blickfeld.push.services;
 
 option (.blickfeld.base.access_control_file) = {
-  level: LEVEL_PUBLIC
+  level: LEVEL_AUTHORIZED
 };
 
 // request to add a push configuration
@@ -52,7 +52,7 @@ message PushDisableRequest {
 // An gRPC service to configure multiple push settings
 service Push {
   option (.blickfeld.base.access_control_service) = {
-    level: LEVEL_PUBLIC
+    level: LEVEL_AUTHORIZED
   };
   option (.blickfeld.base.protocol_maturity_service) = {
     level: LEVEL_MAINTAINED
@@ -62,9 +62,17 @@ service Push {
   // Delete an existing push configuration
   rpc Delete(.blickfeld.push.services.PushDeleteRequest) returns (.google.protobuf.Empty);
   // List configured push configuration
-  rpc List(.google.protobuf.Empty) returns (.blickfeld.push.services.PushListResponse);
+  rpc List(.google.protobuf.Empty) returns (.blickfeld.push.services.PushListResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
   // Watch list of configured push configuration
-  rpc Watch(.google.protobuf.Empty) returns (stream .blickfeld.push.services.PushWatchResponse);
+  rpc Watch(.google.protobuf.Empty) returns (stream .blickfeld.push.services.PushWatchResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
   // Enable a configured Push
   rpc Enable(.blickfeld.push.services.PushEnableRequest) returns (.google.protobuf.Empty);
   // Disable a configured Push

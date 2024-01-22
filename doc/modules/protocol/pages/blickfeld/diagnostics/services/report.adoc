@@ -14,12 +14,12 @@ the state and health information of the Qb2 device.
 [#Generate]
 == Generate
 
-Returns a stream of the report's binary chunks
+Returns a stream of the report's binary chunks.
 
 [#_blickfeld_diagnostics_services_ReportGenerateResponse]
 === Response Stream
 
-Stream of the encrypted report in chunks of binary data
+Stream of the encrypted report in chunks of binary data.
 
 .Available fields in blickfeld.diagnostics.services.ReportGenerateResponse
 |===

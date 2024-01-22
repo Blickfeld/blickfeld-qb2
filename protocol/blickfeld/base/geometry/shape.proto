@@ -11,7 +11,7 @@ option (.blickfeld.base.access_control_file) = {
   level: LEVEL_PUBLIC
 };
 
-// A shape that represent a geometrical figure.
+// A shape that represents a geometrical figure.
 message Shape {
   // A 3 dimensional box.
   message Box {

@@ -1,0 +1,17 @@
+[#_blickfeld_secure_config_PrivateKey]
+= Private Key
+
+Private device key which is deployed on the Qb2 device and used for TLS authentification by Daedalus Proxy
+
+.Available fields in blickfeld.secure.config.PrivateKey
+|===
+| Field | Type | Default | Unit
+
+.2+| *binary* | bytes| - | - 
+3+| Key bytes as binary
+
+.2+| *type* | string| - | - 
+3+| String giving information about which key type is used
+
+|===
+

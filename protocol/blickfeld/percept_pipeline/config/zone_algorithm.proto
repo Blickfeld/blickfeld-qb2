@@ -7,7 +7,7 @@ import "blickfeld/base/options.proto";
 package blickfeld.percept_pipeline.config;
 
 option (.blickfeld.base.access_control_file) = {
-  level: LEVEL_PUBLIC
+  level: LEVEL_AUTHORIZED
 };
 
 // An algorithm that monitors the area within and around a zone.
@@ -46,17 +46,11 @@ message ZoneAlgorithm {
   .blickfeld.base.geometry.Shape shape = 3;
   oneof algorithm_type {
     // Run volume monitoring within the zone
-    .blickfeld.percept_pipeline.config.ZoneAlgorithm.Volume volume = 9 [(.blickfeld.base.access_control_field) = {
-      level: LEVEL_PUBLIC
-    }];
+    .blickfeld.percept_pipeline.config.ZoneAlgorithm.Volume volume = 9;
     // Run alarm detection within the zone
-    .blickfeld.percept_pipeline.config.ZoneAlgorithm.Security security = 7 [(.blickfeld.base.access_control_field) = {
-      level: LEVEL_PUBLIC
-    }];
+    .blickfeld.percept_pipeline.config.ZoneAlgorithm.Security security = 7;
     // Run exclusion zone
-    .blickfeld.percept_pipeline.config.ZoneAlgorithm.Exclusion exclusion = 10 [(.blickfeld.base.access_control_field) = {
-      level: LEVEL_PUBLIC
-    }];
+    .blickfeld.percept_pipeline.config.ZoneAlgorithm.Exclusion exclusion = 10;
   }
   reserved 4, 5, 6, 8;
 }

@@ -4,7 +4,7 @@ import "blickfeld/base/options.proto";
 package blickfeld.system.config;
 
 option (.blickfeld.base.access_control_file) = {
-  level: LEVEL_PUBLIC
+  level: LEVEL_AUTHORIZED
 };
 
 // This message describes a Blickfeld Lidar device

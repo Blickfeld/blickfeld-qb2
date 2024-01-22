@@ -34,6 +34,10 @@ service Settings {
   rpc Set(.blickfeld.flow.services.SettingsSetRequest) returns (.google.protobuf.Empty);
   // Get settings
   // Used by https://nodered.org/docs/api/storage/methods/#storagegetsettings
-  rpc Get(.google.protobuf.Empty) returns (.blickfeld.flow.services.SettingsGetResponse);
+  rpc Get(.google.protobuf.Empty) returns (.blickfeld.flow.services.SettingsGetResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
 }
 

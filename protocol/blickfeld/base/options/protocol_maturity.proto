@@ -11,27 +11,27 @@ option (.blickfeld.base.access_control_file) = {
   level: LEVEL_PUBLIC
 };
 
-// This message specifies the maturity of a protocol for customer- & production-facing APIs.
+// This message specifies the maturity of a protocol for customer- and production-facing APIs.
 message ProtocolMaturity {
   // This enumeration describes the maturity of a protocol.
   // Please refer to the individual values.
   // [IMPORTANT]
-  // APIs marked with the EXPERIMENTAL & DEPRECATED flags have to be handled with care.
+  // APIs marked with the EXPERIMENTAL and DEPRECATED flags have to be handled with care.
   // Please read through the definition.
   // Please report if the protocol maturity of a service, method, and field does not fit
-  // e.g. if an EXPERIMENTAL field is required in an application & production use case.
+  // e.g. if an EXPERIMENTAL field is required in an application and production use case.
   enum Level {
     // Level is not set.
     // Default level for services is EXPERIMENTAL.
-    // Default level for methods & fields is INHERITED.
+    // Default level for methods and fields is INHERITED.
     LEVEL_UNSPECIFIED = 0;
     // APIs marked with this flag should be handled with care.
     // They might not function as expected.
-    // Additionally it is not ensure that the APIs will ever be moved to the MAINTAINED level.
+    // Additionally it is not ensured that the APIs will ever be moved to the MAINTAINED level.
     // They might be altered or removed in any upcoming release without further notice.
     LEVEL_EXPERIMENTAL = 1;
     // APIs marked with this flag are actively maintained and released.
-    // They will not change their behaviour without notices in the changelog.
+    // They will not change their behavior without notices in the changelog.
     // Breaking changes in a maintained APIs have to result in a major update of the module.
     LEVEL_MAINTAINED = 2;
     // APIs marked with this flag are no longer actively maintained.

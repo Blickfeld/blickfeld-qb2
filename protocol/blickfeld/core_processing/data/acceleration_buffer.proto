@@ -5,7 +5,7 @@ package blickfeld.core_processing.data;
 
 option cc_enable_arenas = true;
 option (.blickfeld.base.access_control_file) = {
-  level: LEVEL_PUBLIC
+  level: LEVEL_AUTHORIZED
 };
 
 // Buffer for multiple Acceleration samples

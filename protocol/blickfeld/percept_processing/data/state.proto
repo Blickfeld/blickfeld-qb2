@@ -6,7 +6,7 @@ import "blickfeld/base/options.proto";
 package blickfeld.percept_processing.data;
 
 option (.blickfeld.base.access_control_file) = {
-  level: LEVEL_PUBLIC
+  level: LEVEL_AUTHORIZED
 };
 
 // A state transmits high-level information about the scene or setup. The

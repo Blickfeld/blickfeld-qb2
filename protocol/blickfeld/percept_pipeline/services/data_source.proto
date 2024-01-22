@@ -8,7 +8,7 @@ import "google/protobuf/empty.proto";
 package blickfeld.percept_pipeline.services;
 
 option (.blickfeld.base.access_control_file) = {
-  level: LEVEL_PUBLIC
+  level: LEVEL_AUTHORIZED
 };
 
 // Response containing the current data source
@@ -33,16 +33,24 @@ message DataSourceWatchResponse {
 // The data source configuration specifies where to retrieve the point cloud data for further processing.
 service DataSource {
   option (.blickfeld.base.access_control_service) = {
-    level: LEVEL_PUBLIC
+    level: LEVEL_AUTHORIZED
   };
   option (.blickfeld.base.protocol_maturity_service) = {
     level: LEVEL_MAINTAINED
   };
   // Get current data_source Configuration
-  rpc Get(.google.protobuf.Empty) returns (.blickfeld.percept_pipeline.services.DataSourceGetResponse);
+  rpc Get(.google.protobuf.Empty) returns (.blickfeld.percept_pipeline.services.DataSourceGetResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
   // Set configuration for data_source
   rpc Set(.blickfeld.percept_pipeline.services.DataSourceSetRequest) returns (.google.protobuf.Empty);
   // Watch configuration for data_source
-  rpc Watch(.google.protobuf.Empty) returns (stream .blickfeld.percept_pipeline.services.DataSourceWatchResponse);
+  rpc Watch(.google.protobuf.Empty) returns (stream .blickfeld.percept_pipeline.services.DataSourceWatchResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
 }
 

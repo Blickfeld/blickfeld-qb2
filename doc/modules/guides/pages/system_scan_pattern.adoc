@@ -1,0 +1,119 @@
+= Scan Pattern Configuration
+
+The xref:protocol:blickfeld/system/services/scan_pattern.adoc[ScanPattern] service allows to configure the scan pattern, i.e. the laser scanning trajectory of the sensor. This way, the field of view, the number of scanlines, as well as the angle spacing (i.e. the point density on a scanline) can be set. 
+
+NOTE: Please follow the xref:developer:client_libraries/python.adoc[Python Client Library Guide] to install the Python package first.
+
+== Setting the scan pattern
+
+The following code snippet can be used to set the scan pattern configuration. To this end, it utilizes the xref:protocol:blickfeld/system/services/scan_pattern.adoc#Set[Set] method of the service.
+
+NOTE: The configuration of the scan pattern directly defines the maximum frame rate of the point cloud stream. 
+
+[source, python]
+----
+import blickfeld_qb2
+import math
+
+scan_pattern = blickfeld_qb2.system.config.ScanPattern()
+
+# Mirrors configuration for scan pattern trajectories 
+scan_pattern.vertical.field_of_view = 50 / 180 * math.pi 
+scan_pattern.vertical.scanlines_down = 36
+scan_pattern.vertical.scanlines_up = 36
+
+# Horizontal angle spacing for scanlines
+scan_pattern.pulse.angle_spacing = 0.5 / 180 * math.pi 
+
+# Set scan pattern
+with blickfeld_qb2.Channel(fqdn_or_ip="qb2-xxxxxxxxx") as channel:
+    service = blickfeld_qb2.system.services.ScanPattern(channel)
+    service.set(scan_pattern=scan_pattern)
+----
+
+== Storing a scan pattern
+
+Instead of the xref:protocol:blickfeld/system/services/scan_pattern.adoc#Set[Set] method in the code above, the xref:protocol:blickfeld/system/services/scan_pattern.adoc#Store[Store] method can be used to permanently store the scan pattern on the device to be later applied from the WebGUI.
+
+[source, python]
+----
+with blickfeld_qb2.Channel(fqdn_or_ip="qb2-xxxxxxxxx") as channel:
+    service = blickfeld_qb2.system.services.ScanPattern(channel)
+    service.store(name="TestScanPattern", scan_pattern=scan_pattern)
+----
+
+
+== Getting the currently applied scan pattern
+
+The xref:protocol:blickfeld/system/services/scan_pattern.adoc#Get[Get] method is used to fetch the currently applied scan pattern configuration from the device.
+
+[source, python]
+----
+import blickfeld_qb2
+
+with blickfeld_qb2.Channel(fqdn_or_ip="qb2-xxxxxxxxx") as channel:
+    service = blickfeld_qb2.system.services.ScanPattern(channel)
+    response = service.get()
+    print(response)
+----
+
+Output:
+
+[,console]
+----
+ScanPatternGetResponse(
+    name='TestScanPattern', scan_pattern=ScanPattern(
+        horizontal=ScanPatternHorizontal(
+            field_of_view=1.483529806137085
+        ), 
+        vertical=ScanPatternVertical(
+            field_of_view=0.8726646304130554, scanlines_up=36, scanlines_down=36
+        ), 
+        pulse=ScanPatternPulse(
+            angle_spacing=0.008726646192371845
+        ), 
+        frame_rate=ScanPatternFrameRate(
+            maximum=7.366110801696777
+        )
+    )
+)
+----
+
+== Listing the stored scan patterns
+
+The previously stored scan patterns can be listed with the xref:protocol:blickfeld/system/services/scan_pattern.adoc#List[List] method.
+
+[source, python]
+----
+import blickfeld_qb2
+
+with blickfeld_qb2.Channel(fqdn_or_ip="qb2-xxxxxxxxx") as channel:
+    service = blickfeld_qb2.system.services.ScanPattern(channel)
+    response = service.list()
+    print(response)
+----
+
+Output:
+
+[,console]
+----
+ScanPatternListResponse(
+    named_scan_patterns={
+        'TestScanPattern': ScanPattern(
+            horizontal=ScanPatternHorizontal(
+                field_of_view=1.483529806137085
+            ), 
+            vertical=ScanPatternVertical(
+                field_of_view=0.8726646304130554, scanlines_up=36, scanlines_down=36
+            ), 
+            pulse=ScanPatternPulse(
+                angle_spacing=0.008726646192371845
+            ), 
+            frame_rate=ScanPatternFrameRate(
+                maximum=7.366110801696777
+            )
+        ),
+        ...
+    }
+)
+----

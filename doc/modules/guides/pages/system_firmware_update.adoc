@@ -1,0 +1,78 @@
+= Firmware Update
+
+This guide demonstrates the process of updating the firmware of Qb2.
+
+NOTE: Please follow the xref:developer:client_libraries/python.adoc[Python Client Library Guide] to install the Python package first.
+
+== Getting the firmware status
+
+With the xref:protocol:blickfeld/system/services/firmware.adoc#GetStatus[GetStatus] method of the xref:protocol:blickfeld/system/services/firmware.adoc[Firmware] service, it is possible to get the Qb2's firmware status.
+It contains information about the currently installed firmware as well as about ongoing or eventually failed firmware installations.
+The code snippet below shows the usage of this method.
+
+[source, python]
+----
+import blickfeld_qb2
+
+with blickfeld_qb2.Channel(fqdn_or_ip="qb2-xxxxxxxxx") as channel:
+    service = blickfeld_qb2.system.services.Firmware(channel)
+
+    # Read out current status 
+    response = service.get_status()
+    print(response.status)
+----
+
+Output:
+
+[, console]
+----
+FirmwareStatus(
+    idle=FirmwareStatusIdle(), 
+    installed_firmware_info=FirmwareInfo(
+        label='MINHTHU v1.11.1', 
+        version=Version(
+            major=1, minor=11, patch=1, revision='d4b195d1', is_release=True
+        ), 
+        allowed_downgrade_version=Version(
+            major=1, minor=11, patch=1
+        )
+    )
+)
+----
+
+== Fetching and installing the firmware
+
+To perform a firmware update on Qb2, the following code can be used as a reference.
+It specifies the URL of the desired released firmware version and calls the xref:protocol:blickfeld/system/services/firmware.adoc#FetchAndInstall[FetchAndInstall] method of the xref:protocol:blickfeld/system/services/firmware.adoc[Firmware] service.
+This automatically fetches the firmware bundle from the specified link and installs it on the sensor.
+
+
+[source, python]
+----
+import blickfeld_qb2
+
+# Open a secure connection to Qb2
+with blickfeld_qb2.Channel(fqdn_or_ip="qb2-xxxxxxxxx") as channel:
+    service = blickfeld_qb2.system.services.Firmware(channel)
+
+    # Fetch the latest firmware bundle and install it on Qb2
+    for response in service.fetch_and_install(url=None):
+        print(response.status)
+
+----
+
+Output:
+
+[, console]
+----
+FirmwareStatus(installation=FirmwareStatusInstallation(progress=FirmwareStatusInstallationProgress(message='Installing')))
+FirmwareStatus(installation=FirmwareStatusInstallation(progress=FirmwareStatusInstallationProgress(message='Determining slot states')))
+FirmwareStatus(installation=FirmwareStatusInstallation(progress=FirmwareStatusInstallationProgress(percent=20, message='Determining slot states done.')))
+FirmwareStatus(installation=FirmwareStatusInstallation(progress=FirmwareStatusInstallationProgress(percent=20, message='Checking bundle')))
+FirmwareStatus(installation=FirmwareStatusInstallation(progress=FirmwareStatusInstallationProgress(percent=20, message='Verifying signature')))
+FirmwareStatus(installation=FirmwareStatusInstallation(progress=FirmwareStatusInstallationProgress(percent=40, message='Verifying signature done.')))
+
+...
+FirmwareStatus(installation=FirmwareStatusInstallation(progress=FirmwareStatusInstallationProgress(percent=99, message='Updating slots done.')))
+FirmwareStatus(reboot=FirmwareStatusReboot())
+----

@@ -1,6 +1,6 @@
 = Service: Network
 
-CAUTION: This API is not yet officially released neither maintained.
+NOTE: This API is officially released and maintained.
 
 The network service allows to setup network configuration of Qb2 device. The exact structure of configuration settings is defined by 
 "Network" protocol message. Service provides "SetConfig()" and "GetConfig()" API which allow to apply and read out configuration settings 

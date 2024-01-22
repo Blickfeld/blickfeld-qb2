@@ -13,7 +13,6 @@ The post-processed output can be retrieved from the percept-processing PointClou
 
 | *xref:#Stream[]* | xref:blickfeld/core_processing/services/point_cloud.adoc#_blickfeld_core_processing_services_PointCloudStreamRequest[PointCloudStreamRequest]| xref:blickfeld/core_processing/services/point_cloud.adoc#_blickfeld_core_processing_services_PointCloudStreamResponse[PointCloudStreamResponse]Stream 
 | *xref:#Get[]* | xref:blickfeld/core_processing/services/point_cloud.adoc#_blickfeld_core_processing_services_PointCloudGetRequest[PointCloudGetRequest]| xref:blickfeld/core_processing/services/point_cloud.adoc#_blickfeld_core_processing_services_PointCloudGetResponse[PointCloudGetResponse]
-| *xref:#EnableDemo[]* | xref:blickfeld/core_processing/services/point_cloud.adoc#_blickfeld_core_processing_services_PointCloudEnableDemoRequest[PointCloudEnableDemoRequest]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
 | *xref:#SetFilter[]* | xref:blickfeld/core_processing/services/point_cloud.adoc#_blickfeld_core_processing_services_PointCloudSetFilterRequest[PointCloudSetFilterRequest]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
 | *xref:#GetFilter[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/core_processing/services/point_cloud.adoc#_blickfeld_core_processing_services_PointCloudGetFilterResponse[PointCloudGetFilterResponse]
 |===
@@ -66,26 +65,6 @@ Response to point cloud get request
 
 .2+| *frame* | xref:blickfeld/core_processing/data/frame.adoc[data.Frame] | - | - 
 3+| Point cloud frame
-
-|===
-
-[#EnableDemo]
-== EnableDemo
-
-Enable demo data set 
-It will be re-played on Stream requests
-
-[#_blickfeld_core_processing_services_PointCloudEnableDemoRequest]
-=== Request
-
-Response to point cloud enable demo request
-
-.Available fields in blickfeld.core_processing.services.PointCloudEnableDemoRequest
-|===
-| Field | Type | Default | Unit
-
-.2+| *recording* | xref:blickfeld/core_processing/config/demo_recording.adoc[config.DemoRecording] | - | - 
-3+| Select demo recording
 
 |===
 

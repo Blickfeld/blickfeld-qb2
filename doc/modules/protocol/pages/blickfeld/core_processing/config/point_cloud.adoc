@@ -24,6 +24,10 @@ The default sorting is by intensity.
 3+| Set lower threshold for reflectivity. 
 This can be tuned to improve the SNR when low-reflectivity targets have a lower priority.
 
+.2+| *minimum_range* | optional float| - | m 
+3+| Set lower threshold for range. 
+Default value is 1m.
+
 |===
 
 [#_blickfeld_core_processing_config_PointCloud_Filter_Sorting]

@@ -24,6 +24,10 @@ service Identification {
     level: LEVEL_MAINTAINED
   };
   // Gets identification configuration
-  rpc Get(.google.protobuf.Empty) returns (.blickfeld.hardware.services.IdentificationGetResponse);
+  rpc Get(.google.protobuf.Empty) returns (.blickfeld.hardware.services.IdentificationGetResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
 }
 

@@ -7,7 +7,7 @@ import "google/protobuf/empty.proto";
 package blickfeld.core_processing.services;
 
 option (.blickfeld.base.access_control_file) = {
-  level: LEVEL_PUBLIC
+  level: LEVEL_AUTHORIZED
 };
 
 // Stream response to acceleration stream request
@@ -25,7 +25,7 @@ message AccelerationGetFilteredResponse {
 // The Acceleration Service provides access to the accelerometer of the device.
 service Acceleration {
   option (.blickfeld.base.access_control_service) = {
-    level: LEVEL_PUBLIC
+    level: LEVEL_AUTHORIZED
   };
   option (.blickfeld.base.protocol_maturity_service) = {
     level: LEVEL_MAINTAINED
@@ -34,8 +34,16 @@ service Acceleration {
   // [WARNING]
   // Raw data is acquired with a high sampling frequency and sent out in larger chunks.
   // To estimate the static state of the device the GetFiltered method should be used.
-  rpc Stream(.google.protobuf.Empty) returns (stream .blickfeld.core_processing.services.AccelerationStreamResponse);
+  rpc Stream(.google.protobuf.Empty) returns (stream .blickfeld.core_processing.services.AccelerationStreamResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
   // Get filtered sample from accelerometer
-  rpc GetFiltered(.google.protobuf.Empty) returns (.blickfeld.core_processing.services.AccelerationGetFilteredResponse);
+  rpc GetFiltered(.google.protobuf.Empty) returns (.blickfeld.core_processing.services.AccelerationGetFilteredResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
 }
 

@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+import "google/protobuf/empty.proto";
+package blickfeld.secure.services;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// Response for GetNonce request.
+message SessionGetNonceResponse {
+  // Cryptographic session nonce.
+  string nonce = 1;
+}
+
+// Session service which implements all methods for session-bound security features.
+// A session is recreated after the following events:
+// * Power-cycle of the device
+// * Every day (UTC)
+// * Manual invalidation via gRPC call
+service Session {
+  // Get cryptographic session nonce.
+  rpc GetNonce(.google.protobuf.Empty) returns (.blickfeld.secure.services.SessionGetNonceResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      level: LEVEL_PUBLIC
+    };
+  }
+  // Invalidates the current session.
+  // A new session will be created automatically.
+  rpc Invalidate(.google.protobuf.Empty) returns (.google.protobuf.Empty) {
+    option (.blickfeld.base.access_control_method) = {
+      level: LEVEL_ADMIN
+    };
+  }
+}
+

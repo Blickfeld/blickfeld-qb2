@@ -1,0 +1,24 @@
+= Blickfeld Percept Toolkit
+
+The Blickfeld Percept Toolkit module provides a gRPC interface to perform on-demand geometric processing tasks.
+
+== Services
+
+Blickfeld Percept Toolkit provides the following services:
+
+* Geometry
+* Health
+
+=== Geometry
+
+This service offers the capability to perform on-demand computations, including:
+
+
+* Ground alignment: Aligning a point cloud with the ground plane.
+* Registration refinement: Improving the registration of a set of point clouds by refining their transformations.
+
+See xref:protocol:blickfeld/percept_toolkit/services/geometry.adoc[the service definition] for more information.
+
+=== Health
+
+The xref:protocol:blickfeld/percept_toolkit/services/health.adoc[Health service] can be utilized to obtain or stream information regarding the current status of the module itself.

@@ -44,7 +44,7 @@ The xref:protocol:blickfeld/percept_processing/services/pipeline.adoc[Pipeline s
 
 === Data Retrieval
 
-The xref:protocol:blickfeld/percept_processing/services/point_cloud.adoc[Point Cloud] and 
+The xref:protocol:blickfeld/percept_processing/services/point_cloud.adoc[Point Cloud], 
 xref:protocol:blickfeld/percept_processing/services/states.adoc[States] and 
 xref:protocol:blickfeld/percept_processing/services/volume_map.adoc[Volume Map] 
 services enable the client to retrieve data of the corresponding types. You can find more information about this in the 

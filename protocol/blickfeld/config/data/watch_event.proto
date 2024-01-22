@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+import "google/protobuf/any.proto";
+package blickfeld.config.data;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// Watch event which is emitted on a config change
+message WatchEvent {
+  // Type of watch event
+  enum Type {
+    // Unspecified type
+    TYPE_UNSPECIFIED = 0;
+    // A value for a key or map entry has been stored the first time
+    TYPE_CREATED = 1;
+    // A value for a key or map entry has been updated
+    TYPE_UPDATED = 2;
+    // A value for a key or map entry has been deleted
+    TYPE_DELETED = 3;
+  }
+}
+

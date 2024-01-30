@@ -71,14 +71,21 @@ message AccountGetResponse {
 
 // Store updated account details.
 message AccountStoreRequest {
+  // Password update message
+  message PasswordUpdate {
+    // the current password
+    string current = 1;
+    // the new password
+    string new = 2;
+  }
   // Optional uuid of the account to store. If not provided the uuid from the presented JWT token will be used.
   string uuid = 1 [(.blickfeld.base.optional) = true, (.blickfeld.base.access_control_field) = {
     level: LEVEL_ADMIN
   }];
-  // the updated account data to store
-  .blickfeld.secure.config.Account account = 2;
-  // the updated password
-  string password = 3 [(.blickfeld.base.optional) = true];
+  // Optional account data to store.
+  .blickfeld.secure.config.Account account = 2 [(.blickfeld.base.optional) = true];
+  // Optional password update for the account to store.
+  .blickfeld.secure.services.AccountStoreRequest.PasswordUpdate password_update = 3 [(.blickfeld.base.optional) = true];
 }
 
 // This service supports the complete lifecycle of accounts which are managed by the current Qb2 device.

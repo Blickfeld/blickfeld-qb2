@@ -199,11 +199,28 @@ Store updated account details.
 .2+| *uuid* | optional string| - | - 
 3+| Optional uuid of the account to store. If not provided the uuid from the presented JWT token will be used.
 
-.2+| *account* | xref:blickfeld/secure/config/account.adoc[config.Account] | - | - 
-3+| the updated account data to store
+.2+| *account* | optional xref:blickfeld/secure/config/account.adoc[config.Account] | - | - 
+3+| Optional account data to store.
 
-.2+| *password* | optional string| - | - 
-3+| the updated password
+.2+| *password_update* | optional xref:blickfeld/secure/services/account.adoc#_blickfeld_secure_services_AccountStoreRequest_PasswordUpdate[PasswordUpdate] | - | - 
+3+| Optional password update for the account to store.
+
+|===
+
+[#_blickfeld_secure_services_AccountStoreRequest_PasswordUpdate]
+==== Password Update
+
+Password update message
+
+.Available fields in blickfeld.secure.services.AccountStoreRequest.PasswordUpdate
+|===
+| Field | Type | Default | Unit
+
+.2+| *current* | string| - | - 
+3+| the current password
+
+.2+| *new* | string| - | - 
+3+| the new password
 
 |===
 

@@ -1,2 +1,3 @@
 * Operation
+** xref:operation:authentication.adoc[]
 ** xref:operation:firmware_networking.adoc[]

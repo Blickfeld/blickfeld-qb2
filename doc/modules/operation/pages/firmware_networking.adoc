@@ -4,12 +4,13 @@
 Blickfeld Qb2 supports wired connection over Ethernet and wireless connection over WiFi for both IPv4 and IPv6 protocols. 
 
 == Accessing Qb2
-By default, each Qb2 device is configured to use DHCP and will attempt to automatically retrieve an IP address from the network. Initially, the GUI of the Qb2 device can be accessed from any internet browser via the wired Ethernet connection using the hostname printed on the device's label. Once connected, further network configuration can be performed via the Network Setup page. The Network page of Qb2 with the hostname ```qb2-mwuaaaaam``` is shown below. 
+By default, each Qb2 is configured to use DHCP and will attempt to automatically retrieve an IP address from the network. Initially, the GUI of the Qb2 can be accessed from any internet browser via the wired Ethernet connection using the hostname printed on the device's label. Once connected, further network configuration can be performed via the Network Setup page. The Network page of Qb2 with the hostname ```qb2-ABC123XYZ``` is shown below. 
 
 .Network Configuration Page
-image::networking_page.png[1240,1080]
+image::networking_page.png[]
 
-Once the initial connection is established, the hostname can be changed to the desired one using the ```Device name``` option. To connect the Qb2 device to the wireless network, set the SSID and network password via the corresponding ```Wireless``` submenu. 
+
+Once the initial connection is established, the hostname can be changed to the desired one using the ```Device name``` option. To connect the Qb2 to the wireless network, set the SSID and network password via the corresponding ```Wireless``` submenu. 
 
 NOTE: Wired Ethernet connection will be disabled when the wireless WiFi connection is in use! In this case, the ethernet plug is only used to power Qb2. 
 

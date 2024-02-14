@@ -1,0 +1,17 @@
+= Point cloud visualization
+
+The point cloud visualization utilizes a 3D viewer to display both the point cloud and detection zones during system operation. 
+This feature enables configuration and adjustment of detection zones, including modifications to existing ones. 
+Additionally, it provides a live overview of the scene, facilitating real-time assessment of the setup's functionality.
+
+[NOTE]
+====
+The system can operate headlessly, without visualization.
+====
+
+== Visualize zone output
+
+Above each zone, a status display shows the corresponding zone output, presenting specific information based on the zone type.
+
+* Volume Monitoring: Measured volume in cubic meters
+* Security: "Intrusion"/"No Intrusion"

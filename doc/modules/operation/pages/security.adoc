@@ -1,0 +1,41 @@
+= Security
+
+With precise 3D point cloud data, Blickfeld LiDAR sensors ensure reliable threat detection, 
+minimising false alarms and enabling a dependable response to actual security incidents. 
+The accompanying software Percept analyses the real-time, high-resolution point clouds. 
+
+Percept utilizes various detection zones to apply specific algorithms within areas of interest in the point cloud, 
+facilitating intrusion detection or monitoring of objects within a zone.
+With these exceptional features, the LiDAR security system provides a dependable solution for ensuring reliable security.
+
+[IMPORTANT]
+====
+Ensuring an optimal mounting position and using the appropriate number of LiDAR devices are crucial for reliable results.
+
+For instance, if there's a possibility of object occlusion or obstacles within the field of view, 
+consider adjusting the mounting position or adding additional LiDARs from various angles. 
+Occlusion can significantly impact system performance.
+====
+
+[#security-zone]
+== Security zone
+
+The Security zone operates based on points rather than whole objects. 
+While an object may consist of a variable number of points, such as 50 or 100, intrusion in the security zone is determined based on the point count.
+Users can set the threshold level, dictating the minimum and maximum points triggering an alarm.
+
+.Example of points inside a security zone (Yellow: Security zone; Green: Points outside the zone, will not trigger an alarm; Red: Points inside the zone, 
+will trigger an alarm if they exceed the minimum threshold value and are below the maximum threshold)
+
+image::security/security_alarm.png[Points inside security zone]
+
+IMPORTANT: The number of reflected points from an object within the zone relies on the LiDAR device's scan-pattern, 
+necessitating adjustments to prevent false alarms or missed alerts.
+
+IMPORTANT: The quantity of reflected points from an object is dependent on the distance. 
+Consider segmenting the zone into multiple sections with different threshold values or incorporating additional LiDARs for enhanced coverage.
+
+
+NOTE: The location of the points within the zone is inconsequential; surpassing the threshold level triggers an alarm.
+
+

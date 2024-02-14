@@ -19,6 +19,11 @@ Sensor CAD data can be downloaded from http://www.blickfeld.com/resources[www.bl
 * Ensure that airflow at the heatsink of the device is not obstructed by leaving at least a gap of 20 cm between the sensor and surrounding structures in all directions.
 * Always use the defined mounting interfaces of the Qb2 shown below.
 
+[IMPORTANT]
+====
+Please tighten all screws/adjustment levers after alignment to ensure that all sensors stay in place and the orientation does not change!
+====
+
 == Sensor mounting interfaces
 
 .Mounting interfaces of the Qb2 standard version (left) and ETR version (right).

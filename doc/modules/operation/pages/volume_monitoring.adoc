@@ -1,0 +1,49 @@
+= Volume Monitoring
+
+Blickfeld’s Volume Monitoring solution based on unique 3D LiDAR technology enables a host of applications, 
+such as stockpile monitoring, silo level sensing, and various other application scenarios. 
+Blickfeld’s high-resolution 3D-LiDAR sensors continuously collect data and produce point clouds that map the sensor environment in 3D. 
+The associated on-device software Percept analyzes this data on-device and outputs exact volume information on-demand.
+
+Percept employs various detection zones to apply specific algorithms within areas of interest in the point cloud. 
+These zones can monitor volumes, such as piles within a designated area.
+
+As Blickfeld’s 3D LiDAR sensors are optical measurement devices, 
+dust on the front screen can reduce its performance. 
+If the device is deployed in a harsh environment (e.g. very dusty conditions) 
+it is recommended to remove dust and heavier dirt from the front screen on a regular basis.
+
+[IMPORTANT]
+====
+A proper mounting position and the correct number of LiDAR devices are crucial for reliable results. 
+
+If object occlusion or obstacles within the field of view are expected, 
+consider adjusting the mounting position or adding more LiDAR sensors from different angles. 
+Occlusion can significantly impact system performance.
+====
+
+[CAUTION]
+====
+During and shortly after the operation of the device, the Cube itself and the mounting surface can become very hot. 
+This is common, however, it can potentially cause skin burns. 
+In order to avoid any injury or burns, the device should be allowed sufficient time to cool down before being touched.
+====
+
+[#volume-zone]
+== Volume Monitoring zone
+
+The Volume Monitoring zone offers a method to monitor volume within a specific area. 
+Alignment of the point cloud on the XY plane is essential for reliable functioning of this zone. 
+Grid resolution can be specified for volume calculations, affecting the accuracy of the result.
+Smaller grids provide higher accuracy but at a higher processing cost. 
+Larger zones may benefit from a higher resolution, while the default resolution is sufficient for most cases. 
+
+NOTE: A grid resolution smaller than the point-to-point distance in the point cloud won't enhance accuracy.
+
+Taring the volume zone allows subtraction of a specific value from the total volume, 
+useful for removing unintended objects or walls from measurements. 
+Negative volumes can also be measured.
+
+
+NOTE: Grid resolution per tile is in meters, and volume is measured in cubic meters.
+

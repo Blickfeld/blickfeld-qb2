@@ -33,9 +33,11 @@ class TokenFactory : public grpc::MetadataCredentialsPlugin {
                              grpc::string_ref                           method_name,
                              const grpc::AuthContext&                   channel_auth_context,
                              std::multimap<grpc::string, grpc::string>* metadata) override {
-        create_or_renew_token();
-        metadata->insert(std::make_pair("token", current_token));
-        return grpc::Status::OK;
+        grpc::Status status = create_or_renew_token();
+        if(status.ok()) {
+            metadata->insert(std::make_pair("token", current_token));
+        }
+        return status;
     };
     // deconstructor
     virtual ~TokenFactory(){};
@@ -46,7 +48,7 @@ class TokenFactory : public grpc::MetadataCredentialsPlugin {
     std::string                    current_token;
 
     // Validate current token, authenticate to renew token if required
-    void create_or_renew_token() {
+    grpc::Status create_or_renew_token() {
         // validate current token
         if(current_token != "") {
             grpc::ClientContext context;
@@ -57,11 +59,11 @@ class TokenFactory : public grpc::MetadataCredentialsPlugin {
             auto session_status  = session_service->GetNonce(&context, google::protobuf::Empty(), &get_nonce_response);
 
             if(session_status.ok()) {
-                return;
+                return grpc::Status::OK;
             }
 
             if(session_status.error_code() != grpc::PERMISSION_DENIED) {
-                throw std::runtime_error("Token renewal failed: " + session_status.error_message());
+                return grpc::Status(session_status.error_code(), "Token renewal failed: " + session_status.error_message());
             }
 
             current_token = "";
@@ -78,9 +80,10 @@ class TokenFactory : public grpc::MetadataCredentialsPlugin {
         auto auth_status  = auth_service->Login(&auth_context, auth_request, &auth_response);
 
         if(!auth_status.ok()) {
-            throw std::runtime_error("Authentication failed: " + auth_status.error_message());
+            return grpc::Status(auth_status.error_code(), "Authentication failed: " + auth_status.error_message());
         }
         current_token = auth_response.token();
+        return grpc::Status::OK;
     }
 };
 

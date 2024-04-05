@@ -1,6 +1,6 @@
 = Service: Application Key
 
-CAUTION: This API is not yet officially released nor maintained.
+NOTE: This API is officially released and maintained.
 
 Service for managing application keys. 
 

@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+import "blickfeld/secure/config/firewall.proto";
+import "google/protobuf/empty.proto";
+package blickfeld.secure.services;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_ADMIN
+};
+
+// Set configuration request
+message FirewallSetRequest {
+  // Configuration
+  .blickfeld.secure.config.Firewall config = 1;
+}
+
+// Get configuration response
+message FirewallGetResponse {
+  // Configuration
+  .blickfeld.secure.config.Firewall config = 1;
+}
+
+// Service for configuring firewall parameters
+service Firewall {
+  option (.blickfeld.base.access_control_service) = {
+    level: LEVEL_ADMIN
+  };
+  option (.blickfeld.base.protocol_maturity_service) = {
+    level: LEVEL_EXPERIMENTAL
+  };
+  // Set configuration
+  rpc Set(.blickfeld.secure.services.FirewallSetRequest) returns (.google.protobuf.Empty);
+  // Get configuration
+  rpc Get(.google.protobuf.Empty) returns (.blickfeld.secure.services.FirewallGetResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
+}
+

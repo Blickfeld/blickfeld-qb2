@@ -77,7 +77,48 @@ add_executable(example main.cpp)
 target_link_libraries(example PUBLIC blickfeld-qb2)
 ----
 
-In the source code, the library method `connect_to_device` can then be used to connect to a device.
+=== Connect to Qb2
+
+In the source code, the library method `connect_to_device` can then be used to connect to a Qb2. The resulting connection will be encrypted and authenticated with the supplied xref:working_principles:authentication.adoc#_application_key[application key].
+
+Required arguments are:
+
+* The hostname or IP-address of the Qb2
+* The serial number of the Qb2
+* An xref:working_principles:authentication.adoc#_application_key[application key] configured on the Qb2
+
+```cpp
+#include <blickfeld/hardware/client.h>
+
+int main() {
+    auto channel = blickfeld::hardware::connect_to_device(
+        "qb2-xxxxxxx",
+        "serial-number-xxx",
+        "application-key-xxxxxxx"
+    );
+    ..
+    return 0;
+}
+```
+
+[NOTE]
+====
+A matching application key for the xref:working_principles:authentication.adoc#_account[account] which should be authenticated has to be created before. If unsure please read the documentation about xref:working_principles:authentication.adoc#_application_key[application keys] in order to understand how to do this first.
+
+If the application key is invalid, the first API call on the channel will result in a https://grpc.github.io/grpc/core/md_doc_statuscodes.html[gRPC-error with code 14 / `UNAVAILABLE`].
+
+In the example replace `application-key-for-qb2-xxxxxxxxx` with the generated application key.
+====
+
+The xref:protocol:index.adoc[API services] provided by Qb2 can then be used with the established channel.
+Note that the channel can also be reused.
+
+=== Unauthenticated Connection
+If user-management is not enabled on Qb2, an unauthenticated connection can be established. The resulting connection will still be encrypted.
+
+Required arguments are:
+
+* The hostname or IP-address of the Qb2
 
 ```cpp
 #include <blickfeld/hardware/client.h>
@@ -89,8 +130,10 @@ int main() {
 }
 ```
 
-The various API services can then be used with the established channel.
-Note that the channel can also be reused.
+[CAUTION]
+====
+Establishing unauthenticated connections is deprecated and will be disabled for upcoming Qb2 firmware https://github.com/Blickfeld/blickfeld-qb2/releases[releases].
+====
 
 === Fetch Point Cloud
 
@@ -102,7 +145,11 @@ With the following code snippet, the established channel is used to fetch one po
 #include <blickfeld/core_processing/services/point_cloud.grpc.pb.h>
 
 int main() {
-    auto channel = blickfeld::hardware::connect_to_device("qb2-xxxxxxx");
+    auto channel = blickfeld::hardware::connect_to_device(
+        "qb2-xxxxxxx",
+        "serial-number-xxx",
+        "application-key-xxxxxxx"
+    );
 
     // Fetch one point cloud frame
     auto service = blickfeld::core_processing::services::PointCloud::NewStub(channel);
@@ -156,7 +203,11 @@ void process_frame(const blickfeld::core_processing::data::Frame& frame) {
 #include <blickfeld/core_processing/services/point_cloud.grpc.pb.h>
 
 int main() {
-    auto channel = blickfeld::hardware::connect_to_device("qb2-xxxxxxx");
+    auto channel = blickfeld::hardware::connect_to_device(
+        "qb2-xxxxxxx",
+        "serial-number-xxx",
+        "application-key-xxxxxxx"
+    );
 
     // Fetch one point cloud frame
     auto service = blickfeld::core_processing::services::PointCloud::NewStub(channel);

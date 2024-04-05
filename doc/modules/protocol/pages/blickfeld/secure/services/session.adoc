@@ -1,6 +1,6 @@
 = Service: Session
 
-CAUTION: This API is not yet officially released nor maintained.
+NOTE: This API is officially released and maintained.
 
 Session service which implements all methods for session-bound security features. 
  

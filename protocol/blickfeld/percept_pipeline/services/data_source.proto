@@ -46,6 +46,8 @@ service DataSource {
   }
   // Set configuration for data_source
   rpc Set(.blickfeld.percept_pipeline.services.DataSourceSetRequest) returns (.google.protobuf.Empty);
+  // Resets the data_source configuration to factory values
+  rpc Reset(.google.protobuf.Empty) returns (.google.protobuf.Empty);
   // Watch configuration for data_source
   rpc Watch(.google.protobuf.Empty) returns (stream .blickfeld.percept_pipeline.services.DataSourceWatchResponse) {
     option (.blickfeld.base.access_control_method) = {

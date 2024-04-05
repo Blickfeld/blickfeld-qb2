@@ -3,6 +3,7 @@
 syntax = "proto3";
 
 import "blickfeld/base/options.proto";
+import "blickfeld/percept_processing/data/detected_object.proto";
 package blickfeld.percept_processing.data;
 
 option (.blickfeld.base.access_control_file) = {
@@ -13,6 +14,14 @@ option (.blickfeld.base.access_control_file) = {
 // information it contains depends on the configuration.
 // States will get calculated on every frame of measurement.
 message State {
+  // A message containing an alarm state of a zone.
+  message ObjectBasedSecurity {
+    // If there is an alarm or not in the zone.
+    bool alarm = 1;
+    // Map of objects where the key is the UUID of the object that triggered the alarm.
+    // These objects have sparse information and will not contain the point cloud of the object.
+    map<string, .blickfeld.percept_processing.data.DetectedObject> objects = 2;
+  }
   // A message containing an alarm state of a zone.
   message Security {
     // If there is an alarm or not in the zone
@@ -36,6 +45,8 @@ message State {
     .blickfeld.percept_processing.data.State.Security security = 5;
     // Current volume measured in the selected zone
     .blickfeld.percept_processing.data.State.Volume volume = 7;
+    // The object based security state contains intrusion information of a zone and the objects that trigger the intrusion
+    .blickfeld.percept_processing.data.State.ObjectBasedSecurity object_based_security = 9;
   }
   reserved 1, 2, 3, 4, 6;
 }

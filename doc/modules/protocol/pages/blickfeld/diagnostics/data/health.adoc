@@ -54,6 +54,9 @@ Qb2 modules
 .2+| *push* | xref:blickfeld/diagnostics/data/health.adoc#_blickfeld_diagnostics_data_Health_Module_Health[Health] | - | - 
 3+| Health of the Blickfeld Push module
 
+.2+| *secure* | xref:blickfeld/diagnostics/data/health.adoc#_blickfeld_diagnostics_data_Health_Module_Health[Health] | - | - 
+3+| Health of the Blickfeld Secure module
+
 |===
 
 [#_blickfeld_diagnostics_data_Health_Module_Health]

@@ -2,6 +2,7 @@ syntax = "proto2";
 
 import "blickfeld/base/options.proto";
 import "blickfeld/system/config/scan_pattern.proto";
+import "blickfeld/system/data/scan_pattern.proto";
 import "google/protobuf/empty.proto";
 package blickfeld.system.services;
 
@@ -37,6 +38,14 @@ message ScanPatternStoreRequest {
 
 message ScanPatternDeleteRequest {
   optional string name = 1;
+}
+
+message ScanPatternGetLimitsRequest {
+  optional .blickfeld.system.config.ScanPattern scan_pattern = 1;
+}
+
+message ScanPatternGetLimitsResponse {
+  optional .blickfeld.system.data.ScanPatternLimits scan_pattern_limits = 1;
 }
 
 // *
@@ -76,5 +85,7 @@ service ScanPattern {
   rpc Store(.blickfeld.system.services.ScanPatternStoreRequest) returns (.google.protobuf.Empty);
   // Delete stored scan pattern
   rpc Delete(.blickfeld.system.services.ScanPatternDeleteRequest) returns (.google.protobuf.Empty);
+  // Get a scan pattern's parameter limits
+  rpc GetLimits(.blickfeld.system.services.ScanPatternGetLimitsRequest) returns (.blickfeld.system.services.ScanPatternGetLimitsResponse);
 }
 

@@ -13,5 +13,8 @@ The configuration of perception algorithms used to run e.g. security zones
 .2+| *foreground_point_cloud_filters* | repeated xref:blickfeld/percept_pipeline/config/point_cloud_filter.adoc[PointCloudFilter] | - | - 
 3+| Filter the foreground point cloud
 
+.2+| *clustering* | xref:blickfeld/percept_pipeline/config/clustering.adoc[Clustering] | - | - 
+3+| Segment the foreground point cloud into clusters
+
 |===
 

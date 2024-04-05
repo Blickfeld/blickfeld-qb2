@@ -1,6 +1,6 @@
 = Service: Authentication
 
-CAUTION: This API is not yet officially released nor maintained.
+NOTE: This API is officially released and maintained.
 
 Service for authentication to the Qb2 device.
 
@@ -45,8 +45,8 @@ User credentials
 |===
 | Field | Type | Default | Unit
 
-.2+| *name* | string| - | - 
-3+| the username
+.2+| *name* | optional string| - | - 
+3+| the username (can be left out in case of default factory state)
 
 .2+| *password* | string| - | - 
 3+| the password of the user in plain text

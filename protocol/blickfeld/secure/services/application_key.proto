@@ -58,6 +58,9 @@ service ApplicationKey {
   option (.blickfeld.base.access_control_service) = {
     level: LEVEL_AUTHORIZED
   };
+  option (.blickfeld.base.protocol_maturity_service) = {
+    level: LEVEL_MAINTAINED
+  };
   // List existing application keys for the authenticated account.
   rpc List(.blickfeld.secure.services.ApplicationKeyListRequest) returns (.blickfeld.secure.services.ApplicationKeyListResponse) {
     option (.blickfeld.base.access_control_method) = {
@@ -65,8 +68,16 @@ service ApplicationKey {
     };
   }
   // Create an application key for the authenticated account.
-  rpc Create(.blickfeld.secure.services.ApplicationKeyCreateRequest) returns (.blickfeld.secure.services.ApplicationKeyCreateResponse);
+  rpc Create(.blickfeld.secure.services.ApplicationKeyCreateRequest) returns (.blickfeld.secure.services.ApplicationKeyCreateResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
   // Delete an application key from the authenticated account.
-  rpc Delete(.blickfeld.secure.services.ApplicationKeyDeleteRequest) returns (.google.protobuf.Empty);
+  rpc Delete(.blickfeld.secure.services.ApplicationKeyDeleteRequest) returns (.google.protobuf.Empty) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
 }
 

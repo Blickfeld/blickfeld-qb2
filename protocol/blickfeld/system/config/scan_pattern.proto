@@ -1,6 +1,7 @@
 syntax = "proto2";
 
 import "blickfeld/base/options.proto";
+import "blickfeld/eye_safety/data/pulse_mode.proto";
 package blickfeld.system.config;
 
 option (.blickfeld.base.access_control_file) = {
@@ -11,7 +12,7 @@ option (.blickfeld.base.access_control_file) = {
 // The scan pattern defines the movement of the mirrors.
 // The key parameters of the pattern are the horizontal and vertical fields of view (FoV) as well as the number of scan lines per frame.
 // The frame rate is defined by the total number of scan lines and the oscillation frequency of the mirrors which is fixed and
-// device-spcific.
+// device-specific.
 message ScanPattern {
   // *
   // This section defines the movement of the horizontal mirror.
@@ -22,7 +23,7 @@ message ScanPattern {
     // –
     // optical field of view of the horizontal mirror.
     // Note: In v2.2* and below, this was defined as a mechanical FoV.
-    optional float field_of_view = 1 [default = 1.57068062, (.blickfeld.base.unit) = "rad"];
+    optional float field_of_view = 1 [default = 1.57079637, (.blickfeld.base.unit) = "rad"];
   }
   // *
   // This section defines the movement of the vertical mirror within one frame.
@@ -34,6 +35,20 @@ message ScanPattern {
   // Note: Due to the time required for one scan line, the rounded even number of scan lines directly scales inverse proportionally with
   // the frame rate.
   message Vertical {
+    // Configures a vertical field of view foveation.
+    // This enables the user to specify a region of interest with a different scanline density which is defined as the number of
+    // scanlines per degree of vertical field of view. For constant frame rate this allows increasing the resolution in the region of
+    // interest without having to reduce the vertical field of view.
+    message Foveation {
+      // The fraction of the field of view that the density factor is applies to. The allowed value range is [0.15, 0.85].
+      optional float fraction = 1 [default = 0.2];
+      // The foveation density factor defines the ratio of scanline density and consequently point density inside the foveated region
+      // compared to outside of it.
+      optional float density_factor = 2 [default = 3];
+      // Read-only parameter showing the number of scanlines in the foveated region. If the frame mode is set to up-down or separate,
+      // this applies to both the up-ramping and down-ramping phase individually.
+      optional uint32 scanlines = 3 [(.blickfeld.base.optional) = true];
+    }
     // *
     // Unit: [rad]
     // –
@@ -43,28 +58,59 @@ message ScanPattern {
     // *
     // Configures the number of scan lines required for the up-ramping phase.
     // During the up-ramping phase, the vertical mirror increases its amplitude from 0 degrees to the target FoV. Default: 200
-    optional uint32 scanlines_up = 2 [default = 40, (.blickfeld.base.d_min) = 1];
+    optional uint32 scanlines_up = 2 [default = 40, (.blickfeld.base.d_min) = 1, (.blickfeld.base.optional) = true];
     // *
     // Configures the amount of scan lines required for the down-ramping phase.
     // During the down-ramping phase, the vertical mirror decreases its amplitude from the target FoV to 0 degrees. Default: 30
-    optional uint32 scanlines_down = 3 [default = 40, (.blickfeld.base.d_min) = 1];
+    optional uint32 scanlines_down = 3 [default = 40, (.blickfeld.base.d_min) = 1, (.blickfeld.base.optional) = true];
+    // Optionally configures a foveated region.
+    optional .blickfeld.system.config.ScanPattern.Vertical.Foveation foveation = 4 [(.blickfeld.base.optional) = true];
   }
-  // *
   // This section defines the pattern in which the laser pulses and captures sample points
   message Pulse {
+    // Configure the uniform scan pattern
+    // The classic scan pattern does not benefit uniformly from increasing the scanline count in a frame. The uniform scan pattern is an
+    // optimization that tries to provide an optimally homogeneous point cloud given the system's constraints. To configure the scan
+    // pattern, the vertical field of view, the target frame rate and the pulse mode are used.
+    message Uniform {
+      // Pulse mode to use for the uniform scan pattern. This will overwrite the horizontal angle spacing.
+      optional .blickfeld.eye_safety.data.PulseMode pulse_mode = 1 [default = PULSE_MODE_B];
+    }
     // *
     // Unit: [rad]
     // –
     // This defines the angle within which the horizontal mirror moves between two laser pulses.
     // This parameter therefore defines the horizontal sampling resolution.
-    optional float angle_spacing = 1 [default = 0.0043633231, (.blickfeld.base.unit) = "rad"];
+    optional float angle_spacing = 1 [default = 0.0043633231, (.blickfeld.base.optional) = true, (.blickfeld.base.unit) = "rad"];
+    // Optional configure a uniform scan pattern
+    optional .blickfeld.system.config.ScanPattern.Pulse.Uniform uniform = 2 [(.blickfeld.base.optional) = true];
     reserved 5;
     reserved "pulse_type";
   }
   // This section defines the frame rate of a scan pattern
   message FrameRate {
+    // Target frame rate used to synchronize the point clouds of multiple LiDAR devices in a sensor setup
+    optional double target = 1 [(.blickfeld.base.optional) = true, (.blickfeld.base.unit) = "Hz"];
+    // Read-only parameter for the actual frame rate the LiDAR is currently running at
+    optional double actual = 4 [(.blickfeld.base.optional) = true, (.blickfeld.base.unit) = "Hz"];
+    // IMPORTANT: This field is deprecated. It has been replaced by "actual" and will not be supported in future releases.
     // Read-only parameter for maximum achievable frame rate of the scan pattern
-    optional double maximum = 2 [(.blickfeld.base.optional) = true, (.blickfeld.base.unit) = "Hz"];
+    optional double maximum = 2 [deprecated = true, (.blickfeld.base.optional) = true, (.blickfeld.base.unit) = "Hz"];
+  }
+  // The frame mode specifies the point cloud frame's composition and can be used to fine tune the LiDAR to specific use cases.
+  enum FrameMode {
+    // Unspecified frame mode
+    FRAME_MODE_UNSPECIFIED = 0;
+    // The laser will trigger both during up and downramping phase and a point cloud frame is the combination of the two. Points that
+    // are close in azimuth and elevation in both phases will be recorded up to two seconds apart, this mode is therefore recommended
+    // only for high frame rates or scenes without fast objects.
+    FRAME_MODE_UP_DOWN = 1;
+    // The laser will only trigger during the upramping phase. Because no laser is fired during the downramping phase, this mode results
+    // in a more uniform motion deformation for fast objects.
+    FRAME_MODE_UP = 2;
+    // The laser will trigger both during up and downramping phase but separate point cloud frames will be emitted, which maximizes
+    // frame rate.
+    FRAME_MODE_SEPARATE = 3;
   }
   optional .blickfeld.system.config.ScanPattern.Horizontal horizontal = 1;
   optional .blickfeld.system.config.ScanPattern.Vertical vertical = 2;
@@ -72,6 +118,7 @@ message ScanPattern {
   // this is an read_only flag and it will be set if this is a default scan pattern, which can't be changed or deleted.
   optional bool read_only = 4 [default = false];
   optional .blickfeld.system.config.ScanPattern.FrameRate frame_rate = 5 [(.blickfeld.base.optional) = true];
+  optional .blickfeld.system.config.ScanPattern.FrameMode frame_mode = 6 [default = FRAME_MODE_UP_DOWN];
 }
 
 // Temporary container used for config storage

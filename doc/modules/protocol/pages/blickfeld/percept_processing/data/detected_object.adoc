@@ -1,0 +1,46 @@
+[#_blickfeld_percept_processing_data_DetectedObject]
+= Detected Object
+
+A message representing exactly one object that is detected in the scene.
+
+.Available fields in blickfeld.percept_processing.data.DetectedObject
+|===
+| Field | Type | Default | Unit
+
+.2+| *pose* | xref:blickfeld/base/geometry/pose.adoc[base.geometry.Pose] | - | - 
+3+| The position and orientation of the object.
+
+.2+| *shape* | xref:blickfeld/base/geometry/shape.adoc[base.geometry.Shape] | - | - 
+3+| The shape representing the object (bounding box).
+
+.2+| *properties* | optional xref:blickfeld/percept_processing/data/detected_object.adoc#_blickfeld_percept_processing_data_DetectedObject_Properties[Properties] | - | - 
+3+| Properties of the object.
+
+.2+| *point_cloud* | optional xref:blickfeld/core_processing/data/frame.adoc[core_processing.data.Frame] | - | - 
+3+| The point cloud of the object.
+
+.2+| *timestamp* | uint64| - | ns 
+3+| The timestamps when the object is detected for the first time
+
+|===
+
+[#_blickfeld_percept_processing_data_DetectedObject_Properties]
+== Properties
+
+Properties of an object.
+
+.Available fields in blickfeld.percept_processing.data.DetectedObject.Properties
+|===
+| Field | Type | Default | Unit
+
+.2+| *size* | optional xref:blickfeld/percept_pipeline/config/object_size.adoc[percept_pipeline.config.ObjectSize] | - | - 
+3+| The size of an object.
+
+.2+| *num_points* | optional uint32| - | - 
+3+| / Number of measurements that belong to the object point cloud.
+
+.2+| *average_intensity* | optional uint32| - | - 
+3+| / Average intensity of the measurements from the object point cloud.
+
+|===
+

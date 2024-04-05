@@ -1,0 +1,181 @@
+= Authentication
+:icons: font
+:experimental: true
+
+[IMPORTANT]
+====
+* This Document applies to Qb2 [.underline]#produced# with the Firmware version https://github.com/Blickfeld/blickfeld-qb2/releases/tag/v2.0[v2.0] and later.
+* Qb2 produced and shipped with an earlier Firmware version have to be updated to minimum Firmware version https://github.com/Blickfeld/blickfeld-qb2/releases/tag/v2.0[v2.0] or later.
+====
+
+== Overview
+
+The data produced by Qb2 might contain sensitive or even private information. This data is protected from unauthorized access by default. Any client has to authenticate to the device in order to gain authorized access, such as viewing the point cloud or changing device configuration.
+
+* <<_username_and_password,Username and password>> is required to access the web interface.
+* An <<_application_key,application key>> is required to access the Qb2 API directly.
+
+=== Login
+
+For the initial access to the Qb2 web interface, credentials in the form of <<_username_and_password,username and password>> are required.
+
+[NOTE]
+====
+Every Qb2 has an initial account with a unique password. Refer to the guide on how to perform the xref:operation:authentication.adoc[initial login] to learn how to access the factory-configured account.
+====
+
+If the Qb2 is in factory configuration (only one account with the default name `admin` exists) it will only prompt for the password. 
+
+.Login screen with Qb2 in factory configuration
+image::authentication_login_factory.png[]
+
+The login screen will also prompt for the username if more than one account exists or the <<_username_and_password,default account name>> has been changed.
+
+.Login screen prompting for username and password
+image::authentication_login_username_password.png[]
+
+After successful login, the web interface shows the dashboard and an _account indicator_ on the left sidebar. The account indicator provides the logout action and can be used access the _account page_.
+
+.Account indicator on the left sidebar
+image::authentication_account_indicator.png[]
+
+All details of the currently authenticated account are displayed on the _account page_ of the Qb2 web interface.
+
+.Account page on the Qb2 web interface
+image::authentication_account_page.png[]
+
+== Account
+
+An account contains the following attributes:
+
+* <<_username_and_password,Username and password>>
+* <<_application_key,Application keys>>
+* <<_access_level,Access level>>
+* <<_read_only_mode,Read only mode>>
+* <<_state,State>>
+
+=== Username and password
+
+The credentials needed for using the Qb2 web interface are a username and password
+
+The username can be changed when clicking on the value displayed on the account page. Note that no whitespace characters such as kbd:[Space] or kbd:[Tab] are allowed in the username field.
+
+.Changing the account name
+image::authentication_edit_name.png[]
+
+The password can be updated by filling out the fields in the `Update password` section of the account page.
+
+.Changing the account password
+image::authentication_edit_password.png[]
+
+[WARNING]
+====
+If the password for an account is lost and the account can not be recovered (e.g. by doing an <<_reset,account reset>>), please contact xref:service_and_maintenance:customer_service.adoc[Blickfeld customer service].
+====
+
+=== Application key
+
+Application keys are the credentials required for accessing the Qb2 API programmatically.
+
+Application keys can be generated on the <<_account,account page>>. They can have a single optional attribute describing the purpose of the application key. Once created, the secret can be used for xref:developer:client_libraries/index.adoc[direct API access]. 
+
+Refer to https://github.com/Blickfeld/blickfeld-qb2/blob/main/cpp/examples/authentication/main.cpp[the authentication example] to learn how to use an application key in your application
+
+.Creating application keys
+image::authentication_create_appkey.png[]
+
+When an application key is deleted, clients can no longer authenticate using the key.
+
+=== Access level
+
+NOTE: The access level can only be modified in the <<_user_management,user management>> section.
+
+Access to the functionality of Qb2 is divided into three access levels:
+
+PUBLIC::
+Clients with this access level are allowed to read basic device information (firmware version, serial number) and are able to <<_login,login>>.
+AUTHORIZED::
+Clients with this access level are allowed to modify their own account (e.g. change the <<_username_and_password,account password>>, create <<_application_key,application keys>>), use all other device functionalities (zone configuration, scan pattern, flow etc.) and can do everything allowed with `PUBLIC` access level.
+ADMIN::
+Clients with this access level are allowed to modify or create other user accounts (<<_user_management,user management>>) and can do everything allowed with `AUTHORIZED` access level.
+
+.Access levels and available Qb2 functionality
+image::authentication_access_level.svg[]
+
+=== Read only mode
+
+NOTE: The read only mode can only be modified in the <<_user_management,user management>> section.
+
+In addition to the <<_access_level,access level>> there is a `READ_ONLY` flag. When this flag is set, only functionality that does not change any configuration can be accessed. This can be used, for example, to only visualize the current data being produced by Qb2 and ensure that no changes are accidentally made to the general measurement setup.
+
+=== State
+
+NOTE: The state can only be manually modified in the <<_user_management,user management>> section.
+
+The state attribute reflects the lifecycle of an account. The default value for a usable account is `ACTIVE`.
+
+.State flow diagram for account
+image::authentication_state_flow.svg[]
+
+The state is set to one of the following values:
+
+ACTIVE::
+The account is enabled and can be used for authentication.
+WAITING_FOR_ACTIVATION::
+The account has just been <<_create,created>> or was <<_reset,reset>>. A new password has to be set during login for account activation.
+BLOCKED::
+The account has been manually blocked and can not be used for authentication. A manual state change to `ACTIVE` by an admin account is required to unblock this account.
+
+The Qb2 web interface prompts the user to set a new password during the initial login in case the account needs to be activated after it has been <<_create,created>> or <<_reset,reset>>.
+
+.Account activation procedure for newly created or reset accounts
+image::authentication_activation.png[]
+
+== User Management
+
+User Management is accessible for clients with access level `ADMIN`. Clients authorized with this access level can <<_create,create>>, <<_reset,reset>>, <<_modify,modify>> or <<_delete,delete>> accounts on Qb2.
+
+[NOTE]
+====
+Currently not all features are available on the web interface. Refer to xref:developer:client_libraries/index.adoc[API access guide] and the xref:developer:protocol/index.adoc[API documentation] to learn how to access Qb2 user management programmatically for all features.
+====
+
+=== Create
+
+To create a new account, basic attributes have to be specified:
+
+.Attributes for creating a new account
+[%header,cols="1,1,2"] 
+|===
+|Attribute
+|Required
+|Comment
+
+|Name
+|icon:check[]
+|Value has to be unique
+
+|Access level
+|
+|default: `AUTHORIZED`
+
+|Read only mode
+|
+|default: `false`
+|===
+
+All other attributes of the <<_account,account>> are set by the device. The <<_state,state>> of newly created accounts is set to `WAITING_FOR_ACTIVATION`. When the account was created successfully, the activation password is returned.
+
+=== Reset
+
+This action sets the <<_state,account state>> to `WAITING_FOR_ACTIVATION` and returns an activation password. During login with this activation password the web interface prompts the user to update its password to activate the account.
+
+While the account is reset and temporarily unavailable for regular use, all other properties of the account (e.g. access level, application keys) are kept intact.
+
+=== Modify
+
+All attributes of an <<_account,account>> can be modified. This includes the <<_access_level,access level>>, the <<_state,state>>, <<_application_key,application keys>> and the number of failed login attempts.
+
+=== Delete
+
+This action removes the account and all associated application keys and can not be undone.

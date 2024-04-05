@@ -1,0 +1,51 @@
+= Service: Health
+
+NOTE: This API is officially released and maintained.
+
+The health service provides methods to monitor operational status of the secure module
+
+.Available methods
+|===
+| Method | Request | Response
+
+| *xref:#Get[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/secure/services/health.adoc#_blickfeld_secure_services_HealthGetResponse[HealthGetResponse]
+| *xref:#Watch[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/secure/services/health.adoc#_blickfeld_secure_services_HealthWatchResponse[HealthWatchResponse]Stream 
+|===
+[#Get]
+== Get
+
+Returns the current health status of the secure module
+
+[#_blickfeld_secure_services_HealthGetResponse]
+=== Response
+
+Response to Health Get request
+
+.Available fields in blickfeld.secure.services.HealthGetResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *health* | xref:blickfeld/secure/data/health.adoc[data.Health] | - | - 
+3+| Health state
+
+|===
+
+[#Watch]
+== Watch
+
+Continously returns the current health status of the secure module
+
+[#_blickfeld_secure_services_HealthWatchResponse]
+=== Response Stream
+
+Response to Health Watch request
+
+.Available fields in blickfeld.secure.services.HealthWatchResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *health* | xref:blickfeld/secure/data/health.adoc[data.Health] | - | - 
+3+| Health state
+
+|===
+

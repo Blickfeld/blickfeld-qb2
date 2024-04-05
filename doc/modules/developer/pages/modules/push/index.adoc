@@ -1,4 +1,4 @@
-= Blickfeld Percept Push
+= Blickfeld Push
 
 The Blickfeld Push module provides a gRPC interface for subscribing to streams from the  xref:developer:modules/percept/processing/index.adoc[Blickfeld Percept Processing] service and "pushing" the data to a desired destination.
 

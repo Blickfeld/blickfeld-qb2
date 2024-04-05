@@ -14,6 +14,9 @@ field should help users to quickly identify different application keys but can a
 .2+| *access_level* | optional xref:blickfeld/base/options/access_control.adoc#_blickfeld_base_AccessControl_Level[base.AccessControl.Level] | - | - 
 3+| Access level which is granted to this application key.
 
+.2+| *access_read_only* | bool| - | - 
+3+| If true, this application key has read-only access permissions.
+
 .2+| *last_login_ts* | uint64| - | - 
 3+| Last time the application key was used to authenticate. This is just for information purposes and might not be reliable.
 

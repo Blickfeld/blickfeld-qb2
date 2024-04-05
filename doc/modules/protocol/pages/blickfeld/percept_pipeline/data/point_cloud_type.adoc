@@ -14,5 +14,6 @@ The type of the point cloud
 | POINT_CLOUD_TYPE_FULL_OPTIMIZED ^| 3 | Same as 'POINT_CLOUD_TYPE_FULL' but with reduced point cloud density to reduce the size of the point cloud
 | POINT_CLOUD_TYPE_FILTERED ^| 4 | Same as 'POINT_CLOUD_TYPE_FULL' but with all points excluded that are in exclusion zones
 | POINT_CLOUD_TYPE_FILTERED_FOREGROUND ^| 5 | Same as 'POINT_CLOUD_TYPE_FOREGROUND' but with all points excluded that are in exclusion zones
+| POINT_CLOUD_TYPE_BACKGROUND ^| 6 | Point cloud containing the points representing the background model/point cloud
 |===
 

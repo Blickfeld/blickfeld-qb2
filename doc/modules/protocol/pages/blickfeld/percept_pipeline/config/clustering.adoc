@@ -1,0 +1,41 @@
+[#_blickfeld_percept_pipeline_config_Clustering]
+= Clustering
+
+Algorithms for detecting objects as clustered points in the foreground scene.
+
+.Available fields in blickfeld.percept_pipeline.config.Clustering
+|===
+| Field | Type | Default | Unit
+
+.2+| *db_scan* | xref:blickfeld/percept_pipeline/config/clustering.adoc#_blickfeld_percept_pipeline_config_Clustering_DBScan[DBScan] | - | - 
+3+| Use db-scan for clustering the foreground
+
+|===
+
+[#_blickfeld_percept_pipeline_config_Clustering_DBScan]
+== D BScan
+
+Density-based spatial clustering algorithm using the euclidean distance between points
+
+.Available fields in blickfeld.percept_pipeline.config.Clustering.DBScan
+|===
+| Field | Type | Default | Unit
+
+.2+| *min_points* | uint32| - | - 
+3+| Minimum amount of points required to define an object-cluster 
+ 
+Reasonable default: 10
+
+.2+| *radius* | float| - | m 
+3+| Controls how far away points belonging to the same object-cluster can be. 
+ 
+Reasonable default: 0.2
+
+.2+| *distance_dependent_radius* | float| - | m 
+3+| Multiply the given radius with the range of a point and add it to the radius. 
+This significantly improves the clustering for close-range scenes. 
+ 
+Reasonable default: 0.025
+
+|===
+

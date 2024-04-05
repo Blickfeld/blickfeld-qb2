@@ -3,6 +3,7 @@
 syntax = "proto3";
 
 import "blickfeld/percept_pipeline/config/background_subtraction.proto";
+import "blickfeld/percept_pipeline/config/clustering.proto";
 import "blickfeld/percept_pipeline/config/point_cloud_filter.proto";
 import "blickfeld/base/options.proto";
 package blickfeld.percept_pipeline.config;
@@ -17,6 +18,10 @@ message Perception {
   .blickfeld.percept_pipeline.config.BackgroundSubtraction background_subtraction = 1;
   // Filter the foreground point cloud
   repeated .blickfeld.percept_pipeline.config.PointCloudFilter foreground_point_cloud_filters = 2;
-  reserved 3, 4, 5, 6;
+  // Segment the foreground point cloud into clusters
+  .blickfeld.percept_pipeline.config.Clustering clustering = 8 [(.blickfeld.base.protocol_maturity_field) = {
+    level: LEVEL_EXPERIMENTAL
+  }];
+  reserved 3, 4, 5, 6, 7;
 }
 

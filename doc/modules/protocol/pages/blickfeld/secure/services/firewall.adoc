@@ -1,0 +1,51 @@
+= Service: Firewall
+
+CAUTION: This API is not yet officially released nor maintained.
+
+Service for configuring firewall parameters
+
+.Available methods
+|===
+| Method | Request | Response
+
+| *xref:#Set[]* | xref:blickfeld/secure/services/firewall.adoc#_blickfeld_secure_services_FirewallSetRequest[FirewallSetRequest]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
+| *xref:#Get[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/secure/services/firewall.adoc#_blickfeld_secure_services_FirewallGetResponse[FirewallGetResponse]
+|===
+[#Set]
+== Set
+
+Set configuration
+
+[#_blickfeld_secure_services_FirewallSetRequest]
+=== Request
+
+Set configuration request
+
+.Available fields in blickfeld.secure.services.FirewallSetRequest
+|===
+| Field | Type | Default | Unit
+
+.2+| *config* | xref:blickfeld/secure/config/firewall.adoc[config.Firewall] | - | - 
+3+| Configuration
+
+|===
+
+[#Get]
+== Get
+
+Get configuration
+
+[#_blickfeld_secure_services_FirewallGetResponse]
+=== Response
+
+Get configuration response
+
+.Available fields in blickfeld.secure.services.FirewallGetResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *config* | xref:blickfeld/secure/config/firewall.adoc[config.Firewall] | - | - 
+3+| Configuration
+
+|===
+

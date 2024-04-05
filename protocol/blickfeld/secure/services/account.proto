@@ -29,6 +29,8 @@ message AccountCreateRequest {
 message AccountCreateResponse {
   // the activation password in plain text
   string activation_password = 1;
+  // the uuid of the account
+  string uuid = 2;
 }
 
 // Request to reset an existing account
@@ -67,6 +69,8 @@ message AccountGetRequest {
 message AccountGetResponse {
   // The account details
   .blickfeld.secure.config.Account account = 1;
+  // The uuid of the account
+  string uuid = 2;
 }
 
 // Store updated account details.
@@ -92,6 +96,9 @@ message AccountStoreRequest {
 service Account {
   option (.blickfeld.base.access_control_service) = {
     level: LEVEL_PUBLIC
+  };
+  option (.blickfeld.base.protocol_maturity_service) = {
+    level: LEVEL_MAINTAINED
   };
   // List registered accounts.
   rpc List(.google.protobuf.Empty) returns (.blickfeld.secure.services.AccountListResponse) {
@@ -130,6 +137,10 @@ service Account {
   // During account activation this method can be accessed using a JWT token with access level `LEVEL_PUBLIC`.
   // It will fail with `UNAUTHENTICATED` if no JWT token is presented.
   // ====
-  rpc Store(.blickfeld.secure.services.AccountStoreRequest) returns (.google.protobuf.Empty);
+  rpc Store(.blickfeld.secure.services.AccountStoreRequest) returns (.google.protobuf.Empty) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
 }
 

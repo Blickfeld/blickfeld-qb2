@@ -1,0 +1,74 @@
+[#_blickfeld_base_config_Range]
+= Range
+
+This section defines ranges for numerical types. 
+They can be used to define minimum and maximum values.
+
+[#_blickfeld_base_config_Range_Uint32]
+== Uint32
+
+An unsigned integer range
+
+.Available fields in blickfeld.base.config.Range.Uint32
+|===
+| Field | Type | Default | Unit
+
+.2+| *minimum* | uint32| - | - 
+3+| An unsigned integer minimum value
+
+.2+| *maximum* | uint32| - | - 
+3+| An unsigned integer maximum value
+
+|===
+
+[#_blickfeld_base_config_Range_Int32]
+== Int32
+
+A signed integer range
+
+.Available fields in blickfeld.base.config.Range.Int32
+|===
+| Field | Type | Default | Unit
+
+.2+| *minimum* | int32| - | - 
+3+| A signed integer minimum value
+
+.2+| *maximum* | int32| - | - 
+3+| A signed integer maximum value
+
+|===
+
+[#_blickfeld_base_config_Range_Float]
+== Float
+
+A single precision float range
+
+.Available fields in blickfeld.base.config.Range.Float
+|===
+| Field | Type | Default | Unit
+
+.2+| *minimum* | float| - | - 
+3+| A single precision float minimum
+
+.2+| *maximum* | float| - | - 
+3+| A single precision float maximum
+
+|===
+
+[#_blickfeld_base_config_Range_Double]
+== Double
+
+A double precision float range
+
+.Available fields in blickfeld.base.config.Range.Double
+|===
+| Field | Type | Default | Unit
+
+.2+| *minimum* | double| - | - 
+3+| A double precision float minimum
+
+.2+| *maximum* | double| - | - 
+3+| A double precision float maximum
+
+|===
+

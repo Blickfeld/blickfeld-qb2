@@ -20,10 +20,16 @@ message SessionGetNonceResponse {
 // * Every day (UTC)
 // * Manual invalidation via gRPC call
 service Session {
+  option (.blickfeld.base.access_control_service) = {
+    level: LEVEL_PUBLIC
+  };
+  option (.blickfeld.base.protocol_maturity_service) = {
+    level: LEVEL_MAINTAINED
+  };
   // Get cryptographic session nonce.
   rpc GetNonce(.google.protobuf.Empty) returns (.blickfeld.secure.services.SessionGetNonceResponse) {
     option (.blickfeld.base.access_control_method) = {
-      level: LEVEL_PUBLIC
+      read_only: true
     };
   }
   // Invalidates the current session.

@@ -1,0 +1,38 @@
+[#_blickfeld_secure_data_Health]
+= Health
+
+Message representing health
+
+.Available fields in blickfeld.secure.data.Health
+|===
+| Field | Type | Default | Unit
+
+.2+| *state* | xref:blickfeld/base/data/health.adoc#_blickfeld_base_data_Health_State[base.data.Health.State] | - | - 
+3+| High-level state of module
+
+.2+| *state_reason* | string| - | - 
+3+| Reason for given state. Only set if state is not STATE_OK.
+
+.2+| *user_management* | xref:blickfeld/secure/data/health.adoc#_blickfeld_secure_data_Health_UserManagement[UserManagement] | - | - 
+3+| State of User-Management feature
+
+|===
+
+[#_blickfeld_secure_data_Health_UserManagement]
+== User Management
+
+State message for User-Management feature
+
+.Available fields in blickfeld.secure.data.Health.UserManagement
+|===
+| Field | Type | Default | Unit
+
+.2+| *needs_activation* | bool| - | - 
+3+| Set to `true` if user management needs manual activation. 
+This is only set when a device can migrate to user management from a previous state.
+
+.2+| *state_factory* | bool| - | - 
+3+| set to true if only default account with the default name exist.
+
+|===
+

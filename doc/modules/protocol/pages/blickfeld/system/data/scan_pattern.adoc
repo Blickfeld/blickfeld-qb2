@@ -1,0 +1,83 @@
+[#_blickfeld_system_data_ScanPatternLimits]
+= Scan Pattern Limits
+
+This section contains limits for configurable parameters of a scan pattern
+
+.Available fields in blickfeld.system.data.ScanPatternLimits
+|===
+| Field | Type | Default | Unit
+
+| *horizontal* | xref:blickfeld/system/data/scan_pattern.adoc#_blickfeld_system_data_ScanPatternLimits_Horizontal[Horizontal] | - | - 
+| *vertical* | xref:blickfeld/system/data/scan_pattern.adoc#_blickfeld_system_data_ScanPatternLimits_Vertical[Vertical] | - | - 
+| *frame_rate* | xref:blickfeld/system/data/scan_pattern.adoc#_blickfeld_system_data_ScanPatternLimits_FrameRate[FrameRate] | - | - 
+|===
+
+[#_blickfeld_system_data_ScanPatternLimits_Horizontal]
+== Horizontal
+
+This section defines the value limits for the horizontal configuration
+
+.Available fields in blickfeld.system.data.ScanPatternLimits.Horizontal
+|===
+| Field | Type | Default | Unit
+
+.2+| *field_of_view* | xref:blickfeld/base/config/range.adoc#_blickfeld_base_config_Range_Float[base.config.Range.Float] | - | - 
+3+| The field of view limits
+
+|===
+
+[#_blickfeld_system_data_ScanPatternLimits_Vertical]
+== Vertical
+
+This section defines the value limits for the vertical configuration
+
+.Available fields in blickfeld.system.data.ScanPatternLimits.Vertical
+|===
+| Field | Type | Default | Unit
+
+.2+| *field_of_view* | xref:blickfeld/base/config/range.adoc#_blickfeld_base_config_Range_Float[base.config.Range.Float] | - | - 
+3+| The field of view limits
+
+.2+| *scanlines_up* | xref:blickfeld/base/config/range.adoc#_blickfeld_base_config_Range_Uint32[base.config.Range.Uint32] | - | - 
+3+| The up-ramping scanline limits
+
+.2+| *scanlines_down* | xref:blickfeld/base/config/range.adoc#_blickfeld_base_config_Range_Uint32[base.config.Range.Uint32] | - | - 
+3+| The down-ramping scanline limits
+
+| *foveation* | optional xref:blickfeld/system/data/scan_pattern.adoc#_blickfeld_system_data_ScanPatternLimits_Vertical_Foveation[Foveation] | - | - 
+|===
+
+[#_blickfeld_system_data_ScanPatternLimits_Vertical_Foveation]
+=== Foveation
+
+This section defines the limits for the foveation configuration
+
+.Available fields in blickfeld.system.data.ScanPatternLimits.Vertical.Foveation
+|===
+| Field | Type | Default | Unit
+
+.2+| *fraction* | xref:blickfeld/base/config/range.adoc#_blickfeld_base_config_Range_Float[base.config.Range.Float] | - | - 
+3+| The foveation fraction limit
+
+.2+| *density_factor* | xref:blickfeld/base/config/range.adoc#_blickfeld_base_config_Range_Float[base.config.Range.Float] | - | - 
+3+| The density factor limits
+
+.2+| *scanlines* | xref:blickfeld/base/config/range.adoc#_blickfeld_base_config_Range_Uint32[base.config.Range.Uint32] | - | - 
+3+| The foveated scanlines limits
+
+|===
+
+[#_blickfeld_system_data_ScanPatternLimits_FrameRate]
+== Frame Rate
+
+This section defines the value limits for the frame rate configuration
+
+.Available fields in blickfeld.system.data.ScanPatternLimits.FrameRate
+|===
+| Field | Type | Default | Unit
+
+.2+| *target* | xref:blickfeld/base/config/range.adoc#_blickfeld_base_config_Range_Double[base.config.Range.Double] | - | - 
+3+| The target frame rate limit
+
+|===
+

@@ -14,6 +14,7 @@ NOTE: This API is officially released and maintained.
 | *xref:#List[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/system/services/scan_pattern.adoc#_blickfeld_system_services_ScanPatternListResponse[ScanPatternListResponse]
 | *xref:#Store[]* | xref:blickfeld/system/services/scan_pattern.adoc#_blickfeld_system_services_ScanPatternStoreRequest[ScanPatternStoreRequest]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
 | *xref:#Delete[]* | xref:blickfeld/system/services/scan_pattern.adoc#_blickfeld_system_services_ScanPatternDeleteRequest[ScanPatternDeleteRequest]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
+| *xref:#GetLimits[]* | xref:blickfeld/system/services/scan_pattern.adoc#_blickfeld_system_services_ScanPatternGetLimitsRequest[ScanPatternGetLimitsRequest]| xref:blickfeld/system/services/scan_pattern.adoc#_blickfeld_system_services_ScanPatternGetLimitsResponse[ScanPatternGetLimitsResponse]
 |===
 [#Get]
 == Get
@@ -132,5 +133,34 @@ Delete stored scan pattern
 | Field | Type | Default | Unit
 
 | *name* | string| - | - 
+|===
+
+[#GetLimits]
+== GetLimits
+
+Get a scan pattern's parameter limits
+
+[#_blickfeld_system_services_ScanPatternGetLimitsRequest]
+=== Request
+
+
+
+.Available fields in blickfeld.system.services.ScanPatternGetLimitsRequest
+|===
+| Field | Type | Default | Unit
+
+| *scan_pattern* | xref:blickfeld/system/config/scan_pattern.adoc#_blickfeld_system_config_ScanPattern[config.ScanPattern] | - | - 
+|===
+
+[#_blickfeld_system_services_ScanPatternGetLimitsResponse]
+=== Response
+
+
+
+.Available fields in blickfeld.system.services.ScanPatternGetLimitsResponse
+|===
+| Field | Type | Default | Unit
+
+| *scan_pattern_limits* | xref:blickfeld/system/data/scan_pattern.adoc[data.ScanPatternLimits] | - | - 
 |===
 

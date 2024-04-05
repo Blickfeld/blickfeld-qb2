@@ -29,6 +29,9 @@ message Health {
     // Volume Map specific information
     message VolumeMap {
     }
+    // Objects specific information
+    message Objects {
+    }
     // Identifier of the client
     string uuid = 1;
     // The client peer uri
@@ -45,6 +48,8 @@ message Health {
       .blickfeld.percept_processing.data.Health.Client.States states = 6;
       // The client receives volume map stream data
       .blickfeld.percept_processing.data.Health.Client.VolumeMap volume_map = 7;
+      // The client receives objects stream data
+      .blickfeld.percept_processing.data.Health.Client.Objects objects = 8;
     }
   }
   // High-level state of module.

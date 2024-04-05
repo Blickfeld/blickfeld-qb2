@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+import "google/protobuf/struct.proto";
+package blickfeld.base.config;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// Geolocation in the geographic coordinate system.
+// Is used to geo-reference device coordinate systems and produced data.
+message Geolocation {
+  // Latitude angle
+  float latitude = 1 [(.blickfeld.base.unit) = "deg"];
+  // Longitude angle
+  float longitude = 2 [(.blickfeld.base.unit) = "deg"];
+  // Arbitrary metadata storage for client applications
+  .google.protobuf.Struct metadata = 100;
+}
+

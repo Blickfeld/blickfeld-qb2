@@ -1,0 +1,38 @@
+// Copyright (c) 2024 Blickfeld GmbH.
+// All rights reserved.
+syntax = "proto3";
+
+import "blickfeld/base/geometry/pose.proto";
+import "blickfeld/base/geometry/shape.proto";
+import "blickfeld/base/options.proto";
+import "blickfeld/core_processing/data/frame.proto";
+import "blickfeld/percept_pipeline/config/object_size.proto";
+package blickfeld.percept_processing.data;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_AUTHORIZED
+};
+
+// A message representing exactly one object that is detected in the scene.
+message DetectedObject {
+  // Properties of an object.
+  message Properties {
+    // The size of an object.
+    .blickfeld.percept_pipeline.config.ObjectSize size = 1 [(.blickfeld.base.optional) = true];
+    // / Number of measurements that belong to the object point cloud.
+    uint32 num_points = 2 [(.blickfeld.base.optional) = true];
+    // / Average intensity of the measurements from the object point cloud.
+    uint32 average_intensity = 3 [(.blickfeld.base.optional) = true];
+  }
+  // The position and orientation of the object.
+  .blickfeld.base.geometry.Pose pose = 1;
+  // The shape representing the object (bounding box).
+  .blickfeld.base.geometry.Shape shape = 2;
+  // Properties of the object.
+  .blickfeld.percept_processing.data.DetectedObject.Properties properties = 3 [(.blickfeld.base.optional) = true];
+  // The point cloud of the object.
+  .blickfeld.core_processing.data.Frame point_cloud = 4 [(.blickfeld.base.optional) = true];
+  // The timestamps when the object is detected for the first time
+  uint64 timestamp = 5 [(.blickfeld.base.unit) = "ns"];
+}
+

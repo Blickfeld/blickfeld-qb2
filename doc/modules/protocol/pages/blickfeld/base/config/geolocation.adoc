@@ -1,0 +1,21 @@
+[#_blickfeld_base_config_Geolocation]
+= Geolocation
+
+Geolocation in the geographic coordinate system. 
+Is used to geo-reference device coordinate systems and produced data.
+
+.Available fields in blickfeld.base.config.Geolocation
+|===
+| Field | Type | Default | Unit
+
+.2+| *latitude* | float| - | deg 
+3+| Latitude angle
+
+.2+| *longitude* | float| - | deg 
+3+| Longitude angle
+
+.2+| *metadata* | https://protobuf.dev/reference/protobuf/google.protobuf/#struct[google.protobuf.Struct] | - | - 
+3+| Arbitrary metadata storage for client applications
+
+|===
+

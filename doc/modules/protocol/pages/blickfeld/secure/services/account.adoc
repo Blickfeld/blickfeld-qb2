@@ -1,6 +1,6 @@
 = Service: Account
 
-CAUTION: This API is not yet officially released nor maintained.
+NOTE: This API is officially released and maintained.
 
 This service supports the complete lifecycle of accounts which are managed by the current Qb2 device. 
 
@@ -83,6 +83,9 @@ The generated activation password in plain text will be returned only once.
 
 .2+| *activation_password* | string| - | - 
 3+| the activation password in plain text
+
+.2+| *uuid* | string| - | - 
+3+| the uuid of the account
 
 |===
 
@@ -173,6 +176,9 @@ Response for the currently authenticated account.
 
 .2+| *account* | xref:blickfeld/secure/config/account.adoc[config.Account] | - | - 
 3+| The account details
+
+.2+| *uuid* | string| - | - 
+3+| The uuid of the account
 
 |===
 

@@ -2,8 +2,10 @@
 // All rights reserved.
 syntax = "proto3";
 
+import "blickfeld/base/config/geolocation.proto";
 import "blickfeld/base/geometry/transform.proto";
 import "blickfeld/base/options.proto";
+import "google/protobuf/struct.proto";
 package blickfeld.percept_pipeline.config;
 
 option (.blickfeld.base.access_control_file) = {
@@ -12,15 +14,6 @@ option (.blickfeld.base.access_control_file) = {
 
 // The configuration storing the sources to retrieve the point cloud data for further processing.
 message DataSource {
-  // Configuration for retrieving point clouds from a Cube 1
-  message Cube1 {
-    // The fully qualified domain name of the Cube 1
-    string fqdn = 1;
-    // Transformation from the lidar frame to the map frame. If this transform is not set, this will be interpreted as identify
-    // transformation. Transforming all point cloud topics into the map frame results in a globally consistent combined point cloud in
-    // map frame.
-    .blickfeld.base.geometry.Transform map_from_lidar = 2;
-  }
   // Configuration for retrieving point clouds from a Qb2
   message Qb2 {
     // The fully qualified domain name of the Qb2 device. For on-device processing/configuration, 'fqdn' can be set
@@ -30,16 +23,12 @@ message DataSource {
     // transformation. Transforming all point cloud topics into the map frame results in a globally consistent combined point cloud in
     // map frame.
     .blickfeld.base.geometry.Transform map_from_lidar = 2;
-  }
-  // The configuration of a Cube 1 setup of the LiDAR devices
-  message Cube1Setup {
-    // Cube1 lidars to retrieve the point clouds from
-    repeated .blickfeld.percept_pipeline.config.DataSource.Cube1 lidars = 1;
-    // If true: The same NTP server needs to be configured for each device before starting. The lidar clock and
-    // and scan-patterns will be continously synchronized. Recommended in multi-sensor setups.
-    // If false: the lidar measurements are timestamps with the receive time by the system. The receive time is less
-    // accurate if the network is not reliable.
-    bool enable_time_sync = 2;
+    // Application key with authorized access level. Required if user-management is enabled on externally connected devices.
+    string application_key = 3 [(.blickfeld.base.optional) = true];
+    // Serial number. Required if user-management is enabled on externally connected devices.
+    string serial_number = 4 [(.blickfeld.base.optional) = true];
+    // Arbitrary metadata storage for client applications
+    .google.protobuf.Struct metadata = 100 [(.blickfeld.base.optional) = true];
   }
   // Configuration of Trigger Mode. In trigger mode the processing pipeline will reduce the frequency at which
   // point clouds and state lists are getting computed to reduce the amount of data transmitted between the processing
@@ -57,13 +46,15 @@ message DataSource {
     .blickfeld.percept_pipeline.config.DataSource.Trigger trigger = 2 [(.blickfeld.base.optional) = true];
   }
   oneof data_source_type {
-    // Use Cube 1 lidars to retrieve point clouds
-    .blickfeld.percept_pipeline.config.DataSource.Cube1Setup cube1_setup = 1 [(.blickfeld.base.protocol_maturity_field) = {
-      level: LEVEL_DEPRECATED
-    }];
     // Use Qb2 lidars to retrieve point clouds
     .blickfeld.percept_pipeline.config.DataSource.Qb2Setup qb2_setup = 3;
   }
-  reserved 2;
+  // Geolocation of data source.
+  // This references the map coordinate system of this data source to the world.
+  // Individual lidars are referenced to the map coordinate system via their `map_from_lidar` transform.
+  // [NOTE]
+  // If the map_from_lidar transform is not an identity transformation, this is not the geolocation of an individual sensor.
+  .blickfeld.base.config.Geolocation geolocation_of_map = 4 [(.blickfeld.base.optional) = true];
+  reserved 1, 2;
 }
 

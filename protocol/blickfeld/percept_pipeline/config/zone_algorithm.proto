@@ -4,6 +4,8 @@ syntax = "proto3";
 
 import "blickfeld/base/geometry/shape.proto";
 import "blickfeld/base/options.proto";
+import "blickfeld/percept_pipeline/config/object_size.proto";
+import "google/protobuf/struct.proto";
 package blickfeld.percept_pipeline.config;
 
 option (.blickfeld.base.access_control_file) = {
@@ -35,6 +37,12 @@ message ZoneAlgorithm {
     // Default: 0
     uint32 max_points = 2;
   }
+  // Algorithm that triggers an alarm when an object of one of the selected sizes is in the zone
+  message ObjectBasedSecurity {
+    // Selection of sizes which trigger an alarm. Each size in the array will only
+    // trigger an alarm for the interval of that size.
+    repeated .blickfeld.percept_pipeline.config.ObjectSize alarm_sizes = 1;
+  }
   // Algorithm that excludes points from the input point cloud
   message Exclusion {
   }
@@ -44,6 +52,8 @@ message ZoneAlgorithm {
   string uuid = 2;
   // Geometric shape (usually a Box) in which the algorithm detects certain behaviors/scenarios
   .blickfeld.base.geometry.Shape shape = 3;
+  // Arbitrary metadata storage for client applications
+  .google.protobuf.Struct metadata = 100 [(.blickfeld.base.optional) = true];
   oneof algorithm_type {
     // Run volume monitoring within the zone
     .blickfeld.percept_pipeline.config.ZoneAlgorithm.Volume volume = 9;
@@ -51,6 +61,8 @@ message ZoneAlgorithm {
     .blickfeld.percept_pipeline.config.ZoneAlgorithm.Security security = 7;
     // Run exclusion zone
     .blickfeld.percept_pipeline.config.ZoneAlgorithm.Exclusion exclusion = 10;
+    // Run object-based alarm detection within the zone
+    .blickfeld.percept_pipeline.config.ZoneAlgorithm.ObjectBasedSecurity object_based_security = 11;
   }
   reserved 4, 5, 6, 8;
 }

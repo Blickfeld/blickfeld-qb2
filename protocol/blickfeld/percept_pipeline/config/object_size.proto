@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+package blickfeld.percept_pipeline.config;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_AUTHORIZED
+};
+
+// The size of an object
+enum ObjectSize {
+  // The zero value should not be used
+  OBJECT_SIZE_UNSPECIFIED = 0;
+  // Small object size: small animals, birds, etc
+  OBJECT_SIZE_SMALL = 1;
+  // Medium object size: free standing human, single human, etc
+  OBJECT_SIZE_MEDIUM = 2;
+  // Large object size: cars, group of people, large animals, etc
+  OBJECT_SIZE_LARGE = 3;
+}
+

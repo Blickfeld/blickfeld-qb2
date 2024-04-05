@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+import "blickfeld/base/config/range.proto";
+package blickfeld.system.data;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_AUTHORIZED
+};
+
+// This section contains limits for configurable parameters of a scan pattern
+message ScanPatternLimits {
+  // This section defines the value limits for the horizontal configuration
+  message Horizontal {
+    // The field of view limits
+    .blickfeld.base.config.Range.Float field_of_view = 1;
+  }
+  // This section defines the value limits for the vertical configuration
+  message Vertical {
+    // This section defines the limits for the foveation configuration
+    message Foveation {
+      // The foveation fraction limit
+      .blickfeld.base.config.Range.Float fraction = 1;
+      // The density factor limits
+      .blickfeld.base.config.Range.Float density_factor = 2;
+      // The foveated scanlines limits
+      .blickfeld.base.config.Range.Uint32 scanlines = 3;
+    }
+    // The field of view limits
+    .blickfeld.base.config.Range.Float field_of_view = 1;
+    // The up-ramping scanline limits
+    .blickfeld.base.config.Range.Uint32 scanlines_up = 2;
+    // The down-ramping scanline limits
+    .blickfeld.base.config.Range.Uint32 scanlines_down = 3;
+    .blickfeld.system.data.ScanPatternLimits.Vertical.Foveation foveation = 4 [(.blickfeld.base.optional) = true];
+  }
+  // This section defines the value limits for the frame rate configuration
+  message FrameRate {
+    // The target frame rate limit
+    .blickfeld.base.config.Range.Double target = 1;
+  }
+  .blickfeld.system.data.ScanPatternLimits.Horizontal horizontal = 1;
+  .blickfeld.system.data.ScanPatternLimits.Vertical vertical = 2;
+  .blickfeld.system.data.ScanPatternLimits.FrameRate frame_rate = 3;
+}
+

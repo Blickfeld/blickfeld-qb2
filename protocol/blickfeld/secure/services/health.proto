@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+import "blickfeld/secure/data/health.proto";
+import "google/protobuf/empty.proto";
+package blickfeld.secure.services;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// Response to Health Get request
+message HealthGetResponse {
+  // Health state
+  .blickfeld.secure.data.Health health = 1;
+}
+
+// Response to Health Watch request
+message HealthWatchResponse {
+  // Health state
+  .blickfeld.secure.data.Health health = 1;
+}
+
+// The health service provides methods to monitor operational status of the secure module
+service Health {
+  option (.blickfeld.base.access_control_service) = {
+    level: LEVEL_PUBLIC
+  };
+  option (.blickfeld.base.protocol_maturity_service) = {
+    level: LEVEL_MAINTAINED
+  };
+  // Returns the current health status of the secure module
+  rpc Get(.google.protobuf.Empty) returns (.blickfeld.secure.services.HealthGetResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
+  // Continously returns the current health status of the secure module
+  rpc Watch(.google.protobuf.Empty) returns (stream .blickfeld.secure.services.HealthWatchResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
+}
+

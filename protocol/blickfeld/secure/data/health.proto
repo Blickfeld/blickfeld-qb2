@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+import "blickfeld/base/data/health.proto";
+import "blickfeld/base/options.proto";
+package blickfeld.secure.data;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// Message representing health
+message Health {
+  // State message for User-Management feature
+  message UserManagement {
+    // Set to `true` if user management needs manual activation.
+    // This is only set when a device can migrate to user management from a previous state.
+    bool needs_activation = 1;
+    // set to true if only default account with the default name exist.
+    bool state_factory = 2;
+  }
+  // High-level state of module
+  .blickfeld.base.data.Health.State state = 1;
+  // Reason for given state. Only set if state is not STATE_OK.
+  string state_reason = 2;
+  // State of User-Management feature
+  .blickfeld.secure.data.Health.UserManagement user_management = 3;
+}
+

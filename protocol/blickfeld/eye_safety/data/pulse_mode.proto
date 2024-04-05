@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+package blickfeld.eye_safety.data;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_AUTHORIZED
+};
+
+// The pulse mode specifies the system's laser energy that is emitted with each laser pulse.
+// The different modes provide options to cater to different applications.
+enum PulseMode {
+  option (.blickfeld.base.link_data) = {
+    type: ".blickfeld.eye_safety.config.PulseMode"
+    directory: "data/pulse_mode"
+  };
+  // Unspecified pulse mode
+  PULSE_MODE_UNSPECIFIED = 0;
+  // Default pulse mode providing a high pulse rate for a dense point cloud with sufficient detection rate for most use cases
+  PULSE_MODE_A = 1;
+  // Pulse mode with medium single pulse laser energy, balancing between A and C
+  PULSE_MODE_B = 2;
+  // Pulse mode with high single pulse laser energy, improving detection for far range or low reflectivity at the cost of pulse rate
+  PULSE_MODE_C = 3;
+}
+

@@ -37,6 +37,8 @@ message Health {
     .blickfeld.diagnostics.data.Health.Module.Health percept_pipeline = 9;
     // Health of the Blickfeld Push module
     .blickfeld.diagnostics.data.Health.Module.Health push = 10;
+    // Health of the Blickfeld Secure module
+    .blickfeld.diagnostics.data.Health.Module.Health secure = 11;
   }
   // High-level aggregated health state of the device (if one of the modules reports FAILED -> aggregated state is also FAILED)
   .blickfeld.base.data.Health.State state = 1;

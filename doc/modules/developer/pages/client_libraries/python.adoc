@@ -17,14 +17,59 @@ The python package to control the Qb2 device is called ```blickfeld_qb2``` and c
 
 [,console]
 ----
-$ pip3 install blickfeld_qb2
+$ pip3 install -U blickfeld_qb2
 ----
 
-== Connecting to Qb2 
-To interact with a Qb2 device, a gRPC connection must be established. For this purpose, the gRPC ```Channel``` from the ```blickfeld_qb2``` library is used.
-Either the IP address or the hostname of the Qb2 device can be used to establish a connection. The connection is encrypted and authenticated by default. 
+After the installation the `blickfeld_qb2` library can be imported in Python.
 
-.Simple example which imports the blickfeld_qb2 python library and creates a communication channel to Qb2
+.Python importing the blickfeld_qb2 library
+[source,python]
+----
+import blickfeld_qb2
+----
+
+== Connecting to Qb2
+To interact with a Qb2 device, a gRPC connection must be established. Either the IP address or the hostname of the Qb2 device can be used to establish this connection.
+
+The implementation uses the gRPC-```Channel``` in combination with the ```TokenFactory``` from the ```blickfeld_qb2``` library.
+
+The resulting connection is encrypted by default. The ```TokenFactory``` additionally authenticates a configured xref:working_principles:authentication.adoc#_account[account] on the Qb2.
+
+.Simple example which encrypted & authenticated communication channel to Qb2
+[source,python]
+----
+import blickfeld_qb2
+
+# Create token factory using an application key
+token_factory = blickfeld_qb2.TokenFactory(
+    application_key_secret="application-key-for-qb2-xxxxxxxxx"
+)
+
+# Open a secure & authenticated connection to Qb2
+with blickfeld_qb2.Channel(
+        fqdn_or_ip="qb2-xxxxxxxxx",
+        token=token_factory
+    ) as channel:
+    # Call methods of services here
+    # ..
+    pass
+----
+
+[NOTE]
+====
+A matching application key for the xref:working_principles:authentication.adoc#_account[account] which should be authenticated has to be created before. If unsure please read the documentation about xref:working_principles:authentication.adoc#_application_key[application keys] in order to understand how to do this first.
+
+If the application key is invalid, the first API call on the channel will result in a https://grpc.github.io/grpc/core/md_doc_statuscodes.html[gRPC-error with code 5 / `NOT_FOUND`].
+
+In the example, replace `application-key-for-qb2-xxxxxxxxx` with the generated application key.
+====
+
+NOTE: The ```serial_number``` can be passed additionally to authenticate a particular device. If not supplied, the authentication only checks if it is a Blickfeld device.
+
+=== Unauthenticated Connection
+If user-management is not enabled on Qb2, an unauthenticated connection can be established. The resulting connection will still be encrypted. Here only the gRPC ```Channel``` from the ```blickfeld_qb2``` library is used.
+
+.Simple example which creates a encrypted communication channel to Qb2
 [source,python]
 ----
 import blickfeld_qb2
@@ -34,7 +79,10 @@ with blickfeld_qb2.Channel(fqdn_or_ip="qb2-xxxxxxxxx") as channel:
     # ..
 ----
 
-NOTE: The ```serial_number``` can be passed additionally to authenticate a particular device. If not supplied, the authentication only checks if it is a Blickfeld device.
+[CAUTION]
+====
+Establishing unauthenticated connections is deprecated and will be disabled for upcoming Qb2 firmware https://github.com/Blickfeld/blickfeld-qb2/releases[releases].
+====
 
 == Simple API Requests
 
@@ -45,8 +93,16 @@ In this case, the ```Firmware``` service from ```blickfeld_qb2.system.services``
 ----
 import blickfeld_qb2
 
-# Open a secure connection to Qb2
-with blickfeld_qb2.Channel(fqdn_or_ip="qb2-xxxxxxxxx") as channel:
+# Create token factory using an application key
+token_factory = blickfeld_qb2.TokenFactory(
+    application_key_secret="application-key-for-qb2-xxxxxxxxx"
+)
+
+# Open a secure & authenticated connection to Qb2
+with blickfeld_qb2.Channel(
+        fqdn_or_ip="qb2-xxxxxxxxx",
+        token=token_factory
+    ) as channel:
     # Request the firmware status 
     response = blickfeld_qb2.system.services.Firmware(channel).get_status()
     # Extract the firmware version 
@@ -63,7 +119,7 @@ The print output should resemble the example shown below:
 
 [source,bash]
 ----
-FirmwareInfo(label='JAKOB v1.5.0', version=Version(major=1, minor=5, revision='e87dfda0', is_release=True), allowed_downgrade_version=Version(minor=26))
+FirmwareInfo(label='AEGIS v2.0.5', version=Version(major=2, patch=5, revision='3d7b970b', is_release=True), allowed_downgrade_version=Version(major=1, minor=12, patch=6))
 ----
 
 == Asynchronous Requests
@@ -76,8 +132,16 @@ import asyncio
 import blickfeld_qb2
 
 async def main():
-    # Open a secure asynchronous connection to Qb2
-    async with blickfeld_qb2.Channel(fqdn_or_ip="qb2-xxxxxxxxx") as channel:
+    # Create token factory using an application key
+    token_factory = blickfeld_qb2.TokenFactory(
+        application_key_secret="application-key-for-qb2-xxxxxxxxx"
+    )
+
+    # Open a secure, authenticated & asynchronous connection to Qb2
+    with blickfeld_qb2.Channel(
+            fqdn_or_ip="qb2-xxxxxxxxx",
+            token=token_factory
+        ) as channel:
         # Request the firmware status asynchronously and await for the response 
         response = await blickfeld_qb2.system.services.Firmware(channel).async_get_status()
         # Get the firmware version from the response 

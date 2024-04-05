@@ -1,0 +1,32 @@
+// Copyright (c) 2024 Blickfeld GmbH.
+// All rights reserved.
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+package blickfeld.percept_pipeline.config;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_AUTHORIZED
+};
+
+// Algorithms for detecting objects as clustered points in the foreground scene.
+message Clustering {
+  // Density-based spatial clustering algorithm using the euclidean distance between points
+  message DBScan {
+    // Minimum amount of points required to define an object-cluster
+    // Reasonable default: 10
+    uint32 min_points = 1;
+    // Controls how far away points belonging to the same object-cluster can be.
+    // Reasonable default: 0.2
+    float radius = 2 [(.blickfeld.base.unit) = "m"];
+    // Multiply the given radius with the range of a point and add it to the radius.
+    // This significantly improves the clustering for close-range scenes.
+    // Reasonable default: 0.025
+    float distance_dependent_radius = 3 [(.blickfeld.base.unit) = "m"];
+  }
+  oneof clustering_type {
+    // Use db-scan for clustering the foreground
+    .blickfeld.percept_pipeline.config.Clustering.DBScan db_scan = 1;
+  }
+}
+

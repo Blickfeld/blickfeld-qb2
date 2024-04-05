@@ -12,8 +12,8 @@ option (.blickfeld.base.access_control_file) = {
 message AuthenticationLoginRequest {
   // User credentials
   message User {
-    // the username
-    string name = 1;
+    // the username (can be left out in case of default factory state)
+    string name = 1 [(.blickfeld.base.optional) = true];
     // the password of the user in plain text
     string password = 2;
   }
@@ -47,10 +47,17 @@ service Authentication {
   option (.blickfeld.base.access_control_service) = {
     level: LEVEL_PUBLIC
   };
+  option (.blickfeld.base.protocol_maturity_service) = {
+    level: LEVEL_MAINTAINED
+  };
   // User-Accounts managed by Qb2 have to use the Login method with an existing account
   // in order to receive a JWT Token for access to priviliged parts of the device API.
   // The factory user has the username "admin".
   // The password is printed on the device label.
-  rpc Login(.blickfeld.secure.services.AuthenticationLoginRequest) returns (.blickfeld.secure.services.AuthenticationLoginResponse);
+  rpc Login(.blickfeld.secure.services.AuthenticationLoginRequest) returns (.blickfeld.secure.services.AuthenticationLoginResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
 }
 

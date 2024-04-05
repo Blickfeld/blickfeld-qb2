@@ -1,6 +1,9 @@
 * xref:protocol:index.adoc[]
 ** blickfeld
 *** base
+**** config
+***** xref:protocol:blickfeld/base/config/geolocation.adoc[Geolocation]
+***** xref:protocol:blickfeld/base/config/range.adoc[Range]
 **** data
 ***** xref:protocol:blickfeld/base/data/health.adoc[Health]
 ***** xref:protocol:blickfeld/base/data/version.adoc[Version]
@@ -57,6 +60,9 @@
 ***** xref:protocol:blickfeld/diagnostics/services/log.adoc[Log]
 ***** xref:protocol:blickfeld/diagnostics/services/report.adoc[Report]
 ***** xref:protocol:blickfeld/diagnostics/services/self_test.adoc[Self Test]
+*** eye_safety
+**** data
+***** xref:protocol:blickfeld/eye_safety/data/pulse_mode.adoc[Pulse Mode]
 *** flow
 **** config
 ***** xref:protocol:blickfeld/flow/config/flow.adoc[Flow]
@@ -81,7 +87,9 @@
 *** percept_pipeline
 **** config
 ***** xref:protocol:blickfeld/percept_pipeline/config/background_subtraction.adoc[Background Subtraction]
+***** xref:protocol:blickfeld/percept_pipeline/config/clustering.adoc[Clustering]
 ***** xref:protocol:blickfeld/percept_pipeline/config/data_source.adoc[Data Source]
+***** xref:protocol:blickfeld/percept_pipeline/config/object_size.adoc[Object Size]
 ***** xref:protocol:blickfeld/percept_pipeline/config/perception.adoc[Perception]
 ***** xref:protocol:blickfeld/percept_pipeline/config/point_cloud_filter.adoc[Point Cloud Filter]
 ***** xref:protocol:blickfeld/percept_pipeline/config/zone_algorithm.adoc[Zone Algorithm]
@@ -98,12 +106,15 @@
 *** percept_processing
 **** data
 ***** xref:protocol:blickfeld/percept_processing/data/data_type.adoc[Data Type]
+***** xref:protocol:blickfeld/percept_processing/data/detected_object.adoc[Detected Object]
 ***** xref:protocol:blickfeld/percept_processing/data/health.adoc[Health]
+***** xref:protocol:blickfeld/percept_processing/data/objects.adoc[Objects]
 ***** xref:protocol:blickfeld/percept_processing/data/state.adoc[State]
 ***** xref:protocol:blickfeld/percept_processing/data/states.adoc[States]
 ***** xref:protocol:blickfeld/percept_processing/data/volume_map.adoc[Volume Map]
 **** services
 ***** xref:protocol:blickfeld/percept_processing/services/health.adoc[Health]
+***** xref:protocol:blickfeld/percept_processing/services/objects.adoc[Objects]
 ***** xref:protocol:blickfeld/percept_processing/services/pipeline.adoc[Pipeline]
 ***** xref:protocol:blickfeld/percept_processing/services/point_cloud.adoc[Point Cloud]
 ***** xref:protocol:blickfeld/percept_processing/services/states.adoc[States]
@@ -133,13 +144,18 @@
 ***** xref:protocol:blickfeld/secure/config/application_key.adoc[Application Key]
 ***** xref:protocol:blickfeld/secure/config/certificate.adoc[Certificate]
 ***** xref:protocol:blickfeld/secure/config/device_credentials.adoc[Device Credentials]
+***** xref:protocol:blickfeld/secure/config/firewall.adoc[Firewall]
 ***** xref:protocol:blickfeld/secure/config/private_key.adoc[Private Key]
 ***** xref:protocol:blickfeld/secure/config/public_key.adoc[Public Key]
+**** data
+***** xref:protocol:blickfeld/secure/data/health.adoc[Health]
 **** services
 ***** xref:protocol:blickfeld/secure/services/account.adoc[Account]
 ***** xref:protocol:blickfeld/secure/services/application_key.adoc[Application Key]
 ***** xref:protocol:blickfeld/secure/services/authentication.adoc[Authentication]
 ***** xref:protocol:blickfeld/secure/services/device_credentials.adoc[Device Credentials]
+***** xref:protocol:blickfeld/secure/services/firewall.adoc[Firewall]
+***** xref:protocol:blickfeld/secure/services/health.adoc[Health]
 ***** xref:protocol:blickfeld/secure/services/session.adoc[Session]
 *** system
 **** config
@@ -151,6 +167,7 @@
 ***** xref:protocol:blickfeld/system/data/firmware.adoc[Firmware]
 ***** xref:protocol:blickfeld/system/data/health.adoc[Health]
 ***** xref:protocol:blickfeld/system/data/network_status.adoc[Network Status]
+***** xref:protocol:blickfeld/system/data/scan_pattern.adoc[Scan Pattern]
 **** services
 ***** xref:protocol:blickfeld/system/services/firmware.adoc[Firmware]
 ***** xref:protocol:blickfeld/system/services/health.adoc[Health]

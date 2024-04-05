@@ -11,6 +11,7 @@ The data source configuration specifies where to retrieve the point cloud data f
 
 | *xref:#Get[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/percept_pipeline/services/data_source.adoc#_blickfeld_percept_pipeline_services_DataSourceGetResponse[DataSourceGetResponse]
 | *xref:#Set[]* | xref:blickfeld/percept_pipeline/services/data_source.adoc#_blickfeld_percept_pipeline_services_DataSourceSetRequest[DataSourceSetRequest]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
+| *xref:#Reset[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
 | *xref:#Watch[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/percept_pipeline/services/data_source.adoc#_blickfeld_percept_pipeline_services_DataSourceWatchResponse[DataSourceWatchResponse]Stream 
 |===
 [#Get]
@@ -50,6 +51,11 @@ Request for setting the data source
 3+| The data source to be set
 
 |===
+
+[#Reset]
+== Reset
+
+Resets the data_source configuration to factory values
 
 [#Watch]
 == Watch

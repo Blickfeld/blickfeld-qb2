@@ -3,6 +3,7 @@
 syntax = "proto3";
 
 import "blickfeld/base/options.proto";
+import "blickfeld/base/geometry/shape.proto";
 import "blickfeld/core_processing/data/frame.proto";
 import "blickfeld/percept_pipeline/data/coordinate_system.proto";
 import "blickfeld/percept_pipeline/data/point_cloud_type.proto";
@@ -32,6 +33,8 @@ message PointCloudStreamRequest {
     // fqdn of the data source to get the point cloud from
     string fqdn = 3;
   }
+  // If set, point cloud is cropped to given shape
+  .blickfeld.base.geometry.Shape crop = 5 [(.blickfeld.base.optional) = true];
   reserved 4;
 }
 

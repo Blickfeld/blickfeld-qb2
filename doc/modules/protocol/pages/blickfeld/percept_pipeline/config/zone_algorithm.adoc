@@ -16,6 +16,9 @@ An algorithm that monitors the area within and around a zone.
 .2+| *shape* | xref:blickfeld/base/geometry/shape.adoc[base.geometry.Shape] | - | - 
 3+| Geometric shape (usually a Box) in which the algorithm detects certain behaviors/scenarios
 
+.2+| *metadata* | optional https://protobuf.dev/reference/protobuf/google.protobuf/#struct[google.protobuf.Struct] | - | - 
+3+| Arbitrary metadata storage for client applications
+
 .2+| *volume* | xref:blickfeld/percept_pipeline/config/zone_algorithm.adoc#_blickfeld_percept_pipeline_config_ZoneAlgorithm_Volume[Volume] | - | - 
 3+| Run volume monitoring within the zone
 
@@ -24,6 +27,9 @@ An algorithm that monitors the area within and around a zone.
 
 .2+| *exclusion* | xref:blickfeld/percept_pipeline/config/zone_algorithm.adoc#_blickfeld_percept_pipeline_config_ZoneAlgorithm_Exclusion[Exclusion] | - | - 
 3+| Run exclusion zone
+
+.2+| *object_based_security* | xref:blickfeld/percept_pipeline/config/zone_algorithm.adoc#_blickfeld_percept_pipeline_config_ZoneAlgorithm_ObjectBasedSecurity[ObjectBasedSecurity] | - | - 
+3+| Run object-based alarm detection within the zone
 
 |===
 
@@ -68,6 +74,21 @@ Reasonable default: 10
 3+| Maximum number of (foreground) points in the security zone that still triggers an alarm. 
 More points will disable the alarm. This logic can be disabled by setting max_points to '0'. 
 Default: 0
+
+|===
+
+[#_blickfeld_percept_pipeline_config_ZoneAlgorithm_ObjectBasedSecurity]
+== Object Based Security
+
+Algorithm that triggers an alarm when an object of one of the selected sizes is in the zone
+
+.Available fields in blickfeld.percept_pipeline.config.ZoneAlgorithm.ObjectBasedSecurity
+|===
+| Field | Type | Default | Unit
+
+.2+| *alarm_sizes* | repeated xref:blickfeld/percept_pipeline/config/object_size.adoc[ObjectSize] | - | - 
+3+| Selection of sizes which trigger an alarm. Each size in the array will only 
+trigger an alarm for the interval of that size.
 
 |===
 

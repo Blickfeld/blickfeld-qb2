@@ -18,6 +18,40 @@ States will get calculated on every frame of measurement.
 .2+| *volume* | xref:blickfeld/percept_processing/data/state.adoc#_blickfeld_percept_processing_data_State_Volume[Volume] | - | - 
 3+| Current volume measured in the selected zone
 
+.2+| *object_based_security* | xref:blickfeld/percept_processing/data/state.adoc#_blickfeld_percept_processing_data_State_ObjectBasedSecurity[ObjectBasedSecurity] | - | - 
+3+| The object based security state contains intrusion information of a zone and the objects that trigger the intrusion
+
+|===
+
+[#_blickfeld_percept_processing_data_State_ObjectBasedSecurity]
+== Object Based Security
+
+A message containing an alarm state of a zone.
+
+.Available fields in blickfeld.percept_processing.data.State.ObjectBasedSecurity
+|===
+| Field | Type | Default | Unit
+
+.2+| *alarm* | bool| - | - 
+3+| If there is an alarm or not in the zone.
+
+.2+| *objects* | repeated xref:blickfeld/percept_processing/data/state.adoc#_blickfeld_percept_processing_data_State_ObjectBasedSecurity_ObjectsEntry[ObjectsEntry] | - | - 
+3+| Map of objects where the key is the UUID of the object that triggered the alarm. 
+These objects have sparse information and will not contain the point cloud of the object.
+
+|===
+
+[#_blickfeld_percept_processing_data_State_ObjectBasedSecurity_ObjectsEntry]
+=== Objects Entry
+
+
+
+.Available fields in blickfeld.percept_processing.data.State.ObjectBasedSecurity.ObjectsEntry
+|===
+| Field | Type | Default | Unit
+
+| *key* | string| - | - 
+| *value* | xref:blickfeld/percept_processing/data/detected_object.adoc[DetectedObject] | - | - 
 |===
 
 [#_blickfeld_percept_processing_data_State_Security]

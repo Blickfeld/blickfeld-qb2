@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+package blickfeld.secure.config;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_ADMIN
+};
+
+// Configuration options for the firewall
+message Firewall {
+  // Disable all insecure, unencrypted & unauthenticated, network interface ports.
+  // [NOTE]
+  // This might break compatibility with client applications e.g. a normal  HTTP call
+  // to http://qb2-xxxxx will fail.
+  bool disable_insecure_network_ports = 1 [(.blickfeld.base.optional) = true];
+}
+

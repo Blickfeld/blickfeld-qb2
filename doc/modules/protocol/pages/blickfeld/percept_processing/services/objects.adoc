@@ -1,0 +1,36 @@
+= Service: Objects
+
+NOTE: This API is officially released and maintained.
+
+An RPC service to request a stream of objects messages. If a pipeline is 
+already running, it will be used to stream the data. If no pipeline is 
+running, it will be started first and then the stream will start. NOTE: in 
+this second case, the pipeline will also be automatically stopped once 
+there are no more clients requesting any stream type from the module.
+
+.Available methods
+|===
+| Method | Request | Response
+
+| *xref:#Stream[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/percept_processing/services/objects.adoc#_blickfeld_percept_processing_services_ObjectsStreamResponse[ObjectsStreamResponse]Stream 
+|===
+[#Stream]
+== Stream
+
+A method to get a stream of objects messages from the pipeline
+
+[#_blickfeld_percept_processing_services_ObjectsStreamResponse]
+=== Response Stream
+
+A response for getting a stream of objects messages from the running 
+pipeline
+
+.Available fields in blickfeld.percept_processing.services.ObjectsStreamResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *objects* | xref:blickfeld/percept_processing/data/objects.adoc[data.Objects] | - | - 
+3+| The current objects detected in the scene.
+
+|===
+

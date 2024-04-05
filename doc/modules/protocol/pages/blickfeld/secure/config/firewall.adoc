@@ -1,0 +1,18 @@
+[#_blickfeld_secure_config_Firewall]
+= Firewall
+
+Configuration options for the firewall
+
+.Available fields in blickfeld.secure.config.Firewall
+|===
+| Field | Type | Default | Unit
+
+.2+| *disable_insecure_network_ports* | optional bool| - | - 
+3+| Disable all insecure, unencrypted & unauthenticated, network interface ports. 
+ 
+[NOTE] 
+This might break compatibility with client applications e.g. a normal  HTTP call 
+to http://qb2-xxxxx will fail.
+
+|===
+

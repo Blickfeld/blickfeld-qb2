@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+package blickfeld.base.config;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// This section defines ranges for numerical types.
+// They can be used to define minimum and maximum values.
+message Range {
+  // An unsigned integer range
+  message Uint32 {
+    // An unsigned integer minimum value
+    uint32 minimum = 1;
+    // An unsigned integer maximum value
+    uint32 maximum = 2;
+  }
+  // A signed integer range
+  message Int32 {
+    // A signed integer minimum value
+    int32 minimum = 1;
+    // A signed integer maximum value
+    int32 maximum = 2;
+  }
+  // A single precision float range
+  message Float {
+    // A single precision float minimum
+    float minimum = 1;
+    // A single precision float maximum
+    float maximum = 2;
+  }
+  // A double precision float range
+  message Double {
+    // A double precision float minimum
+    double minimum = 1;
+    // A double precision float maximum
+    double maximum = 2;
+  }
+}
+

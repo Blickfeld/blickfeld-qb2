@@ -47,6 +47,9 @@ transformed/map)
 .2+| *fqdn* | string| - | - 
 3+| fqdn of the data source to get the point cloud from
 
+.2+| *crop* | optional xref:blickfeld/base/geometry/shape.adoc[base.geometry.Shape] | - | - 
+3+| If set, point cloud is cropped to given shape
+
 |===
 
 [#_blickfeld_percept_processing_services_PointCloudStreamResponse]

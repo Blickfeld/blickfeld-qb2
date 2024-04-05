@@ -1,0 +1,16 @@
+[#_blickfeld_percept_pipeline_config_ObjectSize]
+= Object Size
+
+The size of an object
+
+.Available values for blickfeld.percept_pipeline.config.ObjectSize enum
+[cols='25h,5,~']
+|===
+| Name | Value | Description
+
+| OBJECT_SIZE_UNSPECIFIED ^| 0 | The zero value should not be used
+| OBJECT_SIZE_SMALL ^| 1 | Small object size: small animals, birds, etc
+| OBJECT_SIZE_MEDIUM ^| 2 | Medium object size: free standing human, single human, etc
+| OBJECT_SIZE_LARGE ^| 3 | Large object size: cars, group of people, large animals, etc
+|===
+

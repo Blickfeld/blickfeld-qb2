@@ -23,5 +23,7 @@ enum PointCloudType {
   POINT_CLOUD_TYPE_FILTERED = 4;
   // Same as 'POINT_CLOUD_TYPE_FOREGROUND' but with all points excluded that are in exclusion zones
   POINT_CLOUD_TYPE_FILTERED_FOREGROUND = 5;
+  // Point cloud containing the points representing the background model/point cloud
+  POINT_CLOUD_TYPE_BACKGROUND = 6;
 }
 

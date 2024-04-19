@@ -28,17 +28,23 @@ message BackgroundSubtraction {
   // scene to only contain the static parts of the scene on the start of the processing. The background model is not
   // updated automatically afterwards. The ResetBackground grpc method allows to update the static map of the
   // environment.
-  message Octree {
+  message Static {
     // How many frames of the first received frames are used to build the background
     // Reasonable default: 10
     uint32 num_initialization_frames = 1;
+    // Size of voxels used for voxelization of the background during initialization.
+    // Default: 0.05 m
+    float voxel_size = 3 [(.blickfeld.base.unit) = "m"];
+    // Minimum spatial distance to background to detect points as foreground
+    // Default: 0.15 m
+    float min_distance = 4 [(.blickfeld.base.unit) = "m"];
     reserved 2;
   }
   oneof background_subtraction_type {
     // Use mixture of gaussians for foreground/background detection
     .blickfeld.percept_pipeline.config.BackgroundSubtraction.MixtureOfGaussians mixture_of_gaussians = 1;
-    // Use a static octree for foreground/background detection.
-    .blickfeld.percept_pipeline.config.BackgroundSubtraction.Octree octree = 3;
+    // Use a static tree structure for foreground/background detection.
+    .blickfeld.percept_pipeline.config.BackgroundSubtraction.Static static = 3;
   }
   reserved 2;
 }

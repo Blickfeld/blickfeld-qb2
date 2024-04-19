@@ -10,8 +10,8 @@ Algorithms seperating the input point cloud into foreground and background.
 .2+| *mixture_of_gaussians* | xref:blickfeld/percept_pipeline/config/background_subtraction.adoc#_blickfeld_percept_pipeline_config_BackgroundSubtraction_MixtureOfGaussians[MixtureOfGaussians] | - | - 
 3+| Use mixture of gaussians for foreground/background detection
 
-.2+| *octree* | xref:blickfeld/percept_pipeline/config/background_subtraction.adoc#_blickfeld_percept_pipeline_config_BackgroundSubtraction_Octree[Octree] | - | - 
-3+| Use a static octree for foreground/background detection.
+.2+| *static* | xref:blickfeld/percept_pipeline/config/background_subtraction.adoc#_blickfeld_percept_pipeline_config_BackgroundSubtraction_Static[Static] | - | - 
+3+| Use a static tree structure for foreground/background detection.
 
 |===
 
@@ -39,21 +39,31 @@ Reasonable default: 0.25
 
 |===
 
-[#_blickfeld_percept_pipeline_config_BackgroundSubtraction_Octree]
-== Octree
+[#_blickfeld_percept_pipeline_config_BackgroundSubtraction_Static]
+== Static
 
 Uses the first received frames to build a static background map of the environment. The algorithm requires the 
 scene to only contain the static parts of the scene on the start of the processing. The background model is not 
 updated automatically afterwards. The ResetBackground grpc method allows to update the static map of the 
 environment.
 
-.Available fields in blickfeld.percept_pipeline.config.BackgroundSubtraction.Octree
+.Available fields in blickfeld.percept_pipeline.config.BackgroundSubtraction.Static
 |===
 | Field | Type | Default | Unit
 
 .2+| *num_initialization_frames* | uint32| - | - 
 3+| How many frames of the first received frames are used to build the background 
 Reasonable default: 10
+
+.2+| *voxel_size* | float| - | m 
+3+| Size of voxels used for voxelization of the background during initialization. 
+ 
+Default: 0.05 m
+
+.2+| *min_distance* | float| - | m 
+3+| Minimum spatial distance to background to detect points as foreground 
+ 
+Default: 0.15 m
 
 |===
 

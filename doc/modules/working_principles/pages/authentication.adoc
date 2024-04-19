@@ -77,7 +77,7 @@ If the password for an account is lost and the account can not be recovered (e.g
 
 Application keys are the credentials required for accessing the Qb2 API programmatically.
 
-Application keys can be generated on the <<_account,account page>>. They can have a single optional attribute describing the purpose of the application key. Once created, the secret can be used for xref:developer:client_libraries/index.adoc[direct API access]. 
+Application keys can be generated on the <<_account,account page>>. An application key can have a optional attribute describing its purpose. Each application key grants access for a certain access level. The access level set to `AUTHORIZED` by default. Once created, the generated secret can be used for xref:developer:client_libraries/index.adoc[direct API access].
 
 Refer to https://github.com/Blickfeld/blickfeld-qb2/blob/main/cpp/examples/authentication/main.cpp[the authentication example] to learn how to use an application key in your application
 
@@ -86,11 +86,26 @@ image::authentication_create_appkey.png[]
 
 When an application key is deleted, clients can no longer authenticate using the key.
 
+[NOTE]
+====
+
+Admin accounts can create application keys with `ADMIN` access level. To do this, select the corresponding access level during application key generation:
+
+.Creating ADMIN application key
+image::authentication_create_admin_application_key.png[]
+
+The result will be an application key with `ADMIN` privileges:
+
+.Resulting ADMIN application key
+image::authentication_admin_application_key.png[]
+
+====
+
 === Access level
 
 NOTE: The access level can only be modified in the <<_user_management,user management>> section.
 
-Access to the functionality of Qb2 is divided into three access levels:
+Each account contains an access level (`AUTHORIZED` or `ADMIN`). The functionality of Qb2 is divided into three access levels:
 
 PUBLIC::
 Clients with this access level are allowed to read basic device information (firmware version, serial number) and are able to <<_login,login>>.
@@ -137,7 +152,7 @@ User Management is accessible for clients with access level `ADMIN`. Clients aut
 
 [NOTE]
 ====
-Currently not all features are available on the web interface. Refer to xref:developer:client_libraries/index.adoc[API access guide] and the xref:developer:protocol/index.adoc[API documentation] to learn how to access Qb2 user management programmatically for all features.
+Currently not all features are available on the web interface. Refer to xref:developer:client_libraries/index.adoc[API access guide] and the xref:protocol:index.adoc[API documentation] to learn how to access Qb2 user management programmatically for all features.
 ====
 
 === Create

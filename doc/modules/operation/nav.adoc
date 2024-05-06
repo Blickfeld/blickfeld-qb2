@@ -1,4 +1,7 @@
 * Operation
+** xref:operation:onvif/index.adoc[]
+*** xref:operation:onvif/milestone.adoc[]
+*** xref:operation:onvif/senstar.adoc[]
 ** xref:operation:authentication.adoc[]
 ** xref:operation:firmware_networking.adoc[]
 ** xref:operation:point_cloud_visualization.adoc[]

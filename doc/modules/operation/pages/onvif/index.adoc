@@ -1,0 +1,59 @@
+= ONVIF
+
+== QbProtect & ONVIF
+The https://www.onvif.org/profiles-add-ons-specifications/[ONVIF] standard and corresponding protocol allow seamless integration of compatible IP-based security cameras into existing security enviroments managed by Video Management Systems (https://en.wikipedia.org/wiki/Video_management_system[VMS]). The QbProtect brings the ONVIF protocol support to Qb2 device, and allows to easily use Qb2 as an advanced drop-in replacement of the security camera in already established security environments without extra non-standard configuration overheads.
+
+[NOTE]
+====
+QbProtect is not yet fully compliant with dedicated ONVIF https://www.onvif.org/profiles/[profiles]
+==== 
+
+Even though QbProtect is not yet fully compliant with a particular ONVIF profile, it brings crucial ONVIF functionality inherent in all security applications: 
+
+* Visual observation of the scene using https://en.wikipedia.org/wiki/Real-Time_Streaming_Protocol[RTSP] video stream of a 2-D projected point cloud
+* ONVIF events for alarms generation: 
+** Motion events in the observed security scene
+** Intrusion events in pre-configured security zones (aggregated or dedicated)
+
+[NOTE]
+====
+Configuration of the particular alarm rule chain is VMS specific and has to be configured by the user / integrator. Please refer to the VMS subsection below for examples! 
+==== 
+
+== Video Management Systems (VMS)
+
+Due to the interoperability of the ONVIF protocol, QbProtect is not restricted to a particular VMS manufacturer and may work with any VMS supporting ONVIF, however it is actively tested against confined number of VMS systems. 
+
+[NOTE]
+====
+QbProtect is actively tested against the following VMS systems: 
+
+* xref:onvif/senstar.adoc[Senstar Symphony] by https://senstar.com/products/video-management/senstar-symphony-common-operating-platform/[Senstar Corporation] 
+* xref:onvif/senstar.adoc[Milestone XProtect] by  https://www.milestonesys.com/products/software/xprotect/[Milestone Systems] 
+====
+
+Configuration and usage examples of QbProtect with a particular VMS system can be found in the corresponding subsections.
+
+== Video Stream (RTSP) 
+
+In addition to VMS systems support, QbProtect allows direct video stream consumption of a point cloud using the RTSP stream source link of the following format `rtsp://qb2-ABC123XYZ.muc.blickfeld.com:554/local/pointcloud/core`. The demonstation of direct video stream consumption using VLC player is shown in the Figure below.
+
+.Video stream of QbProtect point cloud using RTSP stream source link
+image::onvif/rtsp_vlc.png[800,800]
+
+== User Authentication (ONVIF/RTSP)
+
+Both ONVIF and RTSP are relying on the QbProtect user management system. In order to obtain the RTSP video stream from QbProtect through adding it to the desired VMS via ONVIF the user has to provide, when prompted, a valid credentials pair (username name and xref:working_principles:authentication.adoc#_application_key[application key]) configured for and associated with a corresponding user account. 
+
+[NOTE]
+====
+* QbProtect user management has to be used to xref:working_principles:authentication.adoc#_application_key[create credentials pair for ONVIF/RTSP]
+* Access to ONVIF functionality and RTSP streaming is blocked for unauthorized users or for Qb2 with disabled user management
+====
+
+Please find out xref:working_principles:authentication.adoc#_application_key[here] how to generate a credentials pair to use with ONVIF/RTSP. Both ONVIF and RTSP share the same credentials pair associated with a particular Qb2 user account. 
+
+[NOTE]
+====
+* User management via ONVIF is not yet supported
+====

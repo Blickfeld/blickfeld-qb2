@@ -1,0 +1,86 @@
+= Senstar
+
+This section provides information on how to integrate QbProtect with Senstar Symphony. 
+
+== Add Device
+
+The WebGUI of Senstar Symphony Server is used in order to add QbProtect into Senstar Symphony VMS as shown in the Figure below. 
+
+.Adding QbProtect into Senstar Symphony
+image::onvif/senstar/add/add.png[800,800]
+
+The procedure includes the following steps: 
+
+. Navigate to `Devices` -> `Cameras` -> `Add Camera Manually`. 
+. Enter the FQDN or IP of QbProtect in the address field
+. Select the `ONVIF_Legacy` driver in the driver section
+. Provide xref:working_principles:authentication.adoc#_application_key[ONVIF credentials] in user name and password fields correspondingly
+. Click `Connect`
+. If the connection was succesfull the QbProtect device should be detected with `OK` status
+. Click `Next` -> give name to the device -> click `Add 1 Selected Camera` -> Wait till device is added
+
+.QbProtect successfully added to Senstar Symphony
+image::onvif/senstar/add/add_result.png[800,800]
+
+[NOTE]
+====
+The ONVIF autodiscovery feature is not yet supported by QbProtect
+====
+
+The `General` device view should depict the general information about the device, current video stream settings and the video stream preview as shown in the Figure below.
+
+.QbProtect general view and video stream preview in Senstar Symphony
+image::onvif/senstar/add/general.png[800,800]
+
+[NOTE]
+====
+The video stream settings are currently static and their change won't make any influence on the video stream
+====
+
+From now on the live video stream of the point cloud can be accessed and observed in Symphony Client or its web version. 
+
+== Configure Alarms
+
+In addition to the video stream of the security scene, QbProtect also utilizes ONVIF events which can be used by the security applications to fulfill a desired action (e.g. motion/intrusion alarms). The example below shows how QbProtect events can be used in Senstar Symphony. 
+
+=== Events 
+
+When QbProtect is added into the Senstar Server, it exposes events it is capable of to the VMS. Available events can be found in the corresponding `Events` view of Senstar Server as shown in the Figure below. 
+
+.Motion and intrusion events exposed by QbProtect to Senstar Symphony and the corresponding viewer of the WebGUI
+image::onvif/senstar/events/events.png[800,800]
+
+In this example two security zones `zone1` and `zone2` have been configured using QbProtect WebGUI. Therefore, in addition to the aggregated intrusion and motion events, two intrusion events for the corresponding intrusion zones can be found in the exposed event list.
+
+[NOTE]
+====
+Events for intrusion zones are not exposed dynamically. The QbProtect has to be re-added into Senstar Symphony in oder to observe events for new security zones configured via QbProtect WebGUI! 
+====
+
+=== Rule Chain
+
+The chain consists of event, action and schedule. It allows to map a dedicated action (e.g. manual alarm action, .etc) to the event of the particular type (e.g. intrusion in security zone). This mapping operates according to the pre-configured time schedule (e.g. on the daily basis). The named rule chain configuration procedure consists of the following steps: 
+
+. Activate events from the list of the exposed events in order to make use of them in rule chains. In this scenario, as shown in the Figure above, we have activated three event types: aggregated intrusion, intrusion in `zone 1` and `zone 2`.  
+
+. Select active event as rule chain event source. Activation example for aggregated intrusion event is shown in the Figure below. 
++
+.Select active QbProtect event as a source for Senstar Symphony rule chain
+image::onvif/senstar/events/source.png[800,800]
+
+. Configure an action which will be executed by the rule chain whenever the event is coming from the configured event source. In this scenario it will be a manual alarm action, as shown in the Figure below.
++
+.Manual alarm action configuration
+image::onvif/senstar/events/alarm.png[800,800]
+
+. Select the desired time schedule
+
+Three rule chains (for aggregated intrusion, intrusion in `zone 1` and `zone 2`) have been configured and enabled in this example as shown in the Figure below. 
+
+.Intrusion rule chains configured in Senstar Symphony
+image::onvif/senstar/events/rules.png[800,800]
+
+From now on, the aggregated intrusion alarm is raised when intrusion happens in either of the configured security zones in addition to the alarms raised per zone basis. The demonstration of `zone 2` intrusion alarm raised inside Senstar Symphony client is shown in the Figure below.
+
+.The intrusion alarm raised in Senstar Symphony when intrusion is detected in the corresponding QbProtect security zone
+image::onvif/senstar/events/result.png[800,800]

@@ -1,0 +1,68 @@
+= Milestone
+
+This section provides information on how to integrate QbProtect with Milestone XProtect. 
+
+== Add Device
+
+The Milestone XProtect Management Client is used to add QbProtect into the VMS as shown in the Figure below.
+
+The procedure includes the following steps: 
+
+. Navigate `Servers` -> `Recording Servers`
+. Right click `Add Hardware` to the Recording Server
+. Select `Manual`
+. Provide xref:working_principles:authentication.adoc#_application_key[ONVIF credentials] -> `Include` -> `Add` -> `Next`
+. Select `ONVIF` driver (ONVIF conformant device)
+. Enter the FQDN or IP of QbProtect in the address field -> `Next` -> Wait till device is added
+
+.QbProtect successfully added to Milestone XProtect
+image::onvif/milestone/add/added.png[800,800]
+
+[NOTE]
+====
+The ONVIF autodiscovery feature is not yet supported by QbProtect
+====
+
+The `Properties` view should depict the general information about the device (`Info`) and current video stream settings (`Settings`). The video stream preview should be shown in the corresponding `Preview` window as shown in the Figure below.
+
+.QbProtect recording server view and video stream preview in Milestone XProtect
+image::onvif/milestone/add/general.png[800,800]
+
+== Configure Alarms
+
+In addition to the video stream of the security scene, QbProtect also utilizes ONVIF events which can be used by the security applications to fulfill a desired action (e.g. motion/intrusion alarms). The example below shows how QbProtect events can be used in Milestone XProtect. 
+
+=== Events 
+
+When QbProtect is added into the Milestone XProtect, it exposes events it is capable of to the VMS.
+
+[NOTE]
+====
+The Milestone XProtect https://doc.milestonesys.com/latest/en-US/onvifdriver/overview_of_dynamic_events.htm[dynamic events] are work in progress!
+Only pre-defined Milestone events are supported!
+====
+
+.Select Motion Started (HW) event from the list of exposed events
+image::onvif/milestone/events/events.png[800,800]
+
+=== Rule Chain
+
+The chain consists of event, event source and action. It allows to map a dedicated action (e.g. manual alarm action, adding entry log, .etc) to the event of the particular type (e.g. motion). The named rule chain configuration procedure is shown in the figure below consists of the following steps: 
+
+.The Motion rule configuration
+image::onvif/milestone/events/rule.png[800,800]
+
+. Using the `Events` view of a QbProtect at the recording server activate desired events from the list of the exposed events (default or dynamic) in order to make use of them in rule chains. In this scenario, as shown in the Figure above, we have selected the default `Motion Started (HW)` event. 
+
+. Select active event as an action source
+
+. Select QbProtect to be the event source
+
+. Select type of the action to execute (new log entry in this scenario)
+
+. Apply the configuration for the rule chain
+
+From now on motion event from QbProtect will be generating Milestone event log entries as shown in the Figure below.
+
+.The configured Motion rule creates corresponding event log entry
+image::onvif/milestone/events/log.png[800,800]

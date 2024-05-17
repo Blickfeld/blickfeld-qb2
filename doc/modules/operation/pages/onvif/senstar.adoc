@@ -2,6 +2,15 @@
 
 This section provides information on how to integrate QbProtect with Senstar Symphony. 
 
+[NOTE]
+====
+The following Senstar Symphony components have been used in the examples below:  
+
+* Senstar Symphony Analytics Pack - Version 8.6.2.9
+* Senstar Symphony Server - Version 8.6.2.9
+* Senstar Symphony Server Device Pack - Version 3.6.1.16
+====
+
 == Add Device
 
 The WebGUI of Senstar Symphony Server is used in order to add QbProtect into Senstar Symphony VMS as shown in the Figure below. 
@@ -39,13 +48,28 @@ The video stream settings are currently static and their change won't make any i
 
 From now on the live video stream of the point cloud can be accessed and observed in Symphony Client or its web version. 
 
-== Configure Alarms
+== Events
 
-In addition to the video stream of the security scene, QbProtect also utilizes ONVIF events which can be used by the security applications to fulfill a desired action (e.g. motion/intrusion alarms). The example below shows how QbProtect events can be used in Senstar Symphony. 
+In addition to the video stream of the security scene, QbProtect also utilizes ONVIF events which can be used by various applications to fulfill a desired action. When QbProtect is added into the Senstar Server, it exposes events it is capable of to the VMS. The list of supported events and their description is shown in the Table below.
 
-=== Events 
+.QbProtect events in Senstar Symphony
+[%header,cols="1,2"] 
+|===
+|Event Name |Event Description
 
-When QbProtect is added into the Senstar Server, it exposes events it is capable of to the VMS. Available events can be found in the corresponding `Events` view of Senstar Server as shown in the Figure below. 
+|Motion | Motion event in the observed security scene
+|Intrusion | Aggregated intrusion event in pre-configured security zones
+|ZoneIntrusion | Intrusion event in the dedicated intrusion zone
+|===
+
+=== Configure Alarms
+
+The example below shows how QbProtect events can be used in Senstar Symphony. Supported events can be found in the corresponding `Events` view of Senstar Server as shown in the Figure below. 
+
+[NOTE]
+====
+The examplified configuration procedure is unified by the VMS and, with minor adaptations, can be followed to make use of any event supported by QbProtect.
+====
 
 .Motion and intrusion events exposed by QbProtect to Senstar Symphony and the corresponding viewer of the WebGUI
 image::onvif/senstar/events/events.png[800,800]
@@ -65,6 +89,7 @@ The chain consists of event, action and schedule. It allows to map a dedicated a
 
 . Select active event as rule chain event source. Activation example for aggregated intrusion event is shown in the Figure below. 
 +
+
 .Select active QbProtect event as a source for Senstar Symphony rule chain
 image::onvif/senstar/events/source.png[800,800]
 

@@ -11,9 +11,7 @@ QbProtect is not yet fully compliant with dedicated ONVIF https://www.onvif.org/
 Even though QbProtect is not yet fully compliant with a particular ONVIF profile, it brings crucial ONVIF functionality inherent in all security applications: 
 
 * Visual observation of the scene using https://en.wikipedia.org/wiki/Real-Time_Streaming_Protocol[RTSP] video stream of a 2-D projected point cloud
-* ONVIF events for alarms generation: 
-** Motion events in the observed security scene
-** Intrusion events in pre-configured security zones (aggregated or dedicated)
+* ONVIF events for alarms generation (e.g. motion, intrusion)
 
 [NOTE]
 ====

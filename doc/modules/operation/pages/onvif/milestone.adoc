@@ -1,6 +1,16 @@
 = Milestone
+:icons: font
+:experimental: true
 
 This section provides information on how to integrate QbProtect with Milestone XProtect. 
+
+[NOTE]
+====
+The following Milestone components have been used in the examples below:  
+
+* Milestone XProtect VMS 2023 R3 - Version 23.3.1
+* Milestone XProtect VMS Device Pack - Version 13.1.130.2
+====
 
 == Add Device
 
@@ -15,7 +25,7 @@ The procedure includes the following steps:
 . Select `ONVIF` driver (ONVIF conformant device)
 . Enter the FQDN or IP of QbProtect in the address field -> `Next` -> Wait till device is added
 
-.QbProtect successfully added to Milestone XProtect
+.QbProtect successfully added to Milestone XProtect Recording Server
 image::onvif/milestone/add/added.png[800,800]
 
 [NOTE]
@@ -25,34 +35,62 @@ The ONVIF autodiscovery feature is not yet supported by QbProtect
 
 The `Properties` view should depict the general information about the device (`Info`) and current video stream settings (`Settings`). The video stream preview should be shown in the corresponding `Preview` window as shown in the Figure below.
 
-.QbProtect recording server view and video stream preview in Milestone XProtect
+.QbProtect video stream preview in XProtect Management Client
 image::onvif/milestone/add/general.png[800,800]
 
-== Configure Alarms
+== Events
 
-In addition to the video stream of the security scene, QbProtect also utilizes ONVIF events which can be used by the security applications to fulfill a desired action (e.g. motion/intrusion alarms). The example below shows how QbProtect events can be used in Milestone XProtect. 
+In addition to the video stream of the security scene, QbProtect also utilizes ONVIF events which can be used by various applications to fulfill a desired action. The list of supported events, their description and mapping to standard events (if applicable) is shown in the Table below. Events without mapping are QbProtect specific and considered to be dynamic.
 
-=== Events 
+.QbProtect events in XProtect Management Client
+[%header,cols="1,2,1"] 
+|===
+|Event Name |Event Description| Event Mapping
 
-When QbProtect is added into the Milestone XProtect, it exposes events it is capable of to the VMS.
+|Motion | Motion event in the observed security scene | Motion Started (HW)
+|Intrusion | Aggregated intrusion event in pre-configured security zones | 
+|ZoneIntrusion | Intrusion event in the pre-configured intrusion zone | 
+|===
+
+=== Configure Alarms 
+The example below shows how QbProtect events can be used in Milestone XProtect.
+In this example one security zone `Security Zone 1` has been configured using QbProtect WebGUI as shown in the Figure below. 
 
 [NOTE]
 ====
-The Milestone XProtect https://doc.milestonesys.com/latest/en-US/onvifdriver/overview_of_dynamic_events.htm[dynamic events] are work in progress!
-Only pre-defined Milestone events are supported!
+The examplified configuration procedure is unified by the VMS and, with minor adaptations, can be followed to make use of any event supported by QbProtect.
 ====
 
-.Select Motion Started (HW) event from the list of exposed events
-image::onvif/milestone/events/events.png[800,800]
+.QbProtect WebGUI viewer and Milestone XProtect Management Client
+image::onvif/milestone/events/zone.png[800,800]
+
+When QbProtect is added into the Milestone XProtect, it exposes events it is capable of to the VMS as shown in the `Events` view in the Figure below.
+
+[NOTE]
+====
+Events which are specific to QbProtect will be exposed as the Milestone XProtect https://doc.milestonesys.com/latest/en-US/onvifdriver/overview_of_dynamic_events.htm[dynamic events]. The QbProtect has to be re-added into Milestone XProtect in oder to observe corresponding dynamic events for new security zones configured via QbProtect WebGUI.
+====
+
+.QbProtect events exposed to the Milestone XProtect Management Client
+image::onvif/milestone/events/exposed.png[800,800]
+
+In this scenario two dynamic events are exposed to the VMS: `intrusion` and `ZoneIntrusionSecurityZone1`. 
 
 === Rule Chain
 
-The chain consists of event, event source and action. It allows to map a dedicated action (e.g. manual alarm action, adding entry log, .etc) to the event of the particular type (e.g. motion). The named rule chain configuration procedure is shown in the figure below consists of the following steps: 
+The Milestone XProtect rule chain consists of event, event source and action. It allows to map a dedicated action (e.g. manual alarm action, adding entry log, .etc) to the event of the particular type (e.g. motion, zone intrusion). The configured rule chain called `Intrusion` is shown in the figure below. 
 
-.The Motion rule configuration
+
+.The configured Intrusion rule chain in the Milestone XProtect Management Client
 image::onvif/milestone/events/rule.png[800,800]
 
-. Using the `Events` view of a QbProtect at the recording server activate desired events from the list of the exposed events (default or dynamic) in order to make use of them in rule chains. In this scenario, as shown in the Figure above, we have selected the default `Motion Started (HW)` event. 
+The configuration of the rule chain consists of the following steps: 
+
+. Using the `Events` view of a QbProtect at the recording server activate desired events from the list of the exposed events (default or dynamic) in order to make use of them in rule chains. In this scenario, as shown in the Figure below, we have activated the dynamic `ZoneIntrusionSecurityZone1` event. 
++
+
+.Activating Zone Intrusion event in the Milestone XProtect Management Client
+image::onvif/milestone/events/activate.png[800,800]
 
 . Select active event as an action source
 
@@ -62,7 +100,7 @@ image::onvif/milestone/events/rule.png[800,800]
 
 . Apply the configuration for the rule chain
 
-From now on motion event from QbProtect will be generating Milestone event log entries as shown in the Figure below.
+From now on, the zone intrusion event in the `Security Zone 1` from QbProtect and the configured intrusion rule chain will be generating Milestone event log entries as shown in the Figure below.
 
-.The configured Motion rule creates corresponding event log entry
+.The intrusion log entry is created in the Milestone XProtect Management Client when intrusion is detected in the corresponding QbProtect security zone
 image::onvif/milestone/events/log.png[800,800]

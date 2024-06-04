@@ -50,18 +50,6 @@ From now on the live video stream of the point cloud can be accessed and observe
 
 == Events
 
-In addition to the video stream of the security scene, QbProtect also utilizes ONVIF events which can be used by various applications to fulfill a desired action. When QbProtect is added into the Senstar Server, it exposes events it is capable of to the VMS. The list of supported events and their description is shown in the Table below.
-
-.QbProtect events in Senstar Symphony
-[%header,cols="1,2"] 
-|===
-|Event Name |Event Description
-
-|Motion | Motion event in the observed security scene
-|Intrusion | Aggregated intrusion event in pre-configured security zones
-|ZoneIntrusion | Intrusion event in the dedicated intrusion zone
-|===
-
 === Configure Alarms
 
 The example below shows how QbProtect events can be used in Senstar Symphony. Supported events can be found in the corresponding `Events` view of Senstar Server as shown in the Figure below. 
@@ -75,11 +63,6 @@ The examplified configuration procedure is unified by the VMS and, with minor ad
 image::onvif/senstar/events/events.png[800,800]
 
 In this example two security zones `zone1` and `zone2` have been configured using QbProtect WebGUI. Therefore, in addition to the aggregated intrusion and motion events, two intrusion events for the corresponding intrusion zones can be found in the exposed event list.
-
-[NOTE]
-====
-Events for intrusion zones are not exposed dynamically. The QbProtect has to be re-added into Senstar Symphony in oder to observe events for new security zones configured via QbProtect WebGUI! 
-====
 
 === Rule Chain
 

@@ -39,6 +39,8 @@ In addition to VMS systems support, QbProtect allows direct video stream consump
 .Video stream of QbProtect point cloud using RTSP stream source link
 image::onvif/rtsp_vlc.png[800,800]
 
+In case user management was enabled on QbProtect the video stream URL should also include ONVIF/RTSP credentials pair in the following format:  `rtsp://user:key@qb2-ABC123XYZ.muc.blickfeld.com:554/local/pointcloud/core`. Please refer to the section below to see how to obtain the required credentials pair.
+
 == User Authentication (ONVIF/RTSP)
 
 Both ONVIF and RTSP are relying on the QbProtect user management system. In order to obtain the RTSP video stream from QbProtect through adding it to the desired VMS via ONVIF the user has to provide, when prompted, a valid credentials pair (username name and xref:working_principles:authentication.adoc#_application_key[application key]) configured for and associated with a corresponding user account. 
@@ -55,3 +57,30 @@ Please find out xref:working_principles:authentication.adoc#_application_key[her
 ====
 * User management via ONVIF is not yet supported
 ====
+
+== Events
+
+In addition to the video stream of the security scene, QbProtect also utilizes ONVIF events which can be used by various applications to fulfill a desired action. The list of supported events, their description, type and mapping to standard events (if applicable) are shown in the Table below. 
+
+.QbProtect ONVIF events
+[%header,cols="1,2,1,1"] 
+|===
+|Name | Description| Availability | Mapping
+
+|MotionAlarm | Motion event in the observed security scene | Static | https://doc.milestonesys.com/latest/en-US/onvifdriver/motion.htm?TocPath=Third-party%20integrations%7CONVIF%C2%AE%20drivers%7CEvents%7C[Motion Alarm]
+|Intrusion | Aggregated intrusion event in pre-configured security zones | Static | Custom
+|ZoneIntrusion | Intrusion event in the pre-configured intrusion zone | Dynamic | Custom
+|HealthFailure | QbProtect is in the failed state (one or more failures). The actual root cause can be found at QbProtect diagnostics page | Static | Custom
+|HealthWarning | QbProtect is in the warning state (one or more warnings). The actual root cause can be found at QbProtect diagnostics page | Static | Custom
+|TamperingCovered | The mirror of QbProtect has been covered | Static | Custom
+|TamperingMoved | QbProtect has been moved or rotated | Static | Custom
+|===
+
+Events are categorized based on their source availability and supported mapping. Events which are directly mapped to their existing analog defined by a particular VMS are called `Standard`. Those events contain a definition in the `Mapping` colomn correspondingly. All other events are QbProtect specific and therefore called `Custom`. Events origininating from dynamic event sources (e.g. intrusion event from a particular security zone) are called `Dynamic`. Other events are called `Static`.
+
+[NOTE]
+====
+The QbProtect has to be re-added into VMS in oder to expose events from dynamic sources newly configured via QbProtect WebGUI.
+====
+
+

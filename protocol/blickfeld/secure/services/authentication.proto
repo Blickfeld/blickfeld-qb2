@@ -19,13 +19,9 @@ message AuthenticationLoginRequest {
   }
   // Application Key credentials
   message Application {
-    // the application key
-    oneof type {
-      // the key in plain text
-      string key = 1;
-      // the key as md5 checksum
-      string http_digest = 2;
-    }
+    // the key in plain text
+    string key = 1;
+    reserved 2;
   }
   oneof credentials {
     // Authenticate with user credentials

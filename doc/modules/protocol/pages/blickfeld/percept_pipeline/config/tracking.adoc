@@ -1,0 +1,29 @@
+[#_blickfeld_percept_pipeline_config_Tracking]
+= Tracking
+
+Algorithms for tracking the objects generated from the clustering
+
+.Available fields in blickfeld.percept_pipeline.config.Tracking
+|===
+| Field | Type | Default | Unit
+
+.2+| *disable* | bool| - | - 
+3+| Disable tracking. On by default.
+
+.2+| *sensitivity* | float| - | - 
+3+| How long the tracker needs to confirm a new object 
+ 
+Reasonale default: 0.85
+
+.2+| *acceleration_noise* | float| - | - 
+3+| How fluctuating the acceleration of the objects is 
+ 
+Reasonable default: 0.5
+
+.2+| *survival_probability* | float| - | - 
+3+| How long the tracker can wait for the next observation 
+ 
+Reasonable default: 1
+
+|===
+

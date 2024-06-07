@@ -30,6 +30,8 @@ message Account {
   bool access_read_only = 8;
   // Last time the account was used to login as observed on system time. This is just for information purposes and might not be reliable.
   uint64 last_login_ts = 4;
+  // Counter for failed login attempts. If this value exceeds a configured threshold the account will be blocked.
+  uint32 failed_login_attempts = 5;
   // The account state.
   .blickfeld.secure.config.Account.State state = 6;
 }

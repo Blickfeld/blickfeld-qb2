@@ -17,6 +17,10 @@ field should help users to quickly identify different application keys but can a
 .2+| *access_read_only* | bool| - | - 
 3+| If true, this application key has read-only access permissions.
 
+.2+| *access_http* | bool| - | - 
+3+| If true, allow http basic access authentication using this key. 
+This option is required for ONVIF and RTSP video streaming.
+
 .2+| *last_login_ts* | uint64| - | - 
 3+| Last time the application key was used to authenticate. This is just for information purposes and might not be reliable.
 

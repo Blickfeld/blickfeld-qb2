@@ -13,7 +13,7 @@ A message representing exactly one object that is detected in the scene.
 .2+| *shape* | xref:blickfeld/base/geometry/shape.adoc[base.geometry.Shape] | - | - 
 3+| The shape representing the object (bounding box).
 
-.2+| *properties* | optional xref:blickfeld/percept_processing/data/detected_object.adoc#_blickfeld_percept_processing_data_DetectedObject_Properties[Properties] | - | - 
+.2+| *properties* | xref:blickfeld/percept_processing/data/detected_object.adoc#_blickfeld_percept_processing_data_DetectedObject_Properties[Properties] | - | - 
 3+| Properties of the object.
 
 .2+| *point_cloud* | optional xref:blickfeld/core_processing/data/frame.adoc[core_processing.data.Frame] | - | - 
@@ -21,6 +21,21 @@ A message representing exactly one object that is detected in the scene.
 
 .2+| *timestamp* | uint64| - | ns 
 3+| The timestamps when the object is detected for the first time
+
+.2+| *lifetime* | uint64| - | ns 
+3+| Lifetime of the object
+
+.2+| *path* | repeated xref:blickfeld/base/geometry/pose.adoc[base.geometry.Pose] | - | - 
+3+| The tracked path of the object.
+
+.2+| *visible_to_sensors* | repeated string| - | - 
+3+| List of sensors which currently detect the object
+
+.2+| *intruding* | xref:blickfeld/percept_processing/data/detected_object.adoc#_blickfeld_percept_processing_data_DetectedObject_Flag[Flag] | - | - 
+3+| Active when object is currently detected as intruder in a security zone
+
+.2+| *intruder* | xref:blickfeld/percept_processing/data/detected_object.adoc#_blickfeld_percept_processing_data_DetectedObject_Flag[Flag] | - | - 
+3+| Set when object intruded once in a security zone
 
 |===
 
@@ -33,14 +48,50 @@ Properties of an object.
 |===
 | Field | Type | Default | Unit
 
-.2+| *size* | optional xref:blickfeld/percept_pipeline/config/object_size.adoc[percept_pipeline.config.ObjectSize] | - | - 
+.2+| *size* | xref:blickfeld/percept_pipeline/config/object_size.adoc[percept_pipeline.config.ObjectSize] | - | - 
 3+| The size of an object.
 
-.2+| *num_points* | optional uint32| - | - 
+.2+| *num_points* | uint32| - | - 
 3+| / Number of measurements that belong to the object point cloud.
 
-.2+| *average_intensity* | optional uint32| - | - 
+.2+| *average_intensity* | uint32| - | - 
 3+| / Average intensity of the measurements from the object point cloud.
+
+.2+| *bounding_box_2d_surface* | float| - | - 
+3+| Surface area of the largest xz / yz bounding box plane. 
+This is used for the simple object size classifaction.
+
+.2+| *confidence* | optional float| - | - 
+3+| Confidence value 
+ 
+Value in the range of [0, 1] which indicates how confident 
+the tracking algorithm is about the detected object. 
+ 
+NOTE: This is preliminary implementation and might change its behaviour significantly in upcoming releases.
+
+.2+| *in_background* | bool| - | - 
+3+| Set when bounding box of object is mostly located within the background / reference frame. 
+This is usually an indication for ground or vegetation detections.
+
+|===
+
+[#_blickfeld_percept_processing_data_DetectedObject_Flag]
+== Flag
+
+Flag which contains state combined with a change detection
+
+.Available fields in blickfeld.percept_processing.data.DetectedObject.Flag
+|===
+| Field | Type | Default | Unit
+
+.2+| *state* | bool| - | - 
+3+| Current state
+
+.2+| *since_timestamp* | uint64| - | ns 
+3+| Timestamp since when the state did not change
+
+.2+| *since_duration* | uint64| - | ns 
+3+| Duration of current state
 
 |===
 

@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+import "blickfeld/config/data/watch_event.proto";
+import "google/protobuf/any.proto";
+import "google/protobuf/empty.proto";
+package blickfeld.config.services;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// The Storage service provides access to the key / value based configuration of the device.
+service Storage {
+  option (.blickfeld.base.access_control_service) = {
+    level: LEVEL_ADMIN
+  };
+  option (.blickfeld.base.protocol_maturity_service) = {
+    level: LEVEL_MAINTAINED
+  };
+  // Delete all user generated settings, log files and cached data
+  // WARNING: All non-factory provided settings in the device configuration will be permanently lost.
+  rpc FactoryReset(.google.protobuf.Empty) returns (.google.protobuf.Empty);
+}
+

@@ -48,6 +48,8 @@
 **** config
 ***** data
 ****** xref:protocol:blickfeld/config/data/watch_event.adoc[Watch Event]
+***** services
+****** xref:protocol:blickfeld/config/services/storage.adoc[Storage]
 **** core_processing
 ***** config
 ****** xref:protocol:blickfeld/core_processing/config/health.adoc[Health]
@@ -107,11 +109,13 @@
 **** percept_pipeline
 ***** config
 ****** xref:protocol:blickfeld/percept_pipeline/config/background_subtraction.adoc[Background Subtraction]
+****** xref:protocol:blickfeld/percept_pipeline/config/classification.adoc[Classification]
 ****** xref:protocol:blickfeld/percept_pipeline/config/clustering.adoc[Clustering]
 ****** xref:protocol:blickfeld/percept_pipeline/config/data_source.adoc[Data Source]
 ****** xref:protocol:blickfeld/percept_pipeline/config/object_size.adoc[Object Size]
 ****** xref:protocol:blickfeld/percept_pipeline/config/perception.adoc[Perception]
 ****** xref:protocol:blickfeld/percept_pipeline/config/point_cloud_filter.adoc[Point Cloud Filter]
+****** xref:protocol:blickfeld/percept_pipeline/config/tracking.adoc[Tracking]
 ****** xref:protocol:blickfeld/percept_pipeline/config/zone_algorithm.adoc[Zone Algorithm]
 ***** data
 ****** xref:protocol:blickfeld/percept_pipeline/data/coordinate_system.adoc[Coordinate System]

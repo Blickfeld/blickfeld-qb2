@@ -11,6 +11,7 @@ This service supports the complete lifecycle of accounts which are managed by th
 
 | *xref:#List[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/secure/services/account.adoc#_blickfeld_secure_services_AccountListResponse[AccountListResponse]
 | *xref:#Create[]* | xref:blickfeld/secure/services/account.adoc#_blickfeld_secure_services_AccountCreateRequest[AccountCreateRequest]| xref:blickfeld/secure/services/account.adoc#_blickfeld_secure_services_AccountCreateResponse[AccountCreateResponse]
+| *xref:#Block[]* | xref:blickfeld/secure/services/account.adoc#_blickfeld_secure_services_AccountBlockRequest[AccountBlockRequest]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
 | *xref:#Reset[]* | xref:blickfeld/secure/services/account.adoc#_blickfeld_secure_services_AccountResetRequest[AccountResetRequest]| xref:blickfeld/secure/services/account.adoc#_blickfeld_secure_services_AccountResetResponse[AccountResetResponse]
 | *xref:#Delete[]* | xref:blickfeld/secure/services/account.adoc#_blickfeld_secure_services_AccountDeleteRequest[AccountDeleteRequest]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
 | *xref:#Get[]* | xref:blickfeld/secure/services/account.adoc#_blickfeld_secure_services_AccountGetRequest[AccountGetRequest]| xref:blickfeld/secure/services/account.adoc#_blickfeld_secure_services_AccountGetResponse[AccountGetResponse]
@@ -86,6 +87,25 @@ The generated activation password in plain text will be returned only once.
 
 .2+| *uuid* | string| - | - 
 3+| the uuid of the account
+
+|===
+
+[#Block]
+== Block
+
+Block account by setting the state to BLOCKED. Use the Reset method to un-block the account.
+
+[#_blickfeld_secure_services_AccountBlockRequest]
+=== Request
+
+Request to block an existing account
+
+.Available fields in blickfeld.secure.services.AccountBlockRequest
+|===
+| Field | Type | Default | Unit
+
+.2+| *uuid* | string| - | - 
+3+| the uuid of the account to block
 
 |===
 

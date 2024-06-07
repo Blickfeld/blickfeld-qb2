@@ -4,7 +4,9 @@ syntax = "proto3";
 
 import "blickfeld/percept_pipeline/config/background_subtraction.proto";
 import "blickfeld/percept_pipeline/config/clustering.proto";
+import "blickfeld/percept_pipeline/config/tracking.proto";
 import "blickfeld/percept_pipeline/config/point_cloud_filter.proto";
+import "blickfeld/percept_pipeline/config/classification.proto";
 import "blickfeld/base/options.proto";
 package blickfeld.percept_pipeline.config;
 
@@ -22,6 +24,10 @@ message Perception {
   .blickfeld.percept_pipeline.config.Clustering clustering = 8 [(.blickfeld.base.protocol_maturity_field) = {
     level: LEVEL_EXPERIMENTAL
   }];
+  // Track the objects generated from the clustering
+  .blickfeld.percept_pipeline.config.Tracking tracking = 9;
+  // Classify object into small, medium and large objects
+  .blickfeld.percept_pipeline.config.Classification classification = 10;
   reserved 3, 4, 5, 6, 7;
 }
 

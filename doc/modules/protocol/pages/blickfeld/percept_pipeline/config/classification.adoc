@@ -1,0 +1,52 @@
+[#_blickfeld_percept_pipeline_config_Classification]
+= Classification
+
+Algorithms for classifying object into small, medium, large.
+
+.Available fields in blickfeld.percept_pipeline.config.Classification
+|===
+| Field | Type | Default | Unit
+
+.2+| *size* | xref:blickfeld/percept_pipeline/config/classification.adoc#_blickfeld_percept_pipeline_config_Classification_Size[Size] | - | - 
+3+| Use object size for object classification.
+
+|===
+
+[#_blickfeld_percept_pipeline_config_Classification_Size]
+== Size
+
+The minimum size limits of the bounding box area used for classification.
+
+.Available fields in blickfeld.percept_pipeline.config.Classification.Size
+|===
+| Field | Type | Default | Unit
+
+.2+| *bounding_box_surface* | xref:blickfeld/percept_pipeline/config/classification.adoc#_blickfeld_percept_pipeline_config_Classification_Size_BoundingBoxSurface[BoundingBoxSurface] | - | - 
+3+| Use object surface size for object classification.
+
+|===
+
+[#_blickfeld_percept_pipeline_config_Classification_Size_BoundingBoxSurface]
+=== Bounding Box Surface
+
+The maximum surface area between the bounding box's OXZ and OYZ planes 
+is used to classify objects based on the limits specified in this message.
+
+.Available fields in blickfeld.percept_pipeline.config.Classification.Size.BoundingBoxSurface
+|===
+| Field | Type | Default | Unit
+
+.2+| *small_min_size* | float| - | - 
+3+| The surface area of the objects bounding box 
+should be larger than this value to be considered a small object.
+
+.2+| *medium_min_size* | float| - | - 
+3+| The surface area of the objects bounding box 
+should be larger than this value to be considered a medium object.
+
+.2+| *large_min_size* | float| - | - 
+3+| The surface area of the objects bounding box 
+should be larger than this value to be considered a large object.
+
+|===
+

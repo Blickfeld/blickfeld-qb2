@@ -16,5 +16,11 @@ The configuration of perception algorithms used to run e.g. security zones
 .2+| *clustering* | xref:blickfeld/percept_pipeline/config/clustering.adoc[Clustering] | - | - 
 3+| Segment the foreground point cloud into clusters
 
+.2+| *tracking* | xref:blickfeld/percept_pipeline/config/tracking.adoc[Tracking] | - | - 
+3+| Track the objects generated from the clustering
+
+.2+| *classification* | xref:blickfeld/percept_pipeline/config/classification.adoc[Classification] | - | - 
+3+| Classify object into small, medium and large objects
+
 |===
 

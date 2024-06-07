@@ -1,0 +1,26 @@
+// Copyright (c) 2024 Blickfeld GmbH.
+// All rights reserved.
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+package blickfeld.percept_pipeline.config;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_AUTHORIZED
+};
+
+// Algorithms for tracking the objects generated from the clustering
+message Tracking {
+  // Disable tracking. On by default.
+  bool disable = 4;
+  // How long the tracker needs to confirm a new object
+  // Reasonale default: 0.85
+  float sensitivity = 1;
+  // How fluctuating the acceleration of the objects is
+  // Reasonable default: 0.5
+  float acceleration_noise = 2;
+  // How long the tracker can wait for the next observation
+  // Reasonable default: 1
+  float survival_probability = 3;
+}
+

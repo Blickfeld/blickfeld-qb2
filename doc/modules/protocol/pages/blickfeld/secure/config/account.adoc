@@ -20,6 +20,9 @@ authenticated.
 .2+| *last_login_ts* | uint64| - | - 
 3+| Last time the account was used to login as observed on system time. This is just for information purposes and might not be reliable.
 
+.2+| *failed_login_attempts* | uint32| - | - 
+3+| Counter for failed login attempts. If this value exceeds a configured threshold the account will be blocked.
+
 .2+| *state* | xref:blickfeld/secure/config/account.adoc#_blickfeld_secure_config_Account_State[State] | - | - 
 3+| The account state.
 

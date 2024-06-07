@@ -21,6 +21,9 @@ States will get calculated on every frame of measurement.
 .2+| *object_based_security* | xref:blickfeld/percept_processing/data/state.adoc#_blickfeld_percept_processing_data_State_ObjectBasedSecurity[ObjectBasedSecurity] | - | - 
 3+| The object based security state contains intrusion information of a zone and the objects that trigger the intrusion
 
+.2+| *occupancy* | xref:blickfeld/percept_processing/data/state.adoc#_blickfeld_percept_processing_data_State_Occupancy[Occupancy] | - | - 
+3+| The state contains occupation information of a zone
+
 |===
 
 [#_blickfeld_percept_processing_data_State_ObjectBasedSecurity]
@@ -86,6 +89,26 @@ This is based on one volume zone.
 
 .2+| *coverage* | float| - | - 
 3+| The current zone volume surface coverage
+
+|===
+
+[#_blickfeld_percept_processing_data_State_Occupancy]
+== Occupancy
+
+A message containing the occupancy state of a zone.
+
+.Available fields in blickfeld.percept_processing.data.State.Occupancy
+|===
+| Field | Type | Default | Unit
+
+.2+| *occupied* | bool| - | - 
+3+| True if the zone is occupied.
+
+.2+| *num_detected_points* | uint32| - | - 
+3+| The current number of lidar points detected in the zone.
+
+.2+| *baseline* | float| - | - 
+3+| Current baseline.
 
 |===
 

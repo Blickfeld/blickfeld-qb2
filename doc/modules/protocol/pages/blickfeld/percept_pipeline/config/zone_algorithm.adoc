@@ -31,6 +31,9 @@ An algorithm that monitors the area within and around a zone.
 .2+| *object_based_security* | xref:blickfeld/percept_pipeline/config/zone_algorithm.adoc#_blickfeld_percept_pipeline_config_ZoneAlgorithm_ObjectBasedSecurity[ObjectBasedSecurity] | - | - 
 3+| Run object-based alarm detection within the zone
 
+.2+| *occupancy* | xref:blickfeld/percept_pipeline/config/zone_algorithm.adoc#_blickfeld_percept_pipeline_config_ZoneAlgorithm_Occupancy[Occupancy] | - | - 
+3+| Run occupancy zone
+
 |===
 
 [#_blickfeld_percept_pipeline_config_ZoneAlgorithm_Volume]
@@ -48,12 +51,19 @@ fall into this tile. The volume of the volume map can be calculated by adding up
 
 .2+| *resolution* | float| - | m 
 3+| Grid resolution per tile used to measure the volume. 
+ 
 Reasonable default: 0.1
 
 .2+| *empty_volume* | float| - | m^3 
 3+| The measured volume while area covered by the zone is considered 'empty'. The value can be set using 
 TareVolume method while the area of the zone is empty. 
+ 
 Reasonable default: 0
+
+.2+| *disable_when_occupied_zone_uuids* | repeated string| - | - 
+3+| Link volume zone to occupancy zones (by uuid). 
+ 
+Disables the volume zone state when one of the occupancy zones is occupied.
 
 |===
 
@@ -90,10 +100,64 @@ Algorithm that triggers an alarm when an object of one of the selected sizes is 
 3+| Selection of sizes which trigger an alarm. Each size in the array will only 
 trigger an alarm for the interval of that size.
 
+.2+| *minimum_intruder_lifetime* | uint64| - | ns 
+3+| Minimum lifetime of object before alarm is triggered. 
+ 
+Default: 0
+
+.2+| *minimum_intruding_duration* | uint64| - | ns 
+3+| Minimum active intrusion duration of object before alarm is triggered. 
+ 
+Default: 0
+
+.2+| *objects_in_background* | bool| - | - 
+3+| Trigger alarm for objects with the "in_background" property. 
+ 
+Enabling this might increase the false alarm rate.
+
 |===
 
 [#_blickfeld_percept_pipeline_config_ZoneAlgorithm_Exclusion]
 == Exclusion
 
 Algorithm that excludes points from the input point cloud
+
+[#_blickfeld_percept_pipeline_config_ZoneAlgorithm_Occupancy]
+== Occupancy
+
+Algorithm that detects if a zone is occupied
+
+.Available fields in blickfeld.percept_pipeline.config.ZoneAlgorithm.Occupancy
+|===
+| Field | Type | Default | Unit
+
+.2+| *min_points* | uint32| - | - 
+3+| Minimum number of points to mark the zone as occupied. 
+ 
+Reasonable default: 10
+
+.2+| *adaptive_baseline_time_constant* | optional float| - | s 
+3+| If set, the min_points is not compared against zero but against an 
+adaptive baseline. The baseline is calculated with an exponential 
+filter with the zone point count as input. 
+ 
+The given time constant is used to calculate the alpha for the exponential 
+filter. After a restart, the baseline is initialized with the current zone 
+point count. 
+ 
+Reasonable default: 3600s (1 hour)
+
+.2+| *voxel_size* | optional float| - | m 
+3+| The point cloud inside the zone is down sampled with a voxel grid. 
+This is done to achieve a distance-independent parametrization. 
+The size of a voxel cell can be configured with this parameter. 
+ 
+Default: 0.05m
+
+.2+| *invert* | bool| - | - 
+3+| Invert the state of the zone 
+ 
+This might be useful in situations where e.g. a static crane should be detected in its home position.
+
+|===
 

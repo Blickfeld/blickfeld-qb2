@@ -38,6 +38,15 @@ message State {
     float coverage = 5 [(.blickfeld.base.d_min) = 0, (.blickfeld.base.d_max) = 1];
     reserved 2, 3, 4;
   }
+  // A message containing the occupancy state of a zone.
+  message Occupancy {
+    // True if the zone is occupied.
+    bool occupied = 1;
+    // The current number of lidar points detected in the zone.
+    uint32 num_detected_points = 2;
+    // Current baseline.
+    float baseline = 3;
+  }
   // The name of the entity generating this state
   string generator_name = 8;
   oneof state_type {
@@ -47,6 +56,8 @@ message State {
     .blickfeld.percept_processing.data.State.Volume volume = 7;
     // The object based security state contains intrusion information of a zone and the objects that trigger the intrusion
     .blickfeld.percept_processing.data.State.ObjectBasedSecurity object_based_security = 9;
+    // The state contains occupation information of a zone
+    .blickfeld.percept_processing.data.State.Occupancy occupancy = 10;
   }
   reserved 1, 2, 3, 4, 6;
 }

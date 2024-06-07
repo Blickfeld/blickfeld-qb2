@@ -1,0 +1,19 @@
+= Service: Storage
+
+NOTE: This API is officially released and maintained.
+
+The Storage service provides access to the key / value based configuration of the device.
+
+.Available methods
+|===
+| Method | Request | Response
+
+| *xref:#FactoryReset[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
+|===
+[#FactoryReset]
+== FactoryReset
+
+Delete all user generated settings, log files and cached data 
+ 
+WARNING: All non-factory provided settings in the device configuration will be permanently lost.
+

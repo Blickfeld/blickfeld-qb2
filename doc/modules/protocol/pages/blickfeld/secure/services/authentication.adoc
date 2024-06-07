@@ -65,9 +65,6 @@ Application Key credentials
 .2+| *key* | string| - | - 
 3+| the key in plain text
 
-.2+| *http_digest* | string| - | - 
-3+| the key as md5 checksum
-
 |===
 
 [#_blickfeld_secure_services_AuthenticationLoginResponse]

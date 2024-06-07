@@ -12,12 +12,26 @@ there are no more clients requesting any stream type from the module.
 |===
 | Method | Request | Response
 
-| *xref:#Stream[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/percept_processing/services/objects.adoc#_blickfeld_percept_processing_services_ObjectsStreamResponse[ObjectsStreamResponse]Stream 
+| *xref:#Stream[]* | xref:blickfeld/percept_processing/services/objects.adoc#_blickfeld_percept_processing_services_ObjectsStreamRequest[ObjectsStreamRequest]| xref:blickfeld/percept_processing/services/objects.adoc#_blickfeld_percept_processing_services_ObjectsStreamResponse[ObjectsStreamResponse]Stream 
 |===
 [#Stream]
 == Stream
 
 A method to get a stream of objects messages from the pipeline
+
+[#_blickfeld_percept_processing_services_ObjectsStreamRequest]
+=== Request
+
+Request message for objects stream
+
+.Available fields in blickfeld.percept_processing.services.ObjectsStreamRequest
+|===
+| Field | Type | Default | Unit
+
+.2+| *untracked* | optional bool| - | - 
+3+| Fetch object list without tracking
+
+|===
 
 [#_blickfeld_percept_processing_services_ObjectsStreamResponse]
 === Response Stream

@@ -1,0 +1,37 @@
+// Copyright (c) 2024 Blickfeld GmbH.
+// All rights reserved.
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+package blickfeld.percept_pipeline.config;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_AUTHORIZED
+};
+
+// Algorithms for classifying object into small, medium, large.
+message Classification {
+  // The minimum size limits of the bounding box area used for classification.
+  message Size {
+    // The maximum surface area between the bounding box's OXZ and OYZ planes
+    // is used to classify objects based on the limits specified in this message.
+    message BoundingBoxSurface {
+      // The surface area of the objects bounding box
+      // should be larger than this value to be considered a small object.
+      float small_min_size = 1;
+      // The surface area of the objects bounding box
+      // should be larger than this value to be considered a medium object.
+      float medium_min_size = 2;
+      // The surface area of the objects bounding box
+      // should be larger than this value to be considered a large object.
+      float large_min_size = 3;
+    }
+    oneof type {
+      // Use object surface size for object classification.
+      .blickfeld.percept_pipeline.config.Classification.Size.BoundingBoxSurface bounding_box_surface = 1;
+    }
+  }
+  // Use object size for object classification.
+  .blickfeld.percept_pipeline.config.Classification.Size size = 1;
+}
+

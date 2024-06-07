@@ -70,7 +70,7 @@ image::authentication_edit_password.png[]
 
 [WARNING]
 ====
-If the password for an account is lost and the account can not be recovered (e.g. by doing an <<_reset,account reset>>), please contact xref:service_and_maintenance:customer_service.adoc[Blickfeld customer service].
+If the password for an account is lost and the account can not be recovered (e.g. by doing an xref:working_principles:user-management.adoc#_block_reset[account reset]), please contact xref:service_and_maintenance:customer_service.adoc[Blickfeld customer service].
 ====
 
 === Application key
@@ -101,9 +101,23 @@ image::authentication_admin_application_key.png[]
 
 ====
 
+[NOTE]
+====
+
+To connect Qb2 to a video xref:operation:onvif/index.adoc[ONVIF compliant Video Management System (VMS)] create an application key with the `HTTP authentication` option enabled:
+
+.Creating HTTP authentication application key
+image::authentication_create_http_application_key.png[]
+
+The resulting key in combination with the username can be used as credentials in the VMS.
+
+.Resulting HTTP application key
+image::authentication_http_application_key.png[]
+====
+
 === Access level
 
-NOTE: The access level can only be modified in the <<_user_management,user management>> section.
+NOTE: The account access level can only be modified in the xref:working_principles:user-management.adoc[user management] section.
 
 Each account contains an access level (`AUTHORIZED` or `ADMIN`). The functionality of Qb2 is divided into three access levels:
 
@@ -112,85 +126,28 @@ Clients with this access level are allowed to read basic device information (fir
 AUTHORIZED::
 Clients with this access level are allowed to modify their own account (e.g. change the <<_username_and_password,account password>>, create <<_application_key,application keys>>), use all other device functionalities (zone configuration, scan pattern, flow etc.) and can do everything allowed with `PUBLIC` access level.
 ADMIN::
-Clients with this access level are allowed to modify or create other user accounts (<<_user_management,user management>>) and can do everything allowed with `AUTHORIZED` access level.
-
-.Access levels and available Qb2 functionality
-image::authentication_access_level.svg[]
+Clients with this access level are allowed to modify or create other user accounts (see xref:working_principles:user-management.adoc[user management]) and can do everything allowed with `AUTHORIZED` access level.
 
 === Read only mode
 
-NOTE: The read only mode can only be modified in the <<_user_management,user management>> section.
+NOTE: The account read only mode can only be modified in the xref:working_principles:user-management.adoc[user management] section.
 
 In addition to the <<_access_level,access level>> there is a `READ_ONLY` flag. When this flag is set, only functionality that does not change any configuration can be accessed. This can be used, for example, to only visualize the current data being produced by Qb2 and ensure that no changes are accidentally made to the general measurement setup.
 
 === State
 
-NOTE: The state can only be manually modified in the <<_user_management,user management>> section.
+NOTE: The account state can only be manually modified in the xref:working_principles:user-management.adoc[user management] section.
 
-The state attribute reflects the lifecycle of an account. The default value for a usable account is `ACTIVE`.
-
-.State flow diagram for account
-image::authentication_state_flow.svg[]
-
-The state is set to one of the following values:
+The state attribute reflects the lifecycle of an account. The default value for a usable account is `ACTIVE` and can be set to one of the following values:
 
 ACTIVE::
 The account is enabled and can be used for authentication.
 WAITING_FOR_ACTIVATION::
-The account has just been <<_create,created>> or was <<_reset,reset>>. A new password has to be set during login for account activation.
+The account has just been xref:working_principles:user-management.adoc#_create[created] or was xref:working_principles:user-management.adoc#_block_reset[reset]. A new password has to be set during login for account activation.
 BLOCKED::
-The account has been manually blocked and can not be used for authentication. A manual state change to `ACTIVE` by an admin account is required to unblock this account.
+The account has been manually xref::user-management.adoc#_block_reset[blocked] and can not be used for authentication. A manual state change to `ACTIVE` by an admin account is required to unblock this account.
 
-The Qb2 web interface prompts the user to set a new password during the initial login in case the account needs to be activated after it has been <<_create,created>> or <<_reset,reset>>.
+The Qb2 web interface prompts the user to set a new password during the initial login in case the account needs to be activated after it has been xref:working_principles:user-management.adoc#_create[created] or xref:working_principles:user-management.adoc#_block_reset[reset].
 
 .Account activation procedure for newly created or reset accounts
 image::authentication_activation.png[]
-
-== User Management
-
-User Management is accessible for clients with access level `ADMIN`. Clients authorized with this access level can <<_create,create>>, <<_reset,reset>>, <<_modify,modify>> or <<_delete,delete>> accounts on Qb2.
-
-[NOTE]
-====
-Currently not all features are available on the web interface. Refer to xref:developer:client_libraries/index.adoc[API access guide] and the xref:protocol:index.adoc[API documentation] to learn how to access Qb2 user management programmatically for all features.
-====
-
-=== Create
-
-To create a new account, basic attributes have to be specified:
-
-.Attributes for creating a new account
-[%header,cols="1,1,2"] 
-|===
-|Attribute
-|Required
-|Comment
-
-|Name
-|icon:check[]
-|Value has to be unique
-
-|Access level
-|
-|default: `AUTHORIZED`
-
-|Read only mode
-|
-|default: `false`
-|===
-
-All other attributes of the <<_account,account>> are set by the device. The <<_state,state>> of newly created accounts is set to `WAITING_FOR_ACTIVATION`. When the account was created successfully, the activation password is returned.
-
-=== Reset
-
-This action sets the <<_state,account state>> to `WAITING_FOR_ACTIVATION` and returns an activation password. During login with this activation password the web interface prompts the user to update its password to activate the account.
-
-While the account is reset and temporarily unavailable for regular use, all other properties of the account (e.g. access level, application keys) are kept intact.
-
-=== Modify
-
-All attributes of an <<_account,account>> can be modified. This includes the <<_access_level,access level>>, the <<_state,state>>, <<_application_key,application keys>> and the number of failed login attempts.
-
-=== Delete
-
-This action removes the account and all associated application keys and can not be undone.

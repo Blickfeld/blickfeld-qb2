@@ -13,13 +13,13 @@ option (.blickfeld.base.access_control_file) = {
 message Tracking {
   // Disable tracking. On by default.
   bool disable = 4;
-  // How long the tracker needs to confirm a new object
+  // Higher sensitivity will make the tracker confirm the object faster
   // Reasonale default: 0.85
   float sensitivity = 1;
-  // How fluctuating the acceleration of the objects is
+  // The acceptance range of accelerations for the object to be tracked
   // Reasonable default: 0.5
   float acceleration_noise = 2;
-  // How long the tracker can wait for the next observation
+  // Higher probability will allow the object to be followed longer in the absence of observations
   // Reasonable default: 1
   float survival_probability = 3;
 }

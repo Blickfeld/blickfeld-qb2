@@ -11,17 +11,17 @@ Algorithms for tracking the objects generated from the clustering
 3+| Disable tracking. On by default.
 
 .2+| *sensitivity* | float| - | - 
-3+| How long the tracker needs to confirm a new object 
+3+| Higher sensitivity will make the tracker confirm the object faster 
  
 Reasonale default: 0.85
 
 .2+| *acceleration_noise* | float| - | - 
-3+| How fluctuating the acceleration of the objects is 
+3+| The acceptance range of accelerations for the object to be tracked 
  
 Reasonable default: 0.5
 
 .2+| *survival_probability* | float| - | - 
-3+| How long the tracker can wait for the next observation 
+3+| Higher probability will allow the object to be followed longer in the absence of observations 
  
 Reasonable default: 1
 

@@ -1,0 +1,32 @@
+// Copyright (c) 2024 Blickfeld GmbH.
+// All rights reserved.
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+package blickfeld.percept_pipeline.data;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_AUTHORIZED
+};
+
+// The type of the point
+enum PointType {
+  // The point type is unspecified (default).
+  POINT_TYPE_UNSPECIFIED = 0;
+  // The point is part of the foreground point cloud.
+  POINT_TYPE_FOREGROUND = 1;
+  // The point is part of the background point cloud.
+  POINT_TYPE_BACKGROUND = 2;
+  // The point is filtered, e.g. by applying an exclusion zone
+  // or the radius outlier filter.
+  POINT_TYPE_FILTERED = 4;
+  // The point is part of a detected object point cloud.
+  POINT_TYPE_OBJECT = 256;
+  // The point is part of a detected object point cloud which is currently
+  // intruding a object based security zone.
+  POINT_TYPE_OBJECT_INTRUDING = 512;
+  // The point is part of a detected object point cloud which was previously
+  // intruding a object based security zone.
+  POINT_TYPE_OBJECT_INTRUDER = 1024;
+}
+

@@ -21,8 +21,6 @@ message ApplicationKey {
   // If true, allow http basic access authentication using this key.
   // This option is required for ONVIF and RTSP video streaming.
   bool access_http = 8;
-  // Last time the application key was used to authenticate. This is just for information purposes and might not be reliable.
-  uint64 last_login_ts = 4;
-  reserved 6;
+  reserved 4, 6;
 }
 

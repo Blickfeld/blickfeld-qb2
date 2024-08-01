@@ -25,5 +25,7 @@ enum PointCloudType {
   POINT_CLOUD_TYPE_FILTERED_FOREGROUND = 5;
   // Point cloud containing the points representing the background model/point cloud
   POINT_CLOUD_TYPE_BACKGROUND = 6;
+  // Point cloud containing a collection of points with annotation per point
+  POINT_CLOUD_TYPE_ANNOTATED = 7;
 }
 

@@ -37,6 +37,9 @@ A message representing exactly one object that is detected in the scene.
 .2+| *intruder* | xref:blickfeld/percept_processing/data/detected_object.adoc#_blickfeld_percept_processing_data_DetectedObject_Flag[Flag] | - | - 
 3+| Set when object intruded once in a security zone
 
+.2+| *velocity* | xref:blickfeld/base/geometry/vector3.adoc[base.geometry.Vector3] | - | - 
+3+| Track object velocity
+
 |===
 
 [#_blickfeld_percept_processing_data_DetectedObject_Properties]
@@ -72,6 +75,9 @@ NOTE: This is preliminary implementation and might change its behaviour signific
 .2+| *in_background* | bool| - | - 
 3+| Set when bounding box of object is mostly located within the background / reference frame. 
 This is usually an indication for ground or vegetation detections.
+
+.2+| *track_length* | float| - | m 
+3+| The estimated track length of an object.
 
 |===
 

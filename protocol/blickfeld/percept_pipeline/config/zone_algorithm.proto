@@ -48,13 +48,17 @@ message ZoneAlgorithm {
     repeated .blickfeld.percept_pipeline.config.ObjectSize alarm_sizes = 1;
     // Minimum lifetime of object before alarm is triggered.
     // Default: 0
-    uint64 minimum_intruder_lifetime = 2 [(.blickfeld.base.unit) = "ns"];
+    float minimum_intruder_lifetime = 6 [(.blickfeld.base.unit) = "s"];
+    // Minimum track length of object before alarm is triggered.
+    // Default: 0
+    float minimum_intruder_track_length = 7 [(.blickfeld.base.unit) = "m"];
     // Minimum active intrusion duration of object before alarm is triggered.
     // Default: 0
-    uint64 minimum_intruding_duration = 3 [(.blickfeld.base.unit) = "ns"];
+    float minimum_intruding_duration = 8 [(.blickfeld.base.unit) = "s"];
     // Trigger alarm for objects with the "in_background" property.
     // Enabling this might increase the false alarm rate.
     bool objects_in_background = 4;
+    reserved 2, 3, 5;
   }
   // Algorithm that excludes points from the input point cloud
   message Exclusion {

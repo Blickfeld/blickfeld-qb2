@@ -111,8 +111,10 @@ service Flow {
     };
   }
   // Store flow
+  // A "Reload" is required to apply the operation.
   rpc Store(.blickfeld.flow.services.FlowStoreRequest) returns (.google.protobuf.Empty);
   // Delete stored flow
+  // A "Reload" is required to apply the operation.
   rpc Delete(.blickfeld.flow.services.FlowDeleteRequest) returns (.google.protobuf.Empty);
   // Watch flow changes
   rpc Watch(.blickfeld.flow.services.FlowWatchRequest) returns (stream .blickfeld.flow.services.FlowWatchResponse) {
@@ -121,6 +123,7 @@ service Flow {
     };
   }
   // Store global nodes
+  // A "Reload" is required to apply the operation.
   rpc StoreGlobalNodes(.blickfeld.flow.services.FlowStoreGlobalNodesRequest) returns (.google.protobuf.Empty);
   // Get global nodes
   rpc GetGlobalNodes(.google.protobuf.Empty) returns (.blickfeld.flow.services.FlowGetGlobalNodesResponse) {
@@ -134,5 +137,8 @@ service Flow {
       read_only: true
     };
   }
+  // Reload node-red
+  // This reloads all nodes from the config and restart all nodes.
+  rpc Reload(.google.protobuf.Empty) returns (.google.protobuf.Empty);
 }
 

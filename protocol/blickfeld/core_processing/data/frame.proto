@@ -31,6 +31,10 @@ message Frame {
     // Unix timestamp of points.
     // Type: UInt64
     bytes timestamp = 6 [(.blickfeld.base.optional) = true, (.blickfeld.base.unit) = "ns", (.blickfeld.base.numpy_dtype) = "<u8"];
+    // Arbitrary metadata for annotation of the binary data fields.
+    // 1-dimensional array.
+    // Type: UInt16
+    bytes metadata = 100 [(.blickfeld.base.optional) = true, (.blickfeld.base.numpy_dtype) = "<u2"];
   }
   // Incremental frame ID since startup of the device.
   uint64 id = 1;

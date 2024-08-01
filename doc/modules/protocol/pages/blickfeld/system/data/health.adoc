@@ -16,6 +16,9 @@ Message representing health
 .2+| *time_synchronization* | xref:blickfeld/system/data/health.adoc#_blickfeld_system_data_Health_TimeSynchronization[TimeSynchronization] | - | - 
 3+| Time synchronization status
 
+.2+| *network* | xref:blickfeld/system/data/network_status.adoc[NetworkStatus] | - | - 
+3+| Network status
+
 |===
 
 [#_blickfeld_system_data_Health_TimeSynchronization]

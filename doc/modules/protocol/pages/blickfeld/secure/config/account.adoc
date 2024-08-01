@@ -17,9 +17,6 @@ authenticated.
 .2+| *access_read_only* | bool| - | - 
 3+| If true, this account has read-only access permissions.
 
-.2+| *last_login_ts* | uint64| - | - 
-3+| Last time the account was used to login as observed on system time. This is just for information purposes and might not be reliable.
-
 .2+| *failed_login_attempts* | uint32| - | - 
 3+| Counter for failed login attempts. If this value exceeds a configured threshold the account will be blocked.
 

@@ -1,0 +1,22 @@
+[#_blickfeld_percept_pipeline_data_PointType]
+= Point Type
+
+The type of the point
+
+.Available values for blickfeld.percept_pipeline.data.PointType enum
+[cols='25h,5,~']
+|===
+| Name | Value | Description
+
+| POINT_TYPE_UNSPECIFIED ^| 0 | The point type is unspecified (default).
+| POINT_TYPE_FOREGROUND ^| 1 | The point is part of the foreground point cloud.
+| POINT_TYPE_BACKGROUND ^| 2 | The point is part of the background point cloud.
+| POINT_TYPE_FILTERED ^| 4 | The point is filtered, e.g. by applying an exclusion zone 
+or the radius outlier filter.
+| POINT_TYPE_OBJECT ^| 256 | The point is part of a detected object point cloud.
+| POINT_TYPE_OBJECT_INTRUDING ^| 512 | The point is part of a detected object point cloud which is currently 
+intruding a object based security zone.
+| POINT_TYPE_OBJECT_INTRUDER ^| 1024 | The point is part of a detected object point cloud which was previously 
+intruding a object based security zone.
+|===
+

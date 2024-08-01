@@ -2,6 +2,7 @@ syntax = "proto3";
 
 import "blickfeld/base/data/health.proto";
 import "blickfeld/base/options.proto";
+import "blickfeld/system/data/network_status.proto";
 package blickfeld.system.data;
 
 option (.blickfeld.base.access_control_file) = {
@@ -45,5 +46,7 @@ message Health {
   string state_reason = 2;
   // Time synchronization status
   .blickfeld.system.data.Health.TimeSynchronization time_synchronization = 3;
+  // Network status
+  .blickfeld.system.data.NetworkStatus network = 4;
 }
 

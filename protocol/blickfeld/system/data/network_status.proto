@@ -1,5 +1,6 @@
 syntax = "proto2";
 
+import "blickfeld/base/data/health.proto";
 import "blickfeld/base/options.proto";
 import "blickfeld/system/config/network.proto";
 package blickfeld.system.data;
@@ -10,14 +11,14 @@ option (.blickfeld.base.access_control_file) = {
 
 // Carries information about active connection: current statistics and network configuration
 message NetworkStatus {
-  // (WIP) Carries statistical information about currently active connection
-  message Statistics {
-    // Link speed
-    optional string speed = 1;
-  }
+  // High-level state of the time synchronization
+  optional .blickfeld.base.data.Health.State state = 3;
+  // Reason for given state. Is not set if state is STATE_OK.
+  optional string state_reason = 4;
   // Brings configuration information about currently active connection
   optional .blickfeld.system.config.Network active_config = 1;
-  // Brings statistical information about currently active connection
-  optional .blickfeld.system.data.NetworkStatus.Statistics statistics = 2;
+  // Link speed of network interface
+  optional uint32 link_speed = 5 [(.blickfeld.base.unit) = "MBit/s"];
+  reserved 2;
 }
 

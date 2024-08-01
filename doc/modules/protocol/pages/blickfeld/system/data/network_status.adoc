@@ -7,25 +7,17 @@ Carries information about active connection: current statistics and network conf
 |===
 | Field | Type | Default | Unit
 
+.2+| *state* | xref:blickfeld/base/data/health.adoc#_blickfeld_base_data_Health_State[base.data.Health.State] | - | - 
+3+| High-level state of the time synchronization
+
+.2+| *state_reason* | string| - | - 
+3+| Reason for given state. Is not set if state is STATE_OK.
+
 .2+| *active_config* | xref:blickfeld/system/config/network.adoc[config.Network] | - | - 
 3+| Brings configuration information about currently active connection
 
-.2+| *statistics* | xref:blickfeld/system/data/network_status.adoc#_blickfeld_system_data_NetworkStatus_Statistics[Statistics] | - | - 
-3+| Brings statistical information about currently active connection
-
-|===
-
-[#_blickfeld_system_data_NetworkStatus_Statistics]
-== Statistics
-
-(WIP) Carries statistical information about currently active connection
-
-.Available fields in blickfeld.system.data.NetworkStatus.Statistics
-|===
-| Field | Type | Default | Unit
-
-.2+| *speed* | string| - | - 
-3+| Link speed
+.2+| *link_speed* | uint32| - | MBit/s 
+3+| Link speed of network interface
 
 |===
 

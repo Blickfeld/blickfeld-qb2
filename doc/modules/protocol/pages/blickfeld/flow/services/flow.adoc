@@ -18,6 +18,7 @@ It is used to implement the custom storage API: https://nodered.org/docs/api/sto
 | *xref:#StoreGlobalNodes[]* | xref:blickfeld/flow/services/flow.adoc#_blickfeld_flow_services_FlowStoreGlobalNodesRequest[FlowStoreGlobalNodesRequest]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
 | *xref:#GetGlobalNodes[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/flow/services/flow.adoc#_blickfeld_flow_services_FlowGetGlobalNodesResponse[FlowGetGlobalNodesResponse]
 | *xref:#WatchGlobalNodes[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/flow/services/flow.adoc#_blickfeld_flow_services_FlowWatchGlobalNodesResponse[FlowWatchGlobalNodesResponse]
+| *xref:#Reload[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
 |===
 [#Get]
 == Get
@@ -80,7 +81,9 @@ Flow list response
 [#Store]
 == Store
 
-Store flow
+Store flow 
+ 
+A "Reload" is required to apply the operation.
 
 [#_blickfeld_flow_services_FlowStoreRequest]
 === Request
@@ -107,7 +110,9 @@ NOTE: For node_red_json, this has to match the ID in the NodeRED JSON format.
 [#Delete]
 == Delete
 
-Delete stored flow
+Delete stored flow 
+ 
+A "Reload" is required to apply the operation.
 
 [#_blickfeld_flow_services_FlowDeleteRequest]
 === Request
@@ -168,7 +173,9 @@ Per change, a response is emitted
 [#StoreGlobalNodes]
 == StoreGlobalNodes
 
-Store global nodes
+Store global nodes 
+ 
+A "Reload" is required to apply the operation.
 
 [#_blickfeld_flow_services_FlowStoreGlobalNodesRequest]
 === Request
@@ -221,4 +228,11 @@ Flow watch global nodes response
 3+| NodeRed JSON format of all global configuration nodes
 
 |===
+
+[#Reload]
+== Reload
+
+Reload node-red 
+ 
+This reloads all nodes from the config and restart all nodes.
 

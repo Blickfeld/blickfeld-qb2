@@ -100,12 +100,17 @@ Algorithm that triggers an alarm when an object of one of the selected sizes is 
 3+| Selection of sizes which trigger an alarm. Each size in the array will only 
 trigger an alarm for the interval of that size.
 
-.2+| *minimum_intruder_lifetime* | uint64| - | ns 
+.2+| *minimum_intruder_lifetime* | float| - | s 
 3+| Minimum lifetime of object before alarm is triggered. 
  
 Default: 0
 
-.2+| *minimum_intruding_duration* | uint64| - | ns 
+.2+| *minimum_intruder_track_length* | float| - | m 
+3+| Minimum track length of object before alarm is triggered. 
+ 
+Default: 0
+
+.2+| *minimum_intruding_duration* | float| - | s 
 3+| Minimum active intrusion duration of object before alarm is triggered. 
  
 Default: 0

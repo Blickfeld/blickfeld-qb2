@@ -21,8 +21,5 @@ field should help users to quickly identify different application keys but can a
 3+| If true, allow http basic access authentication using this key. 
 This option is required for ONVIF and RTSP video streaming.
 
-.2+| *last_login_ts* | uint64| - | - 
-3+| Last time the application key was used to authenticate. This is just for information purposes and might not be reliable.
-
 |===
 

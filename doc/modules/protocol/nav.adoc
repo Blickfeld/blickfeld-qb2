@@ -101,6 +101,7 @@
 ***** xref:protocol:blickfeld/percept_pipeline/data/coordinate_system.adoc[Coordinate System]
 ***** xref:protocol:blickfeld/percept_pipeline/data/health.adoc[Health]
 ***** xref:protocol:blickfeld/percept_pipeline/data/point_cloud_type.adoc[Point Cloud Type]
+***** xref:protocol:blickfeld/percept_pipeline/data/point_type.adoc[Point Type]
 ***** xref:protocol:blickfeld/percept_pipeline/data/state.adoc[State]
 **** services
 ***** xref:protocol:blickfeld/percept_pipeline/services/data_source.adoc[Data Source]

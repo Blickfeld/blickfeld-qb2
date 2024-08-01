@@ -31,6 +31,25 @@ Request for estimating alignment to ground/gravity based on imu-data and optiona
 .2+| *lidar_frame* | optional xref:blickfeld/core_processing/data/frame.adoc[core_processing.data.Frame] | - | - 
 3+| if a lidar frame is provided, it is used to estimate the z-coordinate of the translation as well.
 
+.2+| *strategy* | optional xref:blickfeld/percept_toolkit/services/geometry.adoc#_blickfeld_percept_toolkit_services_GeometryComputeGroundAlignmentRequest_Strategy[Strategy] | - | - 
+3+| Ground plane alignment estimation strategy.
+
+|===
+
+[#_blickfeld_percept_toolkit_services_GeometryComputeGroundAlignmentRequest_Strategy]
+==== Strategy
+
+Ground plane alignment strategy options.
+
+.Available values for blickfeld.percept_toolkit.services.GeometryComputeGroundAlignmentRequest.Strategy enum
+[cols='25h,5,~']
+|===
+| Name | Value | Description
+
+| STRATEGY_UNSPECIFIED ^| 0 | Unspecified. Ground plane estimation will use STRATEGY_AUTO.
+| STRATEGY_AUTO ^| 1 | Automatic mode. Ground plane alignment will use a combination of plane segmentation & accelerometer.
+| STRATEGY_PLANE_SEGMENTATION ^| 2 | Point cloud only. Use the orientation and translation computed from the plane segmentation.
+| STRATEGY_ACCELEROMETER ^| 3 | Accelerometer only. Use the orientation from the accelerometer.
 |===
 
 [#_blickfeld_percept_toolkit_services_GeometryComputeGroundAlignmentResponse]

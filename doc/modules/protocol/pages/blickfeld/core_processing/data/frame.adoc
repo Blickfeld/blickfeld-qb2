@@ -53,5 +53,10 @@ Type: UInt32
 3+| Unix timestamp of points. 
 Type: UInt64
 
+.2+| *metadata* | optional bytes| - | - 
+3+| Arbitrary metadata for annotation of the binary data fields. 
+1-dimensional array. 
+Type: UInt16
+
 |===
 

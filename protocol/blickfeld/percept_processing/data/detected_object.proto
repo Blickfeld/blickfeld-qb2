@@ -4,6 +4,7 @@ syntax = "proto3";
 
 import "blickfeld/base/geometry/pose.proto";
 import "blickfeld/base/geometry/shape.proto";
+import "blickfeld/base/geometry/vector3.proto";
 import "blickfeld/base/options.proto";
 import "blickfeld/core_processing/data/frame.proto";
 import "blickfeld/percept_pipeline/config/object_size.proto";
@@ -34,6 +35,8 @@ message DetectedObject {
     // Set when bounding box of object is mostly located within the background / reference frame.
     // This is usually an indication for ground or vegetation detections.
     bool in_background = 6;
+    // The estimated track length of an object.
+    float track_length = 7 [(.blickfeld.base.unit) = "m"];
   }
   // Flag which contains state combined with a change detection
   message Flag {
@@ -64,5 +67,7 @@ message DetectedObject {
   .blickfeld.percept_processing.data.DetectedObject.Flag intruding = 8;
   // Set when object intruded once in a security zone
   .blickfeld.percept_processing.data.DetectedObject.Flag intruder = 9;
+  // Track object velocity
+  .blickfeld.base.geometry.Vector3 velocity = 13;
 }
 

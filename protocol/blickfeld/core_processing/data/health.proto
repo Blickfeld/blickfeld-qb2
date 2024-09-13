@@ -15,7 +15,9 @@ message Health {
     // Status of Point Cloud channel
     message PointCloud {
       // Processed points per second
-      float point_rate = 1 [(.blickfeld.base.unit) = "Hz"];
+      float point_rate = 1 [(.blickfeld.base.unit) = "Hz", (.blickfeld.base.lifetime_diagnostics) = {
+        type: TYPE_RATE
+      }];
       // Scanlines per second
       float scanline_rate = 2 [(.blickfeld.base.unit) = "Hz"];
       // Frames per second

@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+import "blickfeld/base/data/health.proto";
+import "blickfeld/base/options.proto";
+package blickfeld.video.data;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_AUTHORIZED
+};
+
+// Describes the health of the video module
+message Health {
+  // Describes the RTSP client served by the video server
+  message Client {
+    // Time since this RTSP session has been active
+    uint32 uptime = 1 [(.blickfeld.base.unit) = "s"];
+  }
+  // The performance of the video processing pipeline
+  message Performance {
+    // rate at which point cloud is fetched from the source (percept)
+    float fetch_frequency = 1 [(.blickfeld.base.unit) = "Hz"];
+    // rate at which point cloud is rendered
+    float render_frequency = 2 [(.blickfeld.base.unit) = "Hz"];
+    // rate at which point cloud is pushed to the sink (video pipeline)
+    float push_frequency = 3 [(.blickfeld.base.unit) = "Hz"];
+  }
+  // High-level health state of module
+  .blickfeld.base.data.Health.State state = 1;
+  // Reason for a given state. Only set if state is not STATE_OK
+  string state_reason = 2;
+  // Served clients (key is the ip:port)
+  map<string, .blickfeld.video.data.Health.Client> clients = 3;
+  // The performance of the video processing pipeline
+  .blickfeld.video.data.Health.Performance performance = 4;
+}
+

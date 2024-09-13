@@ -3,6 +3,7 @@
 syntax = "proto3";
 
 import "blickfeld/base/options.proto";
+import "blickfeld/core_processing/data/frame.proto";
 import "blickfeld/percept_pipeline/config/perception.proto";
 import "google/protobuf/empty.proto";
 package blickfeld.percept_pipeline.services;
@@ -48,6 +49,18 @@ message PerceptionResetBackgroundRequest {
   repeated string fqdns = 1;
 }
 
+// Response containing the active background frame
+message PerceptionGetBackgroundResponse {
+  // The frame currently active as background
+  .blickfeld.core_processing.data.Frame background = 1;
+}
+
+// Request to set the active background frame
+message PerceptionSetBackgroundRequest {
+  // The frame to be set as background
+  .blickfeld.core_processing.data.Frame background = 1;
+}
+
 // The perception service allows getting, configuring and receiving updates of the perception configurations.
 // Perception configurations specify the algorithms used for e.g. for background subtraction etc.
 service Perception {
@@ -79,5 +92,13 @@ service Perception {
   }
   // Resets the background of one, multiple or all devices
   rpc ResetBackground(.blickfeld.percept_pipeline.services.PerceptionResetBackgroundRequest) returns (.google.protobuf.Empty);
+  // Get the background frame of a single device
+  rpc GetBackground(.google.protobuf.Empty) returns (.blickfeld.percept_pipeline.services.PerceptionGetBackgroundResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
+  // Set the background frame of a single device
+  rpc SetBackground(.blickfeld.percept_pipeline.services.PerceptionSetBackgroundRequest) returns (.google.protobuf.Empty);
 }
 

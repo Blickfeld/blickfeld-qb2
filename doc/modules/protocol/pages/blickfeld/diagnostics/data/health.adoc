@@ -57,6 +57,12 @@ Qb2 modules
 .2+| *secure* | xref:blickfeld/diagnostics/data/health.adoc#_blickfeld_diagnostics_data_Health_Module_Health[Health] | - | - 
 3+| Health of the Blickfeld Secure module
 
+.2+| *video* | xref:blickfeld/diagnostics/data/health.adoc#_blickfeld_diagnostics_data_Health_Module_Health[Health] | - | - 
+3+| Health of the Blickfeld Video module
+
+.2+| *compute_module* | xref:blickfeld/diagnostics/data/health.adoc#_blickfeld_diagnostics_data_Health_Module_Health[Health] | - | - 
+3+| Health of the Blickfeld Compute module
+
 |===
 
 [#_blickfeld_diagnostics_data_Health_Module_Health]

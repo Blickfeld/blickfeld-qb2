@@ -45,6 +45,11 @@
 ****** xref:protocol:blickfeld/beam_deflection_control/data/health.adoc[Health]
 ***** services
 ****** xref:protocol:blickfeld/beam_deflection_control/services/health.adoc[Health]
+**** compute_module
+***** data
+****** xref:protocol:blickfeld/compute_module/data/health.adoc[Health]
+***** services
+****** xref:protocol:blickfeld/compute_module/services/health.adoc[Health]
 **** config
 ***** data
 ****** xref:protocol:blickfeld/config/data/watch_event.adoc[Watch Event]
@@ -132,12 +137,14 @@
 ***** data
 ****** xref:protocol:blickfeld/percept_processing/data/data_type.adoc[Data Type]
 ****** xref:protocol:blickfeld/percept_processing/data/detected_object.adoc[Detected Object]
+****** xref:protocol:blickfeld/percept_processing/data/event.adoc[Event]
 ****** xref:protocol:blickfeld/percept_processing/data/health.adoc[Health]
 ****** xref:protocol:blickfeld/percept_processing/data/objects.adoc[Objects]
 ****** xref:protocol:blickfeld/percept_processing/data/state.adoc[State]
 ****** xref:protocol:blickfeld/percept_processing/data/states.adoc[States]
 ****** xref:protocol:blickfeld/percept_processing/data/volume_map.adoc[Volume Map]
 ***** services
+****** xref:protocol:blickfeld/percept_processing/services/event.adoc[Event]
 ****** xref:protocol:blickfeld/percept_processing/services/health.adoc[Health]
 ****** xref:protocol:blickfeld/percept_processing/services/objects.adoc[Objects]
 ****** xref:protocol:blickfeld/percept_processing/services/pipeline.adoc[Pipeline]
@@ -199,3 +206,8 @@
 ****** xref:protocol:blickfeld/system/services/network.adoc[Network]
 ****** xref:protocol:blickfeld/system/services/scan_pattern.adoc[Scan Pattern]
 ****** xref:protocol:blickfeld/system/services/time_synchronization.adoc[Time Synchronization]
+**** video
+***** data
+****** xref:protocol:blickfeld/video/data/health.adoc[Health]
+***** services
+****** xref:protocol:blickfeld/video/services/health.adoc[Health]

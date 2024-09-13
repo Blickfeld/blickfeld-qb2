@@ -14,6 +14,8 @@ Perception configurations specify the algorithms used for e.g. for background su
 | *xref:#Watch[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/percept_pipeline/services/perception.adoc#_blickfeld_percept_pipeline_services_PerceptionWatchResponse[PerceptionWatchResponse]Stream 
 | *xref:#ListTemplates[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/percept_pipeline/services/perception.adoc#_blickfeld_percept_pipeline_services_PerceptionListTemplatesResponse[PerceptionListTemplatesResponse]
 | *xref:#ResetBackground[]* | xref:blickfeld/percept_pipeline/services/perception.adoc#_blickfeld_percept_pipeline_services_PerceptionResetBackgroundRequest[PerceptionResetBackgroundRequest]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
+| *xref:#GetBackground[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/percept_pipeline/services/perception.adoc#_blickfeld_percept_pipeline_services_PerceptionGetBackgroundResponse[PerceptionGetBackgroundResponse]
+| *xref:#SetBackground[]* | xref:blickfeld/percept_pipeline/services/perception.adoc#_blickfeld_percept_pipeline_services_PerceptionSetBackgroundRequest[PerceptionSetBackgroundRequest]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
 |===
 [#Get]
 == Get
@@ -126,6 +128,44 @@ Request to reset the background model of one, multiple or all devices
 3+| If the list is empty, the background models of all data sources are reset. 
 If the background models of only specific devices should be rebuilt, the 'fqdn' of the respective devices 
 has to be mentioned in the 'fqdns' list.
+
+|===
+
+[#GetBackground]
+== GetBackground
+
+Get the background frame of a single device
+
+[#_blickfeld_percept_pipeline_services_PerceptionGetBackgroundResponse]
+=== Response
+
+Response containing the active background frame
+
+.Available fields in blickfeld.percept_pipeline.services.PerceptionGetBackgroundResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *background* | xref:blickfeld/core_processing/data/frame.adoc[core_processing.data.Frame] | - | - 
+3+| The frame currently active as background
+
+|===
+
+[#SetBackground]
+== SetBackground
+
+Set the background frame of a single device
+
+[#_blickfeld_percept_pipeline_services_PerceptionSetBackgroundRequest]
+=== Request
+
+Request to set the active background frame
+
+.Available fields in blickfeld.percept_pipeline.services.PerceptionSetBackgroundRequest
+|===
+| Field | Type | Default | Unit
+
+.2+| *background* | xref:blickfeld/core_processing/data/frame.adoc[core_processing.data.Frame] | - | - 
+3+| The frame to be set as background
 
 |===
 

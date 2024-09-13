@@ -1,0 +1,61 @@
+// Copyright (c) 2024 Blickfeld GmbH.
+// All rights reserved.
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+import "blickfeld/percept_processing/data/detected_object.proto";
+import "blickfeld/percept_processing/data/state.proto";
+import "blickfeld/percept_processing/data/volume_map.proto";
+package blickfeld.percept_processing.data;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_AUTHORIZED
+};
+
+// Event which is generated based on continuous zone state.
+// In contrast to a state, an event is emitted only for changes.
+// Thus, an event is often directly actionable.
+message Event {
+  // Container for security-related events
+  message Security {
+    // An intrusion started in one or multiple security zones.
+    message IntrusionStarted {
+    }
+    // An intrusion ended.
+    message IntrusionEnded {
+      // ID of the IntrusionStarted event.
+      string started_event_id = 1;
+      // Duration of the intrusion event.
+      float duration = 2 [(.blickfeld.base.unit) = "s"];
+    }
+    // An intrusion started in a security zone.
+    message ZoneIntrusionStarted {
+      // UUID of the security zone.
+      string zone_uuid = 1;
+      // Snapshot of the zone state.
+      .blickfeld.percept_processing.data.State state = 2;
+    }
+    // An intrusion of a security zone ended.
+    message ZoneIntrusionEnded {
+      // UUID of the security zone.
+      string zone_uuid = 1;
+      // ID of the ZoneIntrusionStarted event.
+      string started_event_id = 2;
+      // Duration of the intrusion event.
+      float duration = 3 [(.blickfeld.base.unit) = "s"];
+    }
+  }
+  // Unix timestamp of event
+  uint64 timestamp = 1;
+  oneof type {
+    // Security: Intrusion started
+    .blickfeld.percept_processing.data.Event.Security.IntrusionStarted security_intrusion_started = 2;
+    // Security: Intrusion ended
+    .blickfeld.percept_processing.data.Event.Security.IntrusionEnded security_intrusion_ended = 3;
+    // Security: Zone intrusion started
+    .blickfeld.percept_processing.data.Event.Security.ZoneIntrusionStarted security_zone_intrusion_started = 4;
+    // Security: Zone intrusion ended
+    .blickfeld.percept_processing.data.Event.Security.ZoneIntrusionEnded security_zone_intrusion_ended = 5;
+  }
+}
+

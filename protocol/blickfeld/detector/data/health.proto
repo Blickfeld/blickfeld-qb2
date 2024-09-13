@@ -15,6 +15,8 @@ message Health {
   // Reason for given state. Is not set if state is OK.
   string state_reason = 2;
   // Current core temperature of microcontroller.
-  float mcu_temperature = 6 [(.blickfeld.base.unit) = "\302\260C"];
+  float mcu_temperature = 6 [(.blickfeld.base.unit) = "\302\260C", (.blickfeld.base.lifetime_diagnostics) = {
+    type: TYPE_TEMPERATURE
+  }];
 }
 

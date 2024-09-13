@@ -3,10 +3,10 @@
 syntax = "proto3";
 
 import "blickfeld/percept_pipeline/config/background_subtraction.proto";
-import "blickfeld/percept_pipeline/config/clustering.proto";
-import "blickfeld/percept_pipeline/config/tracking.proto";
-import "blickfeld/percept_pipeline/config/point_cloud_filter.proto";
 import "blickfeld/percept_pipeline/config/classification.proto";
+import "blickfeld/percept_pipeline/config/clustering.proto";
+import "blickfeld/percept_pipeline/config/point_cloud_filter.proto";
+import "blickfeld/percept_pipeline/config/tracking.proto";
 import "blickfeld/base/options.proto";
 package blickfeld.percept_pipeline.config;
 

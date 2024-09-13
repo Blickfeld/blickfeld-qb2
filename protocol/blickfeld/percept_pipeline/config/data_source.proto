@@ -31,6 +31,8 @@ message DataSource {
     // Serial number. If set, the connection will be secured with TLS. This field is required if user-management
     // is enabled on externally connected devices.
     string serial_number = 4 [(.blickfeld.base.optional) = true];
+    // Disable fetching data from this sensor, setting this flag to `true` disables the evaluation of the entire sensor point cloud
+    bool disabled = 6;
     // Arbitrary metadata storage for client applications
     .google.protobuf.Struct metadata = 100 [(.blickfeld.base.optional) = true];
   }

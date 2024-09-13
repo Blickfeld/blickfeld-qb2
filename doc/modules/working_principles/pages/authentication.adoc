@@ -15,26 +15,42 @@ The data produced by Qb2 might contain sensitive or even private information. Th
 * <<_username_and_password,Username and password>> is required to access the web interface.
 * An <<_application_key,application key>> is required to access the Qb2 API directly.
 
-=== Login
+== Login
 
-For the initial access to the Qb2 web interface, credentials in the form of <<_username_and_password,username and password>> are required.
+For access to the Qb2 web interface, credentials in the form of <<_username_and_password,username and password>> are required.
 
 [NOTE]
 ====
 Every Qb2 has an initial account with a unique password. Refer to the guide on how to perform the xref:operation:authentication.adoc[initial login] to learn how to access the factory-configured account.
 ====
 
+=== Initial login
+
 If the Qb2 is in factory configuration (only one account with the default name `admin` exists) it will only prompt for the password. 
 
 .Login screen with Qb2 in factory configuration
 image::authentication_login_factory.png[]
+
+=== Username prompt
 
 The login screen will also prompt for the username if more than one account exists or the <<_username_and_password,default account name>> has been changed.
 
 .Login screen prompting for username and password
 image::authentication_login_username_password.png[]
 
-After successful login, the web interface shows the dashboard and an _account indicator_ on the left sidebar. The account indicator provides the logout action and can be used access the _account page_.
+=== Remember me
+
+The _Remember me_ toggle can be enabled before clicking on _Sign in_. This will create a permanent session for the current browser. The permanent session is based on a <<_application_key,application key>> which will also show up in the list of keys associated to the particular account.
+
+.Remember me toggle enabled
+image::authentication_remember_me_enabled.png[]
+
+.Application key for permanent session
+image::authentication_remember_me_application_key.png[]
+
+== Account
+
+After successful login, the web interface shows the dashboard and an _account indicator_ on the left sidebar. The account indicator provides the logout action and can be used to access the _account page_.
 
 .Account indicator on the left sidebar
 image::authentication_account_indicator.png[]
@@ -43,8 +59,6 @@ All details of the currently authenticated account are displayed on the _account
 
 .Account page on the Qb2 web interface
 image::authentication_account_page.png[]
-
-== Account
 
 An account contains the following attributes:
 

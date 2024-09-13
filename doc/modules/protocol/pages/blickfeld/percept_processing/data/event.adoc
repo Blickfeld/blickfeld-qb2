@@ -1,0 +1,93 @@
+[#_blickfeld_percept_processing_data_Event]
+= Event
+
+Event which is generated based on continuous zone state. 
+ 
+In contrast to a state, an event is emitted only for changes. 
+Thus, an event is often directly actionable.
+
+.Available fields in blickfeld.percept_processing.data.Event
+|===
+| Field | Type | Default | Unit
+
+.2+| *timestamp* | uint64| - | - 
+3+| Unix timestamp of event
+
+.2+| *security_intrusion_started* | xref:blickfeld/percept_processing/data/event.adoc#_blickfeld_percept_processing_data_Event_Security_IntrusionStarted[Security.IntrusionStarted] | - | - 
+3+| Security: Intrusion started
+
+.2+| *security_intrusion_ended* | xref:blickfeld/percept_processing/data/event.adoc#_blickfeld_percept_processing_data_Event_Security_IntrusionEnded[Security.IntrusionEnded] | - | - 
+3+| Security: Intrusion ended
+
+.2+| *security_zone_intrusion_started* | xref:blickfeld/percept_processing/data/event.adoc#_blickfeld_percept_processing_data_Event_Security_ZoneIntrusionStarted[Security.ZoneIntrusionStarted] | - | - 
+3+| Security: Zone intrusion started
+
+.2+| *security_zone_intrusion_ended* | xref:blickfeld/percept_processing/data/event.adoc#_blickfeld_percept_processing_data_Event_Security_ZoneIntrusionEnded[Security.ZoneIntrusionEnded] | - | - 
+3+| Security: Zone intrusion ended
+
+|===
+
+[#_blickfeld_percept_processing_data_Event_Security]
+== Security
+
+Container for security-related events
+
+[#_blickfeld_percept_processing_data_Event_Security_IntrusionStarted]
+=== Intrusion Started
+
+An intrusion started in one or multiple security zones.
+
+[#_blickfeld_percept_processing_data_Event_Security_IntrusionEnded]
+=== Intrusion Ended
+
+An intrusion ended.
+
+.Available fields in blickfeld.percept_processing.data.Event.Security.IntrusionEnded
+|===
+| Field | Type | Default | Unit
+
+.2+| *started_event_id* | string| - | - 
+3+| ID of the IntrusionStarted event.
+
+.2+| *duration* | float| - | s 
+3+| Duration of the intrusion event.
+
+|===
+
+[#_blickfeld_percept_processing_data_Event_Security_ZoneIntrusionStarted]
+=== Zone Intrusion Started
+
+An intrusion started in a security zone.
+
+.Available fields in blickfeld.percept_processing.data.Event.Security.ZoneIntrusionStarted
+|===
+| Field | Type | Default | Unit
+
+.2+| *zone_uuid* | string| - | - 
+3+| UUID of the security zone.
+
+.2+| *state* | xref:blickfeld/percept_processing/data/state.adoc[State] | - | - 
+3+| Snapshot of the zone state.
+
+|===
+
+[#_blickfeld_percept_processing_data_Event_Security_ZoneIntrusionEnded]
+=== Zone Intrusion Ended
+
+An intrusion of a security zone ended.
+
+.Available fields in blickfeld.percept_processing.data.Event.Security.ZoneIntrusionEnded
+|===
+| Field | Type | Default | Unit
+
+.2+| *zone_uuid* | string| - | - 
+3+| UUID of the security zone.
+
+.2+| *started_event_id* | string| - | - 
+3+| ID of the ZoneIntrusionStarted event.
+
+.2+| *duration* | float| - | s 
+3+| Duration of the intrusion event.
+
+|===
+

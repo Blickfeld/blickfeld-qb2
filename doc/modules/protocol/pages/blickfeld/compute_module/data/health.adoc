@@ -1,0 +1,100 @@
+[#_blickfeld_compute_module_data_Health]
+= Health
+
+Describes the health of the compute module
+
+.Available fields in blickfeld.compute_module.data.Health
+|===
+| Field | Type | Default | Unit
+
+.2+| *state* | xref:blickfeld/base/data/health.adoc#_blickfeld_base_data_Health_State[base.data.Health.State] | - | - 
+3+| High-level state of module
+
+.2+| *state_reason* | string| - | - 
+3+| Reason for given state. Is not set if state is STATE_OK.
+
+.2+| *error_flags* | xref:blickfeld/compute_module/data/health.adoc#_blickfeld_compute_module_data_Health_ErrorFlags[ErrorFlags] | - | - 
+3+| Error flags
+
+.2+| *cpu_performance* | xref:blickfeld/compute_module/data/health.adoc#_blickfeld_compute_module_data_Health_CpuPerformance[CpuPerformance] | - | - 
+3+| CPU performance
+
+.2+| *memory_utilization* | float| - | - 
+3+| Memory utilization of the compute module. 
+ 
+The value range is between 0 and 1.
+
+.2+| *uptime* | xref:blickfeld/compute_module/data/health.adoc#_blickfeld_compute_module_data_Health_Uptime[Uptime] | - | - 
+3+| Uptime
+
+|===
+
+[#_blickfeld_compute_module_data_Health_ErrorFlags]
+== Error Flags
+
+Error flags
+
+.Available fields in blickfeld.compute_module.data.Health.ErrorFlags
+|===
+| Field | Type | Default | Unit
+
+.2+| *high_cpu_load* | bool| - | - 
+3+| The average CPU load of sensor is too high. 
+The processing and frame rate will be automatically throttled.
+
+.2+| *high_temperature* | bool| - | - 
+3+| The temperature of the device is too high. 
+ 
+The CPU frequency will be throttled automatically. 
+The processing capability might be limited. 
+Note that an operation outside of the specified temperature range, 
+can cause permanent damage to the sensor.
+
+|===
+
+[#_blickfeld_compute_module_data_Health_CpuPerformance]
+== Cpu Performance
+
+Performance statistics of the CPU
+
+.Available fields in blickfeld.compute_module.data.Health.CpuPerformance
+|===
+| Field | Type | Default | Unit
+
+.2+| *total_load* | float| - | - 
+3+| Average CPU load of all cores. 
+ 
+The value range is between 0 and 1.
+
+.2+| *individual_loads* | repeated float| - | - 
+3+| Individual load per core. 
+ 
+The value range is between 0 and 1.
+
+.2+| *frequency* | float| - | Hz 
+3+| Current frequency
+
+.2+| *temperature* | float| - | °C 
+3+| Current temperature
+
+|===
+
+[#_blickfeld_compute_module_data_Health_Uptime]
+== Uptime
+
+Uptime of the device
+
+.Available fields in blickfeld.compute_module.data.Health.Uptime
+|===
+| Field | Type | Default | Unit
+
+.2+| *since_boot* | uint64| - | s 
+3+| Uptime since the last boot
+
+.2+| *lifetime* | uint64| - | s 
+3+| Uptime over the whole lifetime. 
+ 
+NOTE: The counting started with the firmware v2.3.
+
+|===
+

@@ -91,6 +91,8 @@ message ZoneAlgorithm {
   string uuid = 2;
   // Geometric shape (usually a Box) in which the algorithm detects certain behaviors/scenarios
   .blickfeld.base.geometry.Shape shape = 3;
+  // Disable this zone, setting this flag to `true` disables the evaluation of the zone
+  bool disabled = 13;
   // Arbitrary metadata storage for client applications
   .google.protobuf.Struct metadata = 100 [(.blickfeld.base.optional) = true];
   oneof algorithm_type {

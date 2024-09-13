@@ -2,8 +2,8 @@
 // All rights reserved.
 syntax = "proto3";
 
-import "blickfeld/base/options.proto";
 import "blickfeld/base/geometry/shape.proto";
+import "blickfeld/base/options.proto";
 import "blickfeld/core_processing/data/frame.proto";
 import "blickfeld/percept_pipeline/data/coordinate_system.proto";
 import "blickfeld/percept_pipeline/data/point_cloud_type.proto";

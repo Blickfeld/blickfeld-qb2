@@ -1,0 +1,52 @@
+= Service: Event
+
+CAUTION: This API is not yet officially released nor maintained.
+
+Service for actionable events
+
+.Available methods
+|===
+| Method | Request | Response
+
+| *xref:#Stream[]* | xref:blickfeld/percept_processing/services/event.adoc#_blickfeld_percept_processing_services_EventStreamRequest[EventStreamRequest]| xref:blickfeld/percept_processing/services/event.adoc#_blickfeld_percept_processing_services_EventStreamResponse[EventStreamResponse]Stream 
+|===
+[#Stream]
+== Stream
+
+A method to get a stream of events.
+
+[#_blickfeld_percept_processing_services_EventStreamRequest]
+=== Request
+
+Request for stream method
+
+.Available fields in blickfeld.percept_processing.services.EventStreamRequest
+|===
+| Field | Type | Default | Unit
+
+.2+| *id* | optional string| - | - 
+3+| Identifier from which the stream should start.
+
+|===
+
+[#_blickfeld_percept_processing_services_EventStreamResponse]
+=== Response Stream
+
+Response to stream method
+
+.Available fields in blickfeld.percept_processing.services.EventStreamResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *id* | string| - | - 
+3+| Unique identifier of event. 
+ 
+The ID has the format: $timestamp-$revision. 
+$timestamp is a monotonic counter in seconds. 
+$revision is usually 0 but incremented when there a multiple events per second.
+
+.2+| *event* | xref:blickfeld/percept_processing/data/event.adoc[data.Event] | - | - 
+3+| Event payload.
+
+|===
+

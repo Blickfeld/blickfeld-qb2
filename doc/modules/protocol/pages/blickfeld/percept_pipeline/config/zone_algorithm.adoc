@@ -16,6 +16,9 @@ An algorithm that monitors the area within and around a zone.
 .2+| *shape* | xref:blickfeld/base/geometry/shape.adoc[base.geometry.Shape] | - | - 
 3+| Geometric shape (usually a Box) in which the algorithm detects certain behaviors/scenarios
 
+.2+| *disabled* | bool| - | - 
+3+| Disable this zone, setting this flag to `true` disables the evaluation of the zone
+
 .2+| *metadata* | optional https://protobuf.dev/reference/protobuf/google.protobuf/#struct[google.protobuf.Struct] | - | - 
 3+| Arbitrary metadata storage for client applications
 

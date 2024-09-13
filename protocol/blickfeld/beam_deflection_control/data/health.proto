@@ -19,7 +19,9 @@ message Health {
     float time = 1 [(.blickfeld.base.unit) = "s"];
     // Control effort usage. Relative value indicating how much of the maximum available effort is currently used
     // to control the deflection mirror.
-    float control_effort = 9;
+    float control_effort = 9 [(.blickfeld.base.lifetime_diagnostics) = {
+      type: TYPE_UTILIZATION
+    }];
   }
   // High-level state of module
   .blickfeld.base.data.Health.State state = 1;

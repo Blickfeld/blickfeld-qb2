@@ -61,6 +61,9 @@ This field is required if user-management is enabled on externally connected dev
 3+| Serial number. If set, the connection will be secured with TLS. This field is required if user-management 
 is enabled on externally connected devices.
 
+.2+| *disabled* | bool| - | - 
+3+| Disable fetching data from this sensor, setting this flag to `true` disables the evaluation of the entire sensor point cloud
+
 .2+| *metadata* | optional https://protobuf.dev/reference/protobuf/google.protobuf/#struct[google.protobuf.Struct] | - | - 
 3+| Arbitrary metadata storage for client applications
 

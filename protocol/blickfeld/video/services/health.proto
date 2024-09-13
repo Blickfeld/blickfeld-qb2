@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+import "blickfeld/video/data/health.proto";
+import "google/protobuf/empty.proto";
+package blickfeld.video.services;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_AUTHORIZED
+};
+
+// Response to Health Get request
+message HealthGetResponse {
+  // Health state
+  .blickfeld.video.data.Health health = 1;
+}
+
+// Response to Health Watch request
+message HealthWatchResponse {
+  // Health state
+  .blickfeld.video.data.Health health = 1;
+}
+
+// The health service provides methods to monitor operational status of the video module
+service Health {
+  option (.blickfeld.base.access_control_service) = {
+    level: LEVEL_AUTHORIZED
+  };
+  option (.blickfeld.base.protocol_maturity_service) = {
+    level: LEVEL_MAINTAINED
+  };
+  // Returns the current health status of the video module
+  rpc Get(.google.protobuf.Empty) returns (.blickfeld.video.services.HealthGetResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
+  // Continously returns the current health status of the video module
+  rpc Watch(.google.protobuf.Empty) returns (stream .blickfeld.video.services.HealthWatchResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
+}
+

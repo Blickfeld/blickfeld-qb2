@@ -1,0 +1,70 @@
+[#_blickfeld_video_data_Health]
+= Health
+
+Describes the health of the video module
+
+.Available fields in blickfeld.video.data.Health
+|===
+| Field | Type | Default | Unit
+
+.2+| *state* | xref:blickfeld/base/data/health.adoc#_blickfeld_base_data_Health_State[base.data.Health.State] | - | - 
+3+| High-level health state of module
+
+.2+| *state_reason* | string| - | - 
+3+| Reason for a given state. Only set if state is not STATE_OK
+
+.2+| *clients* | repeated xref:blickfeld/video/data/health.adoc#_blickfeld_video_data_Health_ClientsEntry[ClientsEntry] | - | - 
+3+| Served clients (key is the ip:port)
+
+.2+| *performance* | xref:blickfeld/video/data/health.adoc#_blickfeld_video_data_Health_Performance[Performance] | - | - 
+3+| The performance of the video processing pipeline
+
+|===
+
+[#_blickfeld_video_data_Health_Client]
+== Client
+
+Describes the RTSP client served by the video server
+
+.Available fields in blickfeld.video.data.Health.Client
+|===
+| Field | Type | Default | Unit
+
+.2+| *uptime* | uint32| - | s 
+3+| Time since this RTSP session has been active
+
+|===
+
+[#_blickfeld_video_data_Health_Performance]
+== Performance
+
+The performance of the video processing pipeline
+
+.Available fields in blickfeld.video.data.Health.Performance
+|===
+| Field | Type | Default | Unit
+
+.2+| *fetch_frequency* | float| - | Hz 
+3+| rate at which point cloud is fetched from the source (percept)
+
+.2+| *render_frequency* | float| - | Hz 
+3+| rate at which point cloud is rendered
+
+.2+| *push_frequency* | float| - | Hz 
+3+| rate at which point cloud is pushed to the sink (video pipeline)
+
+|===
+
+[#_blickfeld_video_data_Health_ClientsEntry]
+== Clients Entry
+
+
+
+.Available fields in blickfeld.video.data.Health.ClientsEntry
+|===
+| Field | Type | Default | Unit
+
+| *key* | string| - | - 
+| *value* | xref:blickfeld/video/data/health.adoc#_blickfeld_video_data_Health_Client[Client] | - | - 
+|===
+

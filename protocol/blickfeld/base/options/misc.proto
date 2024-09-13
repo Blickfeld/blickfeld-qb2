@@ -9,6 +9,27 @@ option (.blickfeld.base.access_control_file) = {
   level: LEVEL_PUBLIC
 };
 
+// This annotation is used by diagnostic modules to
+// collect long term statistics for the annotated field.
+message LifeTimeDiagnostics {
+  // Type of diagnostics.
+  // Is used to aggregate multiple long term statistics.
+  enum Type {
+    // Unspecified type.
+    TYPE_UNSPECIFIED = 0;
+    // Temperature sensor or estimate.
+    TYPE_TEMPERATURE = 1;
+    // Indicates how much of the available resource is used.
+    TYPE_UTILIZATION = 2;
+    // Frequency measurement or estimate.
+    TYPE_RATE = 3;
+    // Electrical voltage sensor or estimate.
+    TYPE_VOLTAGE = 4;
+  }
+  // Type
+  optional .blickfeld.base.LifeTimeDiagnostics.Type type = 1 [default = TYPE_UNSPECIFIED];
+}
+
 message LinkData {
   required string type = 1;
   required string directory = 2;
@@ -32,6 +53,8 @@ extend .google.protobuf.FieldOptions {
   // Unit of field value
   // Used by Python client library generator to generate simple numpy accessors for binary fields
   optional string numpy_dtype = 52012 [json_name = "numpyDtype"];
+  // Mark properties as lifetime diagnostics
+  optional .blickfeld.base.LifeTimeDiagnostics lifetime_diagnostics = 52013 [json_name = "lifetimeDiagnostics"];
 }
 
 extend .google.protobuf.EnumOptions {

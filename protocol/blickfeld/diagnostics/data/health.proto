@@ -31,8 +31,6 @@ message Health {
     .blickfeld.diagnostics.data.Health.Module.Health system = 6;
     // health of the Blickfeld core processing module
     .blickfeld.diagnostics.data.Health.Module.Health core_processing = 7;
-    // health of percept processing
-    .blickfeld.diagnostics.data.Health.Module.Health percept_processing = 8;
     // health of percept pipeline
     .blickfeld.diagnostics.data.Health.Module.Health percept_pipeline = 9;
     // Health of the Blickfeld Push module
@@ -43,6 +41,8 @@ message Health {
     .blickfeld.diagnostics.data.Health.Module.Health video = 12;
     // Health of the Blickfeld Compute module
     .blickfeld.diagnostics.data.Health.Module.Health compute_module = 13;
+    reserved 8;
+    reserved "percept_processing";
   }
   // High-level aggregated health state of the device (if one of the modules reports FAILED -> aggregated state is also FAILED)
   .blickfeld.base.data.Health.State state = 1;

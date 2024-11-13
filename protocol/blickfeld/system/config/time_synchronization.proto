@@ -8,6 +8,7 @@ option (.blickfeld.base.access_control_file) = {
 };
 
 // Conifguration for the system time synchronization
+// 
 // The system time is used to fill timestamps in generated output data e.g. point cloud frames.
 message TimeSynchronization {
   // Configuration message for NTP time synchronization

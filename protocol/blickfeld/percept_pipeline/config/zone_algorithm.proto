@@ -15,20 +15,29 @@ option (.blickfeld.base.access_control_file) = {
 // An algorithm that monitors the area within and around a zone.
 message ZoneAlgorithm {
   // Algorithm that measure the volume of a zone
+  // 
   // The volume of a zone is approximated by computing a 'volume map' from the input point clouds. The volume map discretize the zone
   // into 'tiles' in the xy-plane with a side-length of 'resolution'. Each tile contains the height information about the points that
   // fall into this tile. The volume of the volume map can be calculated by adding up the volumes of the tiles in the volume map.
   message Volume {
     // Grid resolution per tile used to measure the volume.
+    // 
     // Reasonable default: 0.1
     float resolution = 1 [(.blickfeld.base.d_min) = 0.1, (.blickfeld.base.d_max) = 0.5, (.blickfeld.base.unit) = "m"];
     // The measured volume while area covered by the zone is considered 'empty'. The value can be set using
     // TareVolume method while the area of the zone is empty.
+    // 
     // Reasonable default: 0
     float empty_volume = 2 [(.blickfeld.base.unit) = "m^3"];
     // Link volume zone to occupancy zones (by uuid).
+    // 
     // Disables the volume zone state when one of the occupancy zones is occupied.
     repeated string disable_when_occupied_zone_uuids = 4 [(.blickfeld.base.optional) = true];
+    // Angle of repose.
+    // 
+    // Steepest angle of descent when the measured material is piled.
+    // See https://en.wikipedia.org/wiki/Angle_of_repose.
+    float angle_of_repose = 5 [(.blickfeld.base.optional) = true, (.blickfeld.base.unit) = "rad"];
     reserved 3;
   }
   // Algorithm that triggers an alarm if movement was detected in the zone
@@ -40,6 +49,10 @@ message ZoneAlgorithm {
     // More points will disable the alarm. This logic can be disabled by setting max_points to '0'.
     // Default: 0
     uint32 max_points = 2;
+    // Minimum active intrusion duration before alarm is triggered.
+    // 
+    // Default: 0
+    float minimum_intruding_duration = 3 [(.blickfeld.base.unit) = "s"];
   }
   // Algorithm that triggers an alarm when an object of one of the selected sizes is in the zone
   message ObjectBasedSecurity {
@@ -47,15 +60,19 @@ message ZoneAlgorithm {
     // trigger an alarm for the interval of that size.
     repeated .blickfeld.percept_pipeline.config.ObjectSize alarm_sizes = 1;
     // Minimum lifetime of object before alarm is triggered.
+    // 
     // Default: 0
     float minimum_intruder_lifetime = 6 [(.blickfeld.base.unit) = "s"];
     // Minimum track length of object before alarm is triggered.
+    // 
     // Default: 0
     float minimum_intruder_track_length = 7 [(.blickfeld.base.unit) = "m"];
-    // Minimum active intrusion duration of object before alarm is triggered.
+    // Minimum active intrusion duration before alarm is triggered.
+    // 
     // Default: 0
     float minimum_intruding_duration = 8 [(.blickfeld.base.unit) = "s"];
     // Trigger alarm for objects with the "in_background" property.
+    // 
     // Enabling this might increase the false alarm rate.
     bool objects_in_background = 4;
     reserved 2, 3, 5;
@@ -66,22 +83,27 @@ message ZoneAlgorithm {
   // Algorithm that detects if a zone is occupied
   message Occupancy {
     // Minimum number of points to mark the zone as occupied.
+    // 
     // Reasonable default: 10
     uint32 min_points = 1;
     // If set, the min_points is not compared against zero but against an
     // adaptive baseline. The baseline is calculated with an exponential
     // filter with the zone point count as input.
+    // 
     // The given time constant is used to calculate the alpha for the exponential
     // filter. After a restart, the baseline is initialized with the current zone
     // point count.
+    // 
     // Reasonable default: 3600s (1 hour)
     float adaptive_baseline_time_constant = 2 [(.blickfeld.base.optional) = true, (.blickfeld.base.unit) = "s"];
     // The point cloud inside the zone is down sampled with a voxel grid.
     // This is done to achieve a distance-independent parametrization.
     // The size of a voxel cell can be configured with this parameter.
+    // 
     // Default: 0.05m
     float voxel_size = 3 [(.blickfeld.base.optional) = true, (.blickfeld.base.unit) = "m"];
     // Invert the state of the zone
+    // 
     // This might be useful in situations where e.g. a static crane should be detected in its home position.
     bool invert = 4;
   }

@@ -1,0 +1,60 @@
+= Service: History
+
+NOTE: This API is officially released and maintained.
+
+The history service provides historical data. 
+The data is captured event-based e.g. when an intrusion occurs. 
+The capture window is +/- 10 seconds around the event. 
+The data is intended for event analysis and fine tuning of config. 
+ 
+[NOTE] 
+The data is stored in volatile memory thus it is not persisted 
+over a power reset of the device. Additionally, only a limited amount is kept.
+
+.Available methods
+|===
+| Method | Request | Response
+
+| *xref:#StreamRange[]* | xref:blickfeld/percept_processing/services/history.adoc#_blickfeld_percept_processing_services_HistoryStreamRangeRequest[HistoryStreamRangeRequest]| xref:blickfeld/percept_processing/services/history.adoc#_blickfeld_percept_processing_services_HistoryStreamRangeResponse[HistoryStreamRangeResponse]Stream 
+|===
+[#StreamRange]
+== StreamRange
+
+Stream historical data in the given id range. 
+ 
+Raises a NOT_FOUND error when no historical data in the given range is available.
+
+[#_blickfeld_percept_processing_services_HistoryStreamRangeRequest]
+=== Request
+
+Request for stream range method
+
+.Available fields in blickfeld.percept_processing.services.HistoryStreamRangeRequest
+|===
+| Field | Type | Default | Unit
+
+.2+| *start_id* | string| - | - 
+3+| ID where the stream should start
+
+.2+| *end_id* | string| - | - 
+3+| ID where the stream should stop
+
+|===
+
+[#_blickfeld_percept_processing_services_HistoryStreamRangeResponse]
+=== Response Stream
+
+Response for stream range method
+
+.Available fields in blickfeld.percept_processing.services.HistoryStreamRangeResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *objects* | xref:blickfeld/percept_processing/data/objects.adoc[data.Objects] | - | - 
+3+| Historical objects
+
+.2+| *states* | xref:blickfeld/percept_processing/data/states.adoc[data.States] | - | - 
+3+| Historical states
+
+|===
+

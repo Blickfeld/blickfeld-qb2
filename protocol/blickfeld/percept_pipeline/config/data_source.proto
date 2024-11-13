@@ -58,13 +58,16 @@ message DataSource {
   // Geolocation of data source.
   // This references the map coordinate system of this data source to the world.
   // Individual lidars are referenced to the map coordinate system via their `map_from_lidar` transform.
+  // 
   // [NOTE]
   // If the map_from_lidar transform is not an identity transformation, this is not the geolocation of an individual sensor.
   .blickfeld.base.config.Geolocation geolocation_of_map = 4 [(.blickfeld.base.optional) = true];
   // Experimental mode which enables configuration synchronization and distributed processing.
+  // 
   // All processing-related configuration, e.g. scan pattern and zones, are automatically
   // synchronized between all members in the sensor setup.
   // Also the sensor setup itself is replicated on all sensors.
+  // 
   // The object lists of all sensors are fused and tracked on every member in the swarm.
   // Thus, also all object-based security zones are evaluated on every sensor.
   // This leads to a high availablity and redundancy without requiring a master processing

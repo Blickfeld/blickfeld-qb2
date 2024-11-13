@@ -32,10 +32,12 @@ message ScanPattern {
   // scan lines are required to reach the target FoV and then to reach 0 degrees again. Consequently, if the limit is reached, a lower
   // number of scan lines requires a reduced FoV. Thus, a higher number of scan lines allows a larger vertical FoV. The vertical FoV is
   // limited by the optical components.
+  // 
   // Note: Due to the time required for one scan line, the rounded even number of scan lines directly scales inverse proportionally with
   // the frame rate.
   message Vertical {
     // Configures a vertical field of view foveation.
+    // 
     // This enables the user to specify a region of interest with a different scanline density which is defined as the number of
     // scanlines per degree of vertical field of view. For constant frame rate this allows increasing the resolution in the region of
     // interest without having to reduce the vertical field of view.
@@ -69,6 +71,7 @@ message ScanPattern {
   // This section defines the pattern in which the laser pulses and captures sample points
   message Pulse {
     // Configure the uniform scan pattern
+    // 
     // The classic scan pattern does not benefit uniformly from increasing the scanline count in a frame. The uniform scan pattern is an
     // optimization that tries to provide an optimally homogeneous point cloud given the system's constraints. To configure the scan
     // pattern, the vertical field of view, the target frame rate and the pulse mode are used.
@@ -94,6 +97,7 @@ message ScanPattern {
     // Read-only parameter for the actual frame rate the LiDAR is currently running at
     optional double actual = 4 [(.blickfeld.base.optional) = true, (.blickfeld.base.unit) = "Hz"];
     // IMPORTANT: This field is deprecated. It has been replaced by "actual" and will not be supported in future releases.
+    // 
     // Read-only parameter for maximum achievable frame rate of the scan pattern
     optional double maximum = 2 [deprecated = true, (.blickfeld.base.optional) = true, (.blickfeld.base.unit) = "Hz"];
   }

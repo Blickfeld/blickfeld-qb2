@@ -11,14 +11,23 @@ option (.blickfeld.base.access_control_file) = {
 };
 
 // Request for stream method
+// 
+// NOTE: Only a limited amount of events is persisted.
 message EventStreamRequest {
   // Identifier from which the stream should start.
   string id = 1 [(.blickfeld.base.optional) = true];
+  // Stream events in reverse.
+  // This fetches events from persistent database.
+  // 
+  // The events are emitted in batches.
+  // When no stream response is returned, no more events are available.
+  bool reverse = 2;
 }
 
 // Response to stream method
 message EventStreamResponse {
   // Unique identifier of event.
+  // 
   // The ID has the format: $timestamp-$revision.
   // $timestamp is a monotonic counter in seconds.
   // $revision is usually 0 but incremented when there a multiple events per second.

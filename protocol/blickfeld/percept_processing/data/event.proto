@@ -13,6 +13,7 @@ option (.blickfeld.base.access_control_file) = {
 };
 
 // Event which is generated based on continuous zone state.
+// 
 // In contrast to a state, an event is emitted only for changes.
 // Thus, an event is often directly actionable.
 message Event {

@@ -3,7 +3,9 @@
 syntax = "proto3";
 
 import "blickfeld/base/options.proto";
+import "blickfeld/core_processing/data/frame.proto";
 import "blickfeld/percept_processing/data/detected_object.proto";
+import "blickfeld/percept_processing/data/flag.proto";
 package blickfeld.percept_processing.data;
 
 option (.blickfeld.base.access_control_file) = {
@@ -19,15 +21,20 @@ message State {
     // If there is an alarm or not in the zone.
     bool alarm = 1;
     // Map of objects where the key is the UUID of the object that triggered the alarm.
-    // These objects have sparse information and will not contain the point cloud of the object.
     map<string, .blickfeld.percept_processing.data.DetectedObject> objects = 2;
+    // Active intrusion. Can be used as pre-alarm.
+    .blickfeld.percept_processing.data.Flag intrusion = 3;
   }
   // A message containing an alarm state of a zone.
   message Security {
-    // If there is an alarm or not in the zone
+    // If there is an alarm or not in the zone.
     bool alarm = 1;
-    // The current number of lidar points detected in the zone
+    // The current number of lidar points detected in the zone.
     uint32 num_detected_points = 2;
+    // Foreground point cloud inside zone which triggered the alarm.
+    .blickfeld.core_processing.data.Frame point_cloud = 3;
+    // Active intrusion. Can be used as pre-alarm.
+    .blickfeld.percept_processing.data.Flag intrusion = 4;
   }
   // A message containing the volume state of a zone.
   // This is based on one volume zone.

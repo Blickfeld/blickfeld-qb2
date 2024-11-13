@@ -1,0 +1,56 @@
+// Copyright (c) 2023 Blickfeld GmbH.
+// All rights reserved.
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+import "blickfeld/percept_processing/data/objects.proto";
+import "blickfeld/percept_processing/data/states.proto";
+import "google/protobuf/empty.proto";
+package blickfeld.percept_processing.services;
+
+option cc_enable_arenas = true;
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_AUTHORIZED
+};
+
+// Request for stream range method
+message HistoryStreamRangeRequest {
+  // ID where the stream should start
+  string start_id = 1;
+  // ID where the stream should stop
+  string end_id = 2;
+}
+
+// Response for stream range method
+message HistoryStreamRangeResponse {
+  // Historical objects
+  .blickfeld.percept_processing.data.Objects objects = 1;
+  // Historical states
+  .blickfeld.percept_processing.data.States states = 2;
+}
+
+// The history service provides historical data.
+// The data is captured event-based e.g. when an intrusion occurs.
+// The capture window is +/- 10 seconds around the event.
+// The data is intended for event analysis and fine tuning of config.
+// 
+// [NOTE]
+// The data is stored in volatile memory thus it is not persisted
+// over a power reset of the device. Additionally, only a limited amount is kept.
+service History {
+  option (.blickfeld.base.access_control_service) = {
+    level: LEVEL_AUTHORIZED
+  };
+  option (.blickfeld.base.protocol_maturity_service) = {
+    level: LEVEL_MAINTAINED
+  };
+  // Stream historical data in the given id range.
+  // 
+  // Raises a NOT_FOUND error when no historical data in the given range is available.
+  rpc StreamRange(.blickfeld.percept_processing.services.HistoryStreamRangeRequest) returns (stream .blickfeld.percept_processing.services.HistoryStreamRangeResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
+}
+

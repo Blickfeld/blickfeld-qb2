@@ -13,28 +13,34 @@ option (.blickfeld.base.access_control_file) = {
 // and Protobuf field level.
 message AccessControl {
   // Available access levels
+  // 
   // The levels are ordered in ascending order, which means that each level also inherits the permissions
   // of the levels above it.
   enum Level {
     // Access level is not specified
     LEVEL_UNSPECIFIED = 0;
     // Everyone can access
+    // 
     // The corresponding entities can be accessed by anyone who has access to the interface of the device.
     // The access can not be disabled by the user.
     LEVEL_PUBLIC = 1;
     // Only authorized clients can access
+    // 
     // The corresponding entities can only be used by authorized clients.
     // The access can be managed by clients with the ADMIN access level.
     // If desired, the AUTHORIZED access level can be configured to act equally to the PUBLIC access level.
     LEVEL_AUTHORIZED = 2;
     // Only administrative clients can access
+    // 
     // The corresponding entities are mainly used to configure the accounts with AUTHORIZED & ADMIN access levels.
     LEVEL_ADMIN = 3;
     // Only clients of the Blickfeld support can access
+    // 
     // The corresponding entities can only be accessed by Blickfeld Support Tools & clients.
     // The access tokens are bound to devices.
     LEVEL_SUPPORT = 4;
     // Only clients in production can access
+    // 
     // The corresponding entities are used for end-of-line & re-work processes.
     LEVEL_PRODUCTION = 5;
     // Only Blickfeld developers can access

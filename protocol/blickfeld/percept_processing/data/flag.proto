@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+package blickfeld.percept_processing.data;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_AUTHORIZED
+};
+
+// Flag which contains state combined with a change detection
+message Flag {
+  // Current state
+  bool state = 1;
+  // Timestamp since when the state did not change
+  uint64 since_timestamp = 2 [(.blickfeld.base.unit) = "ns"];
+  // Duration of current state
+  uint64 since_duration = 3 [(.blickfeld.base.unit) = "ns"];
+}
+

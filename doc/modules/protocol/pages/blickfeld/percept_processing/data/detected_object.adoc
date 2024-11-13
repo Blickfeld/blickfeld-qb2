@@ -16,7 +16,7 @@ A message representing exactly one object that is detected in the scene.
 .2+| *properties* | xref:blickfeld/percept_processing/data/detected_object.adoc#_blickfeld_percept_processing_data_DetectedObject_Properties[Properties] | - | - 
 3+| Properties of the object.
 
-.2+| *point_cloud* | optional xref:blickfeld/core_processing/data/frame.adoc[core_processing.data.Frame] | - | - 
+.2+| *point_cloud* | xref:blickfeld/core_processing/data/frame.adoc[core_processing.data.Frame] | - | - 
 3+| The point cloud of the object.
 
 .2+| *timestamp* | uint64| - | ns 
@@ -31,10 +31,10 @@ A message representing exactly one object that is detected in the scene.
 .2+| *visible_to_sensors* | repeated string| - | - 
 3+| List of sensors which currently detect the object
 
-.2+| *intruding* | xref:blickfeld/percept_processing/data/detected_object.adoc#_blickfeld_percept_processing_data_DetectedObject_Flag[Flag] | - | - 
+.2+| *intruding* | xref:blickfeld/percept_processing/data/flag.adoc[Flag] | - | - 
 3+| Active when object is currently detected as intruder in a security zone
 
-.2+| *intruder* | xref:blickfeld/percept_processing/data/detected_object.adoc#_blickfeld_percept_processing_data_DetectedObject_Flag[Flag] | - | - 
+.2+| *intruder* | xref:blickfeld/percept_processing/data/flag.adoc[Flag] | - | - 
 3+| Set when object intruded once in a security zone
 
 .2+| *velocity* | xref:blickfeld/base/geometry/vector3.adoc[base.geometry.Vector3] | - | - 
@@ -78,26 +78,6 @@ This is usually an indication for ground or vegetation detections.
 
 .2+| *track_length* | float| - | m 
 3+| The estimated track length of an object.
-
-|===
-
-[#_blickfeld_percept_processing_data_DetectedObject_Flag]
-== Flag
-
-Flag which contains state combined with a change detection
-
-.Available fields in blickfeld.percept_processing.data.DetectedObject.Flag
-|===
-| Field | Type | Default | Unit
-
-.2+| *state* | bool| - | - 
-3+| Current state
-
-.2+| *since_timestamp* | uint64| - | ns 
-3+| Timestamp since when the state did not change
-
-.2+| *since_duration* | uint64| - | ns 
-3+| Duration of current state
 
 |===
 

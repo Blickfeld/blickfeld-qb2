@@ -19,6 +19,7 @@ service Storage {
     level: LEVEL_MAINTAINED
   };
   // Delete all user generated settings, log files and cached data
+  // 
   // WARNING: All non-factory provided settings in the device configuration will be permanently lost.
   rpc FactoryReset(.google.protobuf.Empty) returns (.google.protobuf.Empty);
 }

@@ -68,6 +68,12 @@ Reasonable default: 0
  
 Disables the volume zone state when one of the occupancy zones is occupied.
 
+.2+| *angle_of_repose* | optional float| - | rad 
+3+| Angle of repose. 
+ 
+Steepest angle of descent when the measured material is piled. 
+See https://en.wikipedia.org/wiki/Angle_of_repose.
+
 |===
 
 [#_blickfeld_percept_pipeline_config_ZoneAlgorithm_Security]
@@ -86,6 +92,11 @@ Reasonable default: 10
 .2+| *max_points* | uint32| - | - 
 3+| Maximum number of (foreground) points in the security zone that still triggers an alarm. 
 More points will disable the alarm. This logic can be disabled by setting max_points to '0'. 
+Default: 0
+
+.2+| *minimum_intruding_duration* | float| - | s 
+3+| Minimum active intrusion duration before alarm is triggered. 
+ 
 Default: 0
 
 |===
@@ -114,7 +125,7 @@ Default: 0
 Default: 0
 
 .2+| *minimum_intruding_duration* | float| - | s 
-3+| Minimum active intrusion duration of object before alarm is triggered. 
+3+| Minimum active intrusion duration before alarm is triggered. 
  
 Default: 0
 

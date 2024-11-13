@@ -22,5 +22,8 @@ The configuration of perception algorithms used to run e.g. security zones
 .2+| *classification* | xref:blickfeld/percept_pipeline/config/classification.adoc[Classification] | - | - 
 3+| Classify object into small, medium and large objects
 
+.2+| *history* | xref:blickfeld/percept_pipeline/config/history.adoc[History] | - | - 
+3+| Keep a history of perception results
+
 |===
 

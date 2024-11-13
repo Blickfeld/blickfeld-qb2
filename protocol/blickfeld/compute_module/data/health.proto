@@ -16,6 +16,7 @@ message Health {
     // The processing and frame rate will be automatically throttled.
     bool high_cpu_load = 1;
     // The temperature of the device is too high.
+    // 
     // The CPU frequency will be throttled automatically.
     // The processing capability might be limited.
     // Note that an operation outside of the specified temperature range,
@@ -25,11 +26,13 @@ message Health {
   // Performance statistics of the CPU
   message CpuPerformance {
     // Average CPU load of all cores.
+    // 
     // The value range is between 0 and 1.
     float total_load = 1 [(.blickfeld.base.lifetime_diagnostics) = {
       type: TYPE_UTILIZATION
     }];
     // Individual load per core.
+    // 
     // The value range is between 0 and 1.
     repeated float individual_loads = 2;
     // Current frequency
@@ -44,6 +47,7 @@ message Health {
     // Uptime since the last boot
     uint64 since_boot = 1 [(.blickfeld.base.unit) = "s"];
     // Uptime over the whole lifetime.
+    // 
     // NOTE: The counting started with the firmware v2.3.
     uint64 lifetime = 2 [(.blickfeld.base.unit) = "s"];
   }
@@ -56,6 +60,7 @@ message Health {
   // CPU performance
   .blickfeld.compute_module.data.Health.CpuPerformance cpu_performance = 4;
   // Memory utilization of the compute module.
+  // 
   // The value range is between 0 and 1.
   float memory_utilization = 5 [(.blickfeld.base.lifetime_diagnostics) = {
     type: TYPE_UTILIZATION

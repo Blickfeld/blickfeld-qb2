@@ -51,6 +51,7 @@ message Network {
   }
   // If set, the device will turn of the Ethernet interface and connect to the given wireless access point.
   // The Ethernet and WiFi interface cannot work simultanously.
+  // 
   // [NOTE]
   // Always use the validate method of the network service to ensure that the given credentials are correct.
   // If the credentials are incorrect or the wireless access point is down, the fallback IP address can
@@ -59,6 +60,7 @@ message Network {
     // SSID of the wireless network
     optional string ssid = 1;
     // Password of the wireless network
+    // 
     // [NOTE]
     // If the password is not set and the SSID did not change, the existing password is used.
     // This mechanism is applied as the password is never returned via the GetConfig API.

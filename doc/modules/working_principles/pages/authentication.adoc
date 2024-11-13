@@ -118,15 +118,8 @@ image::authentication_admin_application_key.png[]
 [NOTE]
 ====
 
-To connect Qb2 to a video xref:operation:onvif/index.adoc[ONVIF compliant Video Management System (VMS)] create an application key with the `HTTP authentication` option enabled:
+The `HTTP authentication` option can be enabled to connect Qb2 to an xref:operation:onvif/index.adoc[ONVIF compliant Video Management System (VMS)] or to directly obtain a RTSP video stream using a video player. 
 
-.Creating HTTP authentication application key
-image::authentication_create_http_application_key.png[]
-
-The resulting key in combination with the username can be used as credentials in the VMS.
-
-.Resulting HTTP application key
-image::authentication_http_application_key.png[]
 ====
 
 === Access level

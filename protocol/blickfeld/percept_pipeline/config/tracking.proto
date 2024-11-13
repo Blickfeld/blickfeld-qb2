@@ -14,12 +14,15 @@ message Tracking {
   // Disable tracking. On by default.
   bool disable = 4;
   // Higher sensitivity will make the tracker confirm the object faster
+  // 
   // Reasonale default: 0.85
   float sensitivity = 1;
   // The acceptance range of accelerations for the object to be tracked
+  // 
   // Reasonable default: 0.5
   float acceleration_noise = 2;
   // Higher probability will allow the object to be followed longer in the absence of observations
+  // 
   // Reasonable default: 1
   float survival_probability = 3;
 }

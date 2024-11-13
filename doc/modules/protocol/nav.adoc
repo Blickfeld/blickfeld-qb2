@@ -97,6 +97,7 @@
 ***** xref:protocol:blickfeld/percept_pipeline/config/classification.adoc[Classification]
 ***** xref:protocol:blickfeld/percept_pipeline/config/clustering.adoc[Clustering]
 ***** xref:protocol:blickfeld/percept_pipeline/config/data_source.adoc[Data Source]
+***** xref:protocol:blickfeld/percept_pipeline/config/history.adoc[History]
 ***** xref:protocol:blickfeld/percept_pipeline/config/object_size.adoc[Object Size]
 ***** xref:protocol:blickfeld/percept_pipeline/config/perception.adoc[Perception]
 ***** xref:protocol:blickfeld/percept_pipeline/config/point_cloud_filter.adoc[Point Cloud Filter]
@@ -118,6 +119,7 @@
 ***** xref:protocol:blickfeld/percept_processing/data/data_type.adoc[Data Type]
 ***** xref:protocol:blickfeld/percept_processing/data/detected_object.adoc[Detected Object]
 ***** xref:protocol:blickfeld/percept_processing/data/event.adoc[Event]
+***** xref:protocol:blickfeld/percept_processing/data/flag.adoc[Flag]
 ***** xref:protocol:blickfeld/percept_processing/data/health.adoc[Health]
 ***** xref:protocol:blickfeld/percept_processing/data/objects.adoc[Objects]
 ***** xref:protocol:blickfeld/percept_processing/data/state.adoc[State]
@@ -126,6 +128,7 @@
 **** services
 ***** xref:protocol:blickfeld/percept_processing/services/event.adoc[Event]
 ***** xref:protocol:blickfeld/percept_processing/services/health.adoc[Health]
+***** xref:protocol:blickfeld/percept_processing/services/history.adoc[History]
 ***** xref:protocol:blickfeld/percept_processing/services/objects.adoc[Objects]
 ***** xref:protocol:blickfeld/percept_processing/services/pipeline.adoc[Pipeline]
 ***** xref:protocol:blickfeld/percept_processing/services/point_cloud.adoc[Point Cloud]

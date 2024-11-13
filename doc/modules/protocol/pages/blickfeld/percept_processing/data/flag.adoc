@@ -1,0 +1,20 @@
+[#_blickfeld_percept_processing_data_Flag]
+= Flag
+
+Flag which contains state combined with a change detection
+
+.Available fields in blickfeld.percept_processing.data.Flag
+|===
+| Field | Type | Default | Unit
+
+.2+| *state* | bool| - | - 
+3+| Current state
+
+.2+| *since_timestamp* | uint64| - | ns 
+3+| Timestamp since when the state did not change
+
+.2+| *since_duration* | uint64| - | ns 
+3+| Duration of current state
+
+|===
+

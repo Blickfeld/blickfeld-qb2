@@ -58,6 +58,7 @@ service Network {
   // If DHCP is configured, it checks if it can acquire an IPv4 address.
   // For static IP address, the validation only works for wireless networks.
   // It then, still cannot allocate a manual IP address if the credentials are wrong.
+  // 
   // [NOTE]
   // The validation does not yet separate error messages for misconfigured wireless credentials
   // or wrongly configured DHCP server. Thus, the issue is not necessarily on the device side.

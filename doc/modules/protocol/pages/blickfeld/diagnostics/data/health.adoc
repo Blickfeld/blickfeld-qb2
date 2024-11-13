@@ -45,9 +45,6 @@ Qb2 modules
 .2+| *core_processing* | xref:blickfeld/diagnostics/data/health.adoc#_blickfeld_diagnostics_data_Health_Module_Health[Health] | - | - 
 3+| health of the Blickfeld core processing module
 
-.2+| *percept_processing* | xref:blickfeld/diagnostics/data/health.adoc#_blickfeld_diagnostics_data_Health_Module_Health[Health] | - | - 
-3+| health of percept processing
-
 .2+| *percept_pipeline* | xref:blickfeld/diagnostics/data/health.adoc#_blickfeld_diagnostics_data_Health_Module_Health[Health] | - | - 
 3+| health of percept pipeline
 

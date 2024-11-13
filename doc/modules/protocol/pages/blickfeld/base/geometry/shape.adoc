@@ -16,6 +16,9 @@ A shape that represents a geometrical figure.
 .2+| *cone* | xref:blickfeld/base/geometry/shape.adoc#_blickfeld_base_geometry_Shape_Cone[Cone] | - | - 
 3+| Cone shape
 
+.2+| *cylinder_cone* | xref:blickfeld/base/geometry/shape.adoc#_blickfeld_base_geometry_Shape_CylinderCone[CylinderCone] | - | - 
+3+| Cylinder Cone shape
+
 |===
 
 [#_blickfeld_base_geometry_Shape_Box]
@@ -44,6 +47,24 @@ A 3 dimensional cone.
 .2+| *dimensions* | xref:blickfeld/base/geometry/vector3.adoc[Vector3] | - | - 
 3+| The X, Y and Z dimension of the cone. X and Y dimensions of the cone 
 define the ellipsoid at the bottom of the cone. The cone is narrowing along the z direction.
+
+|===
+
+[#_blickfeld_base_geometry_Shape_CylinderCone]
+== Cylinder Cone
+
+A 3 dimensional cylinder base and a cone top.
+
+.Available fields in blickfeld.base.geometry.Shape.CylinderCone
+|===
+| Field | Type | Default | Unit
+
+.2+| *dimensions* | xref:blickfeld/base/geometry/vector3.adoc[Vector3] | - | - 
+3+| The X, Y and Z dimension of the cone. X and Y dimensions of the cone 
+define the ellipsoid at the bottom of the cone. The cone is narrowing along the z direction.
+
+.2+| *cylinder_height* | float| - | - 
+3+| The cylinder height in meters.
 
 |===
 

@@ -13,6 +13,7 @@ option (.blickfeld.base.access_control_file) = {
 // collect long term statistics for the annotated field.
 message LifeTimeDiagnostics {
   // Type of diagnostics.
+  // 
   // Is used to aggregate multiple long term statistics.
   enum Type {
     // Unspecified type.

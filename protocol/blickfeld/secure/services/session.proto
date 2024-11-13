@@ -15,6 +15,7 @@ message SessionGetNonceResponse {
 }
 
 // Session service which implements all methods for session-bound security features.
+// 
 // A session is recreated after the following events:
 // * Power-cycle of the device
 // * Every day (UTC)
@@ -32,6 +33,7 @@ service Session {
       read_only: true
     };
   }
+  // 
   // Invalidates the current session.
   // A new session will be created automatically.
   rpc Invalidate(.google.protobuf.Empty) returns (.google.protobuf.Empty) {
@@ -39,5 +41,6 @@ service Session {
       level: LEVEL_ADMIN
     };
   }
+  // 
 }
 

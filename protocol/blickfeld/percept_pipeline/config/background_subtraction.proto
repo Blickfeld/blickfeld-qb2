@@ -33,9 +33,11 @@ message BackgroundSubtraction {
     // Reasonable default: 10
     uint32 num_initialization_frames = 1;
     // Size of voxels used for voxelization of the background during initialization.
+    // 
     // Default: 0.05 m
     float voxel_size = 3 [(.blickfeld.base.unit) = "m"];
     // Minimum spatial distance to background to detect points as foreground
+    // 
     // Default: 0.15 m
     float min_distance = 4 [(.blickfeld.base.unit) = "m"];
     reserved 2;

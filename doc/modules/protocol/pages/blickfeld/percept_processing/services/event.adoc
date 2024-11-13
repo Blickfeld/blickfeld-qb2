@@ -18,7 +18,9 @@ A method to get a stream of events.
 [#_blickfeld_percept_processing_services_EventStreamRequest]
 === Request
 
-Request for stream method
+Request for stream method 
+ 
+NOTE: Only a limited amount of events is persisted.
 
 .Available fields in blickfeld.percept_processing.services.EventStreamRequest
 |===
@@ -26,6 +28,13 @@ Request for stream method
 
 .2+| *id* | optional string| - | - 
 3+| Identifier from which the stream should start.
+
+.2+| *reverse* | bool| - | - 
+3+| Stream events in reverse. 
+This fetches events from persistent database. 
+ 
+The events are emitted in batches. 
+When no stream response is returned, no more events are available.
 
 |===
 

@@ -1,0 +1,18 @@
+// Copyright (c) 2024 Blickfeld GmbH.
+// All rights reserved.
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+import "google/protobuf/struct.proto";
+package blickfeld.percept_pipeline.config;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_AUTHORIZED
+};
+
+// Configuration message for the event and motion replay history module.
+message History {
+  // Disable non-volatile history.
+  bool disable = 1;
+}
+

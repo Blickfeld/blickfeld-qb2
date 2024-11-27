@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+import "blickfeld/video/config/visualization.proto";
+import "google/protobuf/empty.proto";
+package blickfeld.video.services;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_AUTHORIZED
+};
+
+// Get Visualization Request
+message VisualizationGetRequest {
+  // visualisation name
+  string name = 1;
+}
+
+// Get Visualisation response
+message VisualizationGetResponse {
+  // visualisation configuration
+  .blickfeld.video.config.Visualization configuration = 1;
+}
+
+// Set Visualisation request
+message VisualizationSetRequest {
+  // can be applied directly or by name
+  oneof type_oneof {
+    // can be applied by name (from the existing list)
+    string name = 1;
+    // can be applied without name
+    .blickfeld.video.config.Visualization configuration = 2;
+  }
+}
+
+// List Visualisation response
+message VisualizationListResponse {
+  // map of stored visualisation configurations
+  map<string, .blickfeld.video.config.Visualization> configuration = 1;
+}
+
+// Store active visualisation Reuest
+message VisualizationStoreRequest {
+  // name of the configuration
+  string name = 1;
+  // visualisation configuration
+  .blickfeld.video.config.Visualization configuration = 2;
+}
+
+// Delete visualisation from list of available visualisations
+message VisualizationDeleteRequest {
+  // configuration name
+  string name = 1;
+}
+
+// Service allows to change the visuals of RTSP video stream served by Qb2.
+// Changes can be applicable to the elements of the observed scene frame (e.g. background, objects)
+// and to extra overlay elements (e.g. logo branding, time, clock, background color)
+service Visualization {
+  option (.blickfeld.base.access_control_service) = {
+    level: LEVEL_AUTHORIZED
+  };
+  option (.blickfeld.base.protocol_maturity_service) = {
+    level: LEVEL_MAINTAINED
+  };
+  // Gets named visual configuration
+  rpc Get(.blickfeld.video.services.VisualizationGetRequest) returns (stream .blickfeld.video.services.VisualizationGetResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
+  // Applies visualization configuration to the video stream
+  rpc Set(.blickfeld.video.services.VisualizationSetRequest) returns (.google.protobuf.Empty);
+}
+

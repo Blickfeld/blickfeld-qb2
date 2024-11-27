@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+package blickfeld.video.config;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_AUTHORIZED
+};
+
+// Message representing the visuals configuration of the RTSP video stream
+message Visualization {
+  // RGB color used for coloring various elements and objects inside RTSP video frame
+  message Color {
+    // The amount of red in the color as a value in the interval [0, 1].
+    float red = 1;
+    // The amount of green in the color as a value in the interval [0, 1].
+    float green = 2;
+    // The amount of blue in the color as a value in the interval [0, 1].
+    float blue = 3;
+    // The alpha channel (transparency) in the interval [0, 1]. 0 means transparent
+    float alpha = 4;
+  }
+  // Visual configuration of point cloud frame. Element coloring can be disabled by unsetting the corresponding color.
+  message Frame {
+    // color used to mark background point
+    .blickfeld.video.config.Visualization.Color background = 1;
+    // color used to mark foreground point - gray
+    .blickfeld.video.config.Visualization.Color foreground = 2;
+    // clockwise rotation value applied to the frame
+    .blickfeld.video.config.Visualization.Rotation rotation = 7;
+  }
+  // Defines the clockwise rotation value for the frame in the video stream
+  enum Rotation {
+    // no video frame rotation
+    ROTATION_UNSPECIFIED = 0;
+    // rotate video frame 90 degrees
+    ROTATION_90 = 1;
+    // rotate video frame 180 degrees
+    ROTATION_180 = 2;
+    // rotate video frame 270 degrees
+    ROTATION_270 = 3;
+  }
+  // frame configuration
+  .blickfeld.video.config.Visualization.Frame frame = 1;
+}
+

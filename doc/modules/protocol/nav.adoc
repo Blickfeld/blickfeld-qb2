@@ -190,7 +190,10 @@
 ***** xref:protocol:blickfeld/system/services/scan_pattern.adoc[Scan Pattern]
 ***** xref:protocol:blickfeld/system/services/time_synchronization.adoc[Time Synchronization]
 *** video
+**** config
+***** xref:protocol:blickfeld/video/config/visualization.adoc[Visualization]
 **** data
 ***** xref:protocol:blickfeld/video/data/health.adoc[Health]
 **** services
 ***** xref:protocol:blickfeld/video/services/health.adoc[Health]
+***** xref:protocol:blickfeld/video/services/visualization.adoc[Visualization]

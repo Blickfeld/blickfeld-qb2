@@ -2,6 +2,7 @@ display_version: v2.4
 name: Qb2
 nav:
 - modules/ROOT/nav.adoc
+- modules/introduction/nav.adoc
 - modules/working_principles/nav.adoc
 - modules/installation_and_integration/nav.adoc
 - modules/operation/nav.adoc

@@ -1,0 +1,13 @@
+= WebGUI Tutorial
+
+Explore the software features available for Blickfeld LiDAR sensors. 
+This WebGUI tutorial provides a comprehensive overview of various software features and covers both the Qb2 and QbProtect in one guide.
+
+++++
+<br />
+<div style="position: relative;width: 100%;height: 0;padding-bottom: 60.8%;">
+    <iframe src="https://docs.blickfeld.com/redirects/webgui_tutorial.html" frameborder="0" style="position: absolute;width: 100%;height: 100%;left: 0; top: 0;" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+</div>
+++++
+
+NOTE: The tutorial is loaded from an external website and is not available in offline environments.

@@ -4,7 +4,4 @@
 *** xref:operation:onvif/senstar.adoc[]
 ** xref:operation:authentication.adoc[]
 ** xref:operation:firmware_networking.adoc[]
-** xref:operation:point_cloud_visualization.adoc[]
-** xref:operation:security.adoc[]
 ** xref:operation:sensor_setup.adoc[]
-** xref:operation:volume_monitoring.adoc[]

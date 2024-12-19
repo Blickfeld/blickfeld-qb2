@@ -57,8 +57,10 @@ message PerceptionGetBackgroundResponse {
 
 // Request to set the active background frame
 message PerceptionSetBackgroundRequest {
-  // The frame to be set as background
-  .blickfeld.core_processing.data.Frame background = 1;
+  oneof background_oneof {
+    // The frame to be set as background
+    .blickfeld.core_processing.data.Frame background = 1;
+  }
 }
 
 // The perception service allows getting, configuring and receiving updates of the perception configurations.

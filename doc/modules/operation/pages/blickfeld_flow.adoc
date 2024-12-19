@@ -1,6 +1,4 @@
-= Blickfeld Flow (BETA)
-
-CAUTION: This feature is currently in the testing phase and not yet completed. Changes in upcoming firmware releases may cause behaviours and APIs created with Flow to break.
+= Blickfeld Flow
 
 Blickfeld Flow is a low-code prototyping and integration tool for customizing and extending the functionality of the Qb2 sensor.
 It is based on the open-source tool https://nodered.org[Node-Red], an efficient and state-of-the-art flow-based programming tool for event-driven applications.

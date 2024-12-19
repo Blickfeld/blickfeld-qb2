@@ -30,6 +30,13 @@ Thus, also all object-based security zones are evaluated on every sensor.
 This leads to a high availablity and redundancy without requiring a master processing 
 unit would be a single point of failure.
 
+.2+| *allow_unavailable_lidars* | bool| - | - 
+3+| Allow that devices in the setup are temporarily not available or failed. 
+ 
+Re-connection attempts are performed continously. 
+A warning with the list of unavailable sensors is raised. 
+If all sensors are unavailable, the pipeline will fail.
+
 |===
 
 [#_blickfeld_percept_pipeline_config_DataSource_Qb2]

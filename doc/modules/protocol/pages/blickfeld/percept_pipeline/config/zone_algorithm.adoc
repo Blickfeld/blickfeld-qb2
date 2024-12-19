@@ -37,6 +37,9 @@ An algorithm that monitors the area within and around a zone.
 .2+| *occupancy* | xref:blickfeld/percept_pipeline/config/zone_algorithm.adoc#_blickfeld_percept_pipeline_config_ZoneAlgorithm_Occupancy[Occupancy] | - | - 
 3+| Run occupancy zone
 
+.2+| *traversal_security* | xref:blickfeld/percept_pipeline/config/zone_algorithm.adoc#_blickfeld_percept_pipeline_config_ZoneAlgorithm_TraversalSecurity[TraversalSecurity] | - | - 
+3+| Run traversal zone
+
 |===
 
 [#_blickfeld_percept_pipeline_config_ZoneAlgorithm_Volume]
@@ -74,6 +77,17 @@ Disables the volume zone state when one of the occupancy zones is occupied.
 Steepest angle of descent when the measured material is piled. 
 See https://en.wikipedia.org/wiki/Angle_of_repose.
 
+.2+| *minimum_coverage* | optional float| - | - 
+3+| Minimum coverage value for zone. 
+ 
+When the estimated coverage is below the configured threshold, 
+the state output will be disabled. 
+ 
+This can be used to automatically disable zones when the viewport to the 
+zone area is blocked or the sensor is temporarily failed. 
+ 
+Default: 0
+
 |===
 
 [#_blickfeld_percept_pipeline_config_ZoneAlgorithm_Security]
@@ -96,6 +110,18 @@ Default: 0
 
 .2+| *minimum_intruding_duration* | float| - | s 
 3+| Minimum active intrusion duration before alarm is triggered. 
+ 
+Default: 0
+
+.2+| *minimum_intrusion_confidence* | float| - | - 
+3+| Minimum intrusion confidence before alarm is triggered. 
+ 
+Only applicable when the minimum intruding duration is configured. 
+ 
+Default: 1
+
+.2+| *hold_duration* | float| - | s 
+3+| Alarm is kept active for the given duration to reduce jitter. 
  
 Default: 0
 
@@ -133,6 +159,18 @@ Default: 0
 3+| Trigger alarm for objects with the "in_background" property. 
  
 Enabling this might increase the false alarm rate.
+
+.2+| *minimum_intrusion_confidence* | float| - | - 
+3+| Minimum intrusion confidence before alarm is triggered. 
+ 
+Only applicable when the minimum intruding duration is configured. 
+ 
+Default: 1
+
+.2+| *hold_duration* | float| - | s 
+3+| Alarm is kept active for the given duration to reduce jitter. 
+ 
+Default: 0
 
 |===
 
@@ -177,6 +215,26 @@ Default: 0.05m
 3+| Invert the state of the zone 
  
 This might be useful in situations where e.g. a static crane should be detected in its home position.
+
+|===
+
+[#_blickfeld_percept_pipeline_config_ZoneAlgorithm_TraversalSecurity]
+== Traversal Security
+
+Algorithm that detects if objects are traversing through the zone.
+
+.Available fields in blickfeld.percept_pipeline.config.ZoneAlgorithm.TraversalSecurity
+|===
+| Field | Type | Default | Unit
+
+.2+| *alarm_sizes* | repeated xref:blickfeld/percept_pipeline/config/object_size.adoc[ObjectSize] | - | - 
+3+| Selection of sizes which trigger an alarm.  An alarm will only be triggered by objects of sizes 
+specified in the array.
+
+.2+| *hold_duration* | float| - | s 
+3+| Alarm is kept active for the given duration to reduce jitter. 
+ 
+Default: 0
 
 |===
 

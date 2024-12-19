@@ -38,6 +38,16 @@ message ZoneAlgorithm {
     // Steepest angle of descent when the measured material is piled.
     // See https://en.wikipedia.org/wiki/Angle_of_repose.
     float angle_of_repose = 5 [(.blickfeld.base.optional) = true, (.blickfeld.base.unit) = "rad"];
+    // Minimum coverage value for zone.
+    // 
+    // When the estimated coverage is below the configured threshold,
+    // the state output will be disabled.
+    // 
+    // This can be used to automatically disable zones when the viewport to the
+    // zone area is blocked or the sensor is temporarily failed.
+    // 
+    // Default: 0
+    float minimum_coverage = 6 [(.blickfeld.base.optional) = true];
     reserved 3;
   }
   // Algorithm that triggers an alarm if movement was detected in the zone
@@ -53,6 +63,16 @@ message ZoneAlgorithm {
     // 
     // Default: 0
     float minimum_intruding_duration = 3 [(.blickfeld.base.unit) = "s"];
+    // Minimum intrusion confidence before alarm is triggered.
+    // 
+    // Only applicable when the minimum intruding duration is configured.
+    // 
+    // Default: 1
+    float minimum_intrusion_confidence = 4;
+    // Alarm is kept active for the given duration to reduce jitter.
+    // 
+    // Default: 0
+    float hold_duration = 5 [(.blickfeld.base.unit) = "s"];
   }
   // Algorithm that triggers an alarm when an object of one of the selected sizes is in the zone
   message ObjectBasedSecurity {
@@ -75,6 +95,16 @@ message ZoneAlgorithm {
     // 
     // Enabling this might increase the false alarm rate.
     bool objects_in_background = 4;
+    // Minimum intrusion confidence before alarm is triggered.
+    // 
+    // Only applicable when the minimum intruding duration is configured.
+    // 
+    // Default: 1
+    float minimum_intrusion_confidence = 9;
+    // Alarm is kept active for the given duration to reduce jitter.
+    // 
+    // Default: 0
+    float hold_duration = 10 [(.blickfeld.base.unit) = "s"];
     reserved 2, 3, 5;
   }
   // Algorithm that excludes points from the input point cloud
@@ -107,6 +137,16 @@ message ZoneAlgorithm {
     // This might be useful in situations where e.g. a static crane should be detected in its home position.
     bool invert = 4;
   }
+  // Algorithm that detects if objects are traversing through the zone.
+  message TraversalSecurity {
+    // Selection of sizes which trigger an alarm.  An alarm will only be triggered by objects of sizes
+    // specified in the array.
+    repeated .blickfeld.percept_pipeline.config.ObjectSize alarm_sizes = 1;
+    // Alarm is kept active for the given duration to reduce jitter.
+    // 
+    // Default: 0
+    float hold_duration = 2 [(.blickfeld.base.unit) = "s"];
+  }
   // The user readable zone algorithm name
   string name = 1;
   // The uuid of the zone algorithm (uuid4)
@@ -128,6 +168,8 @@ message ZoneAlgorithm {
     .blickfeld.percept_pipeline.config.ZoneAlgorithm.ObjectBasedSecurity object_based_security = 11;
     // Run occupancy zone
     .blickfeld.percept_pipeline.config.ZoneAlgorithm.Occupancy occupancy = 12;
+    // Run traversal zone
+    .blickfeld.percept_pipeline.config.ZoneAlgorithm.TraversalSecurity traversal_security = 14;
   }
   reserved 4, 5, 6, 8;
 }

@@ -13,8 +13,74 @@ A health message that contains information about the pipeline status and the mod
 .2+| *state_reason* | string| - | - 
 3+| Reason for the given state. It is not set if state is STATE_OK.
 
-.2+| *pipeline_state* | xref:blickfeld/percept_pipeline/data/state.adoc[State] | - | - 
-3+| Current state of the pipeline. It indicates if the pipeline is stable, unstable or broken.
+.2+| *data_source* | xref:blickfeld/percept_pipeline/data/health.adoc#_blickfeld_percept_pipeline_data_Health_DataSource[DataSource] | - | - 
+3+| Data source related health information.
 
+|===
+
+[#_blickfeld_percept_pipeline_data_Health_DataSource]
+== Data Source
+
+Data source related health.
+
+.Available fields in blickfeld.percept_pipeline.data.Health.DataSource
+|===
+| Field | Type | Default | Unit
+
+.2+| *device* | repeated xref:blickfeld/percept_pipeline/data/health.adoc#_blickfeld_percept_pipeline_data_Health_DataSource_DeviceEntry[DeviceEntry] | - | - 
+3+| Map of devices. The key is the serial number of the device.
+
+|===
+
+[#_blickfeld_percept_pipeline_data_Health_DataSource_Device]
+=== Device
+
+Configured device.
+
+.Available fields in blickfeld.percept_pipeline.data.Health.DataSource.Device
+|===
+| Field | Type | Default | Unit
+
+.2+| *error_flags* | xref:blickfeld/percept_pipeline/data/health.adoc#_blickfeld_percept_pipeline_data_Health_DataSource_Device_ErrorFlags[ErrorFlags] | - | - 
+3+| Error flags
+
+|===
+
+[#_blickfeld_percept_pipeline_data_Health_DataSource_Device_ErrorFlags]
+==== Error Flags
+
+Error flags
+
+.Available fields in blickfeld.percept_pipeline.data.Health.DataSource.Device.ErrorFlags
+|===
+| Field | Type | Default | Unit
+
+.2+| *connect_failed* | bool| - | - 
+3+| The connection to the device has failed. 
+This is most probably caused by power supply or network connectivity issues.
+
+.2+| *start_failed* | bool| - | - 
+3+| The start-up of the device failed. 
+This indicates that the device can not operate properly. 
+Please review the diagnostics information of the device.
+
+.2+| *point_cloud_fetch_failed* | bool| - | - 
+3+| The point cloud fetch failed. 
+This indicates that the device can not operate properly or 
+network bandwidth / stability issues.
+
+|===
+
+[#_blickfeld_percept_pipeline_data_Health_DataSource_DeviceEntry]
+=== Device Entry
+
+
+
+.Available fields in blickfeld.percept_pipeline.data.Health.DataSource.DeviceEntry
+|===
+| Field | Type | Default | Unit
+
+| *key* | string| - | - 
+| *value* | xref:blickfeld/percept_pipeline/data/health.adoc#_blickfeld_percept_pipeline_data_Health_DataSource_Device[Device] | - | - 
 |===
 

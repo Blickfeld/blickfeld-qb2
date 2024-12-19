@@ -27,7 +27,7 @@ A response for getting a stream of health messages about the pipeline
 |===
 | Field | Type | Default | Unit
 
-.2+| *health* | xref:blickfeld/percept_processing/data/health.adoc[data.Health] | - | - 
+.2+| *health* | xref:blickfeld/percept_pipeline/data/health.adoc[percept_pipeline.data.Health] | - | - 
 3+| The current health message with information about the state of the pipeline
 
 |===
@@ -47,7 +47,7 @@ A response for getting an health message about the pipeline
 |===
 | Field | Type | Default | Unit
 
-.2+| *health* | xref:blickfeld/percept_processing/data/health.adoc[data.Health] | - | - 
+.2+| *health* | xref:blickfeld/percept_pipeline/data/health.adoc[percept_pipeline.data.Health] | - | - 
 3+| The current health message with information about the state of the pipeline
 
 |===

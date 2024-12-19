@@ -15,7 +15,7 @@ message Tracking {
   bool disable = 4;
   // Higher sensitivity will make the tracker confirm the object faster
   // 
-  // Reasonale default: 0.85
+  // Reasonable default: 0.85
   float sensitivity = 1;
   // The acceptance range of accelerations for the object to be tracked
   // 
@@ -25,5 +25,9 @@ message Tracking {
   // 
   // Reasonable default: 1
   float survival_probability = 3;
+  // The distance between saved object positions in the track path history
+  // 
+  // Default value: 1 meter
+  float path_resolution = 5;
 }
 

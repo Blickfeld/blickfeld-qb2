@@ -1,0 +1,20 @@
+[#_blickfeld_secure_data_License]
+= License
+
+Message representing the configured license
+
+.Available fields in blickfeld.secure.data.License
+|===
+| Field | Type | Default | Unit
+
+.2+| *product_variant* | xref:blickfeld/base/options/product_variant.adoc[base.ProductVariant] | - | - 
+3+| License product variant
+
+.2+| *metadata* | https://protobuf.dev/reference/protobuf/google.protobuf/#struct[google.protobuf.Struct] | - | - 
+3+| License metadata
+
+.2+| *serial_number* | string| - | - 
+3+| License serial number
+
+|===
+

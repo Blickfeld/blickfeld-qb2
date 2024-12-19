@@ -13,11 +13,37 @@ option (.blickfeld.base.access_control_file) = {
 
 // A health message that contains information about the pipeline status and the module itself.
 message Health {
+  // Data source related health.
+  message DataSource {
+    // Configured device.
+    message Device {
+      // Error flags
+      message ErrorFlags {
+        // The connection to the device has failed.
+        // This is most probably caused by power supply or network connectivity issues.
+        bool connect_failed = 1;
+        // The start-up of the device failed.
+        // This indicates that the device can not operate properly.
+        // Please review the diagnostics information of the device.
+        bool start_failed = 2;
+        // The point cloud fetch failed.
+        // This indicates that the device can not operate properly or
+        // network bandwidth / stability issues.
+        bool point_cloud_fetch_failed = 3;
+      }
+      // Error flags
+      .blickfeld.percept_pipeline.data.Health.DataSource.Device.ErrorFlags error_flags = 1;
+    }
+    // Map of devices. The key is the serial number of the device.
+    map<string, .blickfeld.percept_pipeline.data.Health.DataSource.Device> device = 1;
+  }
   // High-level state of module.
   .blickfeld.base.data.Health.State state = 1;
   // Reason for the given state. It is not set if state is STATE_OK.
   string state_reason = 2;
-  // Current state of the pipeline. It indicates if the pipeline is stable, unstable or broken.
-  .blickfeld.percept_pipeline.data.State pipeline_state = 3;
+  // Data source related health information.
+  .blickfeld.percept_pipeline.data.Health.DataSource data_source = 4;
+  reserved 3;
+  reserved "pipeline_state";
 }
 

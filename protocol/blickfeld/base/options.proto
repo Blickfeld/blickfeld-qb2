@@ -3,6 +3,7 @@ syntax = "proto2";
 import public "blickfeld/base/options/misc.proto";
 import public "blickfeld/base/options/access_control.proto";
 import public "blickfeld/base/options/protocol_maturity.proto";
+import public "blickfeld/base/options/product_variant.proto";
 option (.blickfeld.base.access_control_file) = {
   level: LEVEL_PUBLIC
 };

@@ -3,5 +3,6 @@
 *** xref:operation:onvif/milestone.adoc[]
 *** xref:operation:onvif/senstar.adoc[]
 ** xref:operation:authentication.adoc[]
+** xref:operation:blickfeld_flow.adoc[]
 ** xref:operation:firmware_networking.adoc[]
 ** xref:operation:sensor_setup.adoc[]

@@ -24,6 +24,12 @@ message State {
     map<string, .blickfeld.percept_processing.data.DetectedObject> objects = 2;
     // Active intrusion. Can be used as pre-alarm.
     .blickfeld.percept_processing.data.Flag intrusion = 3;
+    // Confidence that it is a real intrusion.
+    // 
+    // Calculates a moving average of the intrusion state.
+    // The moving average window size can be configured with
+    // the minimum intruding duration parameter.
+    float intrusion_confidence = 4;
   }
   // A message containing an alarm state of a zone.
   message Security {
@@ -35,6 +41,12 @@ message State {
     .blickfeld.core_processing.data.Frame point_cloud = 3;
     // Active intrusion. Can be used as pre-alarm.
     .blickfeld.percept_processing.data.Flag intrusion = 4;
+    // Confidence that it is a real intrusion.
+    // 
+    // Calculates a moving average of the intrusion state.
+    // The moving average window size can be configured with
+    // the minimum intruding duration parameter.
+    float intrusion_confidence = 5;
   }
   // A message containing the volume state of a zone.
   // This is based on one volume zone.
@@ -54,6 +66,15 @@ message State {
     // Current baseline.
     float baseline = 3;
   }
+  // A message containing the traversal state of a zone.
+  message TraversalSecurity {
+    // The traversal alarm
+    bool alarm = 1;
+    // The objects which triggered the inbound alarm
+    map<string, .blickfeld.percept_processing.data.DetectedObject> objects = 2;
+    // Active traversal
+    .blickfeld.percept_processing.data.Flag intrusion = 3;
+  }
   // The name of the entity generating this state
   string generator_name = 8;
   oneof state_type {
@@ -65,6 +86,8 @@ message State {
     .blickfeld.percept_processing.data.State.ObjectBasedSecurity object_based_security = 9;
     // The state contains occupation information of a zone
     .blickfeld.percept_processing.data.State.Occupancy occupancy = 10;
+    // The traversal state
+    .blickfeld.percept_processing.data.State.TraversalSecurity traversal_security = 11;
   }
   reserved 1, 2, 3, 4, 6;
 }

@@ -75,6 +75,12 @@ message DataSource {
   bool swarm = 5 [(.blickfeld.base.protocol_maturity_field) = {
     level: LEVEL_EXPERIMENTAL
   }];
+  // Allow that devices in the setup are temporarily not available or failed.
+  // 
+  // Re-connection attempts are performed continously.
+  // A warning with the list of unavailable sensors is raised.
+  // If all sensors are unavailable, the pipeline will fail.
+  bool allow_unavailable_lidars = 6;
   reserved 1, 2;
 }
 

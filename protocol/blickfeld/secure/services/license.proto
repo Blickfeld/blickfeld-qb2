@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/struct.proto";
+import "blickfeld/base/options.proto";
+import "blickfeld/secure/data/license.proto";
+package blickfeld.secure.services;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// Request to assign license to this Qb2
+message LicenseSetRequest {
+  // JWT license string
+  string token = 1;
+}
+
+// Response containing licensed product variant and metadata
+message LicenseGetResponse {
+  // The configured license
+  .blickfeld.secure.data.License license = 1;
+}
+
+// License service to assign a product variant and metadata to a Qb2.
+// 
+// The license is cryptographically singed and configured during production.
+// A configured license can only be replaced by another valid license for this device.
+// 
+// A license contains the specific product variant and can additionally contain
+// arbitrary metadata for the specfic customer or application.
+service License {
+  option (.blickfeld.base.access_control_service) = {
+    level: LEVEL_PUBLIC
+  };
+  option (.blickfeld.base.protocol_maturity_service) = {
+    level: LEVEL_MAINTAINED
+  };
+  // Get configured license
+  rpc Get(.google.protobuf.Empty) returns (.blickfeld.secure.services.LicenseGetResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
+  // Set license
+  rpc Set(.blickfeld.secure.services.LicenseSetRequest) returns (.google.protobuf.Empty) {
+    option (.blickfeld.base.access_control_method) = {
+      level: LEVEL_ADMIN
+    };
+  }
+}
+

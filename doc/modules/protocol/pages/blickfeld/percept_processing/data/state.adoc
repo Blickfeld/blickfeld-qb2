@@ -24,6 +24,9 @@ States will get calculated on every frame of measurement.
 .2+| *occupancy* | xref:blickfeld/percept_processing/data/state.adoc#_blickfeld_percept_processing_data_State_Occupancy[Occupancy] | - | - 
 3+| The state contains occupation information of a zone
 
+.2+| *traversal_security* | xref:blickfeld/percept_processing/data/state.adoc#_blickfeld_percept_processing_data_State_TraversalSecurity[TraversalSecurity] | - | - 
+3+| The traversal state
+
 |===
 
 [#_blickfeld_percept_processing_data_State_ObjectBasedSecurity]
@@ -43,6 +46,13 @@ A message containing an alarm state of a zone.
 
 .2+| *intrusion* | xref:blickfeld/percept_processing/data/flag.adoc[Flag] | - | - 
 3+| Active intrusion. Can be used as pre-alarm.
+
+.2+| *intrusion_confidence* | float| - | - 
+3+| Confidence that it is a real intrusion. 
+ 
+Calculates a moving average of the intrusion state. 
+The moving average window size can be configured with 
+the minimum intruding duration parameter.
 
 |===
 
@@ -79,6 +89,13 @@ A message containing an alarm state of a zone.
 
 .2+| *intrusion* | xref:blickfeld/percept_processing/data/flag.adoc[Flag] | - | - 
 3+| Active intrusion. Can be used as pre-alarm.
+
+.2+| *intrusion_confidence* | float| - | - 
+3+| Confidence that it is a real intrusion. 
+ 
+Calculates a moving average of the intrusion state. 
+The moving average window size can be configured with 
+the minimum intruding duration parameter.
 
 |===
 
@@ -118,5 +135,38 @@ A message containing the occupancy state of a zone.
 .2+| *baseline* | float| - | - 
 3+| Current baseline.
 
+|===
+
+[#_blickfeld_percept_processing_data_State_TraversalSecurity]
+== Traversal Security
+
+A message containing the traversal state of a zone.
+
+.Available fields in blickfeld.percept_processing.data.State.TraversalSecurity
+|===
+| Field | Type | Default | Unit
+
+.2+| *alarm* | bool| - | - 
+3+| The traversal alarm
+
+.2+| *objects* | repeated xref:blickfeld/percept_processing/data/state.adoc#_blickfeld_percept_processing_data_State_TraversalSecurity_ObjectsEntry[ObjectsEntry] | - | - 
+3+| The objects which triggered the inbound alarm
+
+.2+| *intrusion* | xref:blickfeld/percept_processing/data/flag.adoc[Flag] | - | - 
+3+| Active traversal
+
+|===
+
+[#_blickfeld_percept_processing_data_State_TraversalSecurity_ObjectsEntry]
+=== Objects Entry
+
+
+
+.Available fields in blickfeld.percept_processing.data.State.TraversalSecurity.ObjectsEntry
+|===
+| Field | Type | Default | Unit
+
+| *key* | string| - | - 
+| *value* | xref:blickfeld/percept_processing/data/detected_object.adoc[DetectedObject] | - | - 
 |===
 

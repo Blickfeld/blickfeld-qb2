@@ -13,7 +13,7 @@ Algorithms for tracking the objects generated from the clustering
 .2+| *sensitivity* | float| - | - 
 3+| Higher sensitivity will make the tracker confirm the object faster 
  
-Reasonale default: 0.85
+Reasonable default: 0.85
 
 .2+| *acceleration_noise* | float| - | - 
 3+| The acceptance range of accelerations for the object to be tracked 
@@ -24,6 +24,11 @@ Reasonable default: 0.5
 3+| Higher probability will allow the object to be followed longer in the absence of observations 
  
 Reasonable default: 1
+
+.2+| *path_resolution* | float| - | - 
+3+| The distance between saved object positions in the track path history 
+ 
+Default value: 1 meter
 
 |===
 

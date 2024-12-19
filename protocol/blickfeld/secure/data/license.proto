@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+import "google/protobuf/struct.proto";
+package blickfeld.secure.data;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// Message representing the configured license
+message License {
+  // License product variant
+  .blickfeld.base.ProductVariant product_variant = 1;
+  // License metadata
+  .google.protobuf.Struct metadata = 2;
+  // License serial number
+  string serial_number = 3;
+}
+

@@ -1,0 +1,17 @@
+[#_blickfeld_base_ProductVariant]
+= Product Variant
+
+The product variant specifies a Blickfeld Qb2 product variant.
+
+.Available values for blickfeld.base.ProductVariant enum
+[cols='25h,5,~']
+|===
+| Name | Value | Description
+
+| PRODUCT_VARIANT_UNSPECIFIED ^| 0 | Unspecified (default value) - placeholder for all other product variants.
+| PRODUCT_VARIANT_QBBASIC ^| 1 | QbBasic - Basic & Core product variant.
+| PRODUCT_VARIANT_QBPROTECT ^| 2 | QbProtect - Tailored product variant for security & protection applications.
+| PRODUCT_VARIANT_QBVOLUME ^| 3 | QbVolume - Tailored product variant for stockpile management applications.
+| PRODUCT_VARIANT_QB2 ^| 4 | Qb2 - Generic product variant allowing the exploration & discovery of new applicaton areas for smart lidar.
+|===
+

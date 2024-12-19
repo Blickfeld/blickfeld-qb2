@@ -3,7 +3,7 @@
 syntax = "proto3";
 
 import "blickfeld/base/options.proto";
-import "blickfeld/percept_processing/data/health.proto";
+import "blickfeld/percept_pipeline/data/health.proto";
 import "google/protobuf/empty.proto";
 package blickfeld.percept_processing.services;
 
@@ -14,13 +14,13 @@ option (.blickfeld.base.access_control_file) = {
 // A response for getting a stream of health messages about the pipeline
 message HealthWatchResponse {
   // The current health message with information about the state of the pipeline
-  .blickfeld.percept_processing.data.Health health = 1;
+  .blickfeld.percept_pipeline.data.Health health = 1;
 }
 
 // A response for getting an health message about the pipeline
 message HealthGetResponse {
   // The current health message with information about the state of the pipeline
-  .blickfeld.percept_processing.data.Health health = 1;
+  .blickfeld.percept_pipeline.data.Health health = 1;
 }
 
 // An RPC service to request information about the state of the pipeline and of

@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+import "blickfeld/base/options/access_control.proto";
+import "google/protobuf/descriptor.proto";
+// Options are not namespaced
+package blickfeld.base;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// The product variant specifies a Blickfeld Qb2 product variant.
+enum ProductVariant {
+  // Unspecified (default value) - placeholder for all other product variants.
+  PRODUCT_VARIANT_UNSPECIFIED = 0;
+  // QbBasic - Basic & Core product variant.
+  PRODUCT_VARIANT_QBBASIC = 1;
+  // QbProtect - Tailored product variant for security & protection applications.
+  PRODUCT_VARIANT_QBPROTECT = 2;
+  // QbVolume - Tailored product variant for stockpile management applications.
+  PRODUCT_VARIANT_QBVOLUME = 3;
+  // Qb2 - Generic product variant allowing the exploration & discovery of new applicaton areas for smart lidar.
+  PRODUCT_VARIANT_QB2 = 4;
+}
+
+extend .google.protobuf.FileOptions {
+  repeated .blickfeld.base.ProductVariant product_variant_file = 52300 [json_name = "productVariantFile"];
+}
+
+extend .google.protobuf.ServiceOptions {
+  repeated .blickfeld.base.ProductVariant product_variant_service = 52300 [json_name = "productVariantService"];
+}
+
+extend .google.protobuf.MethodOptions {
+  repeated .blickfeld.base.ProductVariant product_variant_method = 52300 [json_name = "productVariantMethod"];
+}
+
+extend .google.protobuf.FieldOptions {
+  repeated .blickfeld.base.ProductVariant product_variant_field = 52300 [json_name = "productVariantField"];
+}
+
+extend .google.protobuf.MessageOptions {
+  repeated .blickfeld.base.ProductVariant product_variant_message = 52300 [json_name = "productVariantMessage"];
+}
+
+extend .google.protobuf.EnumOptions {
+  repeated .blickfeld.base.ProductVariant product_variant_enum = 52300 [json_name = "productVariantEnum"];
+}
+
+extend .google.protobuf.EnumValueOptions {
+  repeated .blickfeld.base.ProductVariant product_variant_enum_value = 52300 [json_name = "productVariantEnumValue"];
+}
+

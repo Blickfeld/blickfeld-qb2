@@ -21,6 +21,9 @@ message Log {
       // Logs of the embedded node-red instance.
       // Helps to trace & understand blickfeld flow behaviourals or crashes.
       SOFTWARE_MODULE_BLICKFELD_FLOW = 2;
+      // Logs of the global diagnostics module.
+      // Helps to trace & understand system health changes.
+      SOFTWARE_MODULE_BLICKFELD_DIAGNOSTICS = 3;
     }
   }
   // The direction in time in which the service provides new log entries

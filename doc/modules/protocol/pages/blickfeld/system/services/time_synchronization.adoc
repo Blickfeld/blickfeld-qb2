@@ -10,6 +10,7 @@ This service provides methods to configure the time synchronization of the devic
 
 | *xref:#Set[]* | xref:blickfeld/system/services/time_synchronization.adoc#_blickfeld_system_services_TimeSynchronizationSetRequest[TimeSynchronizationSetRequest]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
 | *xref:#Get[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/system/services/time_synchronization.adoc#_blickfeld_system_services_TimeSynchronizationGetResponse[TimeSynchronizationGetResponse]
+| *xref:#ListTimeZones[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/system/services/time_synchronization.adoc#_blickfeld_system_services_TimeSynchronizationListTimeZonesResponse[TimeSynchronizationListTimeZonesResponse]
 |===
 [#Set]
 == Set
@@ -47,5 +48,22 @@ Response which is sent as answer for a GetConfig call
 .2+| *config* | xref:blickfeld/system/config/time_synchronization.adoc[config.TimeSynchronization] | - | - 
 3+| Currently used time synchronization config
 
+|===
+
+[#ListTimeZones]
+== ListTimeZones
+
+List available time zones
+
+[#_blickfeld_system_services_TimeSynchronizationListTimeZonesResponse]
+=== Response
+
+Response for ListTimeZones request
+
+.Available fields in blickfeld.system.services.TimeSynchronizationListTimeZonesResponse
+|===
+| Field | Type | Default | Unit
+
+| *time_zones* | repeated string| - | - 
 |===
 

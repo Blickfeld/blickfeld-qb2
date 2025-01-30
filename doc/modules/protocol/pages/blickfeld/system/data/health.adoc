@@ -39,6 +39,9 @@ Status message for time synchronization
 .2+| *current_system_timestamp* | uint64| - | ns 
 3+| Current timestamp
 
+.2+| *current_time_zone* | string| - | - 
+3+| Current time zone
+
 .2+| *ntp* | xref:blickfeld/system/data/health.adoc#_blickfeld_system_data_Health_TimeSynchronization_Ntp[Ntp] | - | - 
 3+| Status for NTP time synchronization
 

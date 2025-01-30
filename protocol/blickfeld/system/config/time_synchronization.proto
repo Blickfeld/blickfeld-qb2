@@ -22,5 +22,11 @@ message TimeSynchronization {
     // Configuration for NTP time synchronization
     .blickfeld.system.config.TimeSynchronization.Ntp ntp = 1;
   }
+  // Configure time zone of device.
+  // 
+  // Use ListTimeZones to retrieve the available time zones.
+  // 
+  // Default: UTC
+  string time_zone = 2 [(.blickfeld.base.optional) = true];
 }
 

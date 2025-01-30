@@ -1,6 +1,8 @@
 syntax = "proto2";
 
 import "blickfeld/base/options.proto";
+import "blickfeld/secure/config/certificate.proto";
+import "blickfeld/secure/config/private_key.proto";
 package blickfeld.system.config;
 
 option (.blickfeld.base.access_control_file) = {
@@ -66,6 +68,77 @@ message Network {
     // This mechanism is applied as the password is never returned via the GetConfig API.
     optional string password = 2;
   }
+  // Authentication for networks
+  // 
+  // Interface to netplan & networkd, see https://netplan.readthedocs.io/en/latest/netplan-yaml/#authentication.
+  message Authentication {
+    // Key management
+    // 
+    // [NOTE]
+    // Only 802.1X for wired network is supported (see https://en.wikipedia.org/wiki/IEEE_802.1X).
+    enum KeyManagement {
+      // default (no key management)
+      KEY_MANAGEMENT_UNSPECIFIED = 0;
+      // PSK (WPA with pre-shared key, common for home Wi-Fi).
+      KEY_MANAGEMENT_PSK = 1;
+      // EAP (WPA with EAP, common for enterprise Wi-F).
+      KEY_MANAGEMENT_EAP = 2;
+      // EAP-SHA256 (used with WPA3-Enterprise).
+      KEY_MANAGEMENT_EAPSHA256 = 3;
+      // EAP-SUITE-B-192 (used with WPA3-Enterprise).
+      KEY_MANAGEMENT_EAPSUITEB192 = 4;
+      // SAE (used by WPA3)
+      KEY_MANAGEMENT_SAE = 5;
+      // 802.1X (used primarily for wired Ethernet connections).
+      KEY_MANAGEMENT_IEEE8021X = 6;
+    }
+    // The Extensible Authentication Protocol (EAP) method to use.
+    enum EapMethod {
+      // default (unset) - Let the RADIUS server propose a EAP method
+      EAP_METHOD_UNSPECIFIED = 0;
+      // Prefer TLS
+      EAP_METHOD_TLS = 1;
+      // Prefer protected EAP (recommended)
+      EAP_METHOD_PEAP = 2;
+      // Prefer lightweight EAP
+      EAP_METHOD_LEAP = 3;
+      // Prefer EAP password
+      EAP_METHOD_PWD = 4;
+      // Prefer tunneled TLS (recommended)
+      EAP_METHOD_TTLS = 5;
+    }
+    // Selected key management
+    optional .blickfeld.system.config.Network.Authentication.KeyManagement key_management = 1;
+    // Password in plain text corresponding the the account identity or username
+    optional string password = 2;
+    // Selected preferred EAP method
+    optional .blickfeld.system.config.Network.Authentication.EapMethod eap_method = 3;
+    // The account identity or username
+    optional string identity = 4;
+    // anonymous-identity (advanced configuration)
+    optional string anonymous_identity = 5;
+    // The RADIUS-server ca-certificate
+    // 
+    // For EAP-methods TLS, TTLS and PEAP this certificate is loaded and validated
+    // against the certificate presented from the server side.
+    // 
+    // The expected format is a x509, PEM in binary encoding.
+    optional .blickfeld.secure.config.Certificate ca_certificate = 6;
+    // The Client-certificate
+    // 
+    // The certificate to be used by the client during authentication when EAP-TLS is selected.
+    optional .blickfeld.secure.config.Certificate client_certificate = 7;
+    // The client-key
+    // 
+    // Client key for the configured client certificate.
+    optional .blickfeld.secure.config.PrivateKey client_key = 8;
+    // The client-key password
+    // 
+    // Password to use the configured client key (if encrypted).
+    optional string client_key_password = 9;
+    // phase2-auth (advanced configuration)
+    optional string phase2_auth = 10;
+  }
   // *
   // Specifies the persistent system-wide hostname which should be assigned to the network device
   optional string hostname = 1;
@@ -85,5 +158,8 @@ message Network {
   optional bool link_local = 4 [default = false];
   // If the field is set, the device switches from the Ethernet to the WiFi interface.
   optional .blickfeld.system.config.Network.Wireless wireless = 5 [(.blickfeld.base.optional) = true];
+  // Authentication configuration for joining a network.
+  // If this field is set the device starts to communicate with a authentication server (e.g. RADIUS).
+  optional .blickfeld.system.config.Network.Authentication authentication = 6 [(.blickfeld.base.optional) = true];
 }
 

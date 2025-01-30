@@ -21,6 +21,11 @@ message TimeSynchronizationGetResponse {
   .blickfeld.system.config.TimeSynchronization config = 1;
 }
 
+// Response for ListTimeZones request
+message TimeSynchronizationListTimeZonesResponse {
+  repeated string time_zones = 1;
+}
+
 // This service provides methods to configure the time synchronization of the device.
 service TimeSynchronization {
   option (.blickfeld.base.access_control_service) = {
@@ -33,6 +38,12 @@ service TimeSynchronization {
   rpc Set(.blickfeld.system.services.TimeSynchronizationSetRequest) returns (.google.protobuf.Empty);
   // Get the time synchronization configuration of the device
   rpc Get(.google.protobuf.Empty) returns (.blickfeld.system.services.TimeSynchronizationGetResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
+  // List available time zones
+  rpc ListTimeZones(.google.protobuf.Empty) returns (.blickfeld.system.services.TimeSynchronizationListTimeZonesResponse) {
     option (.blickfeld.base.access_control_method) = {
       read_only: true
     };

@@ -34,6 +34,8 @@ message Health {
     string state_reason = 2;
     // Current timestamp
     uint64 current_system_timestamp = 3 [(.blickfeld.base.unit) = "ns"];
+    // Current time zone
+    string current_time_zone = 5;
     // Current time synchronization status
     oneof type {
       // Status for NTP time synchronization

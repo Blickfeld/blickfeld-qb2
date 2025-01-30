@@ -36,6 +36,10 @@ link-local prefix is FE80::/10 and is used to create a link-local IPv6 address o
 .2+| *wireless* | optional xref:blickfeld/system/config/network.adoc#_blickfeld_system_config_Network_Wireless[Wireless] | - | - 
 3+| If the field is set, the device switches from the Ethernet to the WiFi interface.
 
+.2+| *authentication* | optional xref:blickfeld/system/config/network.adoc#_blickfeld_system_config_Network_Authentication[Authentication] | - | - 
+3+| Authentication configuration for joining a network. 
+If this field is set the device starts to communicate with a authentication server (e.g. RADIUS).
+
 |===
 
 [#_blickfeld_system_config_Network_Static]
@@ -133,5 +137,99 @@ be used via the Ethernet interface to reset the network configuration.
 If the password is not set and the SSID did not change, the existing password is used. 
 This mechanism is applied as the password is never returned via the GetConfig API.
 
+|===
+
+[#_blickfeld_system_config_Network_Authentication]
+== Authentication
+
+Authentication for networks 
+ 
+Interface to netplan & networkd, see https://netplan.readthedocs.io/en/latest/netplan-yaml/#authentication.
+
+.Available fields in blickfeld.system.config.Network.Authentication
+|===
+| Field | Type | Default | Unit
+
+.2+| *key_management* | xref:blickfeld/system/config/network.adoc#_blickfeld_system_config_Network_Authentication_KeyManagement[KeyManagement] | - | - 
+3+| Selected key management
+
+.2+| *password* | string| - | - 
+3+| Password in plain text corresponding the the account identity or username
+
+.2+| *eap_method* | xref:blickfeld/system/config/network.adoc#_blickfeld_system_config_Network_Authentication_EapMethod[EapMethod] | - | - 
+3+| Selected preferred EAP method
+
+.2+| *identity* | string| - | - 
+3+| The account identity or username
+
+.2+| *anonymous_identity* | string| - | - 
+3+| anonymous-identity (advanced configuration)
+
+.2+| *ca_certificate* | xref:blickfeld/secure/config/certificate.adoc[secure.config.Certificate] | - | - 
+3+| The RADIUS-server ca-certificate 
+ 
+For EAP-methods TLS, TTLS and PEAP this certificate is loaded and validated 
+against the certificate presented from the server side. 
+ 
+The expected format is a x509, PEM in binary encoding.
+
+.2+| *client_certificate* | xref:blickfeld/secure/config/certificate.adoc[secure.config.Certificate] | - | - 
+3+| The Client-certificate 
+ 
+The certificate to be used by the client during authentication when EAP-TLS is selected.
+
+.2+| *client_key* | xref:blickfeld/secure/config/private_key.adoc[secure.config.PrivateKey] | - | - 
+3+| The client-key 
+ 
+Client key for the configured client certificate.
+
+.2+| *client_key_password* | string| - | - 
+3+| The client-key password 
+ 
+Password to use the configured client key (if encrypted).
+
+.2+| *phase2_auth* | string| - | - 
+3+| phase2-auth (advanced configuration)
+
+|===
+
+[#_blickfeld_system_config_Network_Authentication_KeyManagement]
+=== Key Management
+
+Key management 
+ 
+[NOTE] 
+Only 802.1X for wired network is supported (see https://en.wikipedia.org/wiki/IEEE_802.1X).
+
+.Available values for blickfeld.system.config.Network.Authentication.KeyManagement enum
+[cols='25h,5,~']
+|===
+| Name | Value | Description
+
+| KEY_MANAGEMENT_UNSPECIFIED ^| 0 | default (no key management)
+| KEY_MANAGEMENT_PSK ^| 1 | PSK (WPA with pre-shared key, common for home Wi-Fi).
+| KEY_MANAGEMENT_EAP ^| 2 | EAP (WPA with EAP, common for enterprise Wi-F).
+| KEY_MANAGEMENT_EAPSHA256 ^| 3 | EAP-SHA256 (used with WPA3-Enterprise).
+| KEY_MANAGEMENT_EAPSUITEB192 ^| 4 | EAP-SUITE-B-192 (used with WPA3-Enterprise).
+| KEY_MANAGEMENT_SAE ^| 5 | SAE (used by WPA3)
+| KEY_MANAGEMENT_IEEE8021X ^| 6 | 802.1X (used primarily for wired Ethernet connections).
+|===
+
+[#_blickfeld_system_config_Network_Authentication_EapMethod]
+=== Eap Method
+
+The Extensible Authentication Protocol (EAP) method to use.
+
+.Available values for blickfeld.system.config.Network.Authentication.EapMethod enum
+[cols='25h,5,~']
+|===
+| Name | Value | Description
+
+| EAP_METHOD_UNSPECIFIED ^| 0 | default (unset) - Let the RADIUS server propose a EAP method
+| EAP_METHOD_TLS ^| 1 | Prefer TLS
+| EAP_METHOD_PEAP ^| 2 | Prefer protected EAP (recommended)
+| EAP_METHOD_LEAP ^| 3 | Prefer lightweight EAP
+| EAP_METHOD_PWD ^| 4 | Prefer EAP password
+| EAP_METHOD_TTLS ^| 5 | Prefer tunneled TLS (recommended)
 |===
 

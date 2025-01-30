@@ -12,6 +12,13 @@ The system time is used to fill timestamps in generated output data e.g. point c
 .2+| *ntp* | xref:blickfeld/system/config/time_synchronization.adoc#_blickfeld_system_config_TimeSynchronization_Ntp[Ntp] | - | - 
 3+| Configuration for NTP time synchronization
 
+.2+| *time_zone* | optional string| - | - 
+3+| Configure time zone of device. 
+ 
+Use ListTimeZones to retrieve the available time zones. 
+ 
+Default: UTC
+
 |===
 
 [#_blickfeld_system_config_TimeSynchronization_Ntp]

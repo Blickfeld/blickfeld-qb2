@@ -1,0 +1,136 @@
+= Geutebrueck
+
+This section provides information on how to integrate QbProtect with Geutebrueck G-Core. Please refer to the xref:onvif/index.adoc[ONVIF section] beforehand for general information on using ONVIF with https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect].
+
+[NOTE]
+====
+The following Geutebrück components have been used in the examples below:  
+
+* G-Core Server, G-Set, G-View and G-PLC Simulator - Versions 8.2.0.870
+====
+
+[[add-device]]
+== Add Device
+
+The G-Set tool is used to add https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect] into Geutebrück G-Core VMS.
+
+The procedure includes the following steps: 
+
+. Launch G-Set and connect to the active G-Core server instance
+. Navigate to `Media channels/Hardware` -> `Hardware` -> `Hardware module list` -> `Add device` -> `ONVIF IPC IP camera plugin settings` 
+. Navigate to `Module channel` -> `Hardware settings` -> give a distinguishable name to the QbProtect device, e.g. `QbProtect`
+. Navigate to the `Connection` Tab -> enter the FQDN or IP of QbProtect in the `Hostname` field and `Username/Password` in the corresponding credential fields. 
+
++
+[NOTE]
+====
+Please refer to the xref:onvif/index.adoc#user-authentication[User Authentication (ONVIF/RTSP)] subsection to find out how to obtain valid ONVIF credentials required for QbProtect VMS integrations.
+====
+
++
+.Adding QbProtect into Geutebrück G-Core: G-Set hardware configuration
+image::onvif/geutebrueck/add/g_set_hardware.png[800,800]
+
+. Navigate to `Media channels/Hardware` -> `Media channels` -> `Live Streaming` -> select `QbProtect` as a media channel source
+. Send these configuration settings to the G-Core server using the corresponding button in the top left conner
+. The live preview of the point cloud should be available in the preview window of G-Set 
+
++
+.Adding QbProtect into Geutebrück G-Core: G-Set media channel configuration
+image::onvif/geutebrueck/add/g_set_channel.png[800,800]
+
+. Launch G-View and connect to the active G-Core server instance
+. QbProtect should be available as a video channel source -> Drop it into the G-View viewer
+
++
+.Adding QbProtect into Geutebrück G-Core: G-View live video stream
+image::onvif/geutebrueck/add/g_view_add.png[800,800]
+
+The live video stream of the https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect] point cloud can be accessed and observed in Geutebrück G-View after succesfully completing the required steps above.
+
+== Events
+
+=== Configure Events Handling 
+The example below shows how https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect] events can be used to trigger alarms in Geutebrück G-Core VMS. After QbProtect has been xref:onvif/geutebrueck.adoc#add-device[added to the G-Core], it can be configured to use QbProtect events for alarm generation. In this example, a single security zone called `Security Zone 1` has been configured using QbProtect xref:introduction:index.adoc[WebGUI] as shown in the Figure below. 
+
+.QbProtect WebGUI viewer and Geutebrück G-View: single zone in the security scene
+image::onvif/geutebrueck/events/zone.png[800,800]
+
+The events configuration procedure includes the following steps: 
+
+. Launch G-Set and connect to the active G-Core server instance (optional)
+. Navigate to `Media channels/Hardware` -> `Hardware` -> `Hardware module list` -> `QbProtect` -> `Module channel`
+. Navigate to the `Event handling` tab -> Toggle `Enable Event Handling with...` -> select `WS-BaseNotification`
+. Toggle `Send unkown events as...` -> select `OnvifNotificationMessage Action` 
+. Send these configuration settings to the G-Core server using the corresponding button in the top left conner
+. Trigger the `Get event info!` button to get the list of supported QbProtect events
+. The configured `Security Zone 1` topic should be displayed in the list of available events
+
++
+.Geutebrück G-Set: configuration of events handling and the list of supported QbProtect events
+image::onvif/geutebrueck/events/exposed.png[800,800]
+
+. Launch `G-PLC Simulator` and connect to the active G-Core server instance
+. Server logs should now contain `OnvifNotificationMessage` payloads corresponding to the list of supported QbProtect events
+
++
+.Geutebrück G-PLC: incoming OnvifNotificationMessages with events payload
+image::onvif/geutebrueck/events/g_plc.png[800,800]
+
+
+[NOTE]
+====
+Events originating from dynamic event sources (e.g., intrusion events from a particular security zone) have to be correctly exposed to the VMS each time when a new zone configuration is introduced via xref:introduction:index.adoc[WebGUI]. Please re-toggle `Enable Event Handling with...` to re-expose new events from dynamic sources.
+====
+
+=== Configure Rule Chain
+The Geutebrück G-Core `Events` can be used to configure simple rules chains, while `Behaviour rules` targeting the more sophisticated configurations. In this example, we will consider the simple event rule chain configuration. The Geutebrück event rule chain consists of event source (`StartBy` and `StopBy` hooks) and event action (`OnStart` and `OnStop` hooks). It allows to map a dedicated action (e.g., manual alarm action, adding entry log, .etc) to the event of the particular type (e.g., motion, zone intrusion). 
+
+The event rule chain configuration procedure includes the following steps: 
+
+. Navigate to `Events/Behaviour rules` -> `Events` -> 'Event List' -> 'Add new event'
+. Navigate to `Event` tab -> give a meaningful name to the event in the `Name` field, e.g. `Security Zone 1 Intrusion` -> toggle this event to be `Active`
+
++
+.Geutebrück G-Set: event name configuration and activation
+image::onvif/geutebrueck/events/g_set_event.png[800,800]
+
+. Navigate to `Alarm` tab -> give a meaningful name to alarm in the `Alarm Name` field, e.g. `Security Zone 1 Intrusion Alarm` -> toggle this alarm to be `Active`
+. Navigate to `Media channels` tab of the `Alarm tab` -> Add `QbProtect` as media channel source
+
++
+.Geutebrück G-Set: alarm name configuration and activation
+image::onvif/geutebrueck/events/g_set_alarm.png[800,800]
+
+. Right click `StartBy` hook -> Add -> `Onvif Notification Message` -> Select `QbProtect` as a channel source ->  Set topic name to `tnsblickfeld:ZoneIntrusionSecurityZone1` -> Set `Data name` and `Data value` to `State` and `True` correspondingly
+
++
+.Geutebrück G-Set: event source start trigger configuration
+image::onvif/geutebrueck/events/g_set_startby.png[800,800]
+
+. Right click `StopBy` hook -> Add -> `Onvif Notification Message` -> Select `QbProtect` as a channel source ->  Set topic name to `tnsblickfeld:ZoneIntrusionSecurityZone1` -> Set `Data name` and `Data value` to `State` and `False` correspondingly
+
++
+.Geutebrück G-Set: event source stop trigger configuration
+image::onvif/geutebrueck/events/g_set_stopby.png[800,800]
+
+. Right click `OnStart` hook -> Add -> `Viewer show alarm by type` -> Select `Security Zone 1 Intrusion` as an `Alarm Type` -> Assign ID to the `Viewer`
+
++
+.Geutebrück G-Set: event action configuration
+image::onvif/geutebrueck/events/g_set_onstart.png[800,800]
+
+. Send these configuration settings to the G-Core server using the corresponding button in the top left conner
+
+. Launch G-View to observe raised alarms and alarm history
+
+. Make sure that server alarm processing is enabled in G-View. Navigate to `Options` -> `User Options` -> switch to tabs `Alarms` -> toggle `Process Server alarms'
+
++
+.Geutebrück G-View: enable alarm processing
+image::onvif/geutebrueck/events/g_view_process_alarm.png[800,800]
+
+The zone intrusion event in the `Security Zone 1` from https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect] and the configured intrusion event rule chain will be generating an alarm in G-View as shown in the Figure below.
+
+.Geutebrück G-View: intrusion event in the security zone raises alarm
+image::onvif/geutebrueck/events/g_view_raised_alarm.png[800,800]

@@ -2,7 +2,7 @@
 :icons: font
 :experimental: true
 
-This section provides information on how to integrate QbProtect with Milestone XProtect. 
+This section provides information on how to integrate QbProtect with Milestone XProtect. Please refer to the xref:onvif/index.adoc[ONVIF section] beforehand for general information on using ONVIF with https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect].
 
 [NOTE]
 ====
@@ -14,23 +14,31 @@ The following Milestone components have been used in the examples below:
 
 == Add Device
 
-The Milestone XProtect Management Client is used to add QbProtect into the VMS as shown in the Figure below.
+The Milestone XProtect Management Client is used to add https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect] into the VMS as shown in the Figure below.
 
 The procedure includes the following steps: 
 
+. Launch the Milestone XProtect Management Client -> Sign in into the active instance of Milestone XProtect Recording Server
 . Navigate `Servers` -> `Recording Servers`
 . Right click `Add Hardware` to the Recording Server
 . Select `Manual`
-. Provide xref:working_principles:authentication.adoc#_application_key[ONVIF credentials] -> `Include` -> `Add` -> `Next`
+. Provide ONVIF credentials -> `Include` -> `Add` -> `Next`
+
++
+[NOTE]
+====
+Please refer to the xref:onvif/index.adoc#user-authentication[User Authentication (ONVIF/RTSP)] subsection to find out how to obtain valid ONVIF credentials required for https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect] VMS integrations.
+====
+
 . Select `ONVIF` driver (ONVIF conformant device)
-. Enter the FQDN or IP of QbProtect in the address field -> `Next` -> Wait till device is added
+. Enter the FQDN or IP of https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect] in the address field -> `Next` -> Wait till device is added
 
 .QbProtect successfully added to Milestone XProtect Recording Server
 image::onvif/milestone/add/added.png[800,800]
 
 [NOTE]
 ====
-The ONVIF autodiscovery feature is not yet supported by QbProtect
+The ONVIF autodiscovery feature is not yet supported by https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect]
 ====
 
 The `Properties` view should depict the general information about the device (`Info`) and current video stream settings (`Settings`). The video stream preview should be shown in the corresponding `Preview` window as shown in the Figure below.
@@ -38,21 +46,23 @@ The `Properties` view should depict the general information about the device (`I
 .QbProtect video stream preview in XProtect Management Client
 image::onvif/milestone/add/general.png[800,800]
 
+The live video stream of the https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect] point cloud can be accessed and observed in Milestone XProtect Management Client after succesfully completing the required steps above.
+
 == Events
 
 === Configure Alarms 
-The example below shows how QbProtect events can be used in Milestone XProtect.
-In this example one security zone `Security Zone 1` has been configured using QbProtect WebGUI as shown in the Figure below. 
+The example below shows how https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect] events can be used in Milestone XProtect.
+In this example one security zone `Security Zone 1` has been configured using QbProtect xref:introduction:index.adoc[WebGUI] as shown in the Figure below. 
 
 [NOTE]
 ====
-The examplified configuration procedure is unified by the VMS and, with minor adaptations, can be followed to make use of any event supported by QbProtect.
+The examplified configuration procedure is unified by the VMS and, with minor adaptations, can be followed to make use of any event supported by https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect].
 ====
 
 .QbProtect WebGUI viewer and Milestone XProtect Management Client
 image::onvif/milestone/events/zone.png[800,800]
 
-When QbProtect is added into the Milestone XProtect, it exposes events it is capable of to the VMS as shown in the `Events` view in the Figure below.
+When https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect] is added into the Milestone XProtect, it exposes events it is capable of to the VMS as shown in the `Events` view in the Figure below.
 
 [NOTE]
 ====
@@ -64,7 +74,12 @@ image::onvif/milestone/events/exposed.png[800,800]
 
 In this scenario two dynamic events are exposed to the VMS: `intrusion` and `ZoneIntrusionSecurityZone1`. 
 
-=== Rule Chain
+[NOTE]
+====
+Events originating from dynamic event sources (e.g. intrusion event from a particular security zone) have to be correctly exposed to the VMS each when a new zone configuration is introduced via xref:introduction:index.adoc[WebGUI]. Please re-add / replace the QbProtect in Milestone XProtect Management Client to re-expose new events from dynamic sources.
+====
+
+=== Configure Rule Chain
 
 The Milestone XProtect rule chain consists of event, event source and action. It allows to map a dedicated action (e.g. manual alarm action, adding entry log, .etc) to the event of the particular type (e.g. motion, zone intrusion). The configured rule chain called `Intrusion` is shown in the figure below. 
 
@@ -88,7 +103,7 @@ image::onvif/milestone/events/activate.png[800,800]
 
 . Apply the configuration for the rule chain
 
-From now on, the zone intrusion event in the `Security Zone 1` from QbProtect and the configured intrusion rule chain will be generating Milestone event log entries as shown in the Figure below.
+The zone intrusion event in the `Security Zone 1` from https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect] and the configured intrusion rule chain will be generating Milestone event log entries as shown in the Figure below.
 
 .The intrusion log entry is created in the Milestone XProtect Management Client when intrusion is detected in the corresponding QbProtect security zone
 image::onvif/milestone/events/log.png[800,800]

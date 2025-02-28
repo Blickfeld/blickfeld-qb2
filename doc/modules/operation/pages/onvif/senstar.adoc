@@ -1,6 +1,6 @@
 = Senstar
 
-This section provides information on how to integrate QbProtect with Senstar Symphony. 
+This section provides information on how to integrate QbProtect with Senstar Symphony. Please refer to the xref:onvif/index.adoc[ONVIF section] beforehand for general information on using ONVIF with https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect].
 
 [NOTE]
 ====
@@ -13,17 +13,25 @@ The following Senstar Symphony components have been used in the examples below:
 
 == Add Device
 
-The WebGUI of Senstar Symphony Server is used in order to add QbProtect into Senstar Symphony VMS as shown in the Figure below. 
+The WebGUI of Senstar Symphony Server is used in order to add https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect] into Senstar Symphony VMS as shown in the Figure below. 
 
 .Adding QbProtect into Senstar Symphony
 image::onvif/senstar/add/add.png[800,800]
 
 The procedure includes the following steps: 
 
+. Navigate to the IP address of Senstar Symphony Server in the Web Browser of choice
 . Navigate to `Devices` -> `Cameras` -> `Add Camera Manually`. 
 . Enter the FQDN or IP of QbProtect in the address field
 . Select the `ONVIF_Legacy` driver in the driver section
-. Provide xref:working_principles:authentication.adoc#_application_key[ONVIF credentials] in user name and password fields correspondingly
+. Provide ONVIF credentials in user name and password fields correspondingly
+
++
+[NOTE]
+====
+Please refer to the xref:onvif/index.adoc#user-authentication[User Authentication (ONVIF/RTSP)] subsection to find out how to obtain valid ONVIF credentials required for QbProtect VMS integrations.
+====
+
 . Click `Connect`
 . If the connection was succesfull the QbProtect device should be detected with `OK` status
 . Click `Next` -> give name to the device -> click `Add 1 Selected Camera` -> Wait till device is added
@@ -33,7 +41,7 @@ image::onvif/senstar/add/add_result.png[800,800]
 
 [NOTE]
 ====
-The ONVIF autodiscovery feature is not yet supported by QbProtect
+The ONVIF autodiscovery feature is not yet supported by https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect]
 ====
 
 The `General` device view should depict the general information about the device, current video stream settings and the video stream preview as shown in the Figure below.
@@ -46,13 +54,13 @@ image::onvif/senstar/add/general.png[800,800]
 The video stream settings are currently static and their change won't make any influence on the video stream
 ====
 
-From now on the live video stream of the point cloud can be accessed and observed in Symphony Client or its web version. 
+The live video stream of the https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect] point cloud can be accessed and observed in Symphony Client or its web version after succesfully completing the required steps above.
 
 == Events
 
 === Configure Alarms
 
-The example below shows how QbProtect events can be used in Senstar Symphony. Supported events can be found in the corresponding `Events` view of Senstar Server as shown in the Figure below. 
+The example below shows how https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect] events can be used in Senstar Symphony. Supported events can be found in the corresponding `Events` view of Senstar Server as shown in the Figure below. 
 
 [NOTE]
 ====
@@ -62,9 +70,14 @@ The examplified configuration procedure is unified by the VMS and, with minor ad
 .Motion and intrusion events exposed by QbProtect to Senstar Symphony and the corresponding viewer of the WebGUI
 image::onvif/senstar/events/events.png[800,800]
 
-In this example two security zones `zone1` and `zone2` have been configured using QbProtect WebGUI. Therefore, in addition to the aggregated intrusion and motion events, two intrusion events for the corresponding intrusion zones can be found in the exposed event list.
+In this example two security zones `zone1` and `zone2` have been configured using QbProtect xref:introduction:index.adoc[WebGUI]. Therefore, in addition to the aggregated intrusion and motion events, two intrusion events for the corresponding intrusion zones can be found in the exposed event list.
 
-=== Rule Chain
+[NOTE]
+====
+Events originating from dynamic event sources (e.g. intrusion event from a particular security zone) have to be correctly exposed to the VMS each time when a new zone configuration is introduced via xref:introduction:index.adoc[WebGUI]. Please re-add the QbProtect to the Senstar Symphony server to re-expose new events from dynamic sources.
+====
+
+=== Configure Rule Chain
 
 The chain consists of event, action and schedule. It allows to map a dedicated action (e.g. manual alarm action, .etc) to the event of the particular type (e.g. intrusion in security zone). This mapping operates according to the pre-configured time schedule (e.g. on the daily basis). The named rule chain configuration procedure consists of the following steps: 
 
@@ -88,7 +101,7 @@ Three rule chains (for aggregated intrusion, intrusion in `zone 1` and `zone 2`)
 .Intrusion rule chains configured in Senstar Symphony
 image::onvif/senstar/events/rules.png[800,800]
 
-From now on, the aggregated intrusion alarm is raised when intrusion happens in either of the configured security zones in addition to the alarms raised per zone basis. The demonstration of `zone 2` intrusion alarm raised inside Senstar Symphony client is shown in the Figure below.
+The aggregated intrusion alarm is raised when intrusion happens in either of the configured security zones in addition to the alarms raised per zone basis. The demonstration of `zone 2` intrusion alarm raised inside Senstar Symphony client is shown in the Figure below.
 
 .The intrusion alarm raised in Senstar Symphony when intrusion is detected in the corresponding QbProtect security zone
 image::onvif/senstar/events/result.png[800,800]

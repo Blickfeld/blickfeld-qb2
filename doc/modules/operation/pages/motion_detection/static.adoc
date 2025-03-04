@@ -1,0 +1,54 @@
+# Static
+:stem: latexmath
+
+The static xref:motion_detection/index.adoc[motion detection] applies a constant model to separate the raw point cloud into background and foreground point clouds. The background model is the core runtime parameter needed for the execution of the background subtraction step.
+
+## Application
+
+Intended for fixed and clearly defined indoor scenarios. The underlying model of the scene is captured once and only updated on demand. Every change in the scene is permanently reported as an xref:object_tracking/index.adoc[object] or foreground point cloud.
+
+## Parameters
+
+See configuration xref:protocol:blickfeld/percept_pipeline/config/background_subtraction.adoc#_blickfeld_percept_pipeline_config_BackgroundSubtraction_Static[API definition].
+
+Number of initialization frames (default: 10, range: [1 ... 30]):: Number of frames used to build the background model. A higher number of frames leads to a more accurate approximation of the scene.
++
+[TIP]
+====
+There should be no activity in the scene while the initialization frames are being recorded. Depending on the xref:working_principles:scan_pattern.adoc[configured frame rate] and the number of initialization frames, the acquisition can take up to stem:[$60$] seconds.
+====
+Minimum distance (default: 0.15, range: [0.05 ... 0.5], unit: stem:[$m$]):: Minimum distance to the background model for points to appear in the foreground point cloud. A smaller distance makes the static background subtraction more sensitive and can lead to unwanted noise or false detections.
+
+## Background model
+
+In contrast to the xref:motion_detection/dynamic.adoc#_background_model[dynamic motion detection], the internal model used to approximate the current background is working in the Cartesian coordinate space.
+
+### Lifecycle
+When a background model is already saved, it will be loaded and applied to the input data immediately without going through the initialization phase.
+
+If no model is configured, it will be initialized from live point cloud data. During initialization, the first configured number of frames are used to create the model. The model is saved once the initialization has been finished.
+
+The background model does not have to be re-initialized and can be reused when the xref:working_principles:scan_pattern.adoc[scan pattern] of the device is changed.
+
+[CAUTION]
+====
+The background model should always be initialized with a xref:working_principles:scan_pattern.adoc[high-density scan pattern]. Foreground artifacts will appear in the scene when the active scan pattern has a higher density than the one used for model initialization.
+====
+
+## Algorithm
+
+The static background subtraction algorithm uses the euclidean distance between the background model and any point in the input point cloud. This process shows the same properties as a volumetric exclusion of points in the scene.
+
+.Points intersecting with the background model are filtered (Simplified 2D example)
+image::background_subtraction_static.svg[]
+
+All points with a euclidean distance smaller than the configured minimum distance to the nearest point in the background model are part of the background. All remaining points belong to the foreground.
+
+## Limitations
+
+The constant and static behavior of the underlying background model can be desirable in some applications. However, this can also introduce unwanted general behavior under certain conditions:
+
+The sensor is moved or rotated:: The scene changes entirely when the sensor is moved or rotated on its mounting point. This results in the entire scene being reported as foreground and can saturate the configured xref:working_principles:percept/index.adoc#_security[security pipeline], leading to point cloud frames not being processed or zone states not being updated.
+Permanent changes to the scene:: An object being placed in the scene will always be part of the foreground point cloud. While this can be desired (e.g., to detect a piece of luggage being left behind) this can also generate a constant alarm if the object is placed in a xref:zone_types/security/index.adoc[security zone] where it is detected as an intruder.
+Background appearing as an object:: When a stationary object, which is part of the background model, is removed from the scene, the newly visible point behind the removed object will be reported as foreground. This will report a false object in the scene until the background model is reinitialized.
+Re-initialization while the scene is not static:: This will incorporate points from activity recorded during the initialization phase as part of the background model. The results are unwanted _"blind spots"_ where the activity has been observed while the model initialization was ongoing. Objects can never be detected as foreground in these _"blind spot regions"_.

@@ -1,0 +1,1 @@
+intrusion confidence:: Current confidence based on the xref:#_intrusion_conditions[minimum intruding duration] window.

@@ -36,15 +36,15 @@ is used to classify objects based on the limits specified in this message.
 |===
 | Field | Type | Default | Unit
 
-.2+| *small_min_size* | float| - | - 
+.2+| *small_min_size* | float| - | m^2 
 3+| The surface area of the objects bounding box 
 should be larger than this value to be considered a small object.
 
-.2+| *medium_min_size* | float| - | - 
+.2+| *medium_min_size* | float| - | m^2 
 3+| The surface area of the objects bounding box 
 should be larger than this value to be considered a medium object.
 
-.2+| *large_min_size* | float| - | - 
+.2+| *large_min_size* | float| - | m^2 
 3+| The surface area of the objects bounding box 
 should be larger than this value to be considered a large object.
 

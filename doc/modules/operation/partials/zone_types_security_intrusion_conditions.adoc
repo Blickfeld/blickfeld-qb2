@@ -1,0 +1,4 @@
+Minimum intruding duration (default: 0, unit: stem:[$s$]):: The duration for which all intrusion conditions have to be met until an alarm is raised. A value of 0 (the default) raises the alarm immediately upon first detection.
+Intrusion confidence (default: 100, unit: stem:[$\%$]):: The confidence threshold for raising an alarm. The current confidence value is computed over the time interval specified as the minimum intruding duration. A value of stem:[$100\%$] ensures, that all intrusion conditions are met in *all* observations within the *minimum intruding duration*. Values lower than stem:[$100\%$] make alarm generation more sensitive by allowing the configured ratio of observations within the minimum intruding duration window where all intrusion conditions are met.
++
+NOTE: The intrusion confidence is only configurable when the *minimum intruding duration* is *nonzero*.

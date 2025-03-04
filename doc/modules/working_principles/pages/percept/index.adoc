@@ -1,0 +1,32 @@
+# Percept
+include::operation:partial$blickfeld_urls.adoc[]
+:stem: latexmath
+
+Percept is a system component which offers advanced on-device processing. It uses 3D point cloud data and transforms it into actionable data. The supported areas of application are <<_security,security>> (e.g., perimeter protection) and <<_volume,volume>> (e.g., bulk material measurement). Both applications are bound to a specific product variant (e.g., {blickfeld_product_qbprotect} or {blickfeld_product_qbvolume}).
+
+## Security
+
+[NOTE]
+====
+Requires a Blickfeld {blickfeld_product_qbprotect}.
+====
+
+The https://www.blickfeld.com/applications/security/[security mode] of the Percept system is focussed on real-time processing of 3D point cloud data. The data is transformed by a sequence of processing steps in order to generate alarms on zone level.
+
+xref:operation:motion_detection/index.adoc[Motion detection]:: Separation of the input data into background (static) and foreground (in motion).
+xref:operation:object_tracking/index.adoc[Object tracking]:: Detection and tracking of objects in the scene.
+xref:operation:zone_types/security/index.adoc[Zone state computation]:: Compute alarm states for all configured zones.
+Alarm history:: Event-based capturing of snapshots and scene activity before and after an alarm.
+
+## Volume 
+
+[NOTE]
+====
+Requires a Blickfeld {blickfeld_product_qbvolume}.
+====
+
+The https://www.blickfeld.com/applications/volume-monitoring/[volume mode] of the Percept system processes the 3D point cloud data at a fixed trigger interval. The interval can be adjusted from stem:[$10$] seconds to several hours between measurements. The input data is transformed by a sequence of processing steps in order to calculate the measured volume on zone level.
+
+Point cloud acquisition & fusion:: The local point cloud is queried. All input point clouds are geometrically combined if more than one sensor is active in the sensor setup.
+xref:operation:zone_types/volume.adoc[Zone volume state computation]:: Calculate the measured volume in stem:[$m^{3}$] and the corresponding volume map for each zone in the scene.
+

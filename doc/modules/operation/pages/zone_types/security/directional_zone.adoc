@@ -1,0 +1,49 @@
+# Directional Zone
+include::partial$blickfeld_urls.adoc[]
+:stem: latexmath
+
+[IMPORTANT]
+====
+This xref:zone_types/security/index.adoc[security zone] type is available on the {blickfeld_product_qbprotect} product.
+====
+
+The directional security zone uses detected objects and specific object attributes (size, movement direction) at the zone's separation plane to generate an alarm.
+
+## Application
+
+Protected area entrance monitoring:: This zone can be used to generate alarms only when objects are moving in an inbound direction. Objects moving in the opposite direction are ignored (e.g., leaving the protected area will never raise an alarm).
+
+## Parameters
+
+See configuration xref:protocol:blickfeld/percept_pipeline/config/zone_algorithm.adoc#_blickfeld_percept_pipeline_config_ZoneAlgorithm_TraversalSecurity[API definition].
+
+### Intrusion conditions
+
+include::partial$zone_types_security_intrusion_conditions_object_size.adoc[]
+
+### Output options
+
+include::partial$zone_types_security_output_options.adoc[]
+
+## Algorithm
+
+The algorithm uses the tracked objects from xref:object_tracking/index.adoc[object tracking] as input data. It operates in two stages:
+
+### Filter objects
+
+This step finds the subset of all xref:object_tracking/index.adoc[tracked objects] which are currently in the vicinity of the zone. The objects are then filtered based on the parameter configured for the xref:zone_types/security/directional_zone.adoc#_intrusion_conditions[alarm sizes].
+
+### Detect direction
+
+The xref:object_tracking/tracking.adoc#_algorithm[path] of the remaining objects is analyzed to detect if the most recent path segment is crosses the zones XZ-center-plane in the positive Y-axis direction of the zone's xref::zone_types/index.adoc#_geometric[cuboid]. All objects which satisfy this condition are listed as intruders, and the zone alarm is set to stem:[$true$].
+
+The alarm will remain active while any intruding object is tracked in the scene. Only when the object disappears or moves through the zone in the opposite direction the alarm is set to stem:[$false$] again.
+
+## Output data
+
+See output xref:protocol:blickfeld/percept_processing/data/state.adoc#_blickfeld_percept_processing_data_State_TraversalSecurity[API definition].
+
+### State
+
+include::partial$zone_types_security_state.adoc[]
+objects:: List of objects currently traversing the zone in the inbound direction. Each entry also contains a discretized representation of the track history and a snapshot of the current point cloud.

@@ -1,0 +1,51 @@
+# Dynamic
+:stem: latexmath
+
+The dynamic xref:motion_detection/index.adoc[motion detection] applies an adaptive model to separate the raw point cloud into background and foreground point clouds. The model is constantly updated by estimating statistical properties from the stream of input point clouds.
+
+## Application
+
+Intended for dynamic or outdoor scenes. The adaptivity of the underlying model incorporates permanent changes in the scene into the background model over time.
+
+## Parameters
+
+See configuration xref:protocol:blickfeld/percept_pipeline/config/background_subtraction.adoc#_blickfeld_percept_pipeline_config_BackgroundSubtraction_MixtureOfGaussians[API definition].
+
+Number of initialization frames (default: 10, range: [1 ... 30]):: Number of frames used to build the background model. A higher number of frames leads to a more accurate initial approximation of the scene.
++
+[TIP]
+====
+There should be no activity in the scene while the initialization frames are being recorded. Depending on the xref:working_principles:scan_pattern.adoc[configured frame rate] and the number of initialization frames, the acquisition can take up to stem:[$60$] seconds.
+====
+Confidence slope (default: 0.005, range: [0.0001 ... 0.01]):: Controls the background model learning rate. Higher values put more weight on newly acquired information from the raw point cloud and lead to a faster adaptation of the background model.
+Minimum confidence (default: 0.25, range: [0.1 ... 0.5]):: Confidence threshold for a point being part of the background model. Higher values enforce more confidence in the Gaussian distribution before a measured point is reported as part of the background model. Lower values make the model more adaptive and lead to a faster incorporation of new data.
+
+## Background model
+
+In contrast to the xref:motion_detection/static.adoc#_background_model[static motion detection], the internal model used to approximate the current background of the scene operates on the distance measured along individual laser rays. The scene is modeled individually for each ray using a mixture of https://en.wikipedia.org/wiki/Normal_distribution[Gaussian distributions].
+
+### Lifecycle
+
+For each start of the perception pipeline, a new model is created based on the number of frames configured for initialization. 
+
+Additionally, the background model has to be recreated every time the xref:working_principles:scan_pattern.adoc[scan pattern] is adjusted since the structure of the rays cast by the sensor fundamentally changes.
+
+[CAUTION]
+====
+The model is currently not persisted and will be re-created on every xref:working_principles:percept/index.adoc#_security[perception pipeline] start.
+====
+
+## Algorithm
+
+For each point in the full input point cloud, the individual model parameters are updated. The configured value for the xref:#_parameters[confidence slope] adjusts the amount of change in the background model. A single ray can have more than one model representing different quasi-static values for measured distances (e.g., when scanning through semi-translucent materials such as glass).
+
+.Example distance distribution along a single ray cast by the sensor.
+image::background_subtraction_dynamic.svg[]
+
+Every time the background model is adapted, it is also applied. For this step the xref:#_parameters[minimum confidence] is used to determine if a model is statistically meaningful enough to return deterministic results. The individual points are then classified as background or foreground points respectively.
+
+## Limitations
+
+Forced re-initialization when scan pattern changes:: The model has to be re-initialized when the xref:working_principles:scan_pattern.adoc[scan pattern] changes.
+Background appearing as an object:: When a static object, which was already part of the background, is removed from the scene, the newly visible point behind the removed object is reported as foreground. This behavior can be desired but will temporarily (until the models converge again) report a false object in the scene.
+

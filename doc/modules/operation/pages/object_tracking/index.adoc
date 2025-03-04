@@ -1,0 +1,30 @@
+# Object Tracking
+include::partial$blickfeld_urls.adoc[]
+:stem: latexmath
+
+[NOTE]
+====
+Requires a Blickfeld {blickfeld_product_qbprotect}.
+====
+
+The continuous monitoring and analysis capabilities of the {blickfeld_product_qbprotect} are greatly enhanced by xref:object_tracking/detection.adoc[detecting] and xref:object_tracking/tracking.adoc[tracking] objects throughout the scene. Specialized zones (e.g., xref:zone_types/security/object_zone.adoc[object-based security zone]) used in advanced security setups require information derived from object tracking to generate alarms with a false alarm rate close to zero.
+
+.Object tracking process overview
+image::object_tracking.svg[]
+
+Object tracking is split into two consecutive steps:
+
+xref:object_tracking/detection.adoc[Detection]:: The xref:motion_detection/index.adoc[foreground point cloud] is clustered and divided into smaller, cohesive segments. The resulting list of detected objects is the basis for xref:object_tracking/tracking.adoc[object tracking].
+xref:object_tracking/tracking.adoc[Tracking]:: Object tracking ensures consistent association of individual xref:object_tracking/detection.adoc[detected objects] over time. This is achieved by assigning a unique id to each object. The derived attributes (e.g., lifetime, velocity, etc.) attached to each object are then used by xref:zone_types/security/object_zone.adoc[specialized zones] to generate alarms.
+
+
+[NOTE]
+====
+The main difference between +++<u>detected</u>+++ and +++<u>tracked</u>+++ objects is that detected objects are identified in a single frame, while tracked objects are continuously followed across multiple frames to maintain their identity and motion.
+====
+
+
+[TIP]
+====
+The list of tracked objects generated in the tracking step can also be requested as a standalone data stream via the sensor's xref:protocol:blickfeld/percept_processing/services/objects.adoc#Stream[API] (e.g., for visualization).
+====

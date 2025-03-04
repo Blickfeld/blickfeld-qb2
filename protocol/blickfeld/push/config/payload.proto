@@ -38,6 +38,8 @@ message Payload {
     DATA_TYPE_VOLUME_MAP = 6;
     // Objects data type: a map of objects detected by the system
     DATA_TYPE_OBJECTS = 7;
+    // Event data type: a message is emitted for each event
+    DATA_TYPE_EVENT = 8;
     reserved 3, 4;
   }
   // payload encoding

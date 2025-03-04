@@ -1,0 +1,56 @@
+# Object-based Zone
+include::partial$blickfeld_urls.adoc[]
+:stem: latexmath
+
+[IMPORTANT]
+====
+This xref:zone_types/security/index.adoc[security zone] type is available on the {blickfeld_product_qbprotect} product.
+====
+
+The object-based security zone uses detected objects and specific object attributes (e.g., size, lifetime, traveled distance) within the zone's volume to generate an alarm.
+
+## Application
+
+Advanced alarm generation:: The object detection and tracking involved in generating the alarms within this zone enable a large number of possibilities. Proper xref:#_parameters[parameterization] can be used to configure, filter, and tailor the alarm generation in order to reduce the number of false alarms.
+
+## Parameters
+
+See configuration xref:protocol:blickfeld/percept_pipeline/config/zone_algorithm.adoc#_blickfeld_percept_pipeline_config_ZoneAlgorithm_ObjectBasedSecurity[API definition].
+
+### Intrusion conditions
+
+include::partial$zone_types_security_intrusion_conditions_object_size.adoc[]
+Minimum intruder lifetime (default: 0, unit: stem:[$s$]):: The minimum lifetime of the detected object before it can trigger an alarm.
+Minimum intruder track length (default: 0, unit: stem:[$m$]):: The minimum length of the object's track before it can trigger an alarm.
+Objects in background (default: false):: Trigger alarms also for objects with the property `in_background` set. Enabling this option might increase the false alarm rate.
+include::partial$zone_types_security_intrusion_conditions.adoc[]
+
+### Output options
+
+include::partial$zone_types_security_output_options.adoc[]
+
+## Algorithm
+
+The algorithm uses the tracked objects from the xref:object_tracking/index.adoc[object tracking] as input data. It operates in two stages:
+
+### Filter intruding objects
+
+This step finds the subset of all currently xref:object_tracking/index.adoc[tracked objects] which are currently intruding into the zone.
+
+An object is considered to be intruding when the object's centroid is located within the zone's xref::zone_types/index.adoc#_geometric[cuboid]. In order to narrow down the number of relevant objects the parameters for xref:#_intrusion_conditions[alarm sizes], xref:#_intrusion_conditions[minimum intruder lifetime], the xref:#_intrusion_conditions[minimum intruder track length] and the xref:#_intrusion_conditions[in-background] property are applied.
+
+The alarm inside the intrusion state is set to stem:[$true$] whenever the list of intruding objects is not empty.
+
+### Alarm filtering
+
+Based on the intrusion state, the actual alarm state is determined. In this step, the configuration values for xref:zone_types/security/object_zone.adoc#_intrusion_conditions[minimum intruding duration] and xref:zone_types/security/object_zone.adoc#_intrusion_conditions[intrusion confidence] are applied.
+
+## Output data
+
+See full xref:protocol:blickfeld/percept_processing/data/state.adoc#_blickfeld_percept_processing_data_State_ObjectBasedSecurity[API definition].
+
+### State
+
+include::partial$zone_types_security_state.adoc[]
+objects:: List of objects currently intruding the zone. Each entry also contains a discretized representation of the track history and a snapshot of the current point cloud.
+include::partial$zone_types_security_state_intrusion_confidence.adoc[]

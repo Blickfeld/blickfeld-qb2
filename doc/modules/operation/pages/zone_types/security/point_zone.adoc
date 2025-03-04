@@ -1,0 +1,59 @@
+# Point-based Zone
+include::partial$blickfeld_urls.adoc[]
+:stem: latexmath
+
+[IMPORTANT]
+====
+This xref:zone_types/security/index.adoc[security zone] type is available on the {blickfeld_product_qbprotect} product.
+====
+
+The point-based security zone utilizes changes in the number of detected points within the zone's xref::zone_types/index.adoc#_geometric[cuboid] to generate an alarm.
+
+## Application
+
+Basic alarm generation:: Whenever the scene does not allow for intruders to be detected as objects (e.g, the visibility is very poor or the objects' shape can vary) this zone can utilize the raw point information to generate an intrusion alarm.
++
+TIP: The simplicity of the approach can lead to cumbersome parameterization and a significant number of false alarms. Using the xref:zone_types/security/object_zone.adoc[object-based security zone] is recommended.
+
+## Parameters
+
+See configuration xref:protocol:blickfeld/percept_pipeline/config/zone_algorithm.adoc#_blickfeld_percept_pipeline_config_ZoneAlgorithm_Security[API definition].
+
+### Intrusion conditions
+
+Minimum points (default: 15):: The lower threshold of tolerated points in the zone. When the number of detected points exceeds the configured value, an alarm will be raised.
+Maximum points (default: 0):: The upper threshold of points in the zone. When set to zero, the upper threshold is disabled. When set to a nonzero value, the parameter must also be larger than the lower threshold. When the number of detected points exceeds the upper threshold, the alarm is disabled.
+include::partial$zone_types_security_intrusion_conditions.adoc[]
+
+### Output options
+
+include::partial$zone_types_security_output_options.adoc[]
+
+## Algorithm
+
+The algorithm uses its enclosed portion of the xref:motion_detection/index.adoc[foreground point cloud] as input data. It operates in two stages:
+
+### Count points
+
+The number of points inside the zone's xref::zone_types/index.adoc#_geometric[cuboid] are counted. To avoid randomly jumping or flickering values, the current number of points is filtered by applying a moving-average and a hysteresis-step filter:
+
+MovingAverage:: Average value from the last three observations.
+HysteresisStep:: Only update the counted number of points when the delta is larger than stem:[$10\%$] of the minimum points or more than stem:[$10$] points in total.
+
+The filtered value is matched against the minimum and maximum number of points values configured in the xref:zone_types/security/point_zone.adoc#_intrusion_conditions[intrusion conditions] to set the intrusion state accordingly.
+
+### Alarm filtering
+
+Based on the intrusion state, the actual alarm state is determined. In this step, the configuration values for the xref:zone_types/security/point_zone.adoc#_intrusion_conditions[minimum intruding duration] and the xref:zone_types/security/point_zone.adoc#_intrusion_conditions[intrusion confidence] are applied.
+
+
+## Output data
+
+See full xref:protocol:blickfeld/percept_processing/data/state.adoc#_blickfeld_percept_processing_data_State_Security[API definition].
+
+### State
+
+include::partial$zone_types_security_state.adoc[]
+number of detected points:: Number of points currently detected inside the zone.
+point cloud:: Point cloud which triggered the alarm. This field is only set while an alarm is active.
+include::partial$zone_types_security_state_intrusion_confidence.adoc[]

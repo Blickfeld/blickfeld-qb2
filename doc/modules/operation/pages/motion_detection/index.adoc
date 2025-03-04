@@ -1,0 +1,18 @@
+# Motion Detection
+:stem: latexmath
+
+[NOTE]
+====
+The technical term for this kind of motion detection is https://en.wikipedia.org/wiki/Foreground_detection[background subtraction]. Corresponding settings in the xref:protocol:blickfeld/percept_pipeline/config/background_subtraction.adoc[Blickfeld Qb2 API] and the xref:introduction:index.adoc[WebGUI] can be found under this name.
+====
+
+Detecting motion (also called https://en.wikipedia.org/wiki/Foreground_detection[background subtraction]) in the scene is a crucial pre-processing step used in the xref:working_principles:percept/index.adoc#_security[security mode]. It efficiently reduces the amount of data to be processed further and sets the focus on the relevant segment of the scene.
+
+.Simplified transformation from raw to foreground point cloud
+image::background_subtraction.svg[]
+
+The xref:working_principles:percept/index.adoc#_security[on-device processing] supports different background subtraction algorithms. Each algorithm has specific use cases and limitations.
+
+xref:motion_detection/static.adoc[Static motion detection]:: Intended for fixed and clearly defined indoor scenarios. The underlying model of the scene is captured once and only updated on demand. Every change in the scene is permanently reported as an xref:object_tracking/index.adoc[object] or foreground point cloud.
+xref:motion_detection/dynamic.adoc[Dynamic motion detection]:: Intended for dynamic or outdoor scenes. The underlying model of the scene is adaptive and evaluates statistical properties of the incoming point cloud data. Permanent changes in the scene can be incorporated into the model over time.
+

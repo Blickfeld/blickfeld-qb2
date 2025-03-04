@@ -1,0 +1,2 @@
+alarm (stem:[$true,false$]):: The current alarm. A stem:[$true$] value indicates an alarm.
+intrusion:: Unfiltered pre-alarm state from the zone's internal alarm logic.

@@ -1,0 +1,82 @@
+# Volume Zone
+include::partial$blickfeld_urls.adoc[]
+:stem: latexmath
+
+[IMPORTANT]
+====
+The volume zone is available on the {blickfeld_product_qbvolume} product.
+====
+
+The volume zone measures the volume of bulk goods or raw materials contained in the zone.
+
+At its core, the algorithm uses a surface approximation method with inter- and extrapolation strategies to compensate for occluded or missing values (volume map).
+
+The main output data is the measured volume in cubic meters (stem:[$m^{3}$]).
+
+## Application
+
+Example applications for a volume zone:
+
+Inventory of raw & bulk materials:: Measurement of raw material in an open space, rectangular- or cylindrical bunkers.
+Car park monitoring:: Assessment and counting of free parking spaces in a wide area.
+
+## Parameters
+
+See configuration xref:protocol:blickfeld/percept_pipeline/config/zone_algorithm.adoc#_blickfeld_percept_pipeline_config_ZoneAlgorithm_Volume[API definition].
+
+### Zone Shape
+
+Zone shape (default: Box):: The zone shape defines which part of the point cloud data enclosed by the zone is included in generating the volume map.
++
+* *Box*: The algorithm uses the points in the full enclosed volume of the zone's xref::zone_types/index.adoc#_geometric[cuboid].
+* *Cone*: The algorithm uses the points in a cylindrical cone fitted into the xref::zone_types/index.adoc#_geometric[cuboid] of the zone. The cone has its largest radius at the bottom and a radius of zero at the top of the cuboid.
+
+Cylinder height (default: 0, unit: stem:[m]):: Height of the cylindrical base of the cone. If set to a value greater than stem:[$0$] the cone will only become narrower above this height while still maintaining a radius of stem:[$0$] at the top of the cuboid.
++
+NOTE: The cylinder height is only configurable when the *zone shape* is set to *Cone*.
+
+### Volume map
+
+The volume map parameters define how the volume map is generated.
+
+Resolution (default: 0.2, unit: stem:[m]):: The edge length of rectangular tiles in the volume map. A small value results in a higher resolution of the reconstructed surface. Larger values lead to a sparse surface reconstruction.
+Angle of repose (default: 0, unit: stem:[rad]):: The https://en.wikipedia.org/wiki/Angle_of_repose[angle of repose] is the steepest possible angle of descent. This value is specific to the stored material (e.g., dry wheat has a characteristic value of around stem:[$27^{\circ}$]).
+Tare volume (default: 0, unit: stem:[$m^{3}$]):: The baseline volume of the zone. This value is subtracted from every measurement.
+
+### Output options
+
+The output settings configure when *not* to output measurement results. This is useful to avoid measurement outliers when trucks, wheel loaders or other equipment obstructs the scene (e.g., during loading or unloading).
+
+Minimum coverage (default: 0, unit: stem:[$\%$]):: The minimum portion of volume map tiles which have to be based on actual points in the input point cloud. Output of the measurement is skipped when coverage falls below the minimum threshold. The default value of zero percent will output every measurement.
+Linked occupancy zones (default: empty list):: List of xref:zone_types/occupancy.adoc[occupancy zones]. Measurement of the volume zone is skipped when any of the occupancy zones are occupied. The default value (empty list) will always trigger the zone's measurement.
+
+## Algorithm
+
+The algorithm working on the volume zone uses its enclosed portion of the xref:zone_types/exclusion.adoc#_algorithm[filtered point cloud] as input data. It operates in three distinct stages:
+
+### Crop point cloud
+
+Based on the xref:zone_types/volume.adoc#_zone_shape[zone shape], the enclosed subset of points is selected from the point cloud. This subset of points serves as the input for the volume map generation. The volume can be a subset of the zone's cuboid (e.g., when the xref:zone_types/volume.adoc#_zone_shape[Cone shape] is selected).
+
+### Generate volume map
+
+The bottom surface of the zone is divided into a uniform grid of rectangular tiles. Each tile has an edge length set to the xref:zone_types/volume.adoc#_volume_map[volume map resolution]. The height of each tile is set to the average z-coordinates of the points within the projected tile boundaries.
+
+Height values for tiles with no points in their boundaries are derived through a sequence of strategies:
+
+. Interpolation: The tile height is set to a weighted sum of its neighbors. This approach is limited to tiles with at least three neighboring tiles already containing a height stem:[$h>0.0$].
+. Extrapolation: Hidden or occluded tiles are extrapolated using the xref:zone_types/volume.adoc#_volume_map[angle of repose].
+. Shape fitting: Tile heights exceeding the zone's geometric xref:zone_types/volume.adoc#_zone_shape[shape type] are fitted onto the shape's surface.
+
+### Calculate volume
+
+The final volume measurement is calculated as the sum over all tile volumes. The coverage output is derived as the percentage of tiles based on direct measurements (without inter- or extrapolated values).
+
+## Output data
+
+### State
+
+See full xref:protocol:blickfeld/percept_processing/data/state.adoc#_blickfeld_percept_processing_data_State_Volume[API definition].
+
+Volume (unit: stem:[$m^{3}$]):: The contained volume. This is the sum of estimated tile heights across the whole volume map.
+Coverage (unit: stem:[\%]):: The percentage of volume map tiles based on direct measurements (without inter- or extrapolated values).

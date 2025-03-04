@@ -1,0 +1,37 @@
+# Security Zone
+include::partial$blickfeld_urls.adoc[]
+:stem: latexmath
+
+[IMPORTANT]
+====
+The security zone is available on the {blickfeld_product_qbprotect} product.
+====
+
+The security zone will generate an alarm from activity observed through the point cloud or detected objects in the zone's xref:zone_types/index.adoc#_geometric[cuboid]. Internally, each security zone xref:zone_types/security/index.adoc#_variants[variant] uses a highly configurable alarm logic to minimize false alarms.
+
+The common output for all security zone xref:zone_types/security/index.adoc#_variants[variants] is an alarm flag combined with some pre-alarm information. If an alarm is active, the alarm flag is set to stem:[$true$]. The alarm flag is set to stem:[$false$] when no alarm is currently active.
+
+## Application
+
+Perimeter protection:: xref:zone_types/security/point_zone.adoc[Generate alarms] when malicious activity is observed around a perimeter (e.g., a physical or virtual fence).
+Protection of critical infrastructure:: xref:zone_types/security/object_zone.adoc[Monitoring the surrounding area] of power stations or other important buildings.
+Detect direction of movement:: Generate alarms only when objects in the scene are moving in a certain direction (e.g., xref:zone_types/security/directional_zone.adoc[towards a protected area]).
+
+## Variants
+
+### xref:zone_types/security/point_zone.adoc[Point-based zone]
+This zone uses changes in the number of detected points within the zone's volume to generate an alarm.
+
+### xref:zone_types/security/object_zone.adoc[Object-based zone]
+This zone uses detected objects and specific object attributes (size, lifetime, traveled distance) within the zone's volume to generate an alarm.
+
+### xref:zone_types/security/directional_zone.adoc[Directional zone]
+This zone uses detected objects and specific object attributes (size, movement direction) at the zone's separation plane to generate an alarm.
+
+## Output
+
+All security zone xref:zone_types/security/index.adoc#_variants[variants] share a common set of output states. More state information is published by each specific security zone, allowing introspection and understanding of the alarm context.
+
+### State
+
+include::partial$zone_types_security_state.adoc[]

@@ -18,13 +18,13 @@ message Classification {
     message BoundingBoxSurface {
       // The surface area of the objects bounding box
       // should be larger than this value to be considered a small object.
-      float small_min_size = 1;
+      float small_min_size = 1 [(.blickfeld.base.unit) = "m^2"];
       // The surface area of the objects bounding box
       // should be larger than this value to be considered a medium object.
-      float medium_min_size = 2;
+      float medium_min_size = 2 [(.blickfeld.base.unit) = "m^2"];
       // The surface area of the objects bounding box
       // should be larger than this value to be considered a large object.
-      float large_min_size = 3;
+      float large_min_size = 3 [(.blickfeld.base.unit) = "m^2"];
     }
     oneof type {
       // Use object surface size for object classification.

@@ -1,4 +1,5 @@
 * Working principles
+** xref:working_principles:percept/index.adoc[]
 ** xref:working_principles:authentication.adoc[]
 ** xref:working_principles:coordinate_system.adoc[]
 ** xref:working_principles:operating_principle.adoc[]

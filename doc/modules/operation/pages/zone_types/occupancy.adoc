@@ -1,0 +1,54 @@
+# Occupancy Zone
+:stem: latexmath
+
+The occupancy zone generates a state which indicates whether the zone is occupied or free. The state changes based on the number of points contained in the zones xref::zone_types/index.adoc#_geometric[cuboid].
+
+## Application
+
+Disabling volume zones:: Depending on the state, the measurement of xref:zone_types/volume.adoc[volume zones] can be disabled. This is useful to exclude measurement outliers if equipment covers parts of the scene during loading or unloading operations.
+Basic presence detection:: Detect changes in the point cloud without requiring the change to be detected as an object. This can be useful to detect the state of gates, doors or roller shutters.
+
+## Parameters
+
+See configuration xref:protocol:blickfeld/percept_pipeline/config/zone_algorithm.adoc#_blickfeld_percept_pipeline_config_ZoneAlgorithm_Occupancy[API definition].
+
+### Occupancy conditions
+
+Minimum number of points (default: 15):: The lower threshold of points. When the number of observed points is greater than or equal to the number of minimum points, the zone is considered occupied.
+
+Adaptive baseline time constant (default: 0, unit: stem:[$s$]):: The time constant for adjusting the adaptive baseline. When the value is set to stem:[$0$] (default value), the adaptive baseline calculation is disabled.
+
+Voxel size (default: 0.05, unit: stem:[$m$]):: The voxel size used for downsampling the contained point cloud.
+
+### Output options
+
+Invert state:: Invert the zone output state.
+
+## Algorithm
+
+The algorithm uses its enclosed portion of the xref:zone_types/exclusion.adoc#_algorithm[filtered point cloud] as input data. It operates in three stages:
+
+### Voxel downsampling
+
+Based on the parameter for xref:zone_types/occupancy.adoc#_occupancy_conditions[the zone's voxel size], the contained point cloud is https://www.open3d.org/docs/latest/tutorial/geometry/pointcloud.html#Voxel-downsampling[down-sampled using a uniform voxel grid]. Each occupied voxel then contains exactly one point by averaging all contained points.
+
+### Count points
+
+The number of points remaining inside the zone after the voxel down-sampling is counted. Before comparing it against the xref:zone_types/occupancy.adoc#_occupancy_conditions[minimum number of points], the xref:zone_types/occupancy.adoc#_state[current adaptive baseline value] is subtracted. The zone is considered occupied if the remaining number of points exceeds the configured threshold.
+
+### Update state
+
+Set the output state to the result from the previous stages. If the xref:zone_types/occupancy.adoc#_occupancy_conditions[invert state] option is enabled in the configuration, the calculated result for the xref:zone_types/occupancy.adoc#_state[Occupied] flag will be inverted.
+
+If applicable, the current baseline value will be updated. The update step uses an exponential filter with the configured xref:zone_types/occupancy.adoc#_occupancy_conditions[adaptive baseline time constant].
+
+## Output
+
+See full xref:protocol:blickfeld/percept_processing/data/state.adoc#_blickfeld_percept_processing_data_State_Occupancy[API definition].
+
+
+### State
+
+Occupied:: Boolean flag indicating the occupied state.
+Number of detected points:: Number of points counted inside the zone.
+Baseline:: Current value of the adaptive baseline. The value will always be zero if the adaptive baseline calculation is not enabled.

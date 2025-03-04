@@ -98,6 +98,9 @@ The generated key in plain text will be returned only once.
 |===
 | Field | Type | Default | Unit
 
+.2+| *uuid* | string| - | - 
+3+| The uuid of the application key.
+
 .2+| *key* | string| - | - 
 3+| The generated key in plain text. This key has to be used whenever an application needs a token for authenticated access.
 

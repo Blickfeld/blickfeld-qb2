@@ -1,0 +1,36 @@
+# Zone Types
+:stem: latexmath
+
+Zones are the main method to configure the on-device processing pipeline. Each zone analyzes particular input data (e.g., the enclosed point cloud or detected objects) using specific algorithms. Further, a set of zone-specific parameters can be configured to adjust behavior and output.
+
+.Schematic overview of the zone state processing
+image::zone_types.svg[]
+
+The following zone types are available:
+
+* xref:zone_types/exclusion.adoc[Exclusion Zone]: Excludes a section of the scene from processing
+* xref:zone_types/occupancy.adoc[Occupancy Zone]: Determines if the area is free or occupied
+* xref:zone_types/security/index.adoc[Security Zone]: Generates alarms when the zone is penetrated
+* xref:zone_types/volume.adoc[Volume Zone]: Measures the enclosed volume
+
+## Parameters
+
+All zone types share common parameters. Not every parameter is exposed through the xref:introduction:index.adoc[WebGUI]. To see the full list of parameters look at the configuration xref:protocol:blickfeld/percept_pipeline/config/zone_algorithm.adoc[API definition].
+
+### General
+
+Name:: The name of the zone. Can be set to an arbitrary string which helps to recognize it in the 3D scene.
+Disabled:: This boolean property can be used to disable the particular zone for processing. When zones are temporarily not required this flag can be used.
++
+[TIP]
+====
+Instead of deleting a zone when it is not required just disable it by setting this parameter to `true`. The zone appears greyed out in the viewer of the xref:introduction:index.adoc[WebGUI] when disabled.
+====
+
+### Geometric
+
+Shape:: A zone is represented as a rectangular cuboid that serves as an enclosing volume around a region of interest in the scene. It is defined by its three-dimensional geometric parameters:
++
+* *_Position_*: Distance from the origin to the zone center point: stem:[(p_x,p_y,p_z)]
+* *_Orientation_*: Rotation with respect to origin orientation: stem:[R]
+* *_Dimension_*: Size of the zone edges in x, y, and z direction: stem:[(d_x,d_y,d_z)]

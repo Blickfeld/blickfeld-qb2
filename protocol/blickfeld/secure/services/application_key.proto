@@ -43,6 +43,8 @@ message ApplicationKeyCreateRequest {
 // The generated key in plain text will be returned only once.
 // ====
 message ApplicationKeyCreateResponse {
+  // The uuid of the application key.
+  string uuid = 2;
   // The generated key in plain text. This key has to be used whenever an application needs a token for authenticated access.
   string key = 1;
 }

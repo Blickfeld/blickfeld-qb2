@@ -1,0 +1,43 @@
+# Tracking
+
+xref:object_tracking/detection.adoc[Detected objects] from the previous step are tracked over time using various statistical properties. A motion model assuming constant velocity generates hypotheses about the xref:#_predict_tracks[expected future positions] based on the tracked object's speed and orientation.
+
+## Parameters
+
+See configuration xref:protocol:blickfeld/percept_pipeline/config/tracking.adoc[API definition].
+
+Sensitivity (default: 0.85, range: [0.01 ... 1.0]):: This value influences the sensitivity of the tracking module. Higher values initiate tracking of a detected object even when the uncertainty about its existence is high. Lower values reduce the sensitivity, meaning that tracking will only begin when an object is clearly detected in multiple consecutive frames.
+Survival probability (default: 1.0, range: [0.01 ... 1.0]):: Reduces the tracked object's existence probability for each frame in which it could not be tracked. High values will keep the track alive for an extended period. This can be useful to pick up the same objects' ids again after the previously tracked object has been hidden for some frames. Lower values cause the system to discard non-visible tracks faster.
+Acceleration noise (default: 0.5, range: [0.5 ... 10], unit: stem:[m \/ s^2]):: The acceleration noise specifies a linear deviation range that supplements the constant velocity motion model. When tracking fails to properly follow fast-moving objects, increasing this value expands the search space for track association.
+Path resolution (default: 1.0, range: [0.3 ... 1.5], unit: stem:[m]):: The path history is stored for all currently tracked objects. The path resolution specifies the discretization of the stored path. A higher value results in greater spacing between recorded positions. The path history can be visualized in the xref:introduction:index.adoc[WebGUI] or leveraged in the xref:zone_types/security/directional_zone.adoc#_detect_direction[directional security zone].
+
+## Algorithm
+
+The goal of the tracking algorithm is to provide a consistent identification of objects in the scene over their whole lifecycle. The tracking algorithm works in four stages:
+
+### Predict tracks
+
+The expected position of all currently tracked objects is predicted. The prediction step uses the object's position, orientation and velocity to create a hypothesis about the next position of the track. The constant velocity motion model combined with the configured acceleration noise results in predictions which are scattered along the predicted object's path. 
+
+During the prediction step, the existence probability of each track is multiplied by the configured xref:#_parameters[survival probability]. This effectively reduces the confidence that the object is still present in the scene.
+
+### Update tracks
+
+This step receives the xref:object_tracking/detection.adoc[detected objects] and matches them to the predicted state of all currently tracked objects. When real measurements align well with the tracking parameters and the configured motion model, the state of the matching track is updated. The updated state will then contain the newly estimated velocity, the measured position, and a derived orientation based on the difference between the last positions.
+
+Each track that could be updated with a new measurement has its existence probability increased.
+
+### Create & delete tracks
+
+Each detected object that could not be matched with an existing track is assigned a new track. To ensure consistent identification, the track receives a unique track-id. The new track's state is initialized using the detected object position and a default value for its existence probability.
+
+Every track, which could not be matched with a detected object, gradually loses xref:#_predict_tracks[existence probability] after several tracking cycles. The track is deleted when the existence probability falls below the minimum existence probability threshold.
+
+## Limitations
+
+Difficult to parameterize:: Due to the wide range of configurable parameters, tuning the tracking module can be complex. Parameter values influence each other and may amplify unintended behavior.
++
+[TIP]
+====
+For tracking of walking persons (movement speed approx. 1.3 stem:[m \/ s]), the recommendation is to use the default values for all parameters.
+====

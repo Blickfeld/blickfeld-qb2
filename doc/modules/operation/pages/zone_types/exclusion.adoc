@@ -1,0 +1,26 @@
+# Exclusion Zone
+
+The section of the scene enclosed by the exclusion zone will be permanently ignored by all other processing steps.
+
+## Application
+
+Example applications for an exclusion zone:
+
+Static structures:: Ceilings, suspension roofs, walls or other static parts of the scene can lead to static offsets when they are contained in a xref:zone_types/volume.adoc[volume zone].
+Vegetation:: Vegetation can cause false detection of objects or result in unwanted measurement noise. This can happen when trees move in the wind or grass grows over time.
++
+TIP: Slow moving processes (e.g. growing in vegetation or general deterioration) should be compensated by applying the xref:motion_detection/dynamic.adoc[dynamic motion detection].
+
+## Parameters
+
+The exclusion zone does not have any algorithm-specific parameter.
+
+## Algorithm
+
+An exclusion zone removes all enclosed points from the input data resulting in a filtered point cloud. Further processing steps (e.g. xref:object_tracking/index.adoc[object tracking]) or other zones (e.g. xref:zone_types/security/point_zone.adoc[point-based security zone] or xref:zone_types/volume.adoc[volume zones]) will only see the filtered point cloud.
+
+## Output data
+
+### State
+
+The exclusion zone does not provide any state output.

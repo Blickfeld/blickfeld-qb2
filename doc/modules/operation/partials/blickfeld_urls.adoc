@@ -1,0 +1,2 @@
+:blickfeld_product_qbprotect: https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect]
+:blickfeld_product_qbvolume: https://www.blickfeld.com/applications/volume-monitoring/[QbVolume]

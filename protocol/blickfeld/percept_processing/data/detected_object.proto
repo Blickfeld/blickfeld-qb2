@@ -29,10 +29,10 @@ message DetectedObject {
     // This is used for the simple object size classifaction.
     float bounding_box_2d_surface = 4;
     // Confidence value
-    // 
+    //  
     // Value in the range of [0, 1] which indicates how confident
     // the tracking algorithm is about the detected object.
-    // 
+    //  
     // NOTE: This is preliminary implementation and might change its behaviour significantly in upcoming releases.
     float confidence = 5 [(.blickfeld.base.optional) = true];
     // Set when bounding box of object is mostly located within the background / reference frame.

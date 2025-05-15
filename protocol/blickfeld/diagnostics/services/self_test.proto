@@ -17,7 +17,7 @@ message SelfTestRunRequest {
 }
 
 // The response provides the self test report.
-// 
+//  
 // [NOTE]
 // The method will not throw an exception on API level if tests failed or have warnings.
 // The success flag in the report must be checked.

@@ -20,6 +20,8 @@ enum PointType {
   // The point is filtered, e.g. by applying an exclusion zone
   // or the radius outlier filter.
   POINT_TYPE_FILTERED = 4;
+  // The point is part of a shadow.
+  POINT_TYPE_SHADOW = 8;
   // The point is part of a detected object point cloud.
   POINT_TYPE_OBJECT = 256;
   // The point is part of a detected object point cloud which is currently

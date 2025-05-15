@@ -12,7 +12,6 @@ Perception configurations specify the algorithms used for e.g. for background su
 | *xref:#Get[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/percept_pipeline/services/perception.adoc#_blickfeld_percept_pipeline_services_PerceptionGetResponse[PerceptionGetResponse]
 | *xref:#Set[]* | xref:blickfeld/percept_pipeline/services/perception.adoc#_blickfeld_percept_pipeline_services_PerceptionSetRequest[PerceptionSetRequest]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
 | *xref:#Watch[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/percept_pipeline/services/perception.adoc#_blickfeld_percept_pipeline_services_PerceptionWatchResponse[PerceptionWatchResponse]Stream 
-| *xref:#ListTemplates[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/percept_pipeline/services/perception.adoc#_blickfeld_percept_pipeline_services_PerceptionListTemplatesResponse[PerceptionListTemplatesResponse]
 | *xref:#ResetBackground[]* | xref:blickfeld/percept_pipeline/services/perception.adoc#_blickfeld_percept_pipeline_services_PerceptionResetBackgroundRequest[PerceptionResetBackgroundRequest]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
 | *xref:#GetBackground[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/percept_pipeline/services/perception.adoc#_blickfeld_percept_pipeline_services_PerceptionGetBackgroundResponse[PerceptionGetBackgroundResponse]
 | *xref:#SetBackground[]* | xref:blickfeld/percept_pipeline/services/perception.adoc#_blickfeld_percept_pipeline_services_PerceptionSetBackgroundRequest[PerceptionSetBackgroundRequest]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
@@ -50,9 +49,6 @@ Request for setting the perception configuration
 |===
 | Field | Type | Default | Unit
 
-.2+| *template_name* | string| - | - 
-3+| Use a template to set the configuration, templates are predefined perception configurations
-
 .2+| *perception* | xref:blickfeld/percept_pipeline/config/perception.adoc[config.Perception] | - | - 
 3+| Use the specified configuration
 
@@ -77,39 +73,6 @@ Continuous response on perception configuration changes
 
 |===
 
-[#ListTemplates]
-== ListTemplates
-
-Return list of names for named templates
-
-[#_blickfeld_percept_pipeline_services_PerceptionListTemplatesResponse]
-=== Response
-
-Response containing perception configuration templates
-
-.Available fields in blickfeld.percept_pipeline.services.PerceptionListTemplatesResponse
-|===
-| Field | Type | Default | Unit
-
-.2+| *named_templates* | repeated xref:blickfeld/percept_pipeline/services/perception.adoc#_blickfeld_percept_pipeline_services_PerceptionListTemplatesResponse_NamedTemplatesEntry[NamedTemplatesEntry] | - | - 
-3+| Mapping from a template name to the template itself. The template can be used to configure the perception 
-algorithms for certain use-cases.
-
-|===
-
-[#_blickfeld_percept_pipeline_services_PerceptionListTemplatesResponse_NamedTemplatesEntry]
-==== Named Templates Entry
-
-
-
-.Available fields in blickfeld.percept_pipeline.services.PerceptionListTemplatesResponse.NamedTemplatesEntry
-|===
-| Field | Type | Default | Unit
-
-| *key* | string| - | - 
-| *value* | xref:blickfeld/percept_pipeline/config/perception.adoc[config.Perception] | - | - 
-|===
-
 [#ResetBackground]
 == ResetBackground
 
@@ -118,16 +81,19 @@ Resets the background of one, multiple or all devices
 [#_blickfeld_percept_pipeline_services_PerceptionResetBackgroundRequest]
 === Request
 
-Request to reset the background model of one, multiple or all devices
+Request to reset the background model
 
 .Available fields in blickfeld.percept_pipeline.services.PerceptionResetBackgroundRequest
 |===
 | Field | Type | Default | Unit
 
-.2+| *fqdns* | repeated string| - | - 
-3+| If the list is empty, the background models of all data sources are reset. 
-If the background models of only specific devices should be rebuilt, the 'fqdn' of the respective devices 
-has to be mentioned in the 'fqdns' list.
+.2+| *binary_direction_id* | optional bytes| - | - 
+3+| If set, the background is only reset for the given direction ids. 
+The direction ids might be extracted from the point cloud of an object. 
+ 
+NOTE: This is only supported for the mixture of gaussian background subtraction. 
+ 
+Type: UInt32
 
 |===
 

@@ -15,11 +15,11 @@ option (.blickfeld.base.access_control_file) = {
 message ProtocolMaturity {
   // This enumeration describes the maturity of a protocol.
   // Please refer to the individual values.
-  // 
+  //  
   // [IMPORTANT]
   // APIs marked with the EXPERIMENTAL and DEPRECATED flags have to be handled with care.
   // Please read through the definition.
-  // 
+  //  
   // Please report if the protocol maturity of a service, method, and field does not fit
   // e.g. if an EXPERIMENTAL field is required in an application and production use case.
   enum Level {
@@ -48,7 +48,7 @@ message ProtocolMaturity {
 
 extend .google.protobuf.ServiceOptions {
   // Mark service with protocol maturity
-  // 
+  //  
   // Usage:
   // service Example {
   //     (protocol_maturity_service).level = LEVEL_MAINTAINED;
@@ -58,7 +58,7 @@ extend .google.protobuf.ServiceOptions {
 
 extend .google.protobuf.MethodOptions {
   // Mark method with protocol maturity
-  // 
+  //  
   // Usage:
   // service Example {
   //     ...
@@ -70,7 +70,7 @@ extend .google.protobuf.MethodOptions {
 
 extend .google.protobuf.FieldOptions {
   // Mark field in request/response with protocol maturity
-  // 
+  //  
   // Usage:
   // message ExampleMethodRequest {
   //     bool enable_over_clocking = 1 [(protocol_maturity_field).level = LEVEL_EXPERIMENTAL];

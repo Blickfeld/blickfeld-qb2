@@ -12,7 +12,7 @@ option (.blickfeld.base.access_control_file) = {
 message Frame {
   // The fields of a point cloud frame are encoded as binary arrays.
   // Binary types instead of native Protobuf types are used to improve the performance.
-  // 
+  //  
   // NOTE: All byte arrays are encoded in Little Endian.
   message Binary {
     // Number of entries in arrays below.

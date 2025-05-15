@@ -26,15 +26,15 @@ message Log {
       // No level is set
       LEVEL_UNSPECIFIED = 0;
       // An error condition was detected
-      // 
+      //  
       // Includes the systemd levels: EMERGENCY, ALERT, CRITICAL, ERROR
       LEVEL_ERROR = 1;
       // The message indicates that an error will occur if no action is taken
-      // 
+      //  
       // Includes the systemd levels: NOTICE, WARNING
       LEVEL_WARNING = 2;
       // Normal operational messages that require no action
-      // 
+      //  
       // Includes the systemd levels: INFORMATIONAL
       LEVEL_INFO = 3;
     }

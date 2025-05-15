@@ -11,45 +11,22 @@ option (.blickfeld.base.access_control_file) = {
 
 // Get Visualization Request
 message VisualizationGetRequest {
-  // visualisation name
-  string name = 1;
+  reserved 1;
+  reserved "name";
 }
 
-// Get Visualisation response
+// Get Visualization response
 message VisualizationGetResponse {
-  // visualisation configuration
+  // visualization configuration
   .blickfeld.video.config.Visualization configuration = 1;
 }
 
-// Set Visualisation request
+// Set Visualization request
 message VisualizationSetRequest {
-  // can be applied directly or by name
-  oneof type_oneof {
-    // can be applied by name (from the existing list)
-    string name = 1;
-    // can be applied without name
-    .blickfeld.video.config.Visualization configuration = 2;
-  }
-}
-
-// List Visualisation response
-message VisualizationListResponse {
-  // map of stored visualisation configurations
-  map<string, .blickfeld.video.config.Visualization> configuration = 1;
-}
-
-// Store active visualisation Reuest
-message VisualizationStoreRequest {
-  // name of the configuration
-  string name = 1;
-  // visualisation configuration
+  // visualization configuration
   .blickfeld.video.config.Visualization configuration = 2;
-}
-
-// Delete visualisation from list of available visualisations
-message VisualizationDeleteRequest {
-  // configuration name
-  string name = 1;
+  reserved 1;
+  reserved "name";
 }
 
 // Service allows to change the visuals of RTSP video stream served by Qb2.

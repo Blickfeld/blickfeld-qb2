@@ -53,7 +53,7 @@ message Network {
   }
   // If set, the device will turn of the Ethernet interface and connect to the given wireless access point.
   // The Ethernet and WiFi interface cannot work simultanously.
-  // 
+  //  
   // [NOTE]
   // Always use the validate method of the network service to ensure that the given credentials are correct.
   // If the credentials are incorrect or the wireless access point is down, the fallback IP address can
@@ -62,18 +62,18 @@ message Network {
     // SSID of the wireless network
     optional string ssid = 1;
     // Password of the wireless network
-    // 
+    //  
     // [NOTE]
     // If the password is not set and the SSID did not change, the existing password is used.
     // This mechanism is applied as the password is never returned via the GetConfig API.
     optional string password = 2;
   }
   // Authentication for networks
-  // 
+  //  
   // Interface to netplan & networkd, see https://netplan.readthedocs.io/en/latest/netplan-yaml/#authentication.
   message Authentication {
     // Key management
-    // 
+    //  
     // [NOTE]
     // Only 802.1X for wired network is supported (see https://en.wikipedia.org/wiki/IEEE_802.1X).
     enum KeyManagement {
@@ -118,22 +118,22 @@ message Network {
     // anonymous-identity (advanced configuration)
     optional string anonymous_identity = 5;
     // The RADIUS-server ca-certificate
-    // 
+    //  
     // For EAP-methods TLS, TTLS and PEAP this certificate is loaded and validated
     // against the certificate presented from the server side.
-    // 
+    //  
     // The expected format is a x509, PEM in binary encoding.
     optional .blickfeld.secure.config.Certificate ca_certificate = 6;
     // The Client-certificate
-    // 
+    //  
     // The certificate to be used by the client during authentication when EAP-TLS is selected.
     optional .blickfeld.secure.config.Certificate client_certificate = 7;
     // The client-key
-    // 
+    //  
     // Client key for the configured client certificate.
     optional .blickfeld.secure.config.PrivateKey client_key = 8;
     // The client-key password
-    // 
+    //  
     // Password to use the configured client key (if encrypted).
     optional string client_key_password = 9;
     // phase2-auth (advanced configuration)

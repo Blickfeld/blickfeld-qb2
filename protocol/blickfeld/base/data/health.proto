@@ -8,7 +8,7 @@ option (.blickfeld.base.access_control_file) = {
 };
 
 // The Health message and corresponding services are used to indicate their health and status.
-// 
+//  
 // They are available on different layers.
 // Upstream or higher layers usually aggregate the health of their child modules.
 // The goal is to provide an aggregated product health that reliably indicates if everything is functional.

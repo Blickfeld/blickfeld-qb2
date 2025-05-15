@@ -33,7 +33,7 @@ message Status {
   // flag to indicate if it is working or not
   .blickfeld.push.data.Status.Connection connection = 2;
   // Average data rate
-  // 
+  //  
   // The resulting value is averaged over the last 5 messages sent, peak or current values might be different.
   float data_rate = 3 [(.blickfeld.base.unit) = "B/s"];
   // Timestamp when last message was sent

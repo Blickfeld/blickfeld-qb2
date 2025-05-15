@@ -1,5 +1,6 @@
 syntax = "proto3";
 
+import "blickfeld/base/geometry/vector3.proto";
 import "blickfeld/base/options.proto";
 package blickfeld.video.config;
 
@@ -29,6 +30,13 @@ message Visualization {
     // clockwise rotation value applied to the frame
     .blickfeld.video.config.Visualization.Rotation rotation = 7;
   }
+  // Configuration of the camera
+  message Camera {
+    // camera position - where camera is located
+    .blickfeld.base.geometry.Vector3 position = 1;
+    // camera target - target at which camera looks
+    .blickfeld.base.geometry.Vector3 target = 2;
+  }
   // Defines the clockwise rotation value for the frame in the video stream
   enum Rotation {
     // no video frame rotation
@@ -42,5 +50,7 @@ message Visualization {
   }
   // frame configuration
   .blickfeld.video.config.Visualization.Frame frame = 1;
+  // camera configuration
+  .blickfeld.video.config.Visualization.Camera camera = 3;
 }
 

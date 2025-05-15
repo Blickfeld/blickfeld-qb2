@@ -37,7 +37,7 @@ Is used to aggregate multiple long term statistics.
 [#_blickfeld_base_LinkData]
 == Link Data
 
-
+Message defining LinkData
 
 .Available fields in blickfeld.base.LinkData
 |===

@@ -37,7 +37,7 @@ message ApplicationKeyCreateRequest {
 }
 
 // Response containing the plain-text key information of the generated application key.
-// 
+//  
 // [NOTE]
 // ====
 // The generated key in plain text will be returned only once.

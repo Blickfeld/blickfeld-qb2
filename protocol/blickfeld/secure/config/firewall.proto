@@ -10,7 +10,7 @@ option (.blickfeld.base.access_control_file) = {
 // Configuration options for the firewall
 message Firewall {
   // Disable all insecure, unencrypted & unauthenticated, network interface ports.
-  // 
+  //  
   // [NOTE]
   // This might break compatibility with client applications e.g. a normal  HTTP call
   // to http://qb2-xxxxx will fail.

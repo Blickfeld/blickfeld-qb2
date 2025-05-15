@@ -3,6 +3,7 @@
 syntax = "proto3";
 
 import "blickfeld/base/options.proto";
+import "blickfeld/percept_pipeline/config/object_size.proto";
 package blickfeld.percept_pipeline.config;
 
 option (.blickfeld.base.access_control_file) = {
@@ -14,15 +15,58 @@ message BackgroundSubtraction {
   // Dynamic background subtraction using a mixture of gaussians. The algorithm automatically slowly updates the
   // background model if the scene changes. The update rate is controlled via 'exponential_decay'.
   message MixtureOfGaussians {
-    // How many frames of the first received frames are used to build the background
+    // The dynamic model update can depend on the detected objects.
+    // If enabled, the model update is freezed for areas around detected objects.
+    //  
+    // This can be very helpful to avoid that stalled objects, which stay in the scene for a while
+    // (e.g. parked cars) or objects which are following similar paths (e.g. persons in
+    // a hallway), cause the generation of an invalid background model.
+    // The dynamic model update is though still enabled for small objects or noise points
+    // (e.g. caused by vegetation).
+    //  
+    // To still allow the merging of objects into the scene background, simple rules are available
+    // which automatically re-initialize the background model for the area around a stall object.
+    // Also, objects can be explicitly merged into the background via separate API commands.
+    message ObjectAwareness {
+      // Enable object awareness
+      bool enabled = 1;
+      // After an object has been tracked for the given duration,
+      // the area of the object is reinitialized.
+      //  
+      // If 0, the auto merging is disabled.
+      //  
+      // Reasonable default: 10 minutes
+      float auto_merge_object_duration = 2 [(.blickfeld.base.unit) = "s"];
+      // Only enable the object awareness for the given object sizes.
+      //  
+      // If empty, it is enabled for all sizes.
+      //  
+      // Reasonable default: OBJECT_SIZE_MEDIUM, OBJECT_SIZE_LARGE.
+      repeated .blickfeld.percept_pipeline.config.ObjectSize sizes = 3;
+      // Disable for objects which are marked with the in_background property.
+      //  
+      // This can be beneficial in scenes where the continuous background model
+      // update works better than the one-shot auto-merge re-initialization.
+      // Please note that the shadow detection will not work as expected when this
+      // is disabled.
+      bool disable_for_in_background_objects = 4;
+    }
+    // The amount of initially received frames which are used to build the background.
+    //  
     // Reasonable default: 10
     uint32 num_initialization_frames = 1;
     // Controls how fast objects switch between foreground and background. Exponential decay factor.
+    //  
     // Reasonable default: 0.005
     float exponential_decay = 2;
     // Controls how much noise the background/foreground is expected to have.
+    //  
     // Reasonable default: 0.25
     float min_weight_threshold_for_background = 3;
+    // Configure the object awareness of the background subtraction.
+    .blickfeld.percept_pipeline.config.BackgroundSubtraction.MixtureOfGaussians.ObjectAwareness object_awareness = 5 [(.blickfeld.base.protocol_maturity_field) = {
+      level: LEVEL_EXPERIMENTAL
+    }];
   }
   // Uses the first received frames to build a static background map of the environment. The algorithm requires the
   // scene to only contain the static parts of the scene on the start of the processing. The background model is not
@@ -30,14 +74,15 @@ message BackgroundSubtraction {
   // environment.
   message Static {
     // How many frames of the first received frames are used to build the background
+    //  
     // Reasonable default: 10
     uint32 num_initialization_frames = 1;
     // Size of voxels used for voxelization of the background during initialization.
-    // 
+    //  
     // Default: 0.05 m
     float voxel_size = 3 [(.blickfeld.base.unit) = "m"];
     // Minimum spatial distance to background to detect points as foreground
-    // 
+    //  
     // Default: 0.15 m
     float min_distance = 4 [(.blickfeld.base.unit) = "m"];
     reserved 2;

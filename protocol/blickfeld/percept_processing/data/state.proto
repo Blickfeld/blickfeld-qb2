@@ -25,7 +25,7 @@ message State {
     // Active intrusion. Can be used as pre-alarm.
     .blickfeld.percept_processing.data.Flag intrusion = 3;
     // Confidence that it is a real intrusion.
-    // 
+    //  
     // Calculates a moving average of the intrusion state.
     // The moving average window size can be configured with
     // the minimum intruding duration parameter.
@@ -42,7 +42,7 @@ message State {
     // Active intrusion. Can be used as pre-alarm.
     .blickfeld.percept_processing.data.Flag intrusion = 4;
     // Confidence that it is a real intrusion.
-    // 
+    //  
     // Calculates a moving average of the intrusion state.
     // The moving average window size can be configured with
     // the minimum intruding duration parameter.

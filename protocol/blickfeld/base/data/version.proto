@@ -8,7 +8,7 @@ option (.blickfeld.base.access_control_file) = {
 };
 
 // A general message used for version information.
-// 
+//  
 // https://semver.org[Semantic versioning] is used to identify a software state.
 // It additionaly adds the short hash of the corresponding commit.
 message Version {

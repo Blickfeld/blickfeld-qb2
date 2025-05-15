@@ -8,7 +8,7 @@ option (.blickfeld.base.access_control_file) = {
 };
 
 // List of available self tests
-// 
+//  
 // NOTE: The test list is still incomplete.
 enum SelfTest {
   // No test is specified.

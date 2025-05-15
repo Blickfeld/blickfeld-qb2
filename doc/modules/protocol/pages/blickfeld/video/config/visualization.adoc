@@ -10,6 +10,9 @@ Message representing the visuals configuration of the RTSP video stream
 .2+| *frame* | xref:blickfeld/video/config/visualization.adoc#_blickfeld_video_config_Visualization_Frame[Frame] | - | - 
 3+| frame configuration
 
+.2+| *camera* | xref:blickfeld/video/config/visualization.adoc#_blickfeld_video_config_Visualization_Camera[Camera] | - | - 
+3+| camera configuration
+
 |===
 
 [#_blickfeld_video_config_Visualization_Color]
@@ -52,6 +55,23 @@ Visual configuration of point cloud frame. Element coloring can be disabled by u
 
 .2+| *rotation* | xref:blickfeld/video/config/visualization.adoc#_blickfeld_video_config_Visualization_Rotation[Rotation] | - | - 
 3+| clockwise rotation value applied to the frame
+
+|===
+
+[#_blickfeld_video_config_Visualization_Camera]
+== Camera
+
+Configuration of the camera
+
+.Available fields in blickfeld.video.config.Visualization.Camera
+|===
+| Field | Type | Default | Unit
+
+.2+| *position* | xref:blickfeld/base/geometry/vector3.adoc[base.geometry.Vector3] | - | - 
+3+| camera position - where camera is located
+
+.2+| *target* | xref:blickfeld/base/geometry/vector3.adoc[base.geometry.Vector3] | - | - 
+3+| camera target - target at which camera looks
 
 |===
 

@@ -38,7 +38,7 @@ message FlowListResponse {
 // Flow store request
 message FlowStoreRequest {
   // ID of the flow
-  // 
+  //  
   // NOTE: For node_red_json, this has to match the ID in the NodeRED JSON format.
   string id = 1;
   oneof kind {
@@ -94,7 +94,7 @@ message FlowWatchGlobalNodesResponse {
 }
 
 // Service to store and control Blickfeld flows.
-// 
+//  
 // It is used to implement the custom storage API: https://nodered.org/docs/api/storage/
 service Flow {
   option (.blickfeld.base.access_control_service) = {
@@ -113,11 +113,11 @@ service Flow {
     };
   }
   // Store flow
-  // 
+  //  
   // A "Reload" is required to apply the operation.
   rpc Store(.blickfeld.flow.services.FlowStoreRequest) returns (.google.protobuf.Empty);
   // Delete stored flow
-  // 
+  //  
   // A "Reload" is required to apply the operation.
   rpc Delete(.blickfeld.flow.services.FlowDeleteRequest) returns (.google.protobuf.Empty);
   // Watch flow changes
@@ -127,7 +127,7 @@ service Flow {
     };
   }
   // Store global nodes
-  // 
+  //  
   // A "Reload" is required to apply the operation.
   rpc StoreGlobalNodes(.blickfeld.flow.services.FlowStoreGlobalNodesRequest) returns (.google.protobuf.Empty);
   // Get global nodes
@@ -143,7 +143,7 @@ service Flow {
     };
   }
   // Reload node-red
-  // 
+  //  
   // This reloads all nodes from the config and restart all nodes.
   rpc Reload(.google.protobuf.Empty) returns (.google.protobuf.Empty);
 }

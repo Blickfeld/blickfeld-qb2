@@ -22,7 +22,7 @@ message AccountCreateRequest {
 }
 
 // Response after account has been created.
-// 
+//  
 // [NOTE]
 // ====
 // The generated activation password in plain text will be returned only once.
@@ -47,7 +47,7 @@ message AccountResetRequest {
 }
 
 // Response after account has been reset.
-// 
+//  
 // [NOTE]
 // ====
 // The generated activation password in plain text will be returned only once.
@@ -146,7 +146,7 @@ service Account {
     };
   }
   // Store updated account data.
-  // 
+  //  
   // [NOTE]
   // ====
   // During account activation this method can be accessed using a JWT token with access level `LEVEL_PUBLIC`.

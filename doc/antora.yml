@@ -1,4 +1,4 @@
-display_version: v2.7
+display_version: v2.8
 name: Qb2
 nav:
 - modules/ROOT/nav.adoc
@@ -9,4 +9,4 @@ nav:
 - modules/developer/nav.adoc
 - modules/service_and_maintenance/nav.adoc
 title: Qb2
-version: v2.7
+version: v2.8

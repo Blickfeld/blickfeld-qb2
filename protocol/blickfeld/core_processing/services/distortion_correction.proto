@@ -18,11 +18,11 @@ service DistortionCorrection {
   };
   // Enable the distortion correction. If available, the user configuration will be taken, otherwise the factory configuration will be
   // used.
-  // 
+  //  
   // NOTE: Enabling the distortion correction is persistent, meaning it will still be enabled after reboot.
   rpc Enable(.google.protobuf.Empty) returns (.google.protobuf.Empty);
   // Disable the distortion correction.
-  // 
+  //  
   // NOTE: Disabling the distortion correction is persistent, meaning it will still be disabled after reboot.
   rpc Disable(.google.protobuf.Empty) returns (.google.protobuf.Empty);
 }

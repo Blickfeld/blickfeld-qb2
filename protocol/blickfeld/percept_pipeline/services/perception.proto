@@ -20,12 +20,10 @@ message PerceptionGetResponse {
 
 // Request for setting the perception configuration
 message PerceptionSetRequest {
-  oneof set_type {
-    // Use a template to set the configuration, templates are predefined perception configurations
-    string template_name = 1;
-    // Use the specified configuration
-    .blickfeld.percept_pipeline.config.Perception perception = 2;
-  }
+  // Use the specified configuration
+  .blickfeld.percept_pipeline.config.Perception perception = 2;
+  reserved 1;
+  reserved "template_name";
 }
 
 // Continuous response on perception configuration changes
@@ -34,19 +32,17 @@ message PerceptionWatchResponse {
   .blickfeld.percept_pipeline.config.Perception perception = 1;
 }
 
-// Response containing perception configuration templates
-message PerceptionListTemplatesResponse {
-  // Mapping from a template name to the template itself. The template can be used to configure the perception
-  // algorithms for certain use-cases.
-  map<string, .blickfeld.percept_pipeline.config.Perception> named_templates = 1;
-}
-
-// Request to reset the background model of one, multiple or all devices
+// Request to reset the background model
 message PerceptionResetBackgroundRequest {
-  // If the list is empty, the background models of all data sources are reset.
-  // If the background models of only specific devices should be rebuilt, the 'fqdn' of the respective devices
-  // has to be mentioned in the 'fqdns' list.
-  repeated string fqdns = 1;
+  // If set, the background is only reset for the given direction ids.
+  // The direction ids might be extracted from the point cloud of an object.
+  //  
+  // NOTE: This is only supported for the mixture of gaussian background subtraction.
+  //  
+  // Type: UInt32
+  bytes binary_direction_id = 2 [(.blickfeld.base.optional) = true, (.blickfeld.base.numpy_dtype) = "<u4"];
+  reserved 1;
+  reserved "fqdns";
 }
 
 // Response containing the active background frame
@@ -82,12 +78,6 @@ service Perception {
   rpc Set(.blickfeld.percept_pipeline.services.PerceptionSetRequest) returns (.google.protobuf.Empty);
   // Watch changes of perception configuration
   rpc Watch(.google.protobuf.Empty) returns (stream .blickfeld.percept_pipeline.services.PerceptionWatchResponse) {
-    option (.blickfeld.base.access_control_method) = {
-      read_only: true
-    };
-  }
-  // Return list of names for named templates
-  rpc ListTemplates(.google.protobuf.Empty) returns (.blickfeld.percept_pipeline.services.PerceptionListTemplatesResponse) {
     option (.blickfeld.base.access_control_method) = {
       read_only: true
     };

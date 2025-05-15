@@ -23,26 +23,17 @@ Gets named visual configuration
 
 Get Visualization Request
 
-.Available fields in blickfeld.video.services.VisualizationGetRequest
-|===
-| Field | Type | Default | Unit
-
-.2+| *name* | string| - | - 
-3+| visualisation name
-
-|===
-
 [#_blickfeld_video_services_VisualizationGetResponse]
 === Response Stream
 
-Get Visualisation response
+Get Visualization response
 
 .Available fields in blickfeld.video.services.VisualizationGetResponse
 |===
 | Field | Type | Default | Unit
 
 .2+| *configuration* | xref:blickfeld/video/config/visualization.adoc[config.Visualization] | - | - 
-3+| visualisation configuration
+3+| visualization configuration
 
 |===
 
@@ -54,17 +45,14 @@ Applies visualization configuration to the video stream
 [#_blickfeld_video_services_VisualizationSetRequest]
 === Request
 
-Set Visualisation request
+Set Visualization request
 
 .Available fields in blickfeld.video.services.VisualizationSetRequest
 |===
 | Field | Type | Default | Unit
 
-.2+| *name* | string| - | - 
-3+| can be applied by name (from the existing list)
-
 .2+| *configuration* | xref:blickfeld/video/config/visualization.adoc[config.Visualization] | - | - 
-3+| can be applied without name
+3+| visualization configuration
 
 |===
 

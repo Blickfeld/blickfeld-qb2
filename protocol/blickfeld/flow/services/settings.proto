@@ -12,7 +12,7 @@ option (.blickfeld.base.access_control_file) = {
 // Settings set request
 message SettingsSetRequest {
   // Settings which should be stored
-  // 
+  //  
   // Generic JSON format which is defined by NodeRed.
   .google.protobuf.Struct settings = 1;
 }
@@ -20,24 +20,24 @@ message SettingsSetRequest {
 // Settings get request
 message SettingsGetResponse {
   // Current settings
-  // 
+  //  
   // Generic JSON format which is defined by NodeRed.
   .google.protobuf.Struct settings = 1;
 }
 
 // Configuration service to store the NodeRed Settings.
-// 
+//  
 // It is used to implement the custom storage API: https://nodered.org/docs/api/storage/
 service Settings {
   option (.blickfeld.base.access_control_service) = {
     level: LEVEL_AUTHORIZED
   };
   // Set settings
-  // 
+  //  
   // Used by https://nodered.org/docs/api/storage/methods/#storagesavesettingssettings
   rpc Set(.blickfeld.flow.services.SettingsSetRequest) returns (.google.protobuf.Empty);
   // Get settings
-  // 
+  //  
   // Used by https://nodered.org/docs/api/storage/methods/#storagegetsettings
   rpc Get(.google.protobuf.Empty) returns (.blickfeld.flow.services.SettingsGetResponse) {
     option (.blickfeld.base.access_control_method) = {

@@ -48,7 +48,7 @@ service Authentication {
   };
   // User-Accounts managed by Qb2 have to use the Login method with an existing account
   // in order to receive a JWT Token for access to priviliged parts of the device API.
-  // 
+  //  
   // The factory user has the username "admin".
   // The password is printed on the device label.
   rpc Login(.blickfeld.secure.services.AuthenticationLoginRequest) returns (.blickfeld.secure.services.AuthenticationLoginResponse) {

@@ -23,10 +23,10 @@ message LicenseGetResponse {
 }
 
 // License service to assign a product variant and metadata to a Qb2.
-// 
+//  
 // The license is cryptographically singed and configured during production.
 // A configured license can only be replaced by another valid license for this device.
-// 
+//  
 // A license contains the specific product variant and can additionally contain
 // arbitrary metadata for the specfic customer or application.
 service License {

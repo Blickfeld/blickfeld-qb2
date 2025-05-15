@@ -54,7 +54,7 @@ service PointCloud {
     level: LEVEL_MAINTAINED
   };
   // Stream a point cloud stream
-  // 
+  //  
   // NOTE: This activates the sensor if it is currently idle.
   rpc Stream(.blickfeld.core_processing.services.PointCloudStreamRequest) returns (stream .blickfeld.core_processing.services.PointCloudStreamResponse) {
     option (.blickfeld.base.access_control_method) = {
@@ -62,7 +62,7 @@ service PointCloud {
     };
   }
   // Get a single point cloud
-  // 
+  //  
   // NOTE: This activates the sensor if it is currently idle.
   rpc Get(.blickfeld.core_processing.services.PointCloudGetRequest) returns (.blickfeld.core_processing.services.PointCloudGetResponse) {
     option (.blickfeld.base.access_control_method) = {

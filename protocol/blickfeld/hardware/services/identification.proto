@@ -29,6 +29,5 @@ service Identification {
       read_only: true
     };
   }
-  // 
 }
 

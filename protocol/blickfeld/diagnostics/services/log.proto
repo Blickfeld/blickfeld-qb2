@@ -13,7 +13,7 @@ option (.blickfeld.base.access_control_file) = {
 message LogStreamRequest {
   // The cursor pointing to the log entry from which to start the stream from.
   // This field is optional. If it is not set the stream will start from the tail of the journal.
-  // 
+  //  
   // NOTE: To be able to set this field and to specify a valid start position in the journal, first, a valid cursor needs to be received
   // via the response to this request. Further requests can then stream relatively to the received cursor.
   .blickfeld.diagnostics.data.Log.Entry.Cursor cursor = 1 [(.blickfeld.base.optional) = true];

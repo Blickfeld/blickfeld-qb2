@@ -15,7 +15,7 @@ message SessionGetNonceResponse {
 }
 
 // Session service which implements all methods for session-bound security features.
-// 
+//  
 // A session is recreated after the following events:
 // * Power-cycle of the device
 // * Every day (UTC)

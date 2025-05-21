@@ -49,8 +49,9 @@ std::shared_ptr<grpc::Channel> connect_to_device(const std::string&             
     }
 
     // create ssl channel credentials for secure TLS communication to TLS server
-    auto ssl_credentials_options = grpc::SslCredentialsOptions({ .pem_root_certs = base::GRPC_DEFAULT_DEVICE_CA });
-    auto ssl_credentials         = grpc::SslCredentials(ssl_credentials_options);
+    auto ssl_credentials_options           = grpc::SslCredentialsOptions();
+    ssl_credentials_options.pem_root_certs = base::GRPC_DEFAULT_DEVICE_CA;
+    auto ssl_credentials                   = grpc::SslCredentials(ssl_credentials_options);
 
     // Pass serial number as DNS name to SSL handshake
     // This authenticates that we are connected to a Blickfeld Qb2

@@ -6,10 +6,28 @@ env:
   BUILD_TYPE: Release
 
 jobs:
-  build:
+  build-windows:
     strategy:
       matrix:
-        os: [ubuntu-20.04, ubuntu-22.04, ubuntu-latest]
+        os: [windows-latest, windows-2025, windows-2022, windows-2019]
+    runs-on: ${{ matrix.os }}
+    
+    steps:
+    - uses: actions/checkout@v2
+    - uses: lukka/get-cmake@latest
+    - uses: ilammy/msvc-dev-cmd@v1.4.1
+    - uses: lukka/run-vcpkg@v11
+    - name: compile
+      run: | 
+        mkdir build
+        cd build
+        cmake -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake -A x64 -DBUILD_SHARED_LIBS=OFF ..
+        cmake --build . -j
+
+  build-linux:
+    strategy:
+      matrix:
+        os: [ubuntu-22.04, ubuntu-24.04, ubuntu-latest]
     runs-on: ${{ matrix.os }}
 
     steps:

@@ -5,6 +5,7 @@ configure_file(include/blickfeld/base/grpc_defs.h.in include/blickfeld/base/grpc
 
 # Add library
 add_library(${PROJECT_NAME}-cpp INTERFACE)
+target_compile_features(${PROJECT_NAME}-cpp INTERFACE cxx_std_17)
 target_include_directories(${PROJECT_NAME}-cpp INTERFACE
     $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/include>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>

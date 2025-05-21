@@ -2,9 +2,9 @@ include(CMakeFindDependencyMacro)
 
 if(NOT blickfeld-qb2_FOUND)
     # Protocol: Find Protobuf
-    find_package(Protobuf 3.12.4)
-    if(NOT Protobuf_FOUND)
-        find_dependency(Protobuf 3.6.1)
+    find_package(Protobuf REQUIRED)
+    if(Protobuf_VERSION VERSION_LESS "3.12.4")
+        find_dependency(Protobuf 3.6.1 REQUIRED)
         include("${CMAKE_CURRENT_LIST_DIR}/third-party/protobuf_generate.cmake")
     endif()
 

@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.16)
 project(blickfeld-qb2 VERSION 1.0.0)
 
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 # Default options
 option(BUILD_SHARED_LIBS "Build using shared libraries" ON)
 

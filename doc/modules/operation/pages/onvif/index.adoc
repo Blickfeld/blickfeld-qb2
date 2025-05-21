@@ -34,7 +34,7 @@ Due to the interoperability of the ONVIF protocol, https://www.blickfeld.com/lid
 | https://www.milestonesys.com/products/software/xprotect/[Milestone Systems]  
 | xref:onvif/milestone.adoc[Milestone XProtect]  
 
-| https://www.geutebrueck.com/g-help/g-core/en/Content/Home.html[Geutebrück]  
+| https://www.geutebrueck.com/[Geutebrück]  
 | xref:onvif/geutebrueck.adoc[G-Core]  
 |===
 

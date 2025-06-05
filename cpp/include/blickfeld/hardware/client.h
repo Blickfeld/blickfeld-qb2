@@ -20,10 +20,10 @@ namespace hardware {
  * @param timeout Timeout value for gRPC connection. Can be used to tune the time limit on the attempt to connect to the device.
  * @return std::shared_ptr<grpc::Channel> gRPC Channel which can be used with generated gRPC stubs
  */
-std::shared_ptr<grpc::Channel> connect_to_device(const std::string&                        fqdn_or_ip,
-                                                 const std::string&                        serial_number   = "",
-                                                 const std::string&                        application_key = "",
-                                                 const std::chrono::duration<unsigned int> timeout         = base::GRPC_DEFAULT_CONNECTION_TIMEOUT) {
+inline std::shared_ptr<grpc::Channel> connect_to_device(const std::string&                        fqdn_or_ip,
+                                                        const std::string&                        serial_number   = "",
+                                                        const std::string&                        application_key = "",
+                                                        const std::chrono::duration<unsigned int> timeout = base::GRPC_DEFAULT_CONNECTION_TIMEOUT) {
     if(application_key != "" && serial_number == "")
         throw std::runtime_error("Invalid Parameters: `serial_number` has to be set when `application_key` should be used.");
 

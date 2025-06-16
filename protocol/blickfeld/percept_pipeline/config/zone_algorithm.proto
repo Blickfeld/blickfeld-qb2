@@ -2,6 +2,7 @@
 // All rights reserved.
 syntax = "proto3";
 
+import "blickfeld/base/config/geolocation.proto";
 import "blickfeld/base/geometry/shape.proto";
 import "blickfeld/base/options.proto";
 import "blickfeld/percept_pipeline/config/object_size.proto";
@@ -14,6 +15,13 @@ option (.blickfeld.base.access_control_file) = {
 
 // An algorithm that monitors the area within and around a zone.
 message ZoneAlgorithm {
+  // The geolocation of the zone based on the map and the zone position.
+  message Geolocation {
+    // The geolocation of the center of the zone.
+    .blickfeld.base.config.Geolocation center = 1;
+    // The geolocation of the corners of the zone.
+    repeated .blickfeld.base.config.Geolocation corners = 2;
+  }
   // Algorithm that measure the volume of a zone
   //  
   // The volume of a zone is approximated by computing a 'volume map' from the input point clouds. The volume map discretize the zone
@@ -105,6 +113,11 @@ message ZoneAlgorithm {
     //  
     // Default: 0
     float hold_duration = 10 [(.blickfeld.base.unit) = "s"];
+    // Detect an object as intruder if any part of it enters the zone.
+    // Only the center point of the object is considered when disabled.
+    //  
+    // Enabling this might increase the false alarm rate.
+    bool intrusion_on_partial_entry = 11;
     reserved 2, 3, 5;
   }
   // Algorithm that excludes points from the input point cloud
@@ -155,6 +168,10 @@ message ZoneAlgorithm {
   .blickfeld.base.geometry.Shape shape = 3;
   // Disable this zone, setting this flag to `true` disables the evaluation of the zone
   bool disabled = 13;
+  // Geolocation of the zone.
+  //  
+  // This field is read only and only set when the geolocation is configured in the data source.
+  .blickfeld.percept_pipeline.config.ZoneAlgorithm.Geolocation geolocation = 15 [(.blickfeld.base.optional) = true];
   // Arbitrary metadata storage for client applications
   .google.protobuf.Struct metadata = 100 [(.blickfeld.base.optional) = true];
   oneof algorithm_type {

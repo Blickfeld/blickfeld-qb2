@@ -40,6 +40,10 @@ A message representing exactly one object that is detected in the scene.
 .2+| *velocity* | xref:blickfeld/base/geometry/vector3.adoc[base.geometry.Vector3] | - | - 
 3+| Track object velocity
 
+.2+| *geolocation* | optional xref:blickfeld/base/config/geolocation.adoc[base.config.Geolocation] | - | - 
+3+| The geolocation of the object based on the map and the object position. 
+Only set when the geolocation is configured in the data source.
+
 |===
 
 [#_blickfeld_percept_processing_data_DetectedObject_Properties]

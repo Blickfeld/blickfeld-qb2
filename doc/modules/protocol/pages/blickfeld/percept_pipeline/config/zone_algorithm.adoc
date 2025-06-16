@@ -19,6 +19,11 @@ An algorithm that monitors the area within and around a zone.
 .2+| *disabled* | bool| - | - 
 3+| Disable this zone, setting this flag to `true` disables the evaluation of the zone
 
+.2+| *geolocation* | optional xref:blickfeld/percept_pipeline/config/zone_algorithm.adoc#_blickfeld_percept_pipeline_config_ZoneAlgorithm_Geolocation[Geolocation] | - | - 
+3+| Geolocation of the zone. 
+ 
+This field is read only and only set when the geolocation is configured in the data source.
+
 .2+| *metadata* | optional https://protobuf.dev/reference/protobuf/google.protobuf/#struct[google.protobuf.Struct] | - | - 
 3+| Arbitrary metadata storage for client applications
 
@@ -39,6 +44,23 @@ An algorithm that monitors the area within and around a zone.
 
 .2+| *traversal_security* | xref:blickfeld/percept_pipeline/config/zone_algorithm.adoc#_blickfeld_percept_pipeline_config_ZoneAlgorithm_TraversalSecurity[TraversalSecurity] | - | - 
 3+| Run traversal zone
+
+|===
+
+[#_blickfeld_percept_pipeline_config_ZoneAlgorithm_Geolocation]
+== Geolocation
+
+The geolocation of the zone based on the map and the zone position.
+
+.Available fields in blickfeld.percept_pipeline.config.ZoneAlgorithm.Geolocation
+|===
+| Field | Type | Default | Unit
+
+.2+| *center* | xref:blickfeld/base/config/geolocation.adoc[base.config.Geolocation] | - | - 
+3+| The geolocation of the center of the zone.
+
+.2+| *corners* | repeated xref:blickfeld/base/config/geolocation.adoc[base.config.Geolocation] | - | - 
+3+| The geolocation of the corners of the zone.
 
 |===
 
@@ -171,6 +193,12 @@ Default: 1
 3+| Alarm is kept active for the given duration to reduce jitter. 
  
 Default: 0
+
+.2+| *intrusion_on_partial_entry* | bool| - | - 
+3+| Detect an object as intruder if any part of it enters the zone. 
+Only the center point of the object is considered when disabled. 
+ 
+Enabling this might increase the false alarm rate.
 
 |===
 

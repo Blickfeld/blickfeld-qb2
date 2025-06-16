@@ -7,6 +7,7 @@
 *** xref:operation:object_tracking/tracking.adoc[]
 ** xref:operation:onvif/index.adoc[]
 *** xref:operation:onvif/geutebrueck.adoc[]
+*** xref:operation:onvif/hexagon.adoc[]
 *** xref:operation:onvif/milestone.adoc[]
 *** xref:operation:onvif/senstar.adoc[]
 ** xref:operation:zone_types/index.adoc[]

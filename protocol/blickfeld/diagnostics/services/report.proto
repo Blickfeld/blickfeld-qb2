@@ -5,7 +5,7 @@ import "google/protobuf/empty.proto";
 package blickfeld.diagnostics.services;
 
 option (.blickfeld.base.access_control_file) = {
-  level: LEVEL_PUBLIC
+  level: LEVEL_AUTHORIZED
 };
 
 // Stream of the encrypted report in chunks of binary data.
@@ -18,7 +18,7 @@ message ReportGenerateResponse {
 // the state and health information of the Qb2 device.
 service Report {
   option (.blickfeld.base.access_control_service) = {
-    level: LEVEL_PUBLIC
+    level: LEVEL_AUTHORIZED
   };
   option (.blickfeld.base.protocol_maturity_service) = {
     level: LEVEL_MAINTAINED

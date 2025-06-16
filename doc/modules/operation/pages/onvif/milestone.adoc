@@ -50,7 +50,7 @@ The live video stream of the https://www.blickfeld.com/lidar-sensor-products/qbp
 
 == Events
 
-=== Configure Alarms 
+=== Configure Events Handling 
 The example below shows how https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect] events can be used in Milestone XProtect.
 In this example one security zone `Security Zone 1` has been configured using QbProtect xref:introduction:index.adoc[WebGUI] as shown in the Figure below. 
 
@@ -79,7 +79,7 @@ In this scenario two dynamic events are exposed to the VMS: `intrusion` and `Zon
 Events originating from dynamic event sources (e.g. intrusion event from a particular security zone) have to be correctly exposed to the VMS each when a new zone configuration is introduced via xref:introduction:index.adoc[WebGUI]. Please re-add / replace the QbProtect in Milestone XProtect Management Client to re-expose new events from dynamic sources.
 ====
 
-=== Configure Rule Chain
+=== Configure Alarm Rule Chain
 
 The Milestone XProtect rule chain consists of event, event source and action. It allows to map a dedicated action (e.g. manual alarm action, adding entry log, .etc) to the event of the particular type (e.g. motion, zone intrusion). The configured rule chain called `Intrusion` is shown in the figure below. 
 

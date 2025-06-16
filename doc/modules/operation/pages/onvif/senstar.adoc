@@ -58,7 +58,7 @@ The live video stream of the https://www.blickfeld.com/lidar-sensor-products/qbp
 
 == Events
 
-=== Configure Alarms
+=== Configure Events Handling 
 
 The example below shows how https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect] events can be used in Senstar Symphony. Supported events can be found in the corresponding `Events` view of Senstar Server as shown in the Figure below. 
 
@@ -77,7 +77,7 @@ In this example two security zones `zone1` and `zone2` have been configured usin
 Events originating from dynamic event sources (e.g. intrusion event from a particular security zone) have to be correctly exposed to the VMS each time when a new zone configuration is introduced via xref:introduction:index.adoc[WebGUI]. Please re-add the QbProtect to the Senstar Symphony server to re-expose new events from dynamic sources.
 ====
 
-=== Configure Rule Chain
+=== Configure Alarm Rule Chain
 
 The chain consists of event, action and schedule. It allows to map a dedicated action (e.g. manual alarm action, .etc) to the event of the particular type (e.g. intrusion in security zone). This mapping operates according to the pre-configured time schedule (e.g. on the daily basis). The named rule chain configuration procedure consists of the following steps: 
 

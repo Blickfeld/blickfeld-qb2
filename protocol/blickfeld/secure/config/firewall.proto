@@ -9,11 +9,25 @@ option (.blickfeld.base.access_control_file) = {
 
 // Configuration options for the firewall
 message Firewall {
+  // Rule for port forwarding
+  message PortForwarding {
+    // Port which should be forwarded.
+    //  
+    // NOTE: Due to security policies, only ports between 10000 to 10099 are allowed.
+    uint32 port = 1;
+    // The port forwarding is only allowed for the given IP address or subnet.
+    //  
+    // The address should be specified in dot-decimal format (quad-dotted notation of four decimal
+    // integers, ranging from 0 to 255 each) including netmask prefix as follows "ip_address/prefix".
+    string from_ip_network = 2;
+  }
   // Disable all insecure, unencrypted & unauthenticated, network interface ports.
   //  
   // [NOTE]
   // This might break compatibility with client applications e.g. a normal  HTTP call
   // to http://qb2-xxxxx will fail.
   bool disable_insecure_network_ports = 1 [(.blickfeld.base.optional) = true];
+  // The given ports are forwarded to custom applications in the blickfeld flow.
+  repeated .blickfeld.secure.config.Firewall.PortForwarding flow_port_forwardings = 2 [(.blickfeld.base.optional) = true];
 }
 

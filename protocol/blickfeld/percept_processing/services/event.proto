@@ -36,6 +36,18 @@ message EventStreamResponse {
   .blickfeld.percept_processing.data.Event event = 2;
 }
 
+// Request for Get method
+message EventGetRequest {
+  // Identifier of the event; see EventStreamRequest and EventStreamResponse for more details
+  string id = 1;
+}
+
+// Response to Get method
+message EventGetResponse {
+  // Event payload
+  .blickfeld.percept_processing.data.Event event = 2;
+}
+
 // Service for actionable events
 service Event {
   option (.blickfeld.base.access_control_service) = {
@@ -46,6 +58,12 @@ service Event {
   };
   // A method to get a stream of events.
   rpc Stream(.blickfeld.percept_processing.services.EventStreamRequest) returns (stream .blickfeld.percept_processing.services.EventStreamResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
+  // Method to get one Event by its id
+  rpc Get(.blickfeld.percept_processing.services.EventGetRequest) returns (.blickfeld.percept_processing.services.EventGetResponse) {
     option (.blickfeld.base.access_control_method) = {
       read_only: true
     };

@@ -11,6 +11,7 @@ The zone service allows getting, configuring, deleting and receiving updates of 
 | *xref:#List[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/percept_pipeline/services/zone.adoc#_blickfeld_percept_pipeline_services_ZoneListResponse[ZoneListResponse]
 | *xref:#Store[]* | xref:blickfeld/percept_pipeline/services/zone.adoc#_blickfeld_percept_pipeline_services_ZoneStoreRequest[ZoneStoreRequest]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
 | *xref:#Delete[]* | xref:blickfeld/percept_pipeline/services/zone.adoc#_blickfeld_percept_pipeline_services_ZoneDeleteRequest[ZoneDeleteRequest]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
+| *xref:#DeleteAll[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
 | *xref:#Watch[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/percept_pipeline/services/zone.adoc#_blickfeld_percept_pipeline_services_ZoneWatchResponse[ZoneWatchResponse]Stream 
 | *xref:#GetTareVolume[]* | xref:blickfeld/percept_pipeline/services/zone.adoc#_blickfeld_percept_pipeline_services_ZoneGetTareVolumeRequest[ZoneGetTareVolumeRequest]| xref:blickfeld/percept_pipeline/services/zone.adoc#_blickfeld_percept_pipeline_services_ZoneGetTareVolumeResponse[ZoneGetTareVolumeResponse]
 |===
@@ -41,7 +42,7 @@ Store / Update a zone
 [#_blickfeld_percept_pipeline_services_ZoneStoreRequest]
 === Request
 
-Request to store or update an existing zone
+Request to store or update existing zones
 
 .Available fields in blickfeld.percept_pipeline.services.ZoneStoreRequest
 |===
@@ -49,6 +50,12 @@ Request to store or update an existing zone
 
 .2+| *zone* | xref:blickfeld/percept_pipeline/config/zone_algorithm.adoc[config.ZoneAlgorithm] | - | - 
 3+| The new zone to be added. If there is a zone with the same uuid, that zone will get updated with this configuration.
+
+.2+| *zones* | repeated xref:blickfeld/percept_pipeline/config/zone_algorithm.adoc[config.ZoneAlgorithm] | - | - 
+3+| For a batch update: the new zones to be added. If any of them has a uuid matching an existing zone, it will get updated.
+
+.2+| *delete_others* | bool| - | - 
+3+| If this is set to true, all existing zones that are not specified in this request will be deleted.
 
 |===
 
@@ -60,7 +67,7 @@ Delete a zone
 [#_blickfeld_percept_pipeline_services_ZoneDeleteRequest]
 === Request
 
-Request to delete a zone
+Request to delete zones
 
 .Available fields in blickfeld.percept_pipeline.services.ZoneDeleteRequest
 |===
@@ -69,7 +76,15 @@ Request to delete a zone
 .2+| *uuid* | string| - | - 
 3+| The uuid of the zone to be deleted
 
+.2+| *uuids* | repeated string| - | - 
+3+| For a batch delete: the uuids of the zones to be deleted
+
 |===
+
+[#DeleteAll]
+== DeleteAll
+
+Delete all zones
 
 [#Watch]
 == Watch

@@ -12,6 +12,9 @@ The system time is used to fill timestamps in generated output data e.g. point c
 .2+| *ntp* | xref:blickfeld/system/config/time_synchronization.adoc#_blickfeld_system_config_TimeSynchronization_Ntp[Ntp] | - | - 
 3+| Configuration for NTP time synchronization
 
+.2+| *manual* | xref:blickfeld/system/config/time_synchronization.adoc#_blickfeld_system_config_TimeSynchronization_Manual[Manual] | - | - 
+3+| Manual time configuration
+
 .2+| *time_zone* | optional string| - | - 
 3+| Configure time zone of device. 
  
@@ -32,6 +35,28 @@ Configuration message for NTP time synchronization
 
 .2+| *servers* | repeated string| - | - 
 3+| List of NTP time servers which are to be used
+
+|===
+
+[#_blickfeld_system_config_TimeSynchronization_Manual]
+== Manual
+
+Manual time configuration 
+ 
+[CAUTION] 
+The device has no internal battery and no reference clock. 
+Thus the timestamp has to be reconfigured after every power cycle and in regular intervals.
+
+.Available fields in blickfeld.system.config.TimeSynchronization.Manual
+|===
+| Field | Type | Default | Unit
+
+.2+| *timestamp* | uint64| - | ns 
+3+| Unix reference timestamp 
+ 
+[NOTE] 
+The timestamp is ignored when unchanged. 
+This prevents unintended time jumps when other configuration properties are modified.
 
 |===
 

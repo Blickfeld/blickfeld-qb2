@@ -9,6 +9,7 @@ Service for actionable events
 | Method | Request | Response
 
 | *xref:#Stream[]* | xref:blickfeld/percept_processing/services/event.adoc#_blickfeld_percept_processing_services_EventStreamRequest[EventStreamRequest]| xref:blickfeld/percept_processing/services/event.adoc#_blickfeld_percept_processing_services_EventStreamResponse[EventStreamResponse]Stream 
+| *xref:#Get[]* | xref:blickfeld/percept_processing/services/event.adoc#_blickfeld_percept_processing_services_EventGetRequest[EventGetRequest]| xref:blickfeld/percept_processing/services/event.adoc#_blickfeld_percept_processing_services_EventGetResponse[EventGetResponse]
 |===
 [#Stream]
 == Stream
@@ -56,6 +57,39 @@ $revision is usually 0 but incremented when there a multiple events per second.
 
 .2+| *event* | xref:blickfeld/percept_processing/data/event.adoc[data.Event] | - | - 
 3+| Event payload.
+
+|===
+
+[#Get]
+== Get
+
+Method to get one Event by its id
+
+[#_blickfeld_percept_processing_services_EventGetRequest]
+=== Request
+
+Request for Get method
+
+.Available fields in blickfeld.percept_processing.services.EventGetRequest
+|===
+| Field | Type | Default | Unit
+
+.2+| *id* | string| - | - 
+3+| Identifier of the event; see EventStreamRequest and EventStreamResponse for more details
+
+|===
+
+[#_blickfeld_percept_processing_services_EventGetResponse]
+=== Response
+
+Response to Get method
+
+.Available fields in blickfeld.percept_processing.services.EventGetResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *event* | xref:blickfeld/percept_processing/data/event.adoc[data.Event] | - | - 
+3+| Event payload
 
 |===
 

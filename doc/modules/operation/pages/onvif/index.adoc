@@ -34,8 +34,11 @@ Due to the interoperability of the ONVIF protocol, https://www.blickfeld.com/lid
 | https://www.milestonesys.com/products/software/xprotect/[Milestone Systems]  
 | xref:onvif/milestone.adoc[Milestone XProtect]  
 
-| https://www.geutebrueck.com/[Geutebrück]  
-| xref:onvif/geutebrueck.adoc[G-Core]  
+| https://www.geutebrueck.com/[Geutebrück GmbH]  
+| xref:onvif/geutebrueck.adoc[G-Core]
+
+| https://hxgnsecurity.com/products/hxgn-dc3/[Hexagon AB]  
+| xref:onvif/hexagon.adoc[HxGN dC3]  
 |===
 
 Integration and configuration instructions and usage examples of https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect] with a particular VMS system can be accessed from the corresponding VMS column or the matching documentation subsection.
@@ -46,6 +49,11 @@ In addition to VMS systems support, https://www.blickfeld.com/lidar-sensor-produ
 
 .Video stream of QbProtect point cloud using RTSP stream source link
 image::onvif/rtsp_vlc.png[800,800]
+
+[NOTE]
+====
+The perspective of the RTSP video stream can be synchronized with the one configured in the xref:introduction:index.adoc[WebGUI]. For that navigate to the Viewer page of the QbProtect WebGUI, configure the desired view perspective and apply the keyboard shortcut kbd:[Shift+V]. 
+====
 
 In case user management was enabled on https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect] the video stream URL should also include ONVIF/RTSP credentials pair in the following format:  `rtsp://user:key@qb2-ABC123XYZ.muc.blickfeld.com:554/local/pointcloud/core`. Please refer to the section below to see how to obtain the required credentials pair.
 

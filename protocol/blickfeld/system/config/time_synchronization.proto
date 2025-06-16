@@ -16,11 +16,26 @@ message TimeSynchronization {
     // List of NTP time servers which are to be used
     repeated string servers = 1 [(.blickfeld.base.regex) = "[[:alnum:]\\.\\-]+"];
   }
+  // Manual time configuration
+  //  
+  // [CAUTION]
+  // The device has no internal battery and no reference clock.
+  // Thus the timestamp has to be reconfigured after every power cycle and in regular intervals.
+  message Manual {
+    // Unix reference timestamp
+    //  
+    // [NOTE]
+    // The timestamp is ignored when unchanged.
+    // This prevents unintended time jumps when other configuration properties are modified.
+    uint64 timestamp = 1 [(.blickfeld.base.unit) = "ns"];
+  }
   // Configuration depending on the time synchronization mechanism which is to be used
   // By default, NTP with fallback servers is active.
   oneof type {
     // Configuration for NTP time synchronization
     .blickfeld.system.config.TimeSynchronization.Ntp ntp = 1;
+    // Manual time configuration
+    .blickfeld.system.config.TimeSynchronization.Manual manual = 3;
   }
   // Configure time zone of device.
   //  

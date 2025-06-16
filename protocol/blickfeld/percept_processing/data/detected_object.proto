@@ -2,6 +2,7 @@
 // All rights reserved.
 syntax = "proto3";
 
+import "blickfeld/base/config/geolocation.proto";
 import "blickfeld/base/geometry/pose.proto";
 import "blickfeld/base/geometry/shape.proto";
 import "blickfeld/base/geometry/vector3.proto";
@@ -63,5 +64,8 @@ message DetectedObject {
   .blickfeld.percept_processing.data.Flag intruder = 9;
   // Track object velocity
   .blickfeld.base.geometry.Vector3 velocity = 13;
+  // The geolocation of the object based on the map and the object position.
+  // Only set when the geolocation is configured in the data source.
+  .blickfeld.base.config.Geolocation geolocation = 14 [(.blickfeld.base.optional) = true];
 }
 

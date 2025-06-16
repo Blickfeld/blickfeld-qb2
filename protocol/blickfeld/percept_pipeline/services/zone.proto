@@ -17,16 +17,22 @@ message ZoneListResponse {
   repeated .blickfeld.percept_pipeline.config.ZoneAlgorithm zones = 1;
 }
 
-// Request to store or update an existing zone
+// Request to store or update existing zones
 message ZoneStoreRequest {
   // The new zone to be added. If there is a zone with the same uuid, that zone will get updated with this configuration.
   .blickfeld.percept_pipeline.config.ZoneAlgorithm zone = 1;
+  // For a batch update: the new zones to be added. If any of them has a uuid matching an existing zone, it will get updated.
+  repeated .blickfeld.percept_pipeline.config.ZoneAlgorithm zones = 2;
+  // If this is set to true, all existing zones that are not specified in this request will be deleted.
+  bool delete_others = 3;
 }
 
-// Request to delete a zone
+// Request to delete zones
 message ZoneDeleteRequest {
   // The uuid of the zone to be deleted
   string uuid = 1;
+  // For a batch delete: the uuids of the zones to be deleted
+  repeated string uuids = 2;
 }
 
 // Continuous response on zone list changes
@@ -67,6 +73,8 @@ service Zone {
   rpc Store(.blickfeld.percept_pipeline.services.ZoneStoreRequest) returns (.google.protobuf.Empty);
   // Delete a zone
   rpc Delete(.blickfeld.percept_pipeline.services.ZoneDeleteRequest) returns (.google.protobuf.Empty);
+  // Delete all zones
+  rpc DeleteAll(.google.protobuf.Empty) returns (.google.protobuf.Empty);
   // Watch configuration for zone list
   rpc Watch(.google.protobuf.Empty) returns (stream .blickfeld.percept_pipeline.services.ZoneWatchResponse) {
     option (.blickfeld.base.access_control_method) = {

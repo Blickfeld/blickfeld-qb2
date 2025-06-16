@@ -14,5 +14,30 @@ Configuration options for the firewall
 This might break compatibility with client applications e.g. a normal  HTTP call 
 to http://qb2-xxxxx will fail.
 
+.2+| *flow_port_forwardings* | repeated xref:blickfeld/secure/config/firewall.adoc#_blickfeld_secure_config_Firewall_PortForwarding[PortForwarding] | - | - 
+3+| The given ports are forwarded to custom applications in the blickfeld flow.
+
+|===
+
+[#_blickfeld_secure_config_Firewall_PortForwarding]
+== Port Forwarding
+
+Rule for port forwarding
+
+.Available fields in blickfeld.secure.config.Firewall.PortForwarding
+|===
+| Field | Type | Default | Unit
+
+.2+| *port* | uint32| - | - 
+3+| Port which should be forwarded. 
+ 
+NOTE: Due to security policies, only ports between 10000 to 10099 are allowed.
+
+.2+| *from_ip_network* | string| - | - 
+3+| The port forwarding is only allowed for the given IP address or subnet. 
+ 
+The address should be specified in dot-decimal format (quad-dotted notation of four decimal 
+integers, ranging from 0 to 255 each) including netmask prefix as follows "ip_address/prefix".
+
 |===
 

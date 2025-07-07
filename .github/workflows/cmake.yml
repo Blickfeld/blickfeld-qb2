@@ -9,7 +9,7 @@ jobs:
   build-windows:
     strategy:
       matrix:
-        os: [windows-latest, windows-2025, windows-2022, windows-2019]
+        os: [windows-latest, windows-2025, windows-2022]
     runs-on: ${{ matrix.os }}
     
     steps:
@@ -17,6 +17,8 @@ jobs:
     - uses: lukka/get-cmake@latest
     - uses: ilammy/msvc-dev-cmd@v1.4.1
     - uses: lukka/run-vcpkg@v11
+      with:
+        vcpkgJsonGlob: '${{ github.workspace }}/vcpkg.json'
     - name: compile
       run: | 
         mkdir build

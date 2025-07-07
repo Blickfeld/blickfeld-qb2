@@ -1,3 +1,4 @@
 add_subdirectory(authentication)
 add_subdirectory(fetch_content)
 add_subdirectory(find_package)
+add_subdirectory(vcpkg_msvc)

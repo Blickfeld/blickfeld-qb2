@@ -18,7 +18,10 @@ jobs:
     - uses: ilammy/msvc-dev-cmd@v1.4.1
     - uses: lukka/run-vcpkg@v11
       with:
-        vcpkgJsonGlob: '${{ github.workspace }}/vcpkg.json'
+        # NOTE: We would prefer to refer to the vcpkg.json in the root directory.
+        #       But this is not possible with the glob configuration option.
+        #       It should be ok for now to use the config of the example.
+        vcpkgJsonGlob: '**/cpp/examples/vcpkg_msvc/vcpkg.json'
     - name: compile
       run: | 
         mkdir build

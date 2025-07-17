@@ -3,6 +3,7 @@
 syntax = "proto3";
 
 import "blickfeld/base/geometry/pose.proto";
+import "blickfeld/base/geometry/vector2.proto";
 import "blickfeld/base/geometry/vector3.proto";
 import "blickfeld/base/options.proto";
 package blickfeld.base.geometry;
@@ -32,6 +33,14 @@ message Shape {
     // The cylinder height in meters.
     float cylinder_height = 2;
   }
+  // A 3 dimensional polygon.
+  message Polygon {
+    // The points defining the polygon ground area.
+    // The points can be set in a clockwise or counter-clockwise order.
+    repeated .blickfeld.base.geometry.Vector2 points = 1;
+    // The height of the polygon.
+    float height = 2;
+  }
   // Position and orientation of the center of the bounding box enclosing the shape.
   .blickfeld.base.geometry.Pose pose = 1;
   // The type of the shape.
@@ -42,6 +51,8 @@ message Shape {
     .blickfeld.base.geometry.Shape.Cone cone = 3;
     // Cylinder Cone shape
     .blickfeld.base.geometry.Shape.CylinderCone cylinder_cone = 4;
+    // Polygon shape
+    .blickfeld.base.geometry.Shape.Polygon polygon = 5;
   }
 }
 

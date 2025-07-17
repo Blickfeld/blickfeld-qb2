@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+import "blickfeld/base/data/version.proto";
+import "blickfeld/base/options.proto";
+import "google/protobuf/struct.proto";
+package blickfeld.toolkit.config;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_AUTHORIZED
+};
+
+// A preset combines various settings relevant for a specific use-case.
+// It indicates the type of application and its configuration in which the device is being used.
+// Presets are always available for a specific license (e.g. only for QbProtect).
+// The specific settings are not stored as part of this message.
+message Preset {
+  // Name of the preset.
+  string name = 1;
+  // Detailed explanation of the preset use-case.
+  string details = 2;
+  // Product variant for which the preset is licensed and intended.
+  .blickfeld.base.ProductVariant required_license = 3;
+  // Version of the preset.
+  .blickfeld.base.data.Version version = 4;
+  // Arbitrary metadata storage for client applications.
+  .google.protobuf.Struct metadata = 100;
+}
+

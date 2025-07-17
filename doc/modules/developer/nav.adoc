@@ -24,6 +24,7 @@
 ****** xref:protocol:blickfeld/base/geometry/quaternion.adoc[Quaternion]
 ****** xref:protocol:blickfeld/base/geometry/shape.adoc[Shape]
 ****** xref:protocol:blickfeld/base/geometry/transform.adoc[Transform]
+****** xref:protocol:blickfeld/base/geometry/vector2.adoc[Vector2]
 ****** xref:protocol:blickfeld/base/geometry/vector3.adoc[Vector3]
 ***** options
 ****** xref:protocol:blickfeld/base/options/access_control.adoc[Access Control]
@@ -200,6 +201,11 @@
 ****** xref:protocol:blickfeld/system/services/network.adoc[Network]
 ****** xref:protocol:blickfeld/system/services/scan_pattern.adoc[Scan Pattern]
 ****** xref:protocol:blickfeld/system/services/time_synchronization.adoc[Time Synchronization]
+**** toolkit
+***** config
+****** xref:protocol:blickfeld/toolkit/config/preset.adoc[Preset]
+***** services
+****** xref:protocol:blickfeld/toolkit/services/preset.adoc[Preset]
 **** video
 ***** config
 ****** xref:protocol:blickfeld/video/config/visualization.adoc[Visualization]

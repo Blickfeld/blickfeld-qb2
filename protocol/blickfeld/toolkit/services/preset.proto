@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+import "blickfeld/toolkit/config/preset.proto";
+import "google/protobuf/empty.proto";
+package blickfeld.toolkit.services;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_AUTHORIZED
+};
+
+// Request for setting the preset
+message PresetSetRequest {
+  // Preset data
+  .blickfeld.toolkit.config.Preset preset = 1;
+}
+
+// Response when getting the preset
+message PresetGetResponse {
+  // Preset data
+  .blickfeld.toolkit.config.Preset preset = 1;
+}
+
+// This service provided basic information about the configured preset
+service Preset {
+  option (.blickfeld.base.access_control_service) = {
+    level: LEVEL_AUTHORIZED
+  };
+  option (.blickfeld.base.protocol_maturity_service) = {
+    level: LEVEL_MAINTAINED
+  };
+  // Get the configured preset
+  rpc Get(.google.protobuf.Empty) returns (.blickfeld.toolkit.services.PresetGetResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
+  // Set the selected preset
+  rpc Set(.blickfeld.toolkit.services.PresetSetRequest) returns (.google.protobuf.Empty);
+}
+

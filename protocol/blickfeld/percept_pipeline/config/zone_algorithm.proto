@@ -81,6 +81,10 @@ message ZoneAlgorithm {
     //  
     // Default: 0
     float hold_duration = 5 [(.blickfeld.base.unit) = "s"];
+    // Link security zone to occupancy zones (by uuid).
+    //  
+    // Disables the security zone state and alarms when one of the occupancy zones is occupied.
+    repeated string disable_when_occupied_zone_uuids = 6 [(.blickfeld.base.optional) = true];
   }
   // Algorithm that triggers an alarm when an object of one of the selected sizes is in the zone
   message ObjectBasedSecurity {
@@ -118,6 +122,10 @@ message ZoneAlgorithm {
     //  
     // Enabling this might increase the false alarm rate.
     bool intrusion_on_partial_entry = 11;
+    // Link security zone to occupancy zones (by uuid).
+    //  
+    // Disables the security zone state and alarms when one of the occupancy zones is occupied.
+    repeated string disable_when_occupied_zone_uuids = 12 [(.blickfeld.base.optional) = true];
     reserved 2, 3, 5;
   }
   // Algorithm that excludes points from the input point cloud
@@ -159,6 +167,10 @@ message ZoneAlgorithm {
     //  
     // Default: 0
     float hold_duration = 2 [(.blickfeld.base.unit) = "s"];
+    // Link security zone to occupancy zones (by uuid).
+    //  
+    // Disables the security zone state and alarms when one of the occupancy zones is occupied.
+    repeated string disable_when_occupied_zone_uuids = 3 [(.blickfeld.base.optional) = true];
   }
   // The user readable zone algorithm name
   string name = 1;

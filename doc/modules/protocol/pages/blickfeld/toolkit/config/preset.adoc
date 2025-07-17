@@ -1,0 +1,29 @@
+[#_blickfeld_toolkit_config_Preset]
+= Preset
+
+A preset combines various settings relevant for a specific use-case. 
+It indicates the type of application and its configuration in which the device is being used. 
+Presets are always available for a specific license (e.g. only for QbProtect). 
+The specific settings are not stored as part of this message.
+
+.Available fields in blickfeld.toolkit.config.Preset
+|===
+| Field | Type | Default | Unit
+
+.2+| *name* | string| - | - 
+3+| Name of the preset.
+
+.2+| *details* | string| - | - 
+3+| Detailed explanation of the preset use-case.
+
+.2+| *required_license* | xref:blickfeld/base/options/product_variant.adoc[base.ProductVariant] | - | - 
+3+| Product variant for which the preset is licensed and intended.
+
+.2+| *version* | xref:blickfeld/base/data/version.adoc[base.data.Version] | - | - 
+3+| Version of the preset.
+
+.2+| *metadata* | https://protobuf.dev/reference/protobuf/google.protobuf/#struct[google.protobuf.Struct] | - | - 
+3+| Arbitrary metadata storage for client applications.
+
+|===
+

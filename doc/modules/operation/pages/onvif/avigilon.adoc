@@ -1,0 +1,149 @@
+= Avigilon
+
+This section provides information on how to integrate QbProtect with Avigilon Unity VMS. Please refer to the xref:onvif/index.adoc[ONVIF section] beforehand for general information on using ONVIF with https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect].
+
+[NOTE]
+====
+The following Avigilon Unity components have been used in the examples below:  
+
+* Avigilon Unity Client - Version 8.6.0.8 (build 1746566476)
+* Avigilon Unity Admin Tool - Version 8.6.0.8
+* Avigilon Unity Server - Version 8.6.0.8
+====
+
+[[add-device]]
+== Add Device
+
+The Avigilon Unity Client is used to add https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect] into Avigilon Unity VMS.
+
+The procedure includes the following steps: 
+
+. Launch the Avigilon Unity Client and connect to the active Avigilon Unity server instance using `Site Login` tab
+. Navigate to `Site Setup` tab -> Select the active server instance -> Click `Connect/Disconnect Devices` 
+
++
+.Adding QbProtect into Avigilon Unity: Connect/Disconnect Devices
+image::onvif/avigilon/add/connect_disconnect.png[800,800]
+
+. Click `Find Device` ->  Set `Device Type` to `ONVIF` -> Enter the FQDN or IP of QbProtect in the `Hostname` field and `Username/Password` in the corresponding credential fields -> Click `OK`
+
++
+[NOTE]
+====
+Please refer to the xref:onvif/index.adoc#user-authentication[User Authentication (ONVIF/RTSP)] subsection to find out how to obtain valid ONVIF credentials required for QbProtect VMS integrations.
+====
+
++
+.Adding QbProtect into Avigilon Unity: Find device
+image::onvif/avigilon/add/add.png[800,800]
+
+. Select the `QbProtect` from the list of discovered devices -> General Information about the discovered QbProtect should be depicted -> Click `Connect`
++
+.Adding QbProtect into Avigilon Unity: Connect device
+image::onvif/avigilon/add/add_discovered.png[800,800]
+
+.  Set `Connection Type` to `Primary` -> Set `Network Type` to `LAN` -> Click `OK`
++
+.Adding QbProtect into Avigilon Unity: Properties
+image::onvif/avigilon/add/add_properties.png[400,400]
+
+. QbProtect should appear in the `Connected Devices` section
++
+.Adding QbProtect into Avigilon Unity: Connected Devices
+image::onvif/avigilon/add/add_connected.png[800,800]
+
+. The live preview of the point cloud should be available in the `View` tab 
++
+.Adding QbProtect into Avigilon Unity: live video stream
+image::onvif/avigilon/add/add_result.png[800,800]
+
+The live video stream of the https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect] point cloud can be accessed and observed in Avigilon Unity after succesfully completing the required steps above.
+
+== Events
+
+The example below shows how https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect] events can be used to trigger alarms in Avigilon Unity VMS. After QbProtect has been xref:onvif/avigilon.adoc#add-device[added to the Avigilon Unity], it can be configured to use QbProtect events for alarm generation. In this example, the QbProtect `TamperingMoved` event is used to exemplify the configuration process.
+
+[[configure-events]]
+=== Configure Events Handling 
+The events configuration procedure includes the following steps: 
+
+. Launch Avigilon Unity Client and connect to the active Avigilon Unity Server instance (optional)
+. Navigate to `Setup` tab -> Click on the added QbProtect -> Click `ONVIF Event Subscription`
++
+.QbProtect events: ONVIF events configuration in Avigilon Unity
+image::onvif/avigilon/events/event_subscription.png[800,800]
+
+. Click `Add` -> The drop-down menu will show the list of exposed ONVIF events
++
+.QbProtect events: exposed ONVIF events
+image::onvif/avigilon/events/exposed.png[800,800]
+
+. Select `TamperingMoved` event from the event list -> Click `OK`
++
+.QbProtect events: subscription to Tampering Moved Event
+image::onvif/avigilon/events/add_moved.png[800,800]
+
+[NOTE]
+====
+Events originating from dynamic event sources (e.g., intrusion events from a particular security zone) have to be correctly exposed to the VMS each time when a new zone configuration is introduced via xref:introduction:index.adoc[WebGUI]. Please re-add QbProtect in Avigilon Unity Client to re-expose new events from dynamic sources.
+====
+
+[[configure-alarms]]
+=== Configure Alarm Rule Chain
+The Avigilon Unity alarm rule chain consists of event source (`ONVIF Event Started` and `ONVIF Event Ended` hooks) and event action. It allows to map a dedicated action (e.g., a particular alarm, recording of the video stream.etc) to the event of the particular type (e.g., motion, zone intrusion). 
+
+The alarm rule chain configuration procedure includes the following steps: 
+
+. Navigate to `Site Setup` tab -> Select the active server instance -> Click `Alarms` -> Click `Add`
+. Set Alarm Trigger Source to `External Software Event` -> Click `Next`
++
+.Avigilon Unity alarm configuration: trigger source
+image::onvif/avigilon/events/alarm_trigger_source.png[800,800]
+
+. Select `QbProtect` as a linked device -> Click `Next`
++
+.Avigilon Unity alarm configuration: linked device
+image::onvif/avigilon/events/alarm_linked_device.png[800,800]
+
+. Select users for being `Alarm Recipients` -> Click `Next` -> Skip `Alarm Acknowledgment Action` -> Click `Next`
++
+.Avigilon Unity alarm configuration: alarm recipients
+image::onvif/avigilon/events/alarm_recipients.png[800,800]
+
+. Give a meaningful name to the configured alarm, e.g. `Alarm Moved` -> Click `Finish`
++
+.Avigilon Unity alarm configuration: alarm name
+image::onvif/avigilon/events/alarm_final.png[800,800]
+
+. Navigate to `Site Setup` tab -> Select the active server instance -> Click `Rules` -> Click `Add`
+. Toggle the `ONVIF event started` under `Device Events` subsection
++
+.Avigilon Unity rule chain configuration: general
+image::onvif/avigilon/events/rule_started.png[800,800]
+
+. Click `any ONVIF event` -> Select previously subscribed `TamperingMoved` as an event source
++
+.Avigilon Unity rule chain configuration: event source
+image::onvif/avigilon/events/rule_source_event.png[800,800]
+
+. Click `any Camera` -> Select `QbProtect` as a camera source -> Click `Next`
++
+.Avigilon Unity rule chain configuration: camera source
+image::onvif/avigilon/events/rule_source_camera.png[800,800]
+
+. Toggle `Display on-screen message` under `User Notification Actions` subsection
+. Toggle `Trigger an alarm` under `Alarm Actions` -> Click `an alarm` -> Select previosly configured alarm `Alarm Moved` -> Click `Next`
++
+.Avigilon Unity rule chain configuration: display message and alarm actions
+image::onvif/avigilon/events/rule_actions.png[800,800]
+
+. Click `Next` again (skipping the `Digital input` configuration) -> Give a meaningful name to this rule chain, e.g. `Rule Moved` -> Set schedule to `Always` -> Toggle `Rule is enabled` -> Click `Finish`
++
+.Avigilon Unity rule chain configuration: rule chain name
+image::onvif/avigilon/events/rule_final.png[800,800]
+
+. Navigate to `View` tab. When the https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect] is moved, the `TamperingMoved` ONVIF event and the configured alarm rule chain will be generating an alarm as shown in the Figure below.
+
++
+.Avigilon Unity Client: the tampering movement of QbProtect triggers the alarm
+image::onvif/avigilon/events/alarm_result.png[800,800]

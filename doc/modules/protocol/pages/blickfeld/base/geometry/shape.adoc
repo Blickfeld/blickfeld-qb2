@@ -19,6 +19,9 @@ A shape that represents a geometrical figure.
 .2+| *cylinder_cone* | xref:blickfeld/base/geometry/shape.adoc#_blickfeld_base_geometry_Shape_CylinderCone[CylinderCone] | - | - 
 3+| Cylinder Cone shape
 
+.2+| *polygon* | xref:blickfeld/base/geometry/shape.adoc#_blickfeld_base_geometry_Shape_Polygon[Polygon] | - | - 
+3+| Polygon shape
+
 |===
 
 [#_blickfeld_base_geometry_Shape_Box]
@@ -65,6 +68,24 @@ define the ellipsoid at the bottom of the cone. The cone is narrowing along the 
 
 .2+| *cylinder_height* | float| - | - 
 3+| The cylinder height in meters.
+
+|===
+
+[#_blickfeld_base_geometry_Shape_Polygon]
+== Polygon
+
+A 3 dimensional polygon.
+
+.Available fields in blickfeld.base.geometry.Shape.Polygon
+|===
+| Field | Type | Default | Unit
+
+.2+| *points* | repeated xref:blickfeld/base/geometry/vector2.adoc[Vector2] | - | - 
+3+| The points defining the polygon ground area. 
+The points can be set in a clockwise or counter-clockwise order.
+
+.2+| *height* | float| - | - 
+3+| The height of the polygon.
 
 |===
 

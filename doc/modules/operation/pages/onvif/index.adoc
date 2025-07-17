@@ -39,6 +39,9 @@ Due to the interoperability of the ONVIF protocol, https://www.blickfeld.com/lid
 
 | https://hxgnsecurity.com/products/hxgn-dc3/[Hexagon AB]  
 | xref:onvif/hexagon.adoc[HxGN dC3]  
+
+| https://www.avigilon.com/vms/on-premise[Avigilon Corporation]  
+| xref:onvif/avigilon.adoc[Avigilon Unity]  
 |===
 
 Integration and configuration instructions and usage examples of https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect] with a particular VMS system can be accessed from the corresponding VMS column or the matching documentation subsection.
@@ -86,27 +89,36 @@ image::onvif/authentication/http_application_key.png[]
 
 == Events
 
-In addition to the video stream of the security scene, https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect] also utilizes ONVIF events which can be used by various applications to fulfill a desired action. The list of supported events, their description, type and mapping to standard events (if applicable) are shown in the Table below. 
+In addition to the video stream of the security scene, https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect] also utilizes ONVIF events which can be used by various applications to fulfill a desired action. The list of supported events, their description and type are shown in the Table below. 
 
-.QbProtect ONVIF events
-[%header,cols="1,2,1,1"] 
-|===
-|Name | Description| Availability | Mapping
+.Only for existing ONVIF setups with version JACK v2.9 and below
+[IMPORTANT]
+====
+ONVIF events delivered with firmware version https://github.com/Blickfeld/blickfeld-qb2/releases/tag/v2.9[JACK v2.9] and below are considered to be legacy. They remain functional in the existing QbProtect setups after firmware upgrades; however, they will not be further expanded. To obtain the most recent list of supported events after the installation of a newer firmware release, please follow the procedure below: 
 
-|MotionAlarm | Motion event in the observed security scene | Static | https://doc.milestonesys.com/latest/en-US/onvifdriver/motion.htm?TocPath=Third-party%20integrations%7CONVIF%C2%AE%20drivers%7CEvents%7C[Motion Alarm]
-|Intrusion | Aggregated intrusion event in pre-configured security zones | Static | Custom
-|ZoneIntrusion | Intrusion event in the pre-configured intrusion zone | Dynamic | Custom
-|HealthFailure | QbProtect is in the failed state (one or more failures). The actual root cause can be found at QbProtect diagnostics page | Static | Custom
-|HealthWarning | QbProtect is in the warning state (one or more warnings). The actual root cause can be found at QbProtect diagnostics page | Static | Custom
-|TamperingCovered | The mirror of QbProtect has been covered | Static | Custom
-|TamperingMoved | QbProtect has been moved or rotated | Static | Custom
-|===
+1. Remove all existing ONVIF HTTP xref:working_principles:authentication.adoc#_application_key[application keys] from all configured user accounts
+2. Reboot QbProtect
 
-Events are categorized based on their source availability and supported mapping. Events which are directly mapped to their existing analog defined by a particular VMS are called `Standard`. Those events contain a definition in the `Mapping` colomn correspondingly. All other events are QbProtect specific and therefore called `Custom`. Events origininating from dynamic event sources (e.g. intrusion event from a particular security zone) are called `Dynamic`. Other events are called `Static`.
+Once fulfilled, the new event list is persistently exposed for the configuration in your VMS system.
+====
 
 [NOTE]
 ====
-The https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect] has to be re-added into VMS in oder to expose events from dynamic sources newly configured via QbProtect xref:introduction:index.adoc[WebGUI].
+Events origininating from dynamic event sources (e.g. intrusion event from a particular security zone) are called `Dynamic`. Other events are called `Static`. The https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect] has to be re-added into VMS in oder to expose events from dynamic sources newly configured via QbProtect xref:introduction:index.adoc[WebGUI].
 ====
 
+.QbProtect ONVIF events
+[%header,cols="1,2,1"] 
+|===
+|Name | Description| Availability 
+
+|tns1:VideoSource/MotionAlarm | Motion event in the observed security scene | Static 
+|tns1:Blickfeld/Intrusion | Aggregated intrusion event in pre-configured security zones | Static 
+|tns1:Blickfeld/IntrusionZone{Name} | Intrusion event in the pre-configured intrusion zone, where {Name} is replaced by the name of the configured zone (e.g., if the zone is called "Snack", then the corresponding event will be called IntrusionZoneSnack) | Dynamic 
+|tns1:Blickfeld/HealthFailure | QbProtect is in the failed state (one or more failures). The actual root cause can be found at QbProtect diagnostics page | Static 
+|tns1:Blickfeld/HealthWarning | QbProtect is in the warning state (one or more warnings). The actual root cause can be found at QbProtect diagnostics page | Static 
+|tns1:Blickfeld/TamperingCovered | The mirror of QbProtect has been covered | Static 
+|tns1:Blickfeld/TamperingMoved | QbProtect has been moved or rotated | Static 
+|tns1:Blickfeld/Tampering | QbProtect has been either moved or covered | Static 
+|===
 

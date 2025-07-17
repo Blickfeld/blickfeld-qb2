@@ -32,13 +32,13 @@ message Health {
     // health of the Blickfeld core processing module
     .blickfeld.diagnostics.data.Health.Module.Health core_processing = 7;
     // health of percept pipeline
-    .blickfeld.diagnostics.data.Health.Module.Health percept_pipeline = 9;
+    .blickfeld.diagnostics.data.Health.Module.Health percept_pipeline = 9 [(.blickfeld.base.product_variant_field) = PRODUCT_VARIANT_QBPROTECT, (.blickfeld.base.product_variant_field) = PRODUCT_VARIANT_QBVOLUME];
     // Health of the Blickfeld Push module
-    .blickfeld.diagnostics.data.Health.Module.Health push = 10;
+    .blickfeld.diagnostics.data.Health.Module.Health push = 10 [(.blickfeld.base.product_variant_field) = PRODUCT_VARIANT_QBPROTECT, (.blickfeld.base.product_variant_field) = PRODUCT_VARIANT_QBVOLUME];
     // Health of the Blickfeld Secure module
     .blickfeld.diagnostics.data.Health.Module.Health secure = 11;
     // Health of the Blickfeld Video module
-    .blickfeld.diagnostics.data.Health.Module.Health video = 12;
+    .blickfeld.diagnostics.data.Health.Module.Health video = 12 [(.blickfeld.base.product_variant_field) = PRODUCT_VARIANT_QBPROTECT];
     // Health of the Blickfeld Compute module
     .blickfeld.diagnostics.data.Health.Module.Health compute_module = 13;
     reserved 8;

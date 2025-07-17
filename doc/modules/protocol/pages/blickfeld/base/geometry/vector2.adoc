@@ -1,0 +1,17 @@
+[#_blickfeld_base_geometry_Vector2]
+= Vector2
+
+A vector with two components to represent a 2D coordinate.
+
+.Available fields in blickfeld.base.geometry.Vector2
+|===
+| Field | Type | Default | Unit
+
+.2+| *x* | float| - | m 
+3+| The X component.
+
+.2+| *y* | float| - | m 
+3+| The Y component.
+
+|===
+

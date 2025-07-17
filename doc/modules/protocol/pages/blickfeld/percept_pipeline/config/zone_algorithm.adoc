@@ -147,6 +147,11 @@ Default: 1
  
 Default: 0
 
+.2+| *disable_when_occupied_zone_uuids* | repeated string| - | - 
+3+| Link security zone to occupancy zones (by uuid). 
+ 
+Disables the security zone state and alarms when one of the occupancy zones is occupied.
+
 |===
 
 [#_blickfeld_percept_pipeline_config_ZoneAlgorithm_ObjectBasedSecurity]
@@ -199,6 +204,11 @@ Default: 0
 Only the center point of the object is considered when disabled. 
  
 Enabling this might increase the false alarm rate.
+
+.2+| *disable_when_occupied_zone_uuids* | repeated string| - | - 
+3+| Link security zone to occupancy zones (by uuid). 
+ 
+Disables the security zone state and alarms when one of the occupancy zones is occupied.
 
 |===
 
@@ -263,6 +273,11 @@ specified in the array.
 3+| Alarm is kept active for the given duration to reduce jitter. 
  
 Default: 0
+
+.2+| *disable_when_occupied_zone_uuids* | repeated string| - | - 
+3+| Link security zone to occupancy zones (by uuid). 
+ 
+Disables the security zone state and alarms when one of the occupancy zones is occupied.
 
 |===
 

@@ -1,0 +1,52 @@
+= Service: Preset
+
+NOTE: This API is officially released and maintained.
+
+This service provided basic information about the configured preset 
+
+
+.Available methods
+|===
+| Method | Request | Response
+
+| *xref:#Get[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/toolkit/services/preset.adoc#_blickfeld_toolkit_services_PresetGetResponse[PresetGetResponse]
+| *xref:#Set[]* | xref:blickfeld/toolkit/services/preset.adoc#_blickfeld_toolkit_services_PresetSetRequest[PresetSetRequest]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
+|===
+[#Get]
+== Get
+
+Get the configured preset
+
+[#_blickfeld_toolkit_services_PresetGetResponse]
+=== Response
+
+Response when getting the preset
+
+.Available fields in blickfeld.toolkit.services.PresetGetResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *preset* | xref:blickfeld/toolkit/config/preset.adoc[config.Preset] | - | - 
+3+| Preset data
+
+|===
+
+[#Set]
+== Set
+
+Set the selected preset
+
+[#_blickfeld_toolkit_services_PresetSetRequest]
+=== Request
+
+Request for setting the preset
+
+.Available fields in blickfeld.toolkit.services.PresetSetRequest
+|===
+| Field | Type | Default | Unit
+
+.2+| *preset* | xref:blickfeld/toolkit/config/preset.adoc[config.Preset] | - | - 
+3+| Preset data
+
+|===
+

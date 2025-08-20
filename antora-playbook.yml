@@ -16,7 +16,7 @@ output:
 site:
   url: https://docs.blickfeld.com/qb2
   start_page: Qb2::index.adoc
-  title: Qb2 Documentation
+  title: Qb Series Documentation
   robots: allow
 ui:
   bundle:

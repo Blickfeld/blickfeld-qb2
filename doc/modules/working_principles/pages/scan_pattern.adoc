@@ -2,7 +2,7 @@
 :imagesdir: ../assets/images
 :stem: latexmath
 
-Qb2 is a scanning LiDARs. A scanning LiDAR typically performs subsequent measurements, each producing only a single or a couple of points in one spacial direction at a time. Unlike a flash LiDAR, the entire field of view is not covered at once but rather within a certain time frame. Qb2 sensors use two MEMS mirrors to deflect a collimated laser beam in the desired direction. The angles of both mirrors define the direction the system is looking at. A 'time-of-flight' measurement then determines the distance of the object to the LiDAR. Both mirrors oscillate at a given eigenfrequency, and the relative phase of both mirrors defines the trajectory. The resulting laser beam trajectory for the maximum amplitude of both scanners circumscribes the field of view (FoV).
+The Qb device is a scanning LiDAR. A scanning LiDAR typically performs subsequent measurements, each producing only a single or a couple of points in one spacial direction at a time. Unlike a flash LiDAR, the entire field of view is not covered at once but rather within a certain time frame. Qb sensors use two MEMS mirrors to deflect a collimated laser beam in the desired direction. The angles of both mirrors define the direction the system is looking at. A 'time-of-flight' measurement then determines the distance of the object to the LiDAR. Both mirrors oscillate at a given eigenfrequency, and the relative phase of both mirrors defines the trajectory. The resulting laser beam trajectory for the maximum amplitude of both scanners circumscribes the field of view (FoV).
 
 == Simplified mathematical description of the Blickfeld scanner
 
@@ -12,7 +12,7 @@ Blickfeld LiDARs comprise two mirrors that oscillate with the same frequency. Bo
 
 The two mirrors, both with the natural frequency, create a scan pattern with the frame duration stem:[T]. Hereby, stem:[T] is always an integer multiple of stem:[1/f], where stem:[f] is the mirror's oscillation frequency. The horizontal mirror oscillates in a continuous sinusoidal motion. One frame comprises one full oscillation period of the mirror. The resulting horizontal angle stem:[\theta_H] can be described as follows:
 
-[stem] 
+[stem]
 ++++
 \theta_H(t) = \theta_{H,max} / 2 \times \cos(2\pi f t)
 ++++
@@ -24,9 +24,9 @@ The blue graph in Figure <<MIRROR_MOVEMENT>> shows a plot of the horizontal angl
 === Vertical mirror
 
 The vertical mirror has a phase offset of stem:[\Delta \phi = \pi / 4] with respect to the horizontal mirror and a variable amplitude that is described by the ramp function stem:[r(t)].
-The vertical angle can therefore be written as: 
+The vertical angle can therefore be written as:
 
-[stem] 
+[stem]
 ++++
 \theta_V(t) = r(t) \times \theta_{V,max} / 2 \cdot \sin(2 \pi f t)
 ++++
@@ -38,11 +38,11 @@ The vertical field of view stem:[\theta_{V,max}] can also be chosen freely withi
 The ramp function consists of two segments. During the first half of the frame it is a strictly monotonically increasing function from 0 to 1,
 while during the second half, it is a strictly monotonically decreasing function from 1 to 0. An exemplary function consisting of two linear areas can be described as:
 
-[stem] 
+[stem]
 ++++
 r(t) = 4/3 t / T      \ \text{for} \ t \in [ 0; 3/4 T ]
 ++++
-[stem] 
+[stem]
 ++++
 r(t) = 4 - 4t / T     \ \text{for} \ t \in ] 3/4 T; T ]
 ++++
@@ -63,7 +63,7 @@ One scanline is defined as half of the period of the horizontal mirror's oscilla
 
 The number of scanlines per frame stem:[N] results from the following equation:
 
-[stem] 
+[stem]
 ++++
 N = 2 T f
 ++++

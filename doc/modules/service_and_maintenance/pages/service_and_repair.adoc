@@ -1,5 +1,5 @@
 # Service and Repair Information
 
-- The Qb2 contains no parts serviceable by the user.
+- The Qb device contains no parts serviceable by the user.
 - Any repair procedures may only be performed by Blickfeld-authorized technicians.
 - Do not open the sensor under any circumstance.

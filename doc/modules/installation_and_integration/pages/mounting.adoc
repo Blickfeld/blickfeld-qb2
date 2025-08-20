@@ -1,6 +1,6 @@
 = Mounting
 
-The Qb2 must only be operated after it has been installed on a stable mounting base. 
+The Qb device must only be operated after it has been installed on a stable mounting base.
 Blickfeld offers different mounting solutions for both permanent or temporary installation purposes. Contact sales@blickfeld.com for further information.
 
 [TIP]
@@ -11,13 +11,13 @@ Sensor CAD data can be downloaded from http://www.blickfeld.com/resources[www.bl
 == Requirements
 
 * Observe the operational and storage temperature limits at the mounting location.
-* Choose the mounting position so the Qb2’s field of view is not obstructed.
-* Avoid mounting configurations where the optical aperture of the Qb2 faces direct sunlight or direct sunlight reflections.
+* Choose the mounting position so the Qb sensor's field of view is not obstructed.
+* Avoid mounting configurations where the optical aperture of the Qb sensor faces direct sunlight or direct sunlight reflections.
 * Avoid mounting on structures or in locations that could exert shaking or vibrations on the device.
 * Ensure the device is only accessible to trained and authorized personnel.
-* Do not place the Qb2 in the immediate vicinity of sources of magnetic fields. This can degrade the performance of the sensor and, in extreme cases, lead to temporary malfunction.
+* Do not place the Qb sensor in the immediate vicinity of sources of magnetic fields. This can degrade the performance of the sensor and, in extreme cases, lead to temporary malfunction.
 * Ensure that airflow at the heatsink of the device is not obstructed by leaving at least a gap of 20 cm between the sensor and surrounding structures in all directions.
-* Always use the defined mounting interfaces of the Qb2 shown below.
+* Always use the defined mounting interfaces of the Qb device shown below.
 
 [IMPORTANT]
 ====
@@ -26,7 +26,7 @@ Please tighten all screws/adjustment levers after alignment to ensure that all s
 
 == Sensor mounting interfaces
 
-.Mounting interfaces of the Qb2 standard version (left) and ETR version (right).
+.Mounting interfaces of the Qb device standard version (left) and ETR version (right).
 image::Qb2_mounting_interfaces.svg[]
 
 == Mounting instructions
@@ -34,18 +34,18 @@ image::Qb2_mounting_interfaces.svg[]
 It is recommended to perform the mounting process in two steps:
 
 . Mounting and rough alignment with the sensor switched off
-. Fine adjustment of sensor orientation while observing the point cloud 
+. Fine adjustment of sensor orientation while observing the point cloud
 
 [CAUTION]
 ====
 Hot surface!
 
-After longer periods of operation (> 5 min), the housing of the Qb2 can become hot. Avoid touching it during operation or allow the sensor to cool down after operation.
+After longer periods of operation (> 5 min), the housing of the Qb device can become hot. Avoid touching it during operation or allow the sensor to cool down after operation.
 ====
 
 == Single versus multi-sensor setups
 In this section, we discuss when to consider single-sensor setups and when a multi-sensor setup is better suited.
-How many LiDAR devices you use is highly dependent on your use case and the environment where the devices are mounted. 
+How many LiDAR devices you use is highly dependent on your use case and the environment where the devices are mounted.
 
 === Single sensor setup
 

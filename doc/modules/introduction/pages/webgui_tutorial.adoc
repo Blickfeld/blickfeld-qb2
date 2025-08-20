@@ -1,7 +1,6 @@
 = WebGUI Tutorial
 
-Explore the software features available for Blickfeld LiDAR sensors. 
-This WebGUI tutorial provides a comprehensive overview of various software features and covers both the Qb2 and QbProtect in one guide.
+Explore the software features available for Blickfeld Qb LiDAR sensors. This Web GUI walkthrough provides a step-by-step guide of the interface, covering login, user management, sensor and zone setup, configuration, and system maintenance across all Qb-series devices.
 
 ++++
 <br />

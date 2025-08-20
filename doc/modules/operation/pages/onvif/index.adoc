@@ -1,52 +1,52 @@
 = ONVIF
 
 == QbProtect & ONVIF
-The https://www.onvif.org/profiles-add-ons-specifications/[ONVIF] standard and corresponding protocol allow seamless integration of compatible IP-based security cameras into existing security enviroments managed by Video Management Systems (https://en.wikipedia.org/wiki/Video_management_system[VMS]). The https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect] brings the ONVIF protocol support to Qb2 device, and allows to easily use Qb2 as an advanced drop-in replacement of the security camera in already established security environments without extra non-standard configuration overheads.
+The https://www.onvif.org/profiles-add-ons-specifications/[ONVIF] standard and corresponding protocol allow seamless integration of compatible IP-based security cameras into existing security enviroments managed by Video Management Systems (https://en.wikipedia.org/wiki/Video_management_system[VMS]). The https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect] brings the ONVIF protocol support to QbProtect, and allows to easily use QbProtect as an advanced drop-in replacement of the security camera in already established security environments without extra non-standard configuration overheads.
 
 [NOTE]
 ====
 QbProtect is not yet fully compliant with dedicated ONVIF https://www.onvif.org/profiles/[profiles]
-==== 
+====
 
-Even though https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect] is not yet fully compliant with a particular ONVIF profile, it brings crucial ONVIF functionality inherent in all security applications: 
+Even though https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect] is not yet fully compliant with a particular ONVIF profile, it brings crucial ONVIF functionality inherent in all security applications:
 
 * Visual observation of the scene using https://en.wikipedia.org/wiki/Real-Time_Streaming_Protocol[RTSP] video stream of a 2-D projected point cloud
 * ONVIF events for alarms generation (e.g. motion, intrusion)
 
 [NOTE]
 ====
-Configuration of the particular alarm rule chain is VMS specific and has to be configured by the user / integrator. Please refer to the VMS subsection below for examples! 
-==== 
+Configuration of the particular alarm rule chain is VMS specific and has to be configured by the user / integrator. Please refer to the VMS subsection below for examples!
+====
 
 == Video Management Systems (VMS)
 
-Due to the interoperability of the ONVIF protocol, https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect] is not restricted to a particular VMS manufacturer and may work with any VMS supporting ONVIF, however it is actively tested against confined number of VMS systems listed in <<vms-table,Table {counter:table}>> below. 
+Due to the interoperability of the ONVIF protocol, https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect] is not restricted to a particular VMS manufacturer and may work with any VMS supporting ONVIF, however it is actively tested against confined number of VMS systems listed in <<vms-table,Table {counter:table}>> below.
 
 [[vms-table]]
 .Integration of QbProtect with VMS systems
 [options="header",cols="2"]
 |===
-| Manufacturer | VMS  
+| Manufacturer | VMS
 
-| https://senstar.com/products/video-management/senstar-symphony-common-operating-platform/[Senstar Corporation]  
-| xref:onvif/senstar.adoc[Senstar Symphony]  
+| https://senstar.com/products/video-management/senstar-symphony-common-operating-platform/[Senstar Corporation]
+| xref:onvif/senstar.adoc[Senstar Symphony]
 
-| https://www.milestonesys.com/products/software/xprotect/[Milestone Systems]  
-| xref:onvif/milestone.adoc[Milestone XProtect]  
+| https://www.milestonesys.com/products/software/xprotect/[Milestone Systems]
+| xref:onvif/milestone.adoc[Milestone XProtect]
 
-| https://www.geutebrueck.com/[Geutebrück GmbH]  
+| https://www.geutebrueck.com/[Geutebrück GmbH]
 | xref:onvif/geutebrueck.adoc[G-Core]
 
-| https://hxgnsecurity.com/products/hxgn-dc3/[Hexagon AB]  
-| xref:onvif/hexagon.adoc[HxGN dC3]  
+| https://hxgnsecurity.com/products/hxgn-dc3/[Hexagon AB]
+| xref:onvif/hexagon.adoc[HxGN dC3]
 
-| https://www.avigilon.com/vms/on-premise[Avigilon Corporation]  
-| xref:onvif/avigilon.adoc[Avigilon Unity]  
+| https://www.avigilon.com/vms/on-premise[Avigilon Corporation]
+| xref:onvif/avigilon.adoc[Avigilon Unity]
 |===
 
 Integration and configuration instructions and usage examples of https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect] with a particular VMS system can be accessed from the corresponding VMS column or the matching documentation subsection.
 
-== Video Stream (RTSP) 
+== Video Stream (RTSP)
 
 In addition to VMS systems support, https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect] allows direct video stream consumption of a point cloud using the RTSP stream source link of the following format `rtsp://qb2-ABC123XYZ.muc.blickfeld.com:554/local/pointcloud/core`. The demonstation of direct video stream consumption using VLC player is shown in the Figure below.
 
@@ -55,7 +55,7 @@ image::onvif/rtsp_vlc.png[800,800]
 
 [NOTE]
 ====
-The perspective of the RTSP video stream can be synchronized with the one configured in the xref:introduction:index.adoc[WebGUI]. For that navigate to the Viewer page of the QbProtect WebGUI, configure the desired view perspective and apply the keyboard shortcut kbd:[Shift+V]. 
+The perspective of the RTSP video stream can be synchronized with the one configured in the xref:introduction:index.adoc[WebGUI]. For that navigate to the Viewer page of the QbProtect WebGUI, configure the desired view perspective and apply the keyboard shortcut kbd:[Shift+V].
 ====
 
 In case user management was enabled on https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect] the video stream URL should also include ONVIF/RTSP credentials pair in the following format:  `rtsp://user:key@qb2-ABC123XYZ.muc.blickfeld.com:554/local/pointcloud/core`. Please refer to the section below to see how to obtain the required credentials pair.
@@ -63,7 +63,7 @@ In case user management was enabled on https://www.blickfeld.com/lidar-sensor-pr
 [[user-authentication]]
 == User Authentication (ONVIF/RTSP)
 
-In order to add https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect] to a VMS or/and obtain the RTSP video stream from the device the user has to generate and provide a valid application key associated with a corresponding user account. 
+In order to add https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect] to a VMS or/and obtain the RTSP video stream from the device the user has to generate and provide a valid application key associated with a corresponding user account.
 
 [NOTE]
 ====
@@ -71,7 +71,7 @@ In order to add https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbPro
 * The application key with enabled HTTP option has to be used to establish connection with QbProtect via ONVIF (VMS systems) and/or via RTSP (video players)
 ====
 
-The valid application key can be generated by enabling the `HTTP authentication` option from the user xref:working_principles:authentication.adoc#_account[account page] as shown in the figure below. Please refer to QbProtect documentation in order to learn more about xref:working_principles:user-management.adoc[user management] and xref:working_principles:authentication.adoc#_application_key[application keys]. 
+The valid application key can be generated by enabling the `HTTP authentication` option from the user xref:working_principles:authentication.adoc#_account[account page] as shown in the figure below. Please refer to QbProtect documentation in order to learn more about xref:working_principles:user-management.adoc[user management] and xref:working_principles:authentication.adoc#_application_key[application keys].
 
 .Creating HTTP authentication application key suitable for ONVIF/RTSP connections
 image::onvif/authentication/create_http_application_key.png[]
@@ -83,18 +83,18 @@ image::onvif/authentication/http_application_key.png[]
 
 [NOTE]
 ====
-* It is only possible to generate a single application key with HTTP option enabled per user account. 
+* It is only possible to generate a single application key with HTTP option enabled per user account.
 * The generated HTTP application key can be used as a password for VMS systems and video players.
 ====
 
 == Events
 
-In addition to the video stream of the security scene, https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect] also utilizes ONVIF events which can be used by various applications to fulfill a desired action. The list of supported events, their description and type are shown in the Table below. 
+In addition to the video stream of the security scene, https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect] also utilizes ONVIF events which can be used by various applications to fulfill a desired action. The list of supported events, their description and type are shown in the Table below.
 
 .Only for existing ONVIF setups with version JACK v2.9 and below
 [IMPORTANT]
 ====
-ONVIF events delivered with firmware version https://github.com/Blickfeld/blickfeld-qb2/releases/tag/v2.9[JACK v2.9] and below are considered to be legacy. They remain functional in the existing QbProtect setups after firmware upgrades; however, they will not be further expanded. To obtain the most recent list of supported events after the installation of a newer firmware release, please follow the procedure below: 
+ONVIF events delivered with firmware version https://github.com/Blickfeld/blickfeld-qb2/releases/tag/v2.9[JACK v2.9] and below are considered to be legacy. They remain functional in the existing QbProtect setups after firmware upgrades; however, they will not be further expanded. To obtain the most recent list of supported events after the installation of a newer firmware release, please follow the procedure below:
 
 1. Remove all existing ONVIF HTTP xref:working_principles:authentication.adoc#_application_key[application keys] from all configured user accounts
 2. Reboot QbProtect
@@ -108,17 +108,16 @@ Events origininating from dynamic event sources (e.g. intrusion event from a par
 ====
 
 .QbProtect ONVIF events
-[%header,cols="1,2,1"] 
+[%header,cols="1,2,1"]
 |===
-|Name | Description| Availability 
+|Name | Description| Availability
 
-|tns1:VideoSource/MotionAlarm | Motion event in the observed security scene | Static 
-|tns1:Blickfeld/Intrusion | Aggregated intrusion event in pre-configured security zones | Static 
-|tns1:Blickfeld/IntrusionZone{Name} | Intrusion event in the pre-configured intrusion zone, where {Name} is replaced by the name of the configured zone (e.g., if the zone is called "Snack", then the corresponding event will be called IntrusionZoneSnack) | Dynamic 
-|tns1:Blickfeld/HealthFailure | QbProtect is in the failed state (one or more failures). The actual root cause can be found at QbProtect diagnostics page | Static 
-|tns1:Blickfeld/HealthWarning | QbProtect is in the warning state (one or more warnings). The actual root cause can be found at QbProtect diagnostics page | Static 
-|tns1:Blickfeld/TamperingCovered | The mirror of QbProtect has been covered | Static 
-|tns1:Blickfeld/TamperingMoved | QbProtect has been moved or rotated | Static 
-|tns1:Blickfeld/Tampering | QbProtect has been either moved or covered | Static 
+|tns1:VideoSource/MotionAlarm | Motion event in the observed security scene | Static
+|tns1:Blickfeld/Intrusion | Aggregated intrusion event in pre-configured security zones | Static
+|tns1:Blickfeld/IntrusionZone{Name} | Intrusion event in the pre-configured intrusion zone, where {Name} is replaced by the name of the configured zone (e.g., if the zone is called "Snack", then the corresponding event will be called IntrusionZoneSnack) | Dynamic
+|tns1:Blickfeld/HealthFailure | QbProtect is in the failed state (one or more failures). The actual root cause can be found at QbProtect diagnostics page | Static
+|tns1:Blickfeld/HealthWarning | QbProtect is in the warning state (one or more warnings). The actual root cause can be found at QbProtect diagnostics page | Static
+|tns1:Blickfeld/TamperingCovered | The mirror of QbProtect has been covered | Static
+|tns1:Blickfeld/TamperingMoved | QbProtect has been moved or rotated | Static
+|tns1:Blickfeld/Tampering | QbProtect has been either moved or covered | Static
 |===
-

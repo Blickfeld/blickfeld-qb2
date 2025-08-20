@@ -1,8 +1,8 @@
 = Operating Principle
 :imagesdir: ../assets/images
 :stem: latexmath
- 
-Qb2 is a scanning Light Detection and Ranging (LiDAR) sensor. It provides a three-dimensional map of the surroundings within its field of view (FoV) by emitting short laser pulses and detecting the small portion of reflected light using the Time-of-Flight technique (ToF). Time-of-flight means that the sensor measures the time between emission of a laser pulse and the detection of the reflection signal. 
+
+The Qb device is a scanning Light Detection and Ranging (LiDAR) sensor. It provides a three-dimensional map of the surroundings within its field of view (FoV) by emitting short laser pulses and detecting the small portion of reflected light using the Time-of-Flight technique (ToF). Time-of-flight means that the sensor measures the time between emission of a laser pulse and the detection of the reflection signal.
 The distance stem:[d] is calculated as the product of the speed of light stem:[c] and the measured roundtrip time stem:[t] divided by stem:[2].
 
 [stem]
@@ -10,11 +10,11 @@ The distance stem:[d] is calculated as the product of the speed of light stem:[c
 d = \frac{c \times t}{2}
 ++++
 
-The laser source of Qb2 is a collimated laser diode with a wavelength of 905 nm. The collimation of the emitted laser beam is 0.25° x 0.25°. The laser is controlled in such a way that it creates a regular pattern in the point cloud with a preconfigured horizontal resolution.
+The laser source of the Qb device is a collimated laser diode with a wavelength of 905 nm. The collimation of the emitted laser beam is 0.25° x 0.25°. The laser is controlled in such a way that it creates a regular pattern in the point cloud with a preconfigured horizontal resolution.
 
-Qb2 scans the surroundings by deflecting the laser in two directions using Blickfeld's proprietary MEMS scanner technology. It contains two MEMS beam deflection units, forming the scanner. They are oriented perpendicularly to each other, allowing the deflection of the beam in two perpendicular directions. The first mirror deflects the beam vertically, the second one horizontally. Figure <<WORKING_PRINCIPLE>> depicts the working principle of the scanner. When the scanner is running, both mirrors perform oscillating rotational movements. This simultaneous movement of both mirrors defines the trajectory for the laser beam, creating the “eye-shaped” scan pattern that is typical for Qb2.
+The Qb device scans the surroundings by deflecting the laser in two directions using Blickfeld's proprietary MEMS scanner technology. It contains two MEMS beam deflection units, forming the scanner. They are oriented perpendicularly to each other, allowing the deflection of the beam in two perpendicular directions. The first mirror deflects the beam vertically, the second one horizontally. Figure <<WORKING_PRINCIPLE>> depicts the working principle of the scanner. When the scanner is running, both mirrors perform oscillating rotational movements. This simultaneous movement of both mirrors defines the trajectory for the laser beam, creating the “eye-shaped” scan pattern that is typical for Qb devices.
 
-.Working principle of Qb2 
+.Working principle of the Qb device
 [[WORKING_PRINCIPLE]]
 image::LiDAR_operating_principle.svg[]
 . Laser source

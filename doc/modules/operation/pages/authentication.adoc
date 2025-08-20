@@ -2,8 +2,8 @@
 
 [IMPORTANT]
 ====
-* This Document applies to Qb2 [.underline]#produced# with the Firmware version https://github.com/Blickfeld/blickfeld-qb2/releases/tag/v2.0[v2.0] and later.
-* Qb2 produced and shipped with an earlier Firmware version have to be updated to minimum Firmware version https://github.com/Blickfeld/blickfeld-qb2/releases/tag/v2.0[v2.0] or later. See <<_advanced>> section on how to activate authentication.
+* This Document applies to Qb devices [.underline]#produced# with the Firmware version https://github.com/Blickfeld/blickfeld-qb2/releases/tag/v2.0[v2.0] and later.
+* Qb devices produced and shipped with an earlier Firmware version have to be updated to minimum Firmware version https://github.com/Blickfeld/blickfeld-qb2/releases/tag/v2.0[v2.0] or later. See <<_advanced>> section on how to activate authentication.
 ====
 
 Access to Blickfeld https://www.blickfeld.com/lidar-sensor-products/[Qb2] is restricted by default.
@@ -11,7 +11,7 @@ The web interface & any other interface provided (e.g.gRPC-API) require authenti
 
 == Factory credentials
 
-Each Qb2 receives _unique_ credentials from the factory. The information required for the first operation is printed on the Qb2 label, located at the bottom of the housing.
+Each Qb device receives _unique_ credentials from the factory. The information required for the first operation is printed on the Qb label, located at the bottom of the housing.
 
 .Example device label containing serial number (S/N) & initial password (PW)
 image::qb2_label_device.png[500,600]
@@ -21,17 +21,17 @@ The relevant information in this example is:
 * Device serial number (*S/N*), set to `ABC123XYZ`.
 * Initial password (*PW*), set to `password1234`.
 
-If the Qb2 label is inaccessible or missing see <<_advanced>> section for further information.
+If the Qb device label is inaccessible or missing see <<_advanced>> section for further information.
 
 == Initial login
 
-After connecting xref:installation_and_integration:power_and_network_ethernet_interface.adoc[power] and network to the device the web-interface can be accessed. Please take note of the Qb2 default xref::firmware_networking.adoc[network setting] and make sure, the device is obtaining a valid IP-Address in the network.
+After connecting xref:installation_and_integration:power_and_network_ethernet_interface.adoc[power] and network to the device the web-interface can be accessed. Please take note of the default xref::firmware_networking.adoc[network setting] and make sure, the device is obtaining a valid IP-Address in the network.
 
 [CAUTION]
 ====
-The web interface of Qb2 is only accessible via a https://en.wikipedia.org/wiki/Transport_Layer_Security[TLS-secured] connection (`https` and port `443`). Each Qb2 presents a unique certificate in order to establish the encrypted connection. This certificate is bound to the serial number and is signed by Blickfeld GmbH private certificate authority (CA). Browsers will display an error message (`NET::ERR_CERT_AUTHORITY_INVALID`) because the issuer of the certificate (Blickfeld GmbH) is not trusted by default.
+The web interface of the Qb device is only accessible via a https://en.wikipedia.org/wiki/Transport_Layer_Security[TLS-secured] connection (`https` and port `443`). Each Qb device presents a unique certificate in order to establish the encrypted connection. This certificate is bound to the serial number and is signed by Blickfeld GmbH private certificate authority (CA). Browsers will display an error message (`NET::ERR_CERT_AUTHORITY_INVALID`) because the issuer of the certificate (Blickfeld GmbH) is not trusted by default.
 
-.Click to see how to manually trust the Qb2 certificate
+.Click to see how to manually trust the Qb device certificate
 [%collapsible]
 =====
 
@@ -45,51 +45,51 @@ image::qb2_https_proceed.png[]
 
 . Click on `Proceed to qb2-ABC123XYZ (unsafe)`.
 +
-NOTE: Although the proceed action is marked as *unsafe* the resulting connection between the browser and Qb2 is *encrypted* & *authenticated* after this manual acknowledgement.
+NOTE: Although the proceed action is marked as *unsafe* the resulting connection between the browser and Qb device is *encrypted* & *authenticated* after this manual acknowledgement.
 
 =====
 ====
 
-For this example we assume the default network configuration. This means, an address was assigned to the Qb2 via DHCP and it is reachable via the hostname `https://qb2-ABC123XYZ.local/` based on the serial number `ABC123XYZ` found in the <<_factory_credentials,factory credentials>>.
+For this example we assume the default network configuration. This means, an address was assigned to the Qb device via DHCP and it is reachable via the hostname `https://qb2-ABC123XYZ.local/` based on the serial number `ABC123XYZ` found in the <<_factory_credentials,factory credentials>>.
 
-. Navigate to the Qb2 hostname in your web-browser[[authentication_login_step01]]
+. Navigate to the Qb device hostname in your web-browser[[authentication_login_step01]]
 +
 * Hostname / URL: `https://qb2-ABC123XYZ.local/`
 +
 .Login screen for `qb2-ABC123XYZ`
 image::qb2_login_01.png[600,600]
 
-. Enter the initial Qb2 factory credentials[[authentication_login_step02]]
+. Enter the initial Qb device factory credentials[[authentication_login_step02]]
 +
 * Password: `password1234` (can be found in the <<_factory_credentials>>).
 +
 .Enter factory device credentials
 image::qb2_login_02.png[600,600]
 
-. Click on `Sign In` to navigate to the Qb2 Dashboard.
+. Click on `Sign In` to navigate to the Qb device dashboard.
 +
-.Qb2 dashboard after successful login
+.Qb device dashboard after successful login
 image::qb2_dashboard.png[600,600]
 
-Your Qb2 is now ready for the first operation.
+Your Qb device is now ready for the first operation.
 
 == Next steps
 
-* See how to change the xref::firmware_networking.adoc[network-settings and enable accessing Qb2 via Wifi].
-* Learn how to configure accessing Qb2 via xref:working_principles:authentication.adoc[account settings and user management].
+* See how to change the xref::firmware_networking.adoc[network-settings and enable accessing Qb devices via Wifi].
+* Learn how to configure accessing Qb device via xref:working_principles:authentication.adoc[account settings and user management].
 
 == Advanced
 
 If you have trouble following the regular instructions, here are some additional advanced resources.
 
-My Qb2 is running a firmware older than https://github.com/Blickfeld/blickfeld-qb2/releases/tag/v2.0[v2.0] and does not prompt for login::
+My Qb device is running a firmware older than https://github.com/Blickfeld/blickfeld-qb2/releases/tag/v2.0[v2.0] and does not prompt for login::
 +
 The user-authentication feature will only be available starting from firmware version https://github.com/Blickfeld/blickfeld-qb2/releases/tag/v2.0[v2.0].
-If the Qb2 is running an older version please update to the latest available version. You can find ready to use installation-bundles on the https://github.com/Blickfeld/blickfeld-qb2/releases[Blickfeld Qb2 release page].
+If the Qb device is running an older version please update to the latest available version. You can find ready to use installation-bundles on the https://github.com/Blickfeld/blickfeld-qb2/releases[Blickfeld Qb2 release page].
 +
 You can try to manually enable authentication:
 +
-. Instead of opening the base-URL of the Qb2 navigate the the full login-URL:
+. Instead of opening the base-URL of the Qb device, navigate the the full login-URL:
 +
 * Hostname / URL: `https://qb2-ABC123XYZ.local/cube/login/`
 
@@ -107,7 +107,7 @@ In addition to the device label the factory credentials can be found in more pla
 +
 [NOTE]
 ====
-If information about the Qb2 is unclear or lost please contact Blickfeld xref:service_and_maintenance:customer_service.adoc[].
+If information about the Qb device is unclear or lost, please contact Blickfeld xref:service_and_maintenance:customer_service.adoc[].
 ====
 +
 * The serial number can be found as part of the packaging label on the shipment box.
@@ -126,25 +126,25 @@ Most camera-apps on mobile devices only show hyperlinks (`URL`) or contacts (`vC
 
 The device URL containing the serial number (e.g. `https://qb2-ABC123XYZ.local/`) is not accessible::
 +
-If allowed, Qb2 announces its presence via https://en.wikipedia.org/wiki/Multicast_DNS[Multicast DNS] (mDNS). mDNS needs to be supported by the network-configuration and your local operating system. By attaching the `.local` suffix to the URL we can force the browser to also try finding Qb2 through the https://en.wikipedia.org/wiki/Multicast_DNS[mDNS]-table cached by the local operating system.
+If allowed, the Qb device announces its presence via https://en.wikipedia.org/wiki/Multicast_DNS[Multicast DNS] (mDNS). mDNS needs to be supported by the network-configuration and your local operating system. By attaching the `.local` suffix to the URL we can force the browser to also try finding Qb devices through the https://en.wikipedia.org/wiki/Multicast_DNS[mDNS]-table cached by the local operating system.
 +
-Depending on your network's https://en.wikipedia.org/wiki/Dynamic_Host_Configuration_Protocol[DHCP]- and https://en.wikipedia.org/wiki/Domain_Name_System[DNS]-configuration the hostname might not be announced. Clients (e.g. your browser) will then fail to resolve the underlying IP-address of the Qb2.
+Depending on your network's https://en.wikipedia.org/wiki/Dynamic_Host_Configuration_Protocol[DHCP]- and https://en.wikipedia.org/wiki/Domain_Name_System[DNS]-configuration the hostname might not be announced. Clients (e.g. your browser) will then fail to resolve the underlying IP-address of the Qb device.
 +
 Here are things to try in this situation:
 
 . Replace the hostname with an IP-address
 +
-* Find the IP-address of the Qb2 from the network https://en.wikipedia.org/wiki/Routing_table[routing-table] or using the https://en.wikipedia.org/wiki/Address_Resolution_Protocol[arp] and https://en.wikipedia.org/wiki/Ping_(networking_utility)[ping] command (e.g. finding `192.168.1.42`)
-* In the Qb2 URL replace `qb2-ABC123XYZ.local` with the Qb2 IP-address `192.168.1.42`
+* Find the IP-address of the Qb device from the network https://en.wikipedia.org/wiki/Routing_table[routing-table] or using the https://en.wikipedia.org/wiki/Address_Resolution_Protocol[arp] and https://en.wikipedia.org/wiki/Ping_(networking_utility)[ping] command (e.g. finding `192.168.1.42`)
+* In the Qb device URL replace `qb2-ABC123XYZ.local` with the Qb device IP-address `192.168.1.42`
 * In your browser navigate to `https://192.168.1.42/`
 * Continue with <<authentication_login_step02,step 2 of the initial login>>.
 
-. When accessing Qb2 via the xref::firmware_networking.adoc#_fall_back_ip_address[Fallback-IP]
+. When accessing Qb device via the xref::firmware_networking.adoc#_fall_back_ip_address[Fallback-IP]
 +
-* In the Qb2 URL replace `qb2-ABC123XYZ.local` with the Fallback-IP `192.168.26.26`
+* In the Qb device URL replace `qb2-ABC123XYZ.local` with the Fallback-IP `192.168.26.26`
 * In your browser navigate to `https://192.168.26.26/`
 * Continue with <<authentication_login_step02,step 2 of the initial login>>.
 
-How does authentication for Qb2 work and what features are available?::
+How does authentication for Qb devices work and what features are available?::
 
-Authentication allows a curated access to data produced by Qb2. Different access levels ensure that sensitive data is never shown to unauthorized audiences. All features and technical details are described in xref:working_principles:authentication.adoc[account settings and user management].
+Authentication allows a curated access to data produced by Qb device. Different access levels ensure that sensitive data is never shown to unauthorized audiences. All features and technical details are described in xref:working_principles:authentication.adoc[account settings and user management].

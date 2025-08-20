@@ -1,0 +1,57 @@
+= Feature Availability by Product
+
+.Comparison of Qb family device features
+[width="100%",cols="70%,10%,10%,10%",options="header",]
+|===
+| Feature |QbBasic |QbProtect |QbVolume
+|3D LiDAR data generation |✅ |✅ |✅
+
+|3D point cloud viewer |✅ |✅ |✅
+
+|3D point cloud recorder |❌ |✅ |✅
+
+|3D point cloud alignment via WebGui |❌ |✅ |✅
+
+|Multi-sensor point cloud fusion via WebGui |❌ |✅ |✅
+
+|Scan pattern configuration via WebGUI |✅ |✅ |✅
+
+|Pre-configured scan patterns tailored to specific applications
+available |❌ |✅ |✅
+
+|On-device perception software |❌ |✅ |✅
+
+|Security zone |❌ |✅ |❌
+
+|Exclusion zone |❌ |✅ |✅
+
+|Volume zone |❌ |❌ |✅
+
+|Occupancy zone |❌ |✅ |✅
+
+|Advanced perception parameter fine-tuning |❌ |✅ |❌
+
+|Object detection and tracking |❌ |✅ |❌
+
+|Object classification (small, medium, large) |❌ |✅ |❌
+
+|Alarm history |❌ |✅ |❌
+
+|Geolocation data |❌ |✅ |✅
+
+|ONVIF-compatible event generation |❌ |✅ |❌
+
+|RTSP stream for VMS integration |❌ |✅ |❌
+
+|Built-in low-code tool (Blickfeld Flow) |❌ |✅ |✅
+
+|Blickfeld hosted volume monitoring dashboard (optional) |❌ |❌ |✅
+
+|User management |✅ |✅ |✅
+
+|gRPC API access |✅ |✅ |✅
+
+|MQTT telemetry configuration via WebGUI |❌ |✅ |✅
+|===
+
+NOTE: Qb2 is a versatile, general-purpose product designed for broader applications and includes the key features of QbBasic, QbProtect, and QbVolume.

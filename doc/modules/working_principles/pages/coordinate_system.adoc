@@ -4,5 +4,5 @@ The LiDAR point cloud data contains the Cartesian coordinates (x, y, z) of
 all detected echoes per frame. The definition of the
 coordinate system is depicted in figure below.
 
-.Qb2 coordinate system for Qb2 standard (left) and ETR (right) variants.
+.Qb device coordinate system for Qb device standard (left) and ETR (right) variants.
 image::Qb2_Coordinate_System.svg[]

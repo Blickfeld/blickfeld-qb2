@@ -1,16 +1,17 @@
 # Internal Blickfeld CI toolchain
 include:
   - project: 'firmware/ci-helper'
-    ref: master
+    ref: trixie
     file: '/.gitlab-ci-template.yml'
   - project: 'firmware/ci-helper'
-    ref: master
+    ref: trixie
     file: '/cpp/.gitlab-ci-template.yml'
   - project: 'blickfeld/blickfeld-qb2-doc'
     ref: main
     file: '/.public.gitlab-ci.yml'
 
 variables:
+  CI_HELPER_VERSION: trixie
   # Override: Do not format protocol files
   CI_HELPER_CPP_SRC: cpp
 

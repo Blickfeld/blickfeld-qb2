@@ -26,7 +26,7 @@ namespace secure {
 class TokenFactory : public grpc::MetadataCredentialsPlugin {
   public:
     TokenFactory(std::shared_ptr<grpc::Channel> channel, std::string application_key)
-        : channel(channel), application_key(application_key), current_token(""){};
+        : channel(channel), application_key(application_key), current_token("") {};
 
     // Inject "token" field in call metadata
     grpc::Status GetMetadata(grpc::string_ref                           service_url,
@@ -40,7 +40,7 @@ class TokenFactory : public grpc::MetadataCredentialsPlugin {
         return status;
     };
     // deconstructor
-    virtual ~TokenFactory(){};
+    virtual ~TokenFactory() {};
 
   private:
     std::shared_ptr<grpc::Channel> channel;

@@ -63,6 +63,7 @@ image::onvif/hexagon/events/event_configure.png[800,800]
 
 . Navigate to `Camera` settings (left pane) -> `Camera side functions` -> `Motion detection`
 . Select `TamperingMoved` event in the `ONVIF events` colomn -> Give a distinguishable name to the event, e.g. `TamperingMovedEvent` -> Click `Apply`` -> Click `Save`
+. Navigate to `Configuration Mode` tab -> Select `Cameras` in `Company` pane -> Click on `QbProtect` camera -> Navigate to `General` -> `Encoder/camera` -> `General` -> Click `Query Device`
 
 [NOTE]
 ====

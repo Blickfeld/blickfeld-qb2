@@ -42,6 +42,9 @@ Due to the interoperability of the ONVIF protocol, https://www.blickfeld.com/lid
 
 | https://www.avigilon.com/vms/on-premise[Avigilon Corporation]
 | xref:onvif/avigilon.adoc[Avigilon Unity]
+
+| https://www.keenfinity-group.com/xn/en/solutions/management-software/bvms/[Bosch GmbH]
+| xref:onvif/bosch.adoc[Bosch BVMS]
 |===
 
 Integration and configuration instructions and usage examples of https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect] with a particular VMS system can be accessed from the corresponding VMS column or the matching documentation subsection.

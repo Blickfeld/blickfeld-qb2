@@ -25,6 +25,15 @@ Thus, an event is often directly actionable.
 .2+| *security_zone_intrusion_ended* | xref:blickfeld/percept_processing/data/event.adoc#_blickfeld_percept_processing_data_Event_Security_ZoneIntrusionEnded[Security.ZoneIntrusionEnded] | - | - 
 3+| Security: Zone intrusion ended
 
+.2+| *disqualification_fog_detected* | xref:blickfeld/percept_processing/data/event.adoc#_blickfeld_percept_processing_data_Event_Disqualification_Fog[Disqualification.Fog] | - | - 
+3+| Disqualification: Fog detected
+
+.2+| *disqualification_fog_stopped* | xref:blickfeld/percept_processing/data/event.adoc#_blickfeld_percept_processing_data_Event_Disqualification_Fog[Disqualification.Fog] | - | - 
+3+| Disqualification: Fog not detected anymore
+
+.2+| *traffic_vehicle_detected* | xref:blickfeld/percept_processing/data/event.adoc#_blickfeld_percept_processing_data_Event_Traffic_VehicleDetected[Traffic.VehicleDetected] | - | - 
+3+| Traffic: Vehicle detected upon leaving a lane zone
+
 |===
 
 [#_blickfeld_percept_processing_data_Event_Security]
@@ -90,4 +99,39 @@ An intrusion of a security zone ended.
 3+| Duration of the intrusion event.
 
 |===
+
+[#_blickfeld_percept_processing_data_Event_Traffic]
+== Traffic
+
+Container for traffic-related events
+
+[#_blickfeld_percept_processing_data_Event_Traffic_VehicleDetected]
+=== Vehicle Detected
+
+A vehicle was detected upon leaving a zone
+
+.Available fields in blickfeld.percept_processing.data.Event.Traffic.VehicleDetected
+|===
+| Field | Type | Default | Unit
+
+.2+| *zone_uuid* | string| - | - 
+3+| UUID of the traffic lane zone.
+
+.2+| *vehicle* | xref:blickfeld/percept_processing/data/vehicle.adoc[Vehicle] | - | - 
+3+| The detected vehicle
+
+.2+| *id* | string| - | - 
+3+| The id of the detected vehicle
+
+|===
+
+[#_blickfeld_percept_processing_data_Event_Disqualification]
+== Disqualification
+
+Container for disqualification-related events
+
+[#_blickfeld_percept_processing_data_Event_Disqualification_Fog]
+=== Fog
+
+Fog was detected in the point cloud.
 

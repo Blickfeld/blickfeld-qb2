@@ -55,9 +55,6 @@ Properties of an object.
 |===
 | Field | Type | Default | Unit
 
-.2+| *size* | xref:blickfeld/percept_pipeline/config/object_size.adoc[percept_pipeline.config.ObjectSize] | - | - 
-3+| The size of an object.
-
 .2+| *num_points* | uint32| - | - 
 3+| / Number of measurements that belong to the object point cloud.
 
@@ -66,7 +63,7 @@ Properties of an object.
 
 .2+| *bounding_box_2d_surface* | float| - | - 
 3+| Surface area of the largest xz / yz bounding box plane. 
-This is used for the simple object size classifaction.
+This is used for the simple object size classification.
 
 .2+| *confidence* | optional float| - | - 
 3+| Confidence value 
@@ -74,7 +71,7 @@ This is used for the simple object size classifaction.
 Value in the range of [0, 1] which indicates how confident 
 the tracking algorithm is about the detected object. 
  
-NOTE: This is preliminary implementation and might change its behaviour significantly in upcoming releases.
+NOTE: This is preliminary implementation and might change its behavior significantly in upcoming releases.
 
 .2+| *in_background* | bool| - | - 
 3+| Set when bounding box of object is mostly located within the background / reference frame. 
@@ -82,6 +79,12 @@ This is usually an indication for ground or vegetation detections.
 
 .2+| *track_length* | float| - | m 
 3+| The estimated track length of an object.
+
+.2+| *size* | xref:blickfeld/percept_pipeline/config/object_size.adoc[percept_pipeline.config.ObjectSize] | - | - 
+3+| Object size classification using rule-based methods.
+
+.2+| *model_classification* | xref:blickfeld/percept_processing/data/model_classification.adoc[ModelClassification] | - | - 
+3+| Object classification based on machine learning.
 
 |===
 

@@ -1,12 +1,15 @@
-= Welcome to Qb2 Documentation
+= Welcome to the Qb Series Documentation
 
-image::qb2_product_banner.png[alt=Qb2]
+image::qb_family.png[alt=Qb Family]
 
-*Industry-first smart 3D LiDAR combines high-performance sensing with advanced on-device processing.*
+Welcome to the Blickfeld Qb Series Documentation, your complete knowledge resource for all devices in the Qb product family, including Qb2, QbBasic, QbProtect, and QbVolume.
 
-Qb2 is based on Blickfeld’s proprietary solid-state software-defined LiDAR technology, and, as an industry first, enables the capturing and processing of 3D LiDAR data on a single device.
+This documentation covers everything from installation and setup to advanced configuration, feature use, integration, and maintenance. 
+You will find detailed information on sensor mounting, network and authentication settings, motion detection, object tracking, zone management, API integration, and more.
 
-The integrated compute module allows Blickfeld Percept software stack to run on the device providing data for volume monitoring purposes, and security applications. WiFi connectivity removes the need for additional network cabling.
+Use the navigation menu to explore topics relevant to your needs at any stage. For additional resources, and customer support, please refer to the links provided.
+
+To learn more about Blickfeld and our full range of LiDAR solutions, visit our https://www.blickfeld.com[website].
 
 [IMPORTANT]
 ====

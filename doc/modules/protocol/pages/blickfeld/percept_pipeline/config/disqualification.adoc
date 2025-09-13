@@ -1,0 +1,22 @@
+[#_blickfeld_percept_pipeline_config_Disqualification]
+= Disqualification
+
+Algorithm for detecting disqualifying effects for the sensor e.g. fog.
+
+.Available fields in blickfeld.percept_pipeline.config.Disqualification
+|===
+| Field | Type | Default | Unit
+
+.2+| *disabled* | bool| - | - 
+3+| Disable disqualification checking.
+
+.2+| *fog_photon_count_threshold* | float| - | - 
+3+| Threshold for the detection of fog. 
+ 
+If the difference in photon count mean between the current frame and the background divided by the background mean 
+exceeds this threshold, a disqualification alarm is raised. 
+ 
+Default: 0.35
+
+|===
+

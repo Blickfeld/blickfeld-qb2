@@ -110,7 +110,9 @@
 ****** xref:protocol:blickfeld/percept_pipeline/config/classification.adoc[Classification]
 ****** xref:protocol:blickfeld/percept_pipeline/config/clustering.adoc[Clustering]
 ****** xref:protocol:blickfeld/percept_pipeline/config/data_source.adoc[Data Source]
+****** xref:protocol:blickfeld/percept_pipeline/config/disqualification.adoc[Disqualification]
 ****** xref:protocol:blickfeld/percept_pipeline/config/history.adoc[History]
+****** xref:protocol:blickfeld/percept_pipeline/config/object_class.adoc[Object Class]
 ****** xref:protocol:blickfeld/percept_pipeline/config/object_size.adoc[Object Size]
 ****** xref:protocol:blickfeld/percept_pipeline/config/perception.adoc[Perception]
 ****** xref:protocol:blickfeld/percept_pipeline/config/point_cloud_filter.adoc[Point Cloud Filter]
@@ -130,11 +132,14 @@
 **** percept_processing
 ***** data
 ****** xref:protocol:blickfeld/percept_processing/data/detected_object.adoc[Detected Object]
+****** xref:protocol:blickfeld/percept_processing/data/disqualification.adoc[Disqualification]
 ****** xref:protocol:blickfeld/percept_processing/data/event.adoc[Event]
 ****** xref:protocol:blickfeld/percept_processing/data/flag.adoc[Flag]
+****** xref:protocol:blickfeld/percept_processing/data/model_classification.adoc[Model Classification]
 ****** xref:protocol:blickfeld/percept_processing/data/objects.adoc[Objects]
 ****** xref:protocol:blickfeld/percept_processing/data/state.adoc[State]
 ****** xref:protocol:blickfeld/percept_processing/data/states.adoc[States]
+****** xref:protocol:blickfeld/percept_processing/data/vehicle.adoc[Vehicle]
 ****** xref:protocol:blickfeld/percept_processing/data/volume_map.adoc[Volume Map]
 ***** services
 ****** xref:protocol:blickfeld/percept_processing/services/event.adoc[Event]

@@ -1,14 +1,17 @@
 [#_blickfeld_percept_pipeline_config_Classification]
 = Classification
 
-Algorithms for classifying object into small, medium, large.
+Algorithms for classifying object into small, medium, large or predicting class of the object using machine learning models.
 
 .Available fields in blickfeld.percept_pipeline.config.Classification
 |===
 | Field | Type | Default | Unit
 
 .2+| *size* | xref:blickfeld/percept_pipeline/config/classification.adoc#_blickfeld_percept_pipeline_config_Classification_Size[Size] | - | - 
-3+| Use object size for object classification.
+3+| Rule-based classification using object size thresholds.
+
+.2+| *model* | xref:blickfeld/percept_pipeline/config/classification.adoc#_blickfeld_percept_pipeline_config_Classification_Model[Model] | - | - 
+3+| Model-based classification using a trained machine learning model.
 
 |===
 
@@ -48,5 +51,85 @@ should be larger than this value to be considered a medium object.
 3+| The surface area of the objects bounding box 
 should be larger than this value to be considered a large object.
 
+|===
+
+[#_blickfeld_percept_pipeline_config_Classification_Model]
+== Model
+
+Configuration for model-based classification.
+
+.Available fields in blickfeld.percept_pipeline.config.Classification.Model
+|===
+| Field | Type | Default | Unit
+
+.2+| *weights* | bytes| - | - 
+3+| Serialized model weights.
+
+.2+| *type* | xref:blickfeld/percept_pipeline/config/classification.adoc#_blickfeld_percept_pipeline_config_Classification_Model_Type[Type] | - | - 
+3+| The type of the model.
+
+.2+| *normalization* | xref:blickfeld/percept_pipeline/config/classification.adoc#_blickfeld_percept_pipeline_config_Classification_Model_Normalization[Normalization] | - | - 
+3+| The normalization parameters used to preprocess input features.
+
+.2+| *feature_generator* | xref:blickfeld/percept_pipeline/config/classification.adoc#_blickfeld_percept_pipeline_config_Classification_Model_FeatureGenerator[FeatureGenerator] | - | - 
+3+| The feature generator method used.
+
+.2+| *object_category* | xref:blickfeld/percept_pipeline/config/object_class.adoc[ObjectClass] | - | - 
+3+| The subset of classes to use.
+
+|===
+
+[#_blickfeld_percept_pipeline_config_Classification_Model_Normalization]
+=== Normalization
+
+Configuration for feature normalization before feeding them into the model.
+
+.Available fields in blickfeld.percept_pipeline.config.Classification.Model.Normalization
+|===
+| Field | Type | Default | Unit
+
+.2+| *mean_coeffs* | repeated float| - | - 
+3+| The mean coefficients used to normalize each input feature. 
+For each input feature: (x - mean) / std
+
+.2+| *std_coeffs* | repeated float| - | - 
+3+| The standard deviation coefficients used for normalization.
+
+|===
+
+[#_blickfeld_percept_pipeline_config_Classification_Model_Type]
+=== Type
+
+Machine learning model types.
+
+.Available values for blickfeld.percept_pipeline.config.Classification.Model.Type enum
+[cols='25h,5,~']
+|===
+| Name | Value | Description
+
+| TYPE_UNSPECIFIED ^| 0 | The zero value should not be used
+| TYPE_SVM ^| 1 | Support Vector Machine Model
+|===
+
+[#_blickfeld_percept_pipeline_config_Classification_Model_FeatureGenerator]
+=== Feature Generator
+
+Enum specifying which feature generation method to use for ML model predictions.
+
+.Available values for blickfeld.percept_pipeline.config.Classification.Model.FeatureGenerator enum
+[cols='25h,5,~']
+|===
+| Name | Value | Description
+
+| FEATURE_GENERATOR_UNSPECIFIED ^| 0 | The zero value should not be used
+| FEATURE_GENERATOR_EIGVALS_DIMS ^| 1 | Generate features from: 
+ - Eigenvalues (λ1, λ2, λ3) of the 3D covariance matrix of the object’s point cloud. 
+ - Object dimensions: height, width, and length. 
+Resulting feature vector: [λ1, λ2, λ3, height, width, length]
+| FEATURE_GENERATOR_EIGVALS_DIMS_WITH_VARIANCE ^| 2 | Generate features from: 
+ - Eigenvalues (λ1, λ2, λ3) of the 3D covariance matrix. 
+ - Object dimensions: height, width, and length. 
+ - Per-axis variance: var_x, var_y, var_z. 
+Resulting feature vector: [λ1, λ2, λ3, height, width, length, var_x, var_y, var_z]
 |===
 

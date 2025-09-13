@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+package blickfeld.percept_pipeline.config;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_AUTHORIZED
+};
+
+// Algorithm for detecting disqualifying effects for the sensor e.g. fog.
+message Disqualification {
+  // Disable disqualification checking.
+  bool disabled = 1;
+  // Threshold for the detection of fog.
+  //  
+  // If the difference in photon count mean between the current frame and the background divided by the background mean
+  // exceeds this threshold, a disqualification alarm is raised.
+  //  
+  // Default: 0.35
+  float fog_photon_count_threshold = 2;
+}
+

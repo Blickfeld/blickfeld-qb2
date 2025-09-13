@@ -4,6 +4,7 @@ syntax = "proto3";
 
 import "blickfeld/base/config/geolocation.proto";
 import "blickfeld/base/geometry/shape.proto";
+import "blickfeld/base/geometry/vector3.proto";
 import "blickfeld/base/options.proto";
 import "blickfeld/percept_pipeline/config/object_size.proto";
 import "google/protobuf/struct.proto";
@@ -172,6 +173,11 @@ message ZoneAlgorithm {
     // Disables the security zone state and alarms when one of the occupancy zones is occupied.
     repeated string disable_when_occupied_zone_uuids = 3 [(.blickfeld.base.optional) = true];
   }
+  // Algorithm that monitors traffic moving through the zone.
+  message TrafficLane {
+    // Expected velocity of the objects inside the traffic zone.
+    float expected_velocity = 1 [(.blickfeld.base.unit) = "m/s"];
+  }
   // The user readable zone algorithm name
   string name = 1;
   // The uuid of the zone algorithm (uuid4)
@@ -199,6 +205,8 @@ message ZoneAlgorithm {
     .blickfeld.percept_pipeline.config.ZoneAlgorithm.Occupancy occupancy = 12;
     // Run traversal zone
     .blickfeld.percept_pipeline.config.ZoneAlgorithm.TraversalSecurity traversal_security = 14;
+    // Run traffic monitoring within the zone
+    .blickfeld.percept_pipeline.config.ZoneAlgorithm.TrafficLane traffic_lane = 16;
   }
   reserved 4, 5, 6, 8;
 }

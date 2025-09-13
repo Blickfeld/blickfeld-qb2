@@ -6,6 +6,7 @@ import "blickfeld/base/options.proto";
 import "blickfeld/core_processing/data/frame.proto";
 import "blickfeld/percept_processing/data/detected_object.proto";
 import "blickfeld/percept_processing/data/flag.proto";
+import "blickfeld/percept_processing/data/vehicle.proto";
 package blickfeld.percept_processing.data;
 
 option (.blickfeld.base.access_control_file) = {
@@ -75,6 +76,11 @@ message State {
     // Active traversal
     .blickfeld.percept_processing.data.Flag intrusion = 3;
   }
+  // A message containing the state of a traffic lane zone.
+  message TrafficLane {
+    // All vehicles currently inside the zone
+    map<string, .blickfeld.percept_processing.data.Vehicle> vehicles = 1;
+  }
   // The name of the entity generating this state
   string generator_name = 8;
   oneof state_type {
@@ -88,6 +94,8 @@ message State {
     .blickfeld.percept_processing.data.State.Occupancy occupancy = 10;
     // The traversal state
     .blickfeld.percept_processing.data.State.TraversalSecurity traversal_security = 11;
+    // The state of a traffic lane zone
+    .blickfeld.percept_processing.data.State.TrafficLane traffic_lane = 12;
   }
   reserved 1, 2, 3, 4, 6;
 }

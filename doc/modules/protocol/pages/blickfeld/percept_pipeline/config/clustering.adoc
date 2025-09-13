@@ -10,6 +10,9 @@ Algorithms for detecting objects as clustered points in the foreground scene.
 .2+| *db_scan* | xref:blickfeld/percept_pipeline/config/clustering.adoc#_blickfeld_percept_pipeline_config_Clustering_DBScan[DBScan] | - | - 
 3+| Use db-scan for clustering the foreground
 
+.2+| *disable_percentile_bounding_boxes* | bool| - | - 
+3+| Disabling the percentiles will lead to the dimensions being determined by the min and max points in each dimension.
+
 |===
 
 [#_blickfeld_percept_pipeline_config_Clustering_DBScan]

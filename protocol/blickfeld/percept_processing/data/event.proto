@@ -5,6 +5,7 @@ syntax = "proto3";
 import "blickfeld/base/options.proto";
 import "blickfeld/percept_processing/data/detected_object.proto";
 import "blickfeld/percept_processing/data/state.proto";
+import "blickfeld/percept_processing/data/vehicle.proto";
 import "blickfeld/percept_processing/data/volume_map.proto";
 package blickfeld.percept_processing.data;
 
@@ -46,6 +47,24 @@ message Event {
       float duration = 3 [(.blickfeld.base.unit) = "s"];
     }
   }
+  // Container for traffic-related events
+  message Traffic {
+    // A vehicle was detected upon leaving a zone
+    message VehicleDetected {
+      // UUID of the traffic lane zone.
+      string zone_uuid = 1;
+      // The detected vehicle
+      .blickfeld.percept_processing.data.Vehicle vehicle = 2;
+      // The id of the detected vehicle
+      string id = 3;
+    }
+  }
+  // Container for disqualification-related events
+  message Disqualification {
+    // Fog was detected in the point cloud.
+    message Fog {
+    }
+  }
   // Unix timestamp of event
   uint64 timestamp = 1;
   oneof type {
@@ -57,6 +76,12 @@ message Event {
     .blickfeld.percept_processing.data.Event.Security.ZoneIntrusionStarted security_zone_intrusion_started = 4;
     // Security: Zone intrusion ended
     .blickfeld.percept_processing.data.Event.Security.ZoneIntrusionEnded security_zone_intrusion_ended = 5;
+    // Disqualification: Fog detected
+    .blickfeld.percept_processing.data.Event.Disqualification.Fog disqualification_fog_detected = 6;
+    // Disqualification: Fog not detected anymore
+    .blickfeld.percept_processing.data.Event.Disqualification.Fog disqualification_fog_stopped = 7;
+    // Traffic: Vehicle detected upon leaving a lane zone
+    .blickfeld.percept_processing.data.Event.Traffic.VehicleDetected traffic_vehicle_detected = 8;
   }
 }
 

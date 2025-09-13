@@ -25,5 +25,8 @@ The configuration of perception algorithms used to run e.g. security zones
 .2+| *history* | xref:blickfeld/percept_pipeline/config/history.adoc[History] | - | - 
 3+| Keep a history of perception results
 
+.2+| *disqualification* | xref:blickfeld/percept_pipeline/config/disqualification.adoc[Disqualification] | - | - 
+3+| Detect disqualifying effects in the point cloud caused by weather
+
 |===
 

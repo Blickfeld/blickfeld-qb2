@@ -27,6 +27,9 @@ States will get calculated on every frame of measurement.
 .2+| *traversal_security* | xref:blickfeld/percept_processing/data/state.adoc#_blickfeld_percept_processing_data_State_TraversalSecurity[TraversalSecurity] | - | - 
 3+| The traversal state
 
+.2+| *traffic_lane* | xref:blickfeld/percept_processing/data/state.adoc#_blickfeld_percept_processing_data_State_TrafficLane[TrafficLane] | - | - 
+3+| The state of a traffic lane zone
+
 |===
 
 [#_blickfeld_percept_processing_data_State_ObjectBasedSecurity]
@@ -168,5 +171,32 @@ A message containing the traversal state of a zone.
 
 | *key* | string| - | - 
 | *value* | xref:blickfeld/percept_processing/data/detected_object.adoc[DetectedObject] | - | - 
+|===
+
+[#_blickfeld_percept_processing_data_State_TrafficLane]
+== Traffic Lane
+
+A message containing the state of a traffic lane zone.
+
+.Available fields in blickfeld.percept_processing.data.State.TrafficLane
+|===
+| Field | Type | Default | Unit
+
+.2+| *vehicles* | repeated xref:blickfeld/percept_processing/data/state.adoc#_blickfeld_percept_processing_data_State_TrafficLane_VehiclesEntry[VehiclesEntry] | - | - 
+3+| All vehicles currently inside the zone
+
+|===
+
+[#_blickfeld_percept_processing_data_State_TrafficLane_VehiclesEntry]
+=== Vehicles Entry
+
+
+
+.Available fields in blickfeld.percept_processing.data.State.TrafficLane.VehiclesEntry
+|===
+| Field | Type | Default | Unit
+
+| *key* | string| - | - 
+| *value* | xref:blickfeld/percept_processing/data/vehicle.adoc[Vehicle] | - | - 
 |===
 

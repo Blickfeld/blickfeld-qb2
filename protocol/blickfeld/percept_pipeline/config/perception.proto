@@ -5,6 +5,7 @@ syntax = "proto3";
 import "blickfeld/percept_pipeline/config/background_subtraction.proto";
 import "blickfeld/percept_pipeline/config/classification.proto";
 import "blickfeld/percept_pipeline/config/clustering.proto";
+import "blickfeld/percept_pipeline/config/disqualification.proto";
 import "blickfeld/percept_pipeline/config/history.proto";
 import "blickfeld/percept_pipeline/config/point_cloud_filter.proto";
 import "blickfeld/percept_pipeline/config/tracking.proto";
@@ -29,6 +30,8 @@ message Perception {
   .blickfeld.percept_pipeline.config.Classification classification = 10;
   // Keep a history of perception results
   .blickfeld.percept_pipeline.config.History history = 11;
+  // Detect disqualifying effects in the point cloud caused by weather
+  .blickfeld.percept_pipeline.config.Disqualification disqualification = 12;
   reserved 3, 4, 5, 6, 7;
 }
 

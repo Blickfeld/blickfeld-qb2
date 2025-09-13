@@ -1,0 +1,34 @@
+// Copyright (c) 2025 Blickfeld GmbH.
+// All rights reserved.
+syntax = "proto3";
+
+import "blickfeld/base/geometry/pose.proto";
+import "blickfeld/base/geometry/shape.proto";
+import "blickfeld/base/geometry/vector2.proto";
+import "blickfeld/base/geometry/vector3.proto";
+import "blickfeld/base/options.proto";
+import "blickfeld/core_processing/data/frame.proto";
+import "blickfeld/percept_pipeline/config/object_class.proto";
+import "blickfeld/percept_processing/data/model_classification.proto";
+package blickfeld.percept_processing.data;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_AUTHORIZED
+};
+
+// A message representing exactly one vehicle that is detected in the scene.
+message Vehicle {
+  // Timestamp of creation
+  uint64 timestamp = 1 [(.blickfeld.base.unit) = "ns"];
+  // The position of the vehicle
+  .blickfeld.base.geometry.Vector2 position = 2 [(.blickfeld.base.unit) = "m"];
+  // Dimensions of the vehicle
+  .blickfeld.base.geometry.Vector3 dimensions = 3 [(.blickfeld.base.unit) = "m"];
+  // Velocity of the vehicle (in y-direction)
+  float velocity = 4 [(.blickfeld.base.unit) = "m/s"];
+  // Point cloud
+  .blickfeld.core_processing.data.Frame point_cloud = 5;
+  // Vehicle class
+  .blickfeld.percept_processing.data.ModelClassification model_classification = 6;
+}
+

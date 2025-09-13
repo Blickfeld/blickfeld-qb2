@@ -1,0 +1,39 @@
+[#_blickfeld_percept_pipeline_config_ObjectClass]
+= Object Class
+
+ObjectClass represents classification types of detected objects.
+
+.Available fields in blickfeld.percept_pipeline.config.ObjectClass
+|===
+| Field | Type | Default | Unit
+
+.2+| *tls_vehicle* | xref:blickfeld/percept_pipeline/config/object_class.adoc#_blickfeld_percept_pipeline_config_ObjectClass_TlsVehicle[TlsVehicle] | - | - 
+3+| bast TLS 2012 vehicle classification 8+1
+
+|===
+
+[#_blickfeld_percept_pipeline_config_ObjectClass_TlsVehicle]
+== Tls Vehicle
+
+Vehicle classification according to "Technische Lieferbedingungen für Streckenstationen " (TLS 2012) 
+defined by the German regulatory "Bundesanstalt für Straßen- und Verkehrswesen" (bast). 
+ 
+The enum values directly reflect the class of the 8+1 classification.
+
+.Available values for blickfeld.percept_pipeline.config.ObjectClass.TlsVehicle enum
+[cols='25h,5,~']
+|===
+| Name | Value | Description
+
+| TLS_VEHICLE_UNSPECIFIED ^| 0 | The zero value should not be used.
+| TLS_VEHICLE_MOTORBIKE ^| 10 | Motorbike (Krad).
+| TLS_VEHICLE_CAR ^| 7 | Standard passenger car (Pkw).
+| TLS_VEHICLE_VAN ^| 11 | Van (Lfw).
+| TLS_VEHICLE_TRUCK ^| 3 | Standard truck (Lkw).
+| TLS_VEHICLE_TRUCK_WITH_TRAILER ^| 8 | Truck towing a trailer (LkwA).
+| TLS_VEHICLE_SEMI_TRAILER_TRUCK ^| 9 | Semitrailer truck (Sattel-Kfz).
+| TLS_VEHICLE_BUS ^| 5 | Bus.
+| TLS_VEHICLE_CAR_WITH_TRAILER ^| 2 | Car with trailer (PkwA).
+| TLS_VEHICLE_OTHER ^| 6 | Other or uncategorized object (nk Kfz).
+|===
+

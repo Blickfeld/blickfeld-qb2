@@ -1,4 +1,4 @@
-display_version: v2.10
+display_version: BEN LIO v2.11
 name: Qb2
 nav:
 - modules/ROOT/nav.adoc
@@ -8,5 +8,5 @@ nav:
 - modules/operation/nav.adoc
 - modules/developer/nav.adoc
 - modules/service_and_maintenance/nav.adoc
-title: Qb2
-version: v2.10
+title: Qb Series
+version: BEN LIO v2.11

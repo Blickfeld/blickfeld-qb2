@@ -31,5 +31,7 @@ message Clustering {
     // Use db-scan for clustering the foreground
     .blickfeld.percept_pipeline.config.Clustering.DBScan db_scan = 1;
   }
+  // Disabling the percentiles will lead to the dimensions being determined by the min and max points in each dimension.
+  bool disable_percentile_bounding_boxes = 2;
 }
 

@@ -3,13 +3,14 @@
 syntax = "proto3";
 
 import "blickfeld/base/options.proto";
+import "blickfeld/percept_pipeline/config/object_class.proto";
 package blickfeld.percept_pipeline.config;
 
 option (.blickfeld.base.access_control_file) = {
   level: LEVEL_AUTHORIZED
 };
 
-// Algorithms for classifying object into small, medium, large.
+// Algorithms for classifying object into small, medium, large or predicting class of the object using machine learning models.
 message Classification {
   // The minimum size limits of the bounding box area used for classification.
   message Size {
@@ -31,7 +32,57 @@ message Classification {
       .blickfeld.percept_pipeline.config.Classification.Size.BoundingBoxSurface bounding_box_surface = 1;
     }
   }
-  // Use object size for object classification.
-  .blickfeld.percept_pipeline.config.Classification.Size size = 1;
+  // Configuration for model-based classification.
+  message Model {
+    // Configuration for feature normalization before feeding them into the model.
+    message Normalization {
+      // The mean coefficients used to normalize each input feature.
+      // For each input feature: (x - mean) / std
+      repeated float mean_coeffs = 1;
+      // The standard deviation coefficients used for normalization.
+      repeated float std_coeffs = 2;
+    }
+    // Machine learning model types.
+    enum Type {
+      // The zero value should not be used
+      TYPE_UNSPECIFIED = 0;
+      // Support Vector Machine Model
+      TYPE_SVM = 1;
+    }
+    // Enum specifying which feature generation method to use for ML model predictions.
+    enum FeatureGenerator {
+      // The zero value should not be used
+      FEATURE_GENERATOR_UNSPECIFIED = 0;
+      // Generate features from:
+      //  - Eigenvalues (λ1, λ2, λ3) of the 3D covariance matrix of the object’s point cloud.
+      //  - Object dimensions: height, width, and length.
+      // Resulting feature vector: [λ1, λ2, λ3, height, width, length]
+      FEATURE_GENERATOR_EIGVALS_DIMS = 1;
+      // Generate features from:
+      //  - Eigenvalues (λ1, λ2, λ3) of the 3D covariance matrix.
+      //  - Object dimensions: height, width, and length.
+      //  - Per-axis variance: var_x, var_y, var_z.
+      // Resulting feature vector: [λ1, λ2, λ3, height, width, length, var_x, var_y, var_z]
+      FEATURE_GENERATOR_EIGVALS_DIMS_WITH_VARIANCE = 2;
+    }
+    // Serialized model weights.
+    bytes weights = 1;
+    // The type of the model.
+    .blickfeld.percept_pipeline.config.Classification.Model.Type type = 2;
+    // The normalization parameters used to preprocess input features.
+    .blickfeld.percept_pipeline.config.Classification.Model.Normalization normalization = 3;
+    // The feature generator method used.
+    .blickfeld.percept_pipeline.config.Classification.Model.FeatureGenerator feature_generator = 4;
+    // The subset of classes to use.
+    .blickfeld.percept_pipeline.config.ObjectClass object_category = 5;
+  }
+  // Select the classification method to use: either rule-based size classification
+  // or model-based classification using a machine learning model.
+  oneof type {
+    // Rule-based classification using object size thresholds.
+    .blickfeld.percept_pipeline.config.Classification.Size size = 1;
+    // Model-based classification using a trained machine learning model.
+    .blickfeld.percept_pipeline.config.Classification.Model model = 2;
+  }
 }
 

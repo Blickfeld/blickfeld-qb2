@@ -30,6 +30,8 @@ message Health {
         // This indicates that the device can not operate properly or
         // network bandwidth / stability issues.
         bool point_cloud_fetch_failed = 3;
+        // There are some environmental influences, e.g. fog, rain or snow in the scene.
+        bool environmental_effects = 4;
       }
       // Error flags
       .blickfeld.percept_pipeline.data.Health.DataSource.Device.ErrorFlags error_flags = 1;

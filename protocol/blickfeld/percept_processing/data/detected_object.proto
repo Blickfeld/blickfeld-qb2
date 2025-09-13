@@ -8,8 +8,10 @@ import "blickfeld/base/geometry/shape.proto";
 import "blickfeld/base/geometry/vector3.proto";
 import "blickfeld/base/options.proto";
 import "blickfeld/core_processing/data/frame.proto";
+import "blickfeld/percept_pipeline/config/object_class.proto";
 import "blickfeld/percept_pipeline/config/object_size.proto";
 import "blickfeld/percept_processing/data/flag.proto";
+import "blickfeld/percept_processing/data/model_classification.proto";
 package blickfeld.percept_processing.data;
 
 option (.blickfeld.base.access_control_file) = {
@@ -20,27 +22,32 @@ option (.blickfeld.base.access_control_file) = {
 message DetectedObject {
   // Properties of an object.
   message Properties {
-    // The size of an object.
-    .blickfeld.percept_pipeline.config.ObjectSize size = 1;
     // / Number of measurements that belong to the object point cloud.
     uint32 num_points = 2;
     // / Average intensity of the measurements from the object point cloud.
     uint32 average_intensity = 3;
     // Surface area of the largest xz / yz bounding box plane.
-    // This is used for the simple object size classifaction.
+    // This is used for the simple object size classification.
     float bounding_box_2d_surface = 4;
     // Confidence value
     //  
     // Value in the range of [0, 1] which indicates how confident
     // the tracking algorithm is about the detected object.
     //  
-    // NOTE: This is preliminary implementation and might change its behaviour significantly in upcoming releases.
+    // NOTE: This is preliminary implementation and might change its behavior significantly in upcoming releases.
     float confidence = 5 [(.blickfeld.base.optional) = true];
     // Set when bounding box of object is mostly located within the background / reference frame.
     // This is usually an indication for ground or vegetation detections.
     bool in_background = 6;
     // The estimated track length of an object.
     float track_length = 7 [(.blickfeld.base.unit) = "m"];
+    // Classification type.
+    oneof classification_type {
+      // Object size classification using rule-based methods.
+      .blickfeld.percept_pipeline.config.ObjectSize size = 1;
+      // Object classification based on machine learning.
+      .blickfeld.percept_processing.data.ModelClassification model_classification = 8;
+    }
   }
   // The position and orientation of the object.
   .blickfeld.base.geometry.Pose pose = 1;

@@ -1,0 +1,45 @@
+// Copyright (c) 2025 Blickfeld GmbH.
+// All rights reserved.
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+package blickfeld.percept_pipeline.config;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_AUTHORIZED
+};
+
+// ObjectClass represents classification types of detected objects.
+message ObjectClass {
+  // Vehicle classification according to "Technische Lieferbedingungen für Streckenstationen " (TLS 2012)
+  // defined by the German regulatory "Bundesanstalt für Straßen- und Verkehrswesen" (bast).
+  //  
+  // The enum values directly reflect the class of the 8+1 classification.
+  enum TlsVehicle {
+    // The zero value should not be used.
+    TLS_VEHICLE_UNSPECIFIED = 0;
+    // Motorbike (Krad).
+    TLS_VEHICLE_MOTORBIKE = 10;
+    // Standard passenger car (Pkw).
+    TLS_VEHICLE_CAR = 7;
+    // Van (Lfw).
+    TLS_VEHICLE_VAN = 11;
+    // Standard truck (Lkw).
+    TLS_VEHICLE_TRUCK = 3;
+    // Truck towing a trailer (LkwA).
+    TLS_VEHICLE_TRUCK_WITH_TRAILER = 8;
+    // Semitrailer truck (Sattel-Kfz).
+    TLS_VEHICLE_SEMI_TRAILER_TRUCK = 9;
+    // Bus.
+    TLS_VEHICLE_BUS = 5;
+    // Car with trailer (PkwA).
+    TLS_VEHICLE_CAR_WITH_TRAILER = 2;
+    // Other or uncategorized object (nk Kfz).
+    TLS_VEHICLE_OTHER = 6;
+  }
+  oneof type {
+    // bast TLS 2012 vehicle classification 8+1
+    .blickfeld.percept_pipeline.config.ObjectClass.TlsVehicle tls_vehicle = 1;
+  }
+}
+

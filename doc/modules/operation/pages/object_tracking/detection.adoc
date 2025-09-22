@@ -2,7 +2,7 @@
 include::partial$blickfeld_urls.adoc[]
 :stem: latexmath
 
-The object detection step receives the xref:motion_detection/index.adoc[foreground point cloud] as input data. A preprocessing step https://www.open3d.org/docs/latest/tutorial/Advanced/pointcloud_outlier_removal.html#Point-cloud-outlier-removal[removes outlier points] from the foreground point cloud. Then, a variant of the https://ieeexplore.ieee.org/document/9356727[DBSCAN clustering  algorithm] is applied to the filtered point cloud to find cohesive segments or clusters. Finally, all clusters are classified by assigning them to a preconfigured xref:#_classification[object size category].
+The object detection step receives the xref:motion_detection/index.adoc[foreground point cloud] as input data. A preprocessing step https://www.open3d.org/docs/latest/tutorial/Advanced/pointcloud_outlier_removal.html#Point-cloud-outlier-removal[removes outlier points] from the foreground point cloud. Then, a variant of the https://ieeexplore.ieee.org/document/9356727[DBSCAN clustering  algorithm] is applied to the filtered point cloud to find cohesive segments or clusters.
 
 ## Parameters
 
@@ -22,16 +22,6 @@ The clustering step does not have parameters exposed in the xref:introduction:in
 For advanced usage, see the configuration xref:protocol:blickfeld/percept_pipeline/config/clustering.adoc#_blickfeld_percept_pipeline_config_Clustering_DBScan[API definition].
 ====
 
-### Classification
-
-See configuration xref:protocol:blickfeld/percept_pipeline/config/classification.adoc[API definition].
-
-Minimum object surface area (unit: stem:[$m^2$]):: The minimum surface area an object's bounding box must have to be assigned to a specific size category. The surface area of the object is determined by finding the largest plane spanned by the computed bounding box. The resulting size labels are used by the zone state computation (e.g., in the xref:zone_types/security/object_zone.adoc#_filter_intruding_objects[object-based security zone]).
-+
-* *_SMALL minimum size (default: 0.01, range: [0.01 ... 0.05])_* Lower size threshold for small objects. Objects smaller than this threshold are discarded.
-* *_MEDIUM minimum size (default: 0.16, range: [0.05 ... 0.5])_* Lower size threshold for medium objects. This value has to be larger than the minimum size for small objects.
-* *_LARGE minimum size (default: 1.6, range: [0.5 ... 5.0])_* Lower size threshold for large objects. This value has to be larger than the minimum size for medium objects.
-
 ## Algorithm
 
 Object detection consists of three steps: point cloud filtering, clustering, and post-processing.
@@ -43,10 +33,6 @@ The https://www.open3d.org/docs/latest/tutorial/Advanced/pointcloud_outlier_remo
 ### DBScan clustering
 
 DBScan clustering is a density-based spatial clustering algorithm using the Euclidean distance between points. The remaining filtered foreground point cloud is split into cohesive regions with a consistent point density. The point density is defined as a radius (default: 0.2 stem:[$m$]) which is adapted across the point's distance from the sensor. Additional filtering ensures that detected clusters contain a minimum of points (default: 10).
-
-### Classification
-
-Each cluster is annotated with its size based on the xref:#_classification[minimum object surface area]. Here, the largest spanning area of the cluster's bounding box is used to determine the category (e.g., SMALL, MEDIUM, LARGE). Objects smaller than the minimum threshold for SMALL objects are discarded.
 
 ## Limitations
 

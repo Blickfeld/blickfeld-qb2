@@ -77,6 +77,9 @@ Configuration for model-based classification.
 .2+| *object_category* | xref:blickfeld/percept_pipeline/config/object_class.adoc[ObjectClass] | - | - 
 3+| The subset of classes to use.
 
+.2+| *metadata* | optional https://protobuf.dev/reference/protobuf/google.protobuf/#struct[google.protobuf.Struct] | - | - 
+3+| Arbitrary metadata storage about model training, containing information about data used for training and optimal hyperparameters.
+
 |===
 
 [#_blickfeld_percept_pipeline_config_Classification_Model_Normalization]

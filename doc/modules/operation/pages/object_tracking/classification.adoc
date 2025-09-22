@@ -1,0 +1,62 @@
+
+# Classification
+:stem: latexmath
+
+Classification adds a semantic layer to objects being xref:object_tracking/detection.adoc[detected] and xref:object_tracking/tracking.adoc[tracked] by the Qb. The resulting object class can be used to only generate alarms for certain types of objects (e.g., in xref:zone_types/security/object_zone.adoc#_filter_intruding_objects[object-based security zones]).
+
+See configuration: xref:protocol:blickfeld/percept_pipeline/config/classification.adoc[API definition].
+
+Classification can be performed in two modes:
+
+1. *Size-based classification* (enabled by default, using a object-size-based heuristic)
+
+2. *Model-based classification* (using a machine learning model)
+
+## 1. Size-based Classification
+
+If no model is specified, each cluster is assigned to an *object size category* based on its bounding box surface area.
+
+- The largest plane of the bounding box is used for size determination.
+- Clusters smaller than the minimum threshold for *SMALL* objects are discarded.
+
+Minimum object surface area (unit: stem:[$m^2$])::
+The minimum bounding box surface area required for an object to be classified into a size category.
+These labels are later used for zone state computation (e.g., in xref:zone_types/security/object_zone.adoc#_filter_intruding_objects[object-based security zones]).
+
+|===
+| Category | Type | Default | Unit
+
+.2+| *SMALL* | float | 0.01 | stem:[$m^2$]
+3+| Lower size threshold for small objects. Objects smaller than this threshold are discarded.
+Valid range: [0.01 … 0.05].
+
+.2+| *MEDIUM* | float | 0.16 | stem:[$m^2$]
+3+| Lower size threshold for medium objects. This value has to be larger than the minimum size for small objects.
+Valid range: [0.05 … 0.5].
+
+.2+| *LARGE* | float | 1.6 | stem:[$m^2$]
+3+| Lower size threshold for large objects. This value has to be larger than the minimum size for medium objects.
+Valid range: [0.5 … 5.0].
+
+|===
+
+
+## 2. Model-based Classification
+
+If a classification model is specified, size-based labeling is replaced by *machine learning-based classification*.
+
+- A pre-trained https://scikit-learn.org/stable/modules/svm.html[support vector machine(SVM)] model is used.
+- For each cluster, a specific  xref:protocol:blickfeld/percept_pipeline/config/classification.adoc#_blickfeld_percept_pipeline_config_Classification_Model_FeatureGenerator[feature vector] is computed by deriving the objects volume, intensity or point distribution.
+- The feature vector is passed to the model.
+- Result of the classification is stored in xref:protocol:blickfeld/percept_processing/data/detected_object.adoc#_blickfeld_percept_processing_data_DetectedObject_Properties_ModelClassification[Detected Object].
+
+## Limitations
+
+- *Size-based classification*
+  * Only considers the largest plane of the bounding box; shape and orientation details are ignored.
+  * Fixed thresholds may not generalize across different sensor setups or environments.
+
+- *Model-based classification*
+  * Requires a pre-trained model; on-device training is not supported.
+  * Classification quality strongly depends on the chosen features and training dataset.
+  * Only predefined xref:protocol:blickfeld/percept_pipeline/config/object_class.adoc[object classes] are supported.

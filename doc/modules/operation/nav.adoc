@@ -3,6 +3,7 @@
 *** xref:operation:motion_detection/dynamic.adoc[]
 *** xref:operation:motion_detection/static.adoc[]
 ** xref:operation:object_tracking/index.adoc[]
+*** xref:operation:object_tracking/classification.adoc[]
 *** xref:operation:object_tracking/detection.adoc[]
 *** xref:operation:object_tracking/tracking.adoc[]
 ** xref:operation:onvif/index.adoc[]

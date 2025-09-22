@@ -12,12 +12,14 @@ The continuous monitoring and analysis capabilities of the {blickfeld_product_qb
 .Object tracking process overview
 image::object_tracking.svg[]
 
-Object tracking is split into two consecutive steps:
+Object tracking is split into three consecutive steps:
 
 xref:object_tracking/detection.adoc[Detection]:: The xref:motion_detection/index.adoc[foreground point cloud] is clustered and divided into smaller, cohesive segments. The resulting list of detected objects is the basis for xref:object_tracking/tracking.adoc[object tracking].
 xref:object_tracking/tracking.adoc[Tracking]:: Object tracking ensures consistent association of individual xref:object_tracking/detection.adoc[detected objects] over time. This is achieved by assigning a unique id to each object. The derived attributes (e.g., lifetime, velocity, etc.) attached to each object are then used by xref:zone_types/security/object_zone.adoc[specialized zones] to generate alarms.
 
-
+xref:object_tracking/classification.adoc[Classification]:: Detected objects are classified either by size or by a pre-trained model.
+* If no model is specified, clusters are categorized into predefined  xref:object_tracking/classification.adoc[object size categories].
+* If a model is provided, classification is performed after the tracking step using the model, which assigns specific labels and confidence score to the tracked objects.
 [NOTE]
 ====
 The main difference between +++<u>detected</u>+++ and +++<u>tracked</u>+++ objects is that detected objects are identified in a single frame, while tracked objects are continuously followed across multiple frames to maintain their identity and motion.

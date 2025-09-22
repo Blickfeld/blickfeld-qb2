@@ -4,6 +4,7 @@ syntax = "proto3";
 
 import "blickfeld/base/options.proto";
 import "blickfeld/percept_pipeline/config/object_class.proto";
+import "google/protobuf/struct.proto";
 package blickfeld.percept_pipeline.config;
 
 option (.blickfeld.base.access_control_file) = {
@@ -75,6 +76,8 @@ message Classification {
     .blickfeld.percept_pipeline.config.Classification.Model.FeatureGenerator feature_generator = 4;
     // The subset of classes to use.
     .blickfeld.percept_pipeline.config.ObjectClass object_category = 5;
+    // Arbitrary metadata storage about model training, containing information about data used for training and optimal hyperparameters.
+    .google.protobuf.Struct metadata = 100 [(.blickfeld.base.optional) = true];
   }
   // Select the classification method to use: either rule-based size classification
   // or model-based classification using a machine learning model.

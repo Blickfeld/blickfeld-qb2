@@ -118,7 +118,7 @@ A vehicle was detected upon leaving a zone
 3+| UUID of the traffic lane zone.
 
 .2+| *vehicle* | xref:blickfeld/percept_processing/data/vehicle.adoc[Vehicle] | - | - 
-3+| The detected vehicle
+3+| The detected vehicle (in the local coordinate system of the traffic lane zone)
 
 .2+| *id* | string| - | - 
 3+| The id of the detected vehicle

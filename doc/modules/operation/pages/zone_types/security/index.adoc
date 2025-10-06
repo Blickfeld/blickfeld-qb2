@@ -23,7 +23,7 @@ Detect direction of movement:: Generate alarms only when objects in the scene ar
 This zone uses changes in the number of detected points within the zone's volume to generate an alarm.
 
 ### xref:zone_types/security/object_zone.adoc[Object-based zone]
-This zone uses detected objects and specific object attributes (size, lifetime, traveled distance) within the zone's volume to generate an alarm.
+This zone uses detected objects and specific object attributes (size, lifetime, traveled distance, movement direction) within the zone's volume to generate an alarm.
 
 ### xref:zone_types/security/directional_zone.adoc[Directional zone]
 This zone uses detected objects and specific object attributes (size, movement direction) at the zone's separation plane to generate an alarm.

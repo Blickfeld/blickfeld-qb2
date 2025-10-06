@@ -34,7 +34,7 @@ contains information about rauc bridge status
 | Field | Type | Default | Unit
 
 .2+| *idle* | xref:blickfeld/system/data/firmware.adoc#_blickfeld_system_data_Firmware_Status_Idle[Idle] | - | - 
-3+| no bundle is available and no installation is happenning
+3+| no bundle is available and no installation is happening
 
 .2+| *ready_to_install* | xref:blickfeld/system/data/firmware.adoc#_blickfeld_system_data_Firmware_Status_ReadyToInstall[ReadyToInstall] | - | - 
 3+| bundle is verified and available for installation
@@ -46,7 +46,7 @@ contains information about rauc bridge status
 3+| installation failed
 
 .2+| *reboot* | xref:blickfeld/system/data/firmware.adoc#_blickfeld_system_data_Firmware_Status_Reboot[Reboot] | - | - 
-3+| reboot has been triggered after successfull installation
+3+| reboot has been triggered after successful installation
 
 .2+| *installed_firmware_info* | xref:blickfeld/system/data/firmware.adoc#_blickfeld_system_data_Firmware_Info[Info] | - | - 
 3+| Currently installed firmware
@@ -56,7 +56,7 @@ contains information about rauc bridge status
 [#_blickfeld_system_data_Firmware_Status_Idle]
 === Idle
 
-initial state when no bundle is available and no installation is happenning
+initial state when no bundle is available and no installation is happening
 
 [#_blickfeld_system_data_Firmware_Status_ReadyToInstall]
 === Ready To Install
@@ -120,5 +120,5 @@ state when installation failed
 [#_blickfeld_system_data_Firmware_Status_Reboot]
 === Reboot
 
-state when reboot of the device has been triggered after successfull installation
+state when reboot of the device has been triggered after successful installation
 

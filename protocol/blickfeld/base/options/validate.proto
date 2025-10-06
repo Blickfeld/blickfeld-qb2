@@ -1,0 +1,84 @@
+syntax = "proto3";
+
+import "blickfeld/base/options/access_control.proto";
+import "google/protobuf/descriptor.proto";
+package blickfeld.base;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// Input validation
+message Validate {
+  // Number validation. Can be applied for all numbers (float, double, int32, int64, uint32, etc.)
+  // for values between -16777216 and +16777216
+  message NumberRules {
+    // target value has to be "Greater Than"
+    double greater = 1;
+    // target value has to be "Greater Than or Equal"
+    double greater_or_equal = 2;
+    // target value has to be "Less Than"
+    double less = 3;
+    // target value has to be "Less Than or Equal"
+    double less_or_equal = 4;
+  }
+  // String validation
+  message StringRules {
+    // minimal number of required characters
+    uint32 minimum = 1;
+    // maximal number of allowed characters
+    uint32 maximum = 2;
+    // string has to start with this string (case sensitive)
+    string startswith = 3;
+    // string has to start with this string (case sensitive)
+    string endswith = 4;
+    // string has to start with this string (case sensitive)
+    string contains = 5;
+    // string has to match this regex pattern.
+    // The following regex match method is used:
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/match
+    string pattern = 6;
+  }
+  // Byte validation
+  message BytesRules {
+    // minimal number of required bytes
+    uint32 minimum = 1;
+    // maximal number of allowed bytes
+    uint32 maximum = 2;
+  }
+  // Repeated validation: Apply only to repeated fields
+  message RepeatedRules {
+    // minimal number of repeated list elements
+    uint64 minimum = 1;
+    // maximal number of repeated list elements
+    uint64 maximum = 2;
+  }
+  // Map validation: Apply only to map fields
+  message MapRules {
+    // minimal number of key-value pairs
+    uint64 minimum = 1;
+    // maximal number of key-value pairs
+    uint64 maximum = 2;
+    // (recursive) Validate definition for keys
+    .blickfeld.base.Validate keys = 3;
+    // (recursive) Validate definition for values
+    .blickfeld.base.Validate values = 4;
+  }
+  // See description at the messages above!
+  .blickfeld.base.Validate.NumberRules number = 1;
+  .blickfeld.base.Validate.StringRules string = 2;
+  .blickfeld.base.Validate.BytesRules bytes = 3;
+  .blickfeld.base.Validate.RepeatedRules repeated = 4;
+  .blickfeld.base.Validate.MapRules map = 5;
+  // path to the (sub message) child field the validation shall be enforced (cf. path of a protobuf FieldMask:
+  // https://protobuf.dev/reference/java/api-docs/com/google/protobuf/FieldMask.html)
+  string path = 100;
+  // This field is optional if set to True
+  bool optional = 101;
+}
+
+extend .google.protobuf.FieldOptions {
+  // validation rule(s)
+  repeated .blickfeld.base.Validate validate = 52400 [json_name = "validate"];
+}
+

@@ -10,5 +10,8 @@ Configuration message for the event and motion replay history module.
 .2+| *disable* | bool| - | - 
 3+| Disable non-volatile history.
 
+.2+| *pause* | bool| - | - 
+3+| Pause writing to non-volatile history & do not store generated events.
+
 |===
 

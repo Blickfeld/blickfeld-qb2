@@ -35,7 +35,7 @@ This step finds the subset of all xref:object_tracking/index.adoc[tracked object
 
 ### Detect direction
 
-The xref:object_tracking/tracking.adoc#_algorithm[path] of the remaining objects is analyzed to detect if the most recent path segment is crosses the zones XZ-center-plane in the positive Y-axis direction of the zone's xref::zone_types/index.adoc#_geometric[cuboid]. All objects which satisfy this condition are listed as intruders, and the zone alarm is set to stem:[$true$].
+The xref:object_tracking/tracking.adoc#_algorithm[path] of the remaining objects is analyzed to detect if the most recent path segment crosses the zone's XZ-center-plane in the positive Y-axis direction of the zone's xref::zone_types/index.adoc#_geometric[cuboid]. All objects which satisfy this condition are listed as intruders, and the zone alarm is set to stem:[$true$].
 
 The alarm will remain active while any intruding object is tracked in the scene. Only when the object disappears or moves through the zone in the opposite direction the alarm is set to stem:[$false$] again.
 

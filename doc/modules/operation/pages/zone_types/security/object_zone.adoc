@@ -7,7 +7,7 @@ include::partial$blickfeld_urls.adoc[]
 This xref:zone_types/security/index.adoc[security zone] type is available on the {blickfeld_product_qbprotect} product.
 ====
 
-The object-based security zone uses detected objects and specific object attributes (e.g., size, lifetime, traveled distance) within the zone's volume to generate an alarm.
+The object-based security zone uses detected objects and specific object attributes (e.g., size, lifetime, traveled distance, movement direction) within the zone's volume to generate an alarm.
 
 ## Application
 
@@ -20,6 +20,11 @@ See configuration xref:protocol:blickfeld/percept_pipeline/config/zone_algorithm
 ### Intrusion conditions
 
 include::partial$zone_types_security_intrusion_conditions_object_size.adoc[]
+
+Intrusion on wrong direction (default: false):: An alarm is only raised if an object moves in a specific direction. This makes the behavior of the object-based zone similar to the one of the xref:zone_types/security/directional_zone.adoc[directional zone], only covering a larger area. To change the triggering direction, the zone needs to be rotated.
+Minimum intruder velocity (default: 0.028, unit: stem:[$\frac{m}{s}$]):: The minimum velocity of the detected object before it can trigger an alarm. The default setting prevents still objects from causing false alarms.
+NOTE: The minimum intruder velocity only has an effect if the *intrusion on wrong direction* is *enabled*.
+Intrusion on partial entry (default: false):: If enabled, an alarm is raised if any point of the object intrudes the zone, otherwise the center of the object is considered for intrusion. Enabling this option might increase the false alarm rate.
 Minimum intruder lifetime (default: 0, unit: stem:[$s$]):: The minimum lifetime of the detected object before it can trigger an alarm.
 Minimum intruder track length (default: 0, unit: stem:[$m$]):: The minimum length of the object's track before it can trigger an alarm.
 Objects in background (default: false):: Trigger alarms also for objects with the property `in_background` set. Enabling this option might increase the false alarm rate.
@@ -37,7 +42,7 @@ The algorithm uses the tracked objects from the xref:object_tracking/index.adoc[
 
 This step finds the subset of all currently xref:object_tracking/index.adoc[tracked objects] which are currently intruding into the zone.
 
-An object is considered to be intruding when the object's centroid is located within the zone's xref::zone_types/index.adoc#_geometric[cuboid]. In order to narrow down the number of relevant objects the parameters for xref:#_intrusion_conditions[alarm sizes], xref:#_intrusion_conditions[minimum intruder lifetime], the xref:#_intrusion_conditions[minimum intruder track length] and the xref:#_intrusion_conditions[in-background] property are applied.
+An object is considered to be intruding when either the object's centroid (xref:#_intrusion_conditions[intrusion on partial entry] is disabled) or any of the object's points (xref:#_intrusion_conditions[intrusion on partial entry] is enabled) is located within the zone's xref::zone_types/index.adoc#_geometric[cuboid]. In order to narrow down the number of relevant objects, the parameters for xref:#_intrusion_conditions[alarm sizes], xref:#_intrusion_conditions[intrusion on wrong direction], the xref:#_intrusion_conditions[minimum intruder velocity], the xref:#_intrusion_conditions[minimum intruder lifetime], the xref:#_intrusion_conditions[minimum intruder track length] and the xref:#_intrusion_conditions[in-background] property are applied.
 
 The alarm inside the intrusion state is set to stem:[$true$] whenever the list of intruding objects is not empty.
 

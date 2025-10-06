@@ -53,7 +53,7 @@ message Event {
     message VehicleDetected {
       // UUID of the traffic lane zone.
       string zone_uuid = 1;
-      // The detected vehicle
+      // The detected vehicle (in the local coordinate system of the traffic lane zone)
       .blickfeld.percept_processing.data.Vehicle vehicle = 2;
       // The id of the detected vehicle
       string id = 3;

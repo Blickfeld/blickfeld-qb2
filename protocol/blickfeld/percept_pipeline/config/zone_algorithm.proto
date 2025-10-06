@@ -25,7 +25,7 @@ message ZoneAlgorithm {
   }
   // Algorithm that measure the volume of a zone
   //  
-  // The volume of a zone is approximated by computing a 'volume map' from the input point clouds. The volume map discretize the zone
+  // The volume of a zone is approximated by computing a 'volume map' from the input point clouds. The volume map discretizes the zone
   // into 'tiles' in the xy-plane with a side-length of 'resolution'. Each tile contains the height information about the points that
   // fall into this tile. The volume of the volume map can be calculated by adding up the volumes of the tiles in the volume map.
   message Volume {
@@ -127,6 +127,16 @@ message ZoneAlgorithm {
     //  
     // Disables the security zone state and alarms when one of the occupancy zones is occupied.
     repeated string disable_when_occupied_zone_uuids = 12 [(.blickfeld.base.optional) = true];
+    // Detect an object as intruder if it is moving in the wrong direction, similar to the directional zone,
+    // but covering an area.
+    bool intrusion_on_wrong_direction = 13;
+    // Minimum velocity an intruder has to have to trigger an intrusion on wrong direction. Prevents standing objects or persons from
+    // triggering a false alarm.
+    //  
+    // Only applicable if intrusion on wrong direction is enabled.
+    //  
+    // Default: 0.028 (equals 0.1 km/h)
+    float minimum_intruder_velocity = 14 [(.blickfeld.base.unit) = "m/s"];
     reserved 2, 3, 5;
   }
   // Algorithm that excludes points from the input point cloud

@@ -14,5 +14,7 @@ option (.blickfeld.base.access_control_file) = {
 message History {
   // Disable non-volatile history.
   bool disable = 1;
+  // Pause writing to non-volatile history & do not store generated events.
+  bool pause = 2;
 }
 

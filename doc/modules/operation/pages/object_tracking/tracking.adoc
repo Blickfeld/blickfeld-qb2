@@ -4,12 +4,7 @@ xref:object_tracking/detection.adoc[Detected objects] from the previous step are
 
 ## Parameters
 
-See configuration xref:protocol:blickfeld/percept_pipeline/config/tracking.adoc[API definition].
-
-Sensitivity (default: 0.85, range: [0.01 ... 1.0]):: This value influences the sensitivity of the tracking module. Higher values initiate tracking of a detected object even when the uncertainty about its existence is high. Lower values reduce the sensitivity, meaning that tracking will only begin when an object is clearly detected in multiple consecutive frames.
-Survival probability (default: 1.0, range: [0.01 ... 1.0]):: Reduces the tracked object's existence probability for each frame in which it could not be tracked. High values will keep the track alive for an extended period. This can be useful to pick up the same objects' ids again after the previously tracked object has been hidden for some frames. Lower values cause the system to discard non-visible tracks faster.
-Acceleration noise (default: 0.5, range: [0.5 ... 10], unit: stem:[m \/ s^2]):: The acceleration noise specifies a linear deviation range that supplements the constant velocity motion model. When tracking fails to properly follow fast-moving objects, increasing this value expands the search space for track association.
-Path resolution (default: 1.0, range: [0.3 ... 1.5], unit: stem:[m]):: The path history is stored for all currently tracked objects. The path resolution specifies the discretization of the stored path. A higher value results in greater spacing between recorded positions. The path history can be visualized in the xref:introduction:index.adoc[WebGUI] or leveraged in the xref:zone_types/security/directional_zone.adoc#_detect_direction[directional security zone].
+The tracking algorithm is configurable via API. Documentation for the tracking configuration parameters and their default values is available in the xref:protocol:blickfeld/percept_pipeline/config/tracking.adoc[API definition].
 
 ## Algorithm
 
@@ -17,7 +12,7 @@ The goal of the tracking algorithm is to provide a consistent identification of 
 
 ### Predict tracks
 
-The expected position of all currently tracked objects is predicted. The prediction step uses the object's position, orientation and velocity to create a hypothesis about the next position of the track. The constant velocity motion model combined with the configured acceleration noise results in predictions which are scattered along the predicted object's path. 
+The expected position of all currently tracked objects is predicted. The prediction step uses the object's position, orientation and velocity to create a hypothesis about the next position of the track. The constant velocity motion model combined with the configured acceleration noise results in predictions which are scattered along the predicted object's path.
 
 During the prediction step, the existence probability of each track is multiplied by the configured xref:#_parameters[survival probability]. This effectively reduces the confidence that the object is still present in the scene.
 
@@ -39,5 +34,5 @@ Difficult to parameterize:: Due to the wide range of configurable parameters, tu
 +
 [TIP]
 ====
-For tracking of walking persons (movement speed approx. 1.3 stem:[m \/ s]), the recommendation is to use the default values for all parameters.
+The recommendation is to use the default values for all configuration parameters, as they should be sufficient to cover the majority of the target application scenarios. If these defaults still do not fully meet the requirements of your specific use case, please contact our support team for guidance on tailoring the configuration.
 ====

@@ -20,6 +20,7 @@
 **** xref:operation:zone_types/security/point_zone.adoc[]
 *** xref:operation:zone_types/exclusion.adoc[]
 *** xref:operation:zone_types/occupancy.adoc[]
+*** xref:operation:zone_types/traffic_lane.adoc[]
 *** xref:operation:zone_types/volume.adoc[]
 ** xref:operation:authentication.adoc[]
 ** xref:operation:blickfeld_flow.adoc[]

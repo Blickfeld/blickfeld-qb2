@@ -1,0 +1,137 @@
+[#_blickfeld_base_Validate]
+= Validate
+
+Input validation
+
+.Available fields in blickfeld.base.Validate
+|===
+| Field | Type | Default | Unit
+
+.2+| *number* | xref:blickfeld/base/options/validate.adoc#_blickfeld_base_Validate_NumberRules[NumberRules] | - | - 
+3+| See description at the messages above!
+
+| *string* | xref:blickfeld/base/options/validate.adoc#_blickfeld_base_Validate_StringRules[StringRules] | - | - 
+| *bytes* | xref:blickfeld/base/options/validate.adoc#_blickfeld_base_Validate_BytesRules[BytesRules] | - | - 
+| *repeated* | xref:blickfeld/base/options/validate.adoc#_blickfeld_base_Validate_RepeatedRules[RepeatedRules] | - | - 
+| *map* | xref:blickfeld/base/options/validate.adoc#_blickfeld_base_Validate_MapRules[MapRules] | - | - 
+.2+| *path* | string| - | - 
+3+| path to the (sub message) child field the validation shall be enforced (cf. path of a protobuf FieldMask: 
+https://protobuf.dev/reference/java/api-docs/com/google/protobuf/FieldMask.html)
+
+.2+| *optional* | bool| - | - 
+3+| This field is optional if set to True
+
+|===
+
+[#_blickfeld_base_Validate_NumberRules]
+== Number Rules
+
+Number validation. Can be applied for all numbers (float, double, int32, int64, uint32, etc.) 
+for values between -16777216 and +16777216
+
+.Available fields in blickfeld.base.Validate.NumberRules
+|===
+| Field | Type | Default | Unit
+
+.2+| *greater* | double| - | - 
+3+| target value has to be "Greater Than"
+
+.2+| *greater_or_equal* | double| - | - 
+3+| target value has to be "Greater Than or Equal"
+
+.2+| *less* | double| - | - 
+3+| target value has to be "Less Than"
+
+.2+| *less_or_equal* | double| - | - 
+3+| target value has to be "Less Than or Equal"
+
+|===
+
+[#_blickfeld_base_Validate_StringRules]
+== String Rules
+
+String validation
+
+.Available fields in blickfeld.base.Validate.StringRules
+|===
+| Field | Type | Default | Unit
+
+.2+| *minimum* | uint32| - | - 
+3+| minimal number of required characters
+
+.2+| *maximum* | uint32| - | - 
+3+| maximal number of allowed characters
+
+.2+| *startswith* | string| - | - 
+3+| string has to start with this string (case sensitive)
+
+.2+| *endswith* | string| - | - 
+3+| string has to start with this string (case sensitive)
+
+.2+| *contains* | string| - | - 
+3+| string has to start with this string (case sensitive)
+
+.2+| *pattern* | string| - | - 
+3+| string has to match this regex pattern. 
+The following regex match method is used: 
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/match
+
+|===
+
+[#_blickfeld_base_Validate_BytesRules]
+== Bytes Rules
+
+Byte validation
+
+.Available fields in blickfeld.base.Validate.BytesRules
+|===
+| Field | Type | Default | Unit
+
+.2+| *minimum* | uint32| - | - 
+3+| minimal number of required bytes
+
+.2+| *maximum* | uint32| - | - 
+3+| maximal number of allowed bytes
+
+|===
+
+[#_blickfeld_base_Validate_RepeatedRules]
+== Repeated Rules
+
+Repeated validation: Apply only to repeated fields
+
+.Available fields in blickfeld.base.Validate.RepeatedRules
+|===
+| Field | Type | Default | Unit
+
+.2+| *minimum* | uint64| - | - 
+3+| minimal number of repeated list elements
+
+.2+| *maximum* | uint64| - | - 
+3+| maximal number of repeated list elements
+
+|===
+
+[#_blickfeld_base_Validate_MapRules]
+== Map Rules
+
+Map validation: Apply only to map fields
+
+.Available fields in blickfeld.base.Validate.MapRules
+|===
+| Field | Type | Default | Unit
+
+.2+| *minimum* | uint64| - | - 
+3+| minimal number of key-value pairs
+
+.2+| *maximum* | uint64| - | - 
+3+| maximal number of key-value pairs
+
+.2+| *keys* | xref:blickfeld/base/options/validate.adoc[] | - | - 
+3+| (recursive) Validate definition for keys
+
+.2+| *values* | xref:blickfeld/base/options/validate.adoc[] | - | - 
+3+| (recursive) Validate definition for values
+
+|===
+

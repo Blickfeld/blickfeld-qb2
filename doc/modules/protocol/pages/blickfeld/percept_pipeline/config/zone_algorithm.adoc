@@ -72,7 +72,7 @@ The geolocation of the zone based on the map and the zone position.
 
 Algorithm that measure the volume of a zone 
  
-The volume of a zone is approximated by computing a 'volume map' from the input point clouds. The volume map discretize the zone 
+The volume of a zone is approximated by computing a 'volume map' from the input point clouds. The volume map discretizes the zone 
 into 'tiles' in the xy-plane with a side-length of 'resolution'. Each tile contains the height information about the points that 
 fall into this tile. The volume of the volume map can be calculated by adding up the volumes of the tiles in the volume map.
 
@@ -212,6 +212,18 @@ Enabling this might increase the false alarm rate.
 3+| Link security zone to occupancy zones (by uuid). 
  
 Disables the security zone state and alarms when one of the occupancy zones is occupied.
+
+.2+| *intrusion_on_wrong_direction* | bool| - | - 
+3+| Detect an object as intruder if it is moving in the wrong direction, similar to the directional zone, 
+but covering an area.
+
+.2+| *minimum_intruder_velocity* | float| - | m/s 
+3+| Minimum velocity an intruder has to have to trigger an intrusion on wrong direction. Prevents standing objects or persons from 
+triggering a false alarm. 
+ 
+Only applicable if intrusion on wrong direction is enabled. 
+ 
+Default: 0.028 (equals 0.1 km/h)
 
 |===
 

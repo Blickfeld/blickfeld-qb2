@@ -45,7 +45,7 @@ Valid range: [0.5 … 5.0].
 
 If a classification model is specified, size-based labeling is replaced by *machine learning-based classification*.
 
-- A pre-trained https://scikit-learn.org/stable/modules/svm.html[support vector machine(SVM)] model is used.
+- A pre-trained https://scikit-learn.org/stable/modules/svm.html[support vector machine (SVM)] model is used.
 - For each cluster, a specific  xref:protocol:blickfeld/percept_pipeline/config/classification.adoc#_blickfeld_percept_pipeline_config_Classification_Model_FeatureGenerator[feature vector] is computed by deriving the objects volume, intensity or point distribution.
 - The feature vector is passed to the model.
 - Result of the classification is stored in xref:protocol:blickfeld/percept_processing/data/detected_object.adoc#_blickfeld_percept_processing_data_DetectedObject_Properties_ModelClassification[Detected Object].

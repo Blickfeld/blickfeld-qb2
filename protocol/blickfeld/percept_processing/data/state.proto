@@ -78,7 +78,7 @@ message State {
   }
   // A message containing the state of a traffic lane zone.
   message TrafficLane {
-    // All vehicles currently inside the zone
+    // All vehicles currently inside the zone (in the local coordinate system of the zone)
     map<string, .blickfeld.percept_processing.data.Vehicle> vehicles = 1;
   }
   // The name of the entity generating this state

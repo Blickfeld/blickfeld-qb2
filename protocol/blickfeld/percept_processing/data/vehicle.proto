@@ -20,7 +20,7 @@ option (.blickfeld.base.access_control_file) = {
 message Vehicle {
   // Timestamp of creation
   uint64 timestamp = 1 [(.blickfeld.base.unit) = "ns"];
-  // The position of the vehicle
+  // The position of the vehicle (in the local coordinate system of the zone)
   .blickfeld.base.geometry.Vector2 position = 2 [(.blickfeld.base.unit) = "m"];
   // Dimensions of the vehicle
   .blickfeld.base.geometry.Vector3 dimensions = 3 [(.blickfeld.base.unit) = "m"];

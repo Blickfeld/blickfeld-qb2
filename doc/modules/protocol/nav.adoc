@@ -20,6 +20,7 @@
 ***** xref:protocol:blickfeld/base/options/misc.adoc[Misc]
 ***** xref:protocol:blickfeld/base/options/product_variant.adoc[Product Variant]
 ***** xref:protocol:blickfeld/base/options/protocol_maturity.adoc[Protocol Maturity]
+***** xref:protocol:blickfeld/base/options/validate.adoc[Validate]
 *** beam_deflection_control
 **** config
 ***** xref:protocol:blickfeld/beam_deflection_control/config/module.adoc[Module]

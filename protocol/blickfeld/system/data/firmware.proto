@@ -22,7 +22,7 @@ message Firmware {
   }
   // contains information about rauc bridge status
   message Status {
-    // initial state when no bundle is available and no installation is happenning
+    // initial state when no bundle is available and no installation is happening
     message Idle {
     }
     // state when bundle is verified and available for installation
@@ -47,11 +47,11 @@ message Firmware {
       // Human-readable reason for installation failure
       string reason = 1;
     }
-    // state when reboot of the device has been triggered after successfull installation
+    // state when reboot of the device has been triggered after successful installation
     message Reboot {
     }
     oneof status {
-      // no bundle is available and no installation is happenning
+      // no bundle is available and no installation is happening
       .blickfeld.system.data.Firmware.Status.Idle idle = 1;
       // bundle is verified and available for installation
       .blickfeld.system.data.Firmware.Status.ReadyToInstall ready_to_install = 2;
@@ -59,7 +59,7 @@ message Firmware {
       .blickfeld.system.data.Firmware.Status.Installation installation = 3;
       // installation failed
       .blickfeld.system.data.Firmware.Status.Failure failure = 4;
-      // reboot has been triggered after successfull installation
+      // reboot has been triggered after successful installation
       .blickfeld.system.data.Firmware.Status.Reboot reboot = 5;
     }
     // Currently installed firmware

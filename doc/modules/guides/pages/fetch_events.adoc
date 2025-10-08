@@ -1,0 +1,183 @@
+= Fetching Events
+:imagesdir: ../assets/images
+
+Blickfeld Qb2 provides an event service, which can be used to query and continuously stream intrusion events such as security zone intrusions or traffic-related events. These events contain detailed information like zone identifiers, timestamps, beginning and end of the intrusion, intruder object properties, detected vehicle.
+
+NOTE: Please follow the xref:developer:client_libraries/python.adoc[Python Client Library Guide] to install the Python package first.
+
+== Stream events
+
+In the following code snippet, the `Event` service of the `blickfeld_qb2.percept_processing.services` namespace is used to fetch events from the Qb2 device.
+
+[source, python]
+----
+import blickfeld_qb2
+
+def stream_security_events() -> None:
+    # Create token factory using an application key
+    token_factory = blickfeld_qb2.TokenFactory(
+      application_key_secret="application-key-for-qb2-xxxxxxxxx"
+      )
+    # Open a secure connection to Qb2
+    with blickfeld_qb2.Channel("qb2-xxxxxxxxx", token=token_factory) as channel:
+        # Use Event service
+        service = blickfeld_qb2.percept_processing.services.Event(channel)
+        # Iterate over events stream and print them
+        for i, response in enumerate(service.stream()):
+            print("Event:", response.event)
+
+stream_security_events()
+----
+
+Output (example):
+[, console]
+----
+Event: Event(
+    timestamp=1758005277800006911,
+    security_zone_intrusion_started=EventSecurityZoneIntrusionStarted(
+        zone_uuid='c587e5c5-b106-43eb-ada3-c5f8a8577068',
+        state=State(
+            generator_name='Security Zone 1',
+            object_based_security=StateObjectBasedSecurity(
+                alarm=True,
+                objects={
+                    '16761': DetectedObject(
+                        pose=Pose(position=Vector3(x=-1.86, y=5.64, z=0.85)),
+                        shape=Shape(
+                            pose=Pose(position=Vector3(x=-1.83, y=5.64, z=0.85)),
+                            box=ShapeBox(dimensions=Vector3(x=0.20, y=0.25, z=1.07))
+                        ),
+                        properties=DetectedObjectProperties(
+                            size=2,
+                            num_points=30,
+                            average_intensity=2470,
+                            bounding_box_2_d_surface=0.19,
+                            track_length=4.26
+                        ),
+                        point_cloud=Frame(
+                            binary=FrameBinary(
+                                length=30,
+                                cartesian=array([
+                                    [-1.83,  5.75,  1.51],
+                                    [-1.73,  5.65,  1.36],
+                                    ...  # shortened for clarity
+                                ], dtype=float32),
+                                photon_count=array([
+                                    1351, 1495, 1845, ...
+                                ], dtype=uint16),
+                                direction_id=array([...], dtype=uint32),
+                                metadata=array([...], dtype=uint16),
+                            )
+                        ),
+                        timestamp=1758005251337299075,
+                        path=[
+                            Pose(position=Vector3(x=-4.02, y=5.31, z=0.86)),
+                            Pose(position=Vector3(x=-2.94, y=5.45, z=1.40)),
+                            ...  # truncated
+                        ],
+                        visible_to_sensors=['WTGPMBIA2'],
+                        intruding=Flag(state=True, since_timestamp=1758005273182012979),
+                        intruder=Flag(state=True, since_timestamp=1758005264818707365),
+                        lifetime=26462707836,
+                        velocity=Vector3(x=0.08, y=-0.05)
+                    )
+                }
+            ),
+            intrusion=Flag(state=True, since_timestamp=1758005277800006911),
+            intrusion_confidence=1.0
+        )
+    )
+)
+
+Event(
+    timestamp=1758005279799066634,
+    security_zone_intrusion_ended=EventSecurityZoneIntrusionEnded(
+        zone_uuid='c587e5c5-b106-43eb-ada3-c5f8a8577068',
+        started_event_id='5442817944-1',
+        duration=1.99
+    )
+)
+
+----
+
+== Handle zone intrusion details
+
+Prints zone UUID and object positions that triggered an intrusion:
+
+[source, python]
+----
+import blickfeld_qb2
+
+
+def stream_zone_intrusion_details() -> None:
+    # Create token factory using an application key
+    token_factory = blickfeld_qb2.TokenFactory(
+      application_key_secret="application-key-for-qb2-xxxxxxxxx"
+    )
+    # Open a secure connection to Qb2
+    with blickfeld_qb2.Channel("qb2-xxxxxxxxx", token=token_factory) as channel:
+        # Use Event service
+        service = blickfeld_qb2.percept_processing.services.Event(channel)
+        # Iterate over events stream
+        for response in service.stream():
+            event = response.event
+            # Condition for checking start of the intrusion of any zone
+            if event.security_zone_intrusion_started:
+                zone_event = event.security_zone_intrusion_started
+                print(f"Zone: {zone_event.zone_uuid}")
+                print("Objects involved:")
+                # Iterate over objects in intrusion zone and print their position
+                for obj_id, obj in
+                zone_event.state.object_based_security.objects.items():
+                    pos = obj.pose.position
+                    print
+                    (
+                      f" - ID {obj_id}: (x={pos.x:.2f}, y={pos.y:.2f}, z={pos.z:.2f})"
+                    )
+
+
+stream_zone_intrusion_details()
+----
+
+Output (example):
+
+[,console]
+----
+Zone: f8762a75-1e41-4600-a805-39b3eac2e85c
+Objects involved:
+ - ID 274778: (x=-1.05, y=3.49, z=0.96)
+Zone: c587e5c5-b106-43eb-ada3-c5f8a8577068
+Objects involved:
+ - ID 274893: (x=-1.82, y=7.42, z=1.08)
+Zone: f8762a75-1e41-4600-a805-39b3eac2e85c
+Objects involved:
+ - ID 275000: (x=0.53, y=3.22, z=0.87)
+Zone: c587e5c5-b106-43eb-ada3-c5f8a8577068
+Objects involved:
+ - ID 275000: (x=-0.75, y=4.35, z=0.75)
+
+----
+== Save events to a file
+
+Writes events into a JSON log for later analysis.
+[source, python]
+----
+import blickfeld_qb2
+
+
+def log_events_to_file(filepath="events.log") -> None:
+    # Create token factory using an application key
+    token_factory = blickfeld_qb2.TokenFactory(
+      application_key_secret="application-key-for-qb2-xxxxxxxxx"
+    )
+    # Open a secure connection to Qb2
+    with blickfeld_qb2.Channel("qb2-xxxxxxxxx", token=token_factory) as channel:
+        service = blickfeld_qb2.percept_processing.services.Event(channel)
+        with open(filepath, "w") as f:
+            for i, response in enumerate(service.stream()):
+                # Convert each event into dictionary and dump it into the file
+                f.write(f"{response.event.to_json()}\n")
+
+
+log_events_to_file()
+----

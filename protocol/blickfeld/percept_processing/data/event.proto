@@ -4,6 +4,7 @@ syntax = "proto3";
 
 import "blickfeld/base/options.proto";
 import "blickfeld/percept_processing/data/detected_object.proto";
+import "blickfeld/percept_processing/data/disqualification.proto";
 import "blickfeld/percept_processing/data/state.proto";
 import "blickfeld/percept_processing/data/vehicle.proto";
 import "blickfeld/percept_processing/data/volume_map.proto";
@@ -36,6 +37,8 @@ message Event {
       string zone_uuid = 1;
       // Snapshot of the zone state.
       .blickfeld.percept_processing.data.State state = 2;
+      // Disqualification in the scene during the zone intrusion.
+      .blickfeld.percept_processing.data.Disqualification disqualification = 3;
     }
     // An intrusion of a security zone ended.
     message ZoneIntrusionEnded {
@@ -57,6 +60,8 @@ message Event {
       .blickfeld.percept_processing.data.Vehicle vehicle = 2;
       // The id of the detected vehicle
       string id = 3;
+      // Disqualification in the scene during the traffic event.
+      .blickfeld.percept_processing.data.Disqualification disqualification = 4;
     }
   }
   // Container for disqualification-related events

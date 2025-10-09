@@ -78,6 +78,9 @@ An intrusion started in a security zone.
 .2+| *state* | xref:blickfeld/percept_processing/data/state.adoc[State] | - | - 
 3+| Snapshot of the zone state.
 
+.2+| *disqualification* | xref:blickfeld/percept_processing/data/disqualification.adoc[Disqualification] | - | - 
+3+| Disqualification in the scene during the zone intrusion.
+
 |===
 
 [#_blickfeld_percept_processing_data_Event_Security_ZoneIntrusionEnded]
@@ -122,6 +125,9 @@ A vehicle was detected upon leaving a zone
 
 .2+| *id* | string| - | - 
 3+| The id of the detected vehicle
+
+.2+| *disqualification* | xref:blickfeld/percept_processing/data/disqualification.adoc[Disqualification] | - | - 
+3+| Disqualification in the scene during the traffic event.
 
 |===
 

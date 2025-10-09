@@ -1,5 +1,6 @@
 syntax = "proto3";
 
+import "blickfeld/base/config/range.proto";
 import "blickfeld/base/options.proto";
 package blickfeld.core_processing.config;
 
@@ -34,6 +35,8 @@ message PointCloud {
     // Set lower threshold for reflectivity.
     // This can be tuned to improve the SNR when low-reflectivity targets have a lower priority.
     uint32 minimum_reflectivity = 4 [(.blickfeld.base.optional) = true];
+    // Only apply the minimum_reflectivity filter for the given minimum and maximum range.
+    .blickfeld.base.config.Range.Float minimum_reflectivity_range_limit = 6 [(.blickfeld.base.optional) = true];
     // Set lower threshold for range.
     // Default value is 1m.
     float minimum_range = 5 [(.blickfeld.base.optional) = true, (.blickfeld.base.unit) = "m"];

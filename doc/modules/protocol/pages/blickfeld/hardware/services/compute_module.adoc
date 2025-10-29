@@ -1,6 +1,6 @@
 = Service: Compute Module
 
-IMPORTANT: This API is deprecated. It will not be supported in upcoming releases.
+NOTE: This API is officially released and maintained.
 
 This service is used to control & observe the state of the compute module.
 

@@ -137,6 +137,12 @@ message ZoneAlgorithm {
     //  
     // Default: 0.028 (equals 0.1 km/h)
     float minimum_intruder_velocity = 14 [(.blickfeld.base.unit) = "m/s"];
+    // Minimum average intensity an intruder has to have to trigger an intrusion.
+    //  
+    // This allows filtering false alarms when they have a significantly different intensity level than real objects.
+    //  
+    // Default: 0 (all average intensity values are considered)
+    float minimum_average_intruder_intensity = 15 [(.blickfeld.base.optional) = true];
     reserved 2, 3, 5;
   }
   // Algorithm that excludes points from the input point cloud

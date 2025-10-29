@@ -79,14 +79,16 @@ message ScanPattern {
       // Pulse mode to use for the uniform scan pattern. This will overwrite the horizontal angle spacing.
       optional .blickfeld.eye_safety.data.PulseMode pulse_mode = 1 [default = PULSE_MODE_B];
     }
-    // *
-    // Unit: [rad]
-    // –
     // This defines the angle within which the horizontal mirror moves between two laser pulses.
     // This parameter therefore defines the horizontal sampling resolution.
     optional float angle_spacing = 1 [default = 0.0043633231, (.blickfeld.base.optional) = true, (.blickfeld.base.unit) = "rad"];
     // Optional configure a uniform scan pattern
     optional .blickfeld.system.config.ScanPattern.Pulse.Uniform uniform = 2 [(.blickfeld.base.optional) = true];
+    // Disable pre pulse
+    //  
+    // Circumvents pulse aggregation issues e.g. when retro-reflectors appear in more than 70m and cause cross talk in the main pulse
+    // measurement. Note that this increases the minimum range.
+    optional bool disable_pre_pulse = 3 [default = false];
     reserved 5;
     reserved "pulse_type";
   }

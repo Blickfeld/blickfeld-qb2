@@ -120,14 +120,17 @@ This section defines the pattern in which the laser pulses and captures sample p
 | Field | Type | Default | Unit
 
 .2+| *angle_spacing* | optional float| 0.0043633231 | rad 
-3+|  
-Unit: [rad] 
-– 
-This defines the angle within which the horizontal mirror moves between two laser pulses. 
+3+| This defines the angle within which the horizontal mirror moves between two laser pulses. 
 This parameter therefore defines the horizontal sampling resolution.
 
 .2+| *uniform* | optional xref:blickfeld/system/config/scan_pattern.adoc#_blickfeld_system_config_ScanPattern_Pulse_Uniform[Uniform] | - | - 
 3+| Optional configure a uniform scan pattern
+
+.2+| *disable_pre_pulse* | bool| false | - 
+3+| Disable pre pulse 
+ 
+Circumvents pulse aggregation issues e.g. when retro-reflectors appear in more than 70m and cause cross talk in the main pulse 
+measurement. Note that this increases the minimum range.
 
 |===
 

@@ -3,6 +3,7 @@
 syntax = "proto3";
 
 import "blickfeld/base/options.proto";
+import "blickfeld/core_processing/data/frame.proto";
 import "blickfeld/percept_processing/data/objects.proto";
 import "blickfeld/percept_processing/data/states.proto";
 import "google/protobuf/empty.proto";
@@ -27,6 +28,8 @@ message HistoryStreamRangeResponse {
   .blickfeld.percept_processing.data.Objects objects = 1;
   // Historical states
   .blickfeld.percept_processing.data.States states = 2;
+  // Historical foreground point cloud
+  .blickfeld.core_processing.data.Frame foreground = 3;
 }
 
 // The history service provides historical data.

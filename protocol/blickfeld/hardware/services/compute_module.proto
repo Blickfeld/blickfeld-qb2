@@ -14,7 +14,7 @@ service ComputeModule {
     level: LEVEL_AUTHORIZED
   };
   option (.blickfeld.base.protocol_maturity_service) = {
-    level: LEVEL_DEPRECATED
+    level: LEVEL_MAINTAINED
   };
   // Reboots the CM4
   rpc Reboot(.google.protobuf.Empty) returns (.google.protobuf.Empty);

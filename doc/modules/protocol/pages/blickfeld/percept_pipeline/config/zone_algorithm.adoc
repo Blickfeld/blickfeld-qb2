@@ -225,6 +225,13 @@ Only applicable if intrusion on wrong direction is enabled.
  
 Default: 0.028 (equals 0.1 km/h)
 
+.2+| *minimum_average_intruder_intensity* | optional float| - | - 
+3+| Minimum average intensity an intruder has to have to trigger an intrusion. 
+ 
+This allows filtering false alarms when they have a significantly different intensity level than real objects. 
+ 
+Default: 0 (all average intensity values are considered)
+
 |===
 
 [#_blickfeld_percept_pipeline_config_ZoneAlgorithm_Exclusion]

@@ -56,5 +56,8 @@ Response for stream range method
 .2+| *states* | xref:blickfeld/percept_processing/data/states.adoc[data.States] | - | - 
 3+| Historical states
 
+.2+| *foreground* | xref:blickfeld/core_processing/data/frame.adoc[core_processing.data.Frame] | - | - 
+3+| Historical foreground point cloud
+
 |===
 

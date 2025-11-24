@@ -1,4 +1,4 @@
-display_version: CAROLIN v2.12
+display_version: MARI v2.13
 name: Qb2
 nav:
 - modules/ROOT/nav.adoc
@@ -9,4 +9,4 @@ nav:
 - modules/developer/nav.adoc
 - modules/service_and_maintenance/nav.adoc
 title: Qb Series
-version: CAROLIN v2.12
+version: MARI v2.13

@@ -1,0 +1,74 @@
+[#_blickfeld_diagnostics_data_TimeSeries]
+= Time Series
+
+Lifetime data series 
+ 
+This data is collected over the whole lifetime of the product. 
+Currently the minimum, average, and maximum values are stored for 30 min intervals.
+
+.Available fields in blickfeld.diagnostics.data.TimeSeries
+|===
+| Field | Type | Default | Unit
+
+.2+| *binary* | xref:blickfeld/diagnostics/data/time_series.adoc#_blickfeld_diagnostics_data_TimeSeries_Binary[Binary] | - | - 
+3+| Binary data
+
+.2+| *meta* | xref:blickfeld/diagnostics/data/time_series.adoc#_blickfeld_diagnostics_data_TimeSeries_Meta[Meta] | - | - 
+3+| Meta information
+
+|===
+
+[#_blickfeld_diagnostics_data_TimeSeries_Meta]
+== Meta
+
+Meta information about the lifetime series
+
+.Available fields in blickfeld.diagnostics.data.TimeSeries.Meta
+|===
+| Field | Type | Default | Unit
+
+.2+| *module* | string| - | - 
+3+| Module from which the data was collected
+
+.2+| *type* | xref:blickfeld/base/options/lifetime_diagnostics.adoc#_blickfeld_base_LifeTimeDiagnostics_Type[base.LifeTimeDiagnostics.Type] | - | - 
+3+| Type of data
+
+|===
+
+[#_blickfeld_diagnostics_data_TimeSeries_Binary]
+== Binary
+
+The fields of the series are encoded as binary arrays. 
+Binary types instead of native Protobuf types are used to improve the performance. 
+ 
+NOTE: All byte arrays are encoded in Little Endian.
+
+.Available fields in blickfeld.diagnostics.data.TimeSeries.Binary
+|===
+| Field | Type | Default | Unit
+
+.2+| *length* | uint32| - | - 
+3+| Number of entries in arrays below.
+
+.2+| *timestamp* | bytes| - | - 
+3+| Timestamps of time series. 
+ 
+Type: UInt64
+
+.2+| *minimum* | bytes| - | - 
+3+| Aggregated minimum values. 
+ 
+Type: Float32
+
+.2+| *average* | bytes| - | - 
+3+| Aggregated average values. 
+ 
+Type: Float32
+
+.2+| *maximum* | bytes| - | - 
+3+| Aggregated average values. 
+ 
+Type: Float32
+
+|===
+

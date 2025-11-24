@@ -1,0 +1,24 @@
+// Copyright (c) 2025 Blickfeld GmbH.
+// All rights reserved.
+syntax = "proto3";
+
+import "blickfeld/base/data/version.proto";
+import "blickfeld/base/options.proto";
+import "google/protobuf/struct.proto";
+package blickfeld.toolkit.data;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_AUTHORIZED
+};
+
+// Wrapper message for record data types
+message Record {
+  // One file of a recording
+  message File {
+    // Path of the current data.
+    string path = 1;
+    // Binary data.
+    bytes binary = 2;
+  }
+}
+

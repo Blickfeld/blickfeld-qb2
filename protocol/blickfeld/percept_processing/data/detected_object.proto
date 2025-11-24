@@ -26,6 +26,8 @@ message DetectedObject {
     uint32 num_points = 2;
     // / Average intensity of the measurements from the object point cloud.
     uint32 average_intensity = 3;
+    // / Median reflectivity of the measurements from the object point cloud.
+    uint32 median_reflectivity = 9;
     // Surface area of the largest xz / yz bounding box plane.
     // This is used for the simple object size classification.
     float bounding_box_2d_surface = 4;
@@ -74,5 +76,7 @@ message DetectedObject {
   // The geolocation of the object based on the map and the object position.
   // Only set when the geolocation is configured in the data source.
   .blickfeld.base.config.Geolocation geolocation = 14 [(.blickfeld.base.optional) = true];
+  // List of object based security zone uuids in which the object is detected.
+  repeated string in_zone_uuids = 15;
 }
 

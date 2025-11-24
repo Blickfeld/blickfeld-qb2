@@ -20,7 +20,7 @@ device-specific.
 .2+| *read_only* | bool| false | - 
 3+| this is an read_only flag and it will be set if this is a default scan pattern, which can't be changed or deleted.
 
-| *frame_rate* | optional xref:blickfeld/system/config/scan_pattern.adoc#_blickfeld_system_config_ScanPattern_FrameRate[FrameRate] | - | - 
+| *frame_rate* | xref:blickfeld/system/config/scan_pattern.adoc#_blickfeld_system_config_ScanPattern_FrameRate[FrameRate] | - | - 
 | *frame_mode* | xref:blickfeld/system/config/scan_pattern.adoc#_blickfeld_system_config_ScanPattern_FrameMode[FrameMode] | FRAME_MODE_UP_DOWN | - 
 |===
 
@@ -69,17 +69,17 @@ Unit: [rad]
 FoV in the center of the frame. 
 Due to the eye shape of the scan pattern, the vertical FoV decreases the outer boundaries of the horizontal mirror.
 
-.2+| *scanlines_up* | optional uint32| 40 | - 
+.2+| *scanlines_up* | uint32| 40 | - 
 3+|  
 Configures the number of scan lines required for the up-ramping phase. 
 During the up-ramping phase, the vertical mirror increases its amplitude from 0 degrees to the target FoV. Default: 200
 
-.2+| *scanlines_down* | optional uint32| 40 | - 
+.2+| *scanlines_down* | uint32| 40 | - 
 3+|  
 Configures the amount of scan lines required for the down-ramping phase. 
 During the down-ramping phase, the vertical mirror decreases its amplitude from the target FoV to 0 degrees. Default: 30
 
-.2+| *foveation* | optional xref:blickfeld/system/config/scan_pattern.adoc#_blickfeld_system_config_ScanPattern_Vertical_Foveation[Foveation] | - | - 
+.2+| *foveation* | xref:blickfeld/system/config/scan_pattern.adoc#_blickfeld_system_config_ScanPattern_Vertical_Foveation[Foveation] | - | - 
 3+| Optionally configures a foveated region.
 
 |===
@@ -104,7 +104,7 @@ interest without having to reduce the vertical field of view.
 3+| The foveation density factor defines the ratio of scanline density and consequently point density inside the foveated region 
 compared to outside of it.
 
-.2+| *scanlines* | optional uint32| - | - 
+.2+| *scanlines* | uint32| - | - 
 3+| Read-only parameter showing the number of scanlines in the foveated region. If the frame mode is set to up-down or separate, 
 this applies to both the up-ramping and down-ramping phase individually.
 
@@ -119,11 +119,8 @@ This section defines the pattern in which the laser pulses and captures sample p
 |===
 | Field | Type | Default | Unit
 
-.2+| *angle_spacing* | optional float| 0.0043633231 | rad 
-3+| This defines the angle within which the horizontal mirror moves between two laser pulses. 
-This parameter therefore defines the horizontal sampling resolution.
-
-.2+| *uniform* | optional xref:blickfeld/system/config/scan_pattern.adoc#_blickfeld_system_config_ScanPattern_Pulse_Uniform[Uniform] | - | - 
+| *angle_spacing* | float| 0.0043633231 | rad 
+.2+| *uniform* | xref:blickfeld/system/config/scan_pattern.adoc#_blickfeld_system_config_ScanPattern_Pulse_Uniform[Uniform] | - | - 
 3+| Optional configure a uniform scan pattern
 
 .2+| *disable_pre_pulse* | bool| false | - 
@@ -161,13 +158,13 @@ This section defines the frame rate of a scan pattern
 |===
 | Field | Type | Default | Unit
 
-.2+| *target* | optional double| - | Hz 
+.2+| *target* | double| - | Hz 
 3+| Target frame rate used to synchronize the point clouds of multiple LiDAR devices in a sensor setup
 
-.2+| *actual* | optional double| - | Hz 
+.2+| *actual* | double| - | Hz 
 3+| Read-only parameter for the actual frame rate the LiDAR is currently running at
 
-.2+| *maximum* | optional double| - | Hz 
+.2+| *maximum* | double| - | Hz 
 3+| IMPORTANT: This field is deprecated. It has been replaced by "actual" and will not be supported in future releases. 
  
 Read-only parameter for maximum achievable frame rate of the scan pattern

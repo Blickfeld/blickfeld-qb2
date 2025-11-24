@@ -14,7 +14,11 @@ option (.blickfeld.base.access_control_file) = {
 // request to add a push configuration
 message PushStoreRequest {
   // the uuid of the configuration (has to be generated on client side!)
-  string uuid = 1;
+  string uuid = 1 [(.blickfeld.base.validate) = {
+    string {
+      pattern: "^[0-9A-Fa-f]{8}(?:-[0-9A-Fa-f]{4}){3}-[0-9A-Fa-f]{12}$"
+    }
+  }];
   // push configuration to add
   .blickfeld.push.config.Push push_config = 2;
 }
@@ -22,7 +26,11 @@ message PushStoreRequest {
 // request to delete a push configuration
 message PushDeleteRequest {
   // configuration uuid to delete
-  string uuid = 1;
+  string uuid = 1 [(.blickfeld.base.validate) = {
+    string {
+      pattern: "^[0-9A-Fa-f]{8}(?:-[0-9A-Fa-f]{4}){3}-[0-9A-Fa-f]{12}$"
+    }
+  }];
 }
 
 // request to list all configured push configurations
@@ -40,13 +48,21 @@ message PushWatchResponse {
 // request to enable the push configuration with the given uuid
 message PushEnableRequest {
   // configuration uuid to enable
-  string uuid = 1;
+  string uuid = 1 [(.blickfeld.base.validate) = {
+    string {
+      pattern: "^[0-9A-Fa-f]{8}(?:-[0-9A-Fa-f]{4}){3}-[0-9A-Fa-f]{12}$"
+    }
+  }];
 }
 
 // request to disable the push configuration with the given uuid
 message PushDisableRequest {
   // configuration uuid to disable
-  string uuid = 1;
+  string uuid = 1 [(.blickfeld.base.validate) = {
+    string {
+      pattern: "^[0-9A-Fa-f]{8}(?:-[0-9A-Fa-f]{4}){3}-[0-9A-Fa-f]{12}$"
+    }
+  }];
 }
 
 // An gRPC service to configure multiple push settings

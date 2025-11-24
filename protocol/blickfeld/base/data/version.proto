@@ -19,7 +19,13 @@ message Version {
   // Increments when we make backwards compatible bug fixes.
   uint32 patch = 3;
   // Short hash of the commit in the corresponding project repo.
-  string revision = 4 [(.blickfeld.base.length) = 8, (.blickfeld.base.optional) = true];
+  string revision = 4 [(.blickfeld.base.validate) = {
+    string {
+      minimum: 8
+      maximum: 8
+    }
+    optional: true
+  }];
   // This flag indicates a release. An official release is fully tested & reviewed.
   bool is_release = 5;
 }

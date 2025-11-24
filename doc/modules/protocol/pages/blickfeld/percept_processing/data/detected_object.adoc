@@ -44,6 +44,9 @@ A message representing exactly one object that is detected in the scene.
 3+| The geolocation of the object based on the map and the object position. 
 Only set when the geolocation is configured in the data source.
 
+.2+| *in_zone_uuids* | repeated string| - | - 
+3+| List of object based security zone uuids in which the object is detected.
+
 |===
 
 [#_blickfeld_percept_processing_data_DetectedObject_Properties]
@@ -60,6 +63,9 @@ Properties of an object.
 
 .2+| *average_intensity* | uint32| - | - 
 3+| / Average intensity of the measurements from the object point cloud.
+
+.2+| *median_reflectivity* | uint32| - | - 
+3+| / Median reflectivity of the measurements from the object point cloud.
 
 .2+| *bounding_box_2d_surface* | float| - | - 
 3+| Surface area of the largest xz / yz bounding box plane. 

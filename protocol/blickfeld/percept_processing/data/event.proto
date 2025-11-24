@@ -69,6 +69,9 @@ message Event {
     // Fog was detected in the point cloud.
     message Fog {
     }
+    // Rain was detected in the point cloud.
+    message Rain {
+    }
   }
   // Unix timestamp of event
   uint64 timestamp = 1;
@@ -87,6 +90,10 @@ message Event {
     .blickfeld.percept_processing.data.Event.Disqualification.Fog disqualification_fog_stopped = 7;
     // Traffic: Vehicle detected upon leaving a lane zone
     .blickfeld.percept_processing.data.Event.Traffic.VehicleDetected traffic_vehicle_detected = 8;
+    // Disqualification: Rain detected
+    .blickfeld.percept_processing.data.Event.Disqualification.Rain disqualification_rain_detected = 9;
+    // Disqualification: Rain not detected anymore
+    .blickfeld.percept_processing.data.Event.Disqualification.Rain disqualification_rain_stopped = 10;
   }
 }
 

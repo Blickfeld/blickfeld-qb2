@@ -10,5 +10,8 @@ A message that contains different types of disqualifications for a sensor.
 .2+| *fog* | bool| - | - 
 3+| Fog was detected in the point cloud.
 
+.2+| *rain* | bool| - | - 
+3+| Rain was detected in the point cloud.
+
 |===
 

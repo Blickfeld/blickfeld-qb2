@@ -29,6 +29,7 @@
 ****** xref:protocol:blickfeld/base/geometry/vector3.adoc[Vector3]
 ***** options
 ****** xref:protocol:blickfeld/base/options/access_control.adoc[Access Control]
+****** xref:protocol:blickfeld/base/options/lifetime_diagnostics.adoc[Lifetime Diagnostics]
 ****** xref:protocol:blickfeld/base/options/misc.adoc[Misc]
 ****** xref:protocol:blickfeld/base/options/product_variant.adoc[Product Variant]
 ****** xref:protocol:blickfeld/base/options/protocol_maturity.adoc[Protocol Maturity]
@@ -77,11 +78,13 @@
 ****** xref:protocol:blickfeld/diagnostics/data/health.adoc[Health]
 ****** xref:protocol:blickfeld/diagnostics/data/log.adoc[Log]
 ****** xref:protocol:blickfeld/diagnostics/data/self_test_report.adoc[Self Test Report]
+****** xref:protocol:blickfeld/diagnostics/data/time_series.adoc[Time Series]
 ***** services
 ****** xref:protocol:blickfeld/diagnostics/services/health.adoc[Health]
 ****** xref:protocol:blickfeld/diagnostics/services/log.adoc[Log]
 ****** xref:protocol:blickfeld/diagnostics/services/report.adoc[Report]
 ****** xref:protocol:blickfeld/diagnostics/services/self_test.adoc[Self Test]
+****** xref:protocol:blickfeld/diagnostics/services/time_series.adoc[Time Series]
 **** eye_safety
 ***** data
 ****** xref:protocol:blickfeld/eye_safety/data/pulse_mode.adoc[Pulse Mode]
@@ -211,8 +214,11 @@
 **** toolkit
 ***** config
 ****** xref:protocol:blickfeld/toolkit/config/preset.adoc[Preset]
+***** data
+****** xref:protocol:blickfeld/toolkit/data/record.adoc[Record]
 ***** services
 ****** xref:protocol:blickfeld/toolkit/services/preset.adoc[Preset]
+****** xref:protocol:blickfeld/toolkit/services/record.adoc[Record]
 **** video
 ***** config
 ****** xref:protocol:blickfeld/video/config/visualization.adoc[Visualization]

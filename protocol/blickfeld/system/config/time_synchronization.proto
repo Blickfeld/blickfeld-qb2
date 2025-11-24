@@ -14,7 +14,11 @@ message TimeSynchronization {
   // Configuration message for NTP time synchronization
   message Ntp {
     // List of NTP time servers which are to be used
-    repeated string servers = 1 [(.blickfeld.base.regex) = "[[:alnum:]\\.\\-]+"];
+    repeated string servers = 1 [(.blickfeld.base.validate) = {
+      string {
+        pattern: "^(?:(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\\.)+[A-Za-z]{2,63}\\.?|(?:\\d{1,3}\\.){3}\\d{1,3})$"
+      }
+    }];
   }
   // Manual time configuration
   //  
@@ -27,7 +31,11 @@ message TimeSynchronization {
     // [NOTE]
     // The timestamp is ignored when unchanged.
     // This prevents unintended time jumps when other configuration properties are modified.
-    uint64 timestamp = 1 [(.blickfeld.base.unit) = "ns"];
+    uint64 timestamp = 1 [(.blickfeld.base.unit) = "ns", (.blickfeld.base.validate) = {
+      number {
+        greater: 9.466812e+17
+      }
+    }];
   }
   // Configuration depending on the time synchronization mechanism which is to be used
   // By default, NTP with fallback servers is active.
@@ -42,6 +50,8 @@ message TimeSynchronization {
   // Use ListTimeZones to retrieve the available time zones.
   //  
   // Default: UTC
-  string time_zone = 2 [(.blickfeld.base.optional) = true];
+  string time_zone = 2 [(.blickfeld.base.validate) = {
+    optional: true
+  }];
 }
 

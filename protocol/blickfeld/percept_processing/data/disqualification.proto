@@ -13,5 +13,7 @@ option (.blickfeld.base.access_control_file) = {
 message Disqualification {
   // Fog was detected in the point cloud.
   bool fog = 1;
+  // Rain was detected in the point cloud.
+  bool rain = 2;
 }
 

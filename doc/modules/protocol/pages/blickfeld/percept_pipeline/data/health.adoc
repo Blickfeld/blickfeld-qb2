@@ -16,6 +16,9 @@ A health message that contains information about the pipeline status and the mod
 .2+| *data_source* | xref:blickfeld/percept_pipeline/data/health.adoc#_blickfeld_percept_pipeline_data_Health_DataSource[DataSource] | - | - 
 3+| Data source related health information.
 
+.2+| *statistics* | xref:blickfeld/percept_pipeline/data/health.adoc#_blickfeld_percept_pipeline_data_Health_Statistics[Statistics] | - | - 
+3+| Perception related health information.
+
 |===
 
 [#_blickfeld_percept_pipeline_data_Health_DataSource]
@@ -85,5 +88,132 @@ network bandwidth / stability issues.
 
 | *key* | string| - | - 
 | *value* | xref:blickfeld/percept_pipeline/data/health.adoc#_blickfeld_percept_pipeline_data_Health_DataSource_Device[Device] | - | - 
+|===
+
+[#_blickfeld_percept_pipeline_data_Health_Statistics]
+== Statistics
+
+Perception pipeline related statistics
+
+.Available fields in blickfeld.percept_pipeline.data.Health.Statistics
+|===
+| Field | Type | Default | Unit
+
+.2+| *security* | xref:blickfeld/percept_pipeline/data/health.adoc#_blickfeld_percept_pipeline_data_Health_Statistics_Security[Security] | - | - 
+3+| Security pipeline health
+
+.2+| *volume* | xref:blickfeld/percept_pipeline/data/health.adoc#_blickfeld_percept_pipeline_data_Health_Statistics_Volume[Volume] | - | - 
+3+| Volume pipeline health
+
+.2+| *traffic* | xref:blickfeld/percept_pipeline/data/health.adoc#_blickfeld_percept_pipeline_data_Health_Statistics_Traffic[Traffic] | - | - 
+3+| Traffic pipeline health
+
+|===
+
+[#_blickfeld_percept_pipeline_data_Health_Statistics_Security]
+=== Security
+
+Security pipeline health
+
+.Available fields in blickfeld.percept_pipeline.data.Health.Statistics.Security
+|===
+| Field | Type | Default | Unit
+
+.2+| *motion_detection* | xref:blickfeld/percept_pipeline/data/health.adoc#_blickfeld_percept_pipeline_data_Health_Statistics_Security_MotionDetection[MotionDetection] | - | - 
+3+| Motion detection
+
+.2+| *object_tracking* | xref:blickfeld/percept_pipeline/data/health.adoc#_blickfeld_percept_pipeline_data_Health_Statistics_Security_ObjectTracking[ObjectTracking] | - | - 
+3+| Object tracking
+
+|===
+
+[#_blickfeld_percept_pipeline_data_Health_Statistics_Security_MotionDetection]
+==== Motion Detection
+
+Motion detection
+
+.Available fields in blickfeld.percept_pipeline.data.Health.Statistics.Security.MotionDetection
+|===
+| Field | Type | Default | Unit
+
+.2+| *number_of_foreground_points* | float| - | - 
+3+| Number of foreground points
+
+.2+| *number_of_outlier_points* | float| - | - 
+3+| Number of outlier points (number of points which got not clustered)
+
+.2+| *median_reflectivity_of_outlier_points* | float| - | - 
+3+| Median reflectivity of outlier points (number of points which got not clustered)
+
+|===
+
+[#_blickfeld_percept_pipeline_data_Health_Statistics_Security_ObjectTracking]
+==== Object Tracking
+
+Objects detection & tracking
+
+.Available fields in blickfeld.percept_pipeline.data.Health.Statistics.Security.ObjectTracking
+|===
+| Field | Type | Default | Unit
+
+.2+| *number_of_objects* | float| - | - 
+3+| indicates that objects are present
+
+.2+| *reference_properties* | xref:blickfeld/percept_pipeline/data/health.adoc#_blickfeld_percept_pipeline_data_Health_Statistics_Security_ObjectTracking_ReferenceProperties[ReferenceProperties] | - | - 
+3+| reference object properties
+
+|===
+
+[#_blickfeld_percept_pipeline_data_Health_Statistics_Security_ObjectTracking_ReferenceProperties]
+===== Reference Properties
+
+Reference object properties which contain the 
+90% percentile of relevant object state values. 
+ 
+This data is used to generate long term statistics of object properties 
+which allow the fine tuning of zone algorithm parameters.
+
+.Available fields in blickfeld.percept_pipeline.data.Health.Statistics.Security.ObjectTracking.ReferenceProperties
+|===
+| Field | Type | Default | Unit
+
+.2+| *lifetime* | float| - | ns 
+3+| Lifetime of the object
+
+.2+| *num_points* | float| - | - 
+3+| / Number of measurements that belong to the object point cloud.
+
+.2+| *median_reflectivity* | float| - | - 
+3+| / Median reflectivity of the measurements from the object point cloud.
+
+.2+| *bounding_box_2d_surface* | float| - | - 
+3+| Surface area of the largest xz / yz bounding box plane. 
+This is used for the simple object size classification.
+
+.2+| *track_length* | float| - | m 
+3+| The estimated track length of an object.
+
+.2+| *intruding_duration* | float| - | - 
+3+| Intruding duration of objects. Only objects are taken into account which are actually intruding.
+
+|===
+
+[#_blickfeld_percept_pipeline_data_Health_Statistics_Volume]
+=== Volume
+
+Volume pipeline health
+
+[#_blickfeld_percept_pipeline_data_Health_Statistics_Traffic]
+=== Traffic
+
+Traffic pipeline health
+
+.Available fields in blickfeld.percept_pipeline.data.Health.Statistics.Traffic
+|===
+| Field | Type | Default | Unit
+
+.2+| *rain_filter_confidence* | float| - | - 
+3+| The confidence of the moving average filter that checks the traffic lane for rain
+
 |===
 

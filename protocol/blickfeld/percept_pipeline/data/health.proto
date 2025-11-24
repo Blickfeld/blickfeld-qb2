@@ -39,12 +39,98 @@ message Health {
     // Map of devices. The key is the serial number of the device.
     map<string, .blickfeld.percept_pipeline.data.Health.DataSource.Device> device = 1;
   }
+  // Perception pipeline related statistics
+  message Statistics {
+    // Security pipeline health
+    message Security {
+      // Motion detection
+      message MotionDetection {
+        // Number of foreground points
+        float number_of_foreground_points = 1 [(.blickfeld.base.lifetime_diagnostics) = {
+          type: TYPE_STATE
+        }];
+        // Number of outlier points (number of points which got not clustered)
+        float number_of_outlier_points = 2 [(.blickfeld.base.lifetime_diagnostics) = {
+          type: TYPE_STATE
+        }];
+        // Median reflectivity of outlier points (number of points which got not clustered)
+        float median_reflectivity_of_outlier_points = 3 [(.blickfeld.base.lifetime_diagnostics) = {
+          type: TYPE_STATE
+        }];
+      }
+      // Objects detection & tracking
+      message ObjectTracking {
+        // Reference object properties which contain the
+        // 90% percentile of relevant object state values.
+        //  
+        // This data is used to generate long term statistics of object properties
+        // which allow the fine tuning of zone algorithm parameters.
+        message ReferenceProperties {
+          // Lifetime of the object
+          float lifetime = 1 [(.blickfeld.base.unit) = "ns", (.blickfeld.base.lifetime_diagnostics) = {
+            type: TYPE_STATE
+          }];
+          // / Number of measurements that belong to the object point cloud.
+          float num_points = 2 [(.blickfeld.base.lifetime_diagnostics) = {
+            type: TYPE_STATE
+          }];
+          // / Median reflectivity of the measurements from the object point cloud.
+          float median_reflectivity = 3 [(.blickfeld.base.lifetime_diagnostics) = {
+            type: TYPE_STATE
+          }];
+          // Surface area of the largest xz / yz bounding box plane.
+          // This is used for the simple object size classification.
+          float bounding_box_2d_surface = 4 [(.blickfeld.base.lifetime_diagnostics) = {
+            type: TYPE_STATE
+          }];
+          // The estimated track length of an object.
+          float track_length = 5 [(.blickfeld.base.unit) = "m", (.blickfeld.base.lifetime_diagnostics) = {
+            type: TYPE_STATE
+          }];
+          // Intruding duration of objects. Only objects are taken into account which are actually intruding.
+          float intruding_duration = 6 [(.blickfeld.base.lifetime_diagnostics) = {
+            type: TYPE_STATE
+          }];
+        }
+        // indicates that objects are present
+        float number_of_objects = 1 [(.blickfeld.base.lifetime_diagnostics) = {
+          type: TYPE_STATE
+        }];
+        // reference object properties
+        .blickfeld.percept_pipeline.data.Health.Statistics.Security.ObjectTracking.ReferenceProperties reference_properties = 2;
+      }
+      // Motion detection
+      .blickfeld.percept_pipeline.data.Health.Statistics.Security.MotionDetection motion_detection = 1;
+      // Object tracking
+      .blickfeld.percept_pipeline.data.Health.Statistics.Security.ObjectTracking object_tracking = 2;
+    }
+    // Volume pipeline health
+    message Volume {
+    }
+    // Traffic pipeline health
+    message Traffic {
+      // The confidence of the moving average filter that checks the traffic lane for rain
+      float rain_filter_confidence = 1 [(.blickfeld.base.lifetime_diagnostics) = {
+        type: TYPE_STATE
+      }];
+    }
+    oneof perception_type {
+      // Security pipeline health
+      .blickfeld.percept_pipeline.data.Health.Statistics.Security security = 1;
+      // Volume pipeline health
+      .blickfeld.percept_pipeline.data.Health.Statistics.Volume volume = 2;
+      // Traffic pipeline health
+      .blickfeld.percept_pipeline.data.Health.Statistics.Traffic traffic = 3;
+    }
+  }
   // High-level state of module.
   .blickfeld.base.data.Health.State state = 1;
   // Reason for the given state. It is not set if state is STATE_OK.
   string state_reason = 2;
   // Data source related health information.
   .blickfeld.percept_pipeline.data.Health.DataSource data_source = 4;
+  // Perception related health information.
+  .blickfeld.percept_pipeline.data.Health.Statistics statistics = 5;
   reserved 3;
   reserved "pipeline_state";
 }

@@ -15,7 +15,7 @@ The system time is used to fill timestamps in generated output data e.g. point c
 .2+| *manual* | xref:blickfeld/system/config/time_synchronization.adoc#_blickfeld_system_config_TimeSynchronization_Manual[Manual] | - | - 
 3+| Manual time configuration
 
-.2+| *time_zone* | optional string| - | - 
+.2+| *time_zone* | string| - | - 
 3+| Configure time zone of device. 
  
 Use ListTimeZones to retrieve the available time zones. 

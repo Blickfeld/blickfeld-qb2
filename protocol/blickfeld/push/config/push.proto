@@ -14,7 +14,12 @@ option (.blickfeld.base.access_control_file) = {
 // defines a combination of stream and destination
 message Push {
   // name of push
-  string name = 1;
+  string name = 1 [(.blickfeld.base.validate) = {
+    string {
+      minimum: 1
+      maximum: 100
+    }
+  }];
   // stream payload
   .blickfeld.push.config.Payload payload = 2;
   // push destination

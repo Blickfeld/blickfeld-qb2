@@ -11,10 +11,16 @@ option (.blickfeld.base.access_control_file) = {
 message ApplicationKey {
   // Human readable purpose for this application key. It is recommended to briefly describe the purpose of the application key here. The
   // field should help users to quickly identify different application keys but can also be left empty.
-  string purpose = 1;
+  string purpose = 1 [(.blickfeld.base.validate) = {
+    string {
+      maximum: 200
+    }
+  }];
   // Access level which is granted to this application key.
-  .blickfeld.base.AccessControl.Level access_level = 2 [(.blickfeld.base.optional) = true, (.blickfeld.base.access_control_field) = {
+  .blickfeld.base.AccessControl.Level access_level = 2 [(.blickfeld.base.access_control_field) = {
     level: LEVEL_ADMIN
+  }, (.blickfeld.base.validate) = {
+    optional: true
   }];
   // If true, this application key has read-only access permissions.
   bool access_read_only = 7;

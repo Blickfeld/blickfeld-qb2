@@ -1,41 +1,5 @@
-= Misc
-
-[#_blickfeld_base_LifeTimeDiagnostics]
-== Life Time Diagnostics
-
-This annotation is used by diagnostic modules to 
-collect long term statistics for the annotated field.
-
-.Available fields in blickfeld.base.LifeTimeDiagnostics
-|===
-| Field | Type | Default | Unit
-
-.2+| *type* | xref:blickfeld/base/options/misc.adoc#_blickfeld_base_LifeTimeDiagnostics_Type[Type] | TYPE_UNSPECIFIED | - 
-3+| Type
-
-|===
-
-[#_blickfeld_base_LifeTimeDiagnostics_Type]
-=== Type
-
-Type of diagnostics. 
- 
-Is used to aggregate multiple long term statistics.
-
-.Available values for blickfeld.base.LifeTimeDiagnostics.Type enum
-[cols='25h,5,~']
-|===
-| Name | Value | Description
-
-| TYPE_UNSPECIFIED ^| 0 | Unspecified type.
-| TYPE_TEMPERATURE ^| 1 | Temperature sensor or estimate.
-| TYPE_UTILIZATION ^| 2 | Indicates how much of the available resource is used.
-| TYPE_RATE ^| 3 | Frequency measurement or estimate.
-| TYPE_VOLTAGE ^| 4 | Electrical voltage sensor or estimate.
-|===
-
 [#_blickfeld_base_LinkData]
-== Link Data
+= Link Data
 
 Message defining LinkData
 

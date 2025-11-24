@@ -11,7 +11,7 @@ An application key is linked to a user account.
 3+| Human readable purpose for this application key. It is recommended to briefly describe the purpose of the application key here. The 
 field should help users to quickly identify different application keys but can also be left empty.
 
-.2+| *access_level* | optional xref:blickfeld/base/options/access_control.adoc#_blickfeld_base_AccessControl_Level[base.AccessControl.Level] | - | - 
+.2+| *access_level* | xref:blickfeld/base/options/access_control.adoc#_blickfeld_base_AccessControl_Level[base.AccessControl.Level] | - | - 
 3+| Access level which is granted to this application key.
 
 .2+| *access_read_only* | bool| - | - 

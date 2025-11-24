@@ -1,0 +1,45 @@
+// Copyright (c) 2025 Blickfeld GmbH.
+// All rights reserved.
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+import "blickfeld/toolkit/data/record.proto";
+import "google/protobuf/empty.proto";
+package blickfeld.toolkit.services;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_AUTHORIZED
+};
+
+// Request for getting a stream of record messages
+message RecordStreamRequest {
+}
+
+// Response for getting a stream of record messages
+message RecordStreamResponse {
+  // File of a recording
+  .blickfeld.toolkit.data.Record.File file = 1;
+  // Indicates that the internal send buffer is full and drops data.
+  bool data_loss = 2;
+}
+
+// The record service allows streaming of recording data to a client.
+// It requests and combines all the required recording data
+// (metadata, raw, states, vtu, pcd) into one stream.
+// A message in the stream consists of a file-path and the corresponding data.
+// That means that one message represents one file in a recording archive.
+service Record {
+  option (.blickfeld.base.access_control_service) = {
+    level: LEVEL_AUTHORIZED
+  };
+  option (.blickfeld.base.protocol_maturity_service) = {
+    level: LEVEL_MAINTAINED
+  };
+  // Get a stream of recording data.
+  rpc Stream(.blickfeld.toolkit.services.RecordStreamRequest) returns (stream .blickfeld.toolkit.services.RecordStreamResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
+}
+

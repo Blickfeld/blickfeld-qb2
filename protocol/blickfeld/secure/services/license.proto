@@ -13,7 +13,11 @@ option (.blickfeld.base.access_control_file) = {
 // Request to assign license to this Qb2
 message LicenseSetRequest {
   // JWT license string
-  string token = 1;
+  string token = 1 [(.blickfeld.base.validate) = {
+    string {
+      pattern: "eyJ[A-Za-z0-9-_]+\\.eyJ[A-Za-z0-9-_]+\\.[A-Za-z0-9-_.+/]*"
+    }
+  }];
 }
 
 // Response containing licensed product variant and metadata

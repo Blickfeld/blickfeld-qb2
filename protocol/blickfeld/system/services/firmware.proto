@@ -56,7 +56,11 @@ message FirmwareFetchAndInstallRequest {
     // Select version to install
     .blickfeld.base.data.Version version = 1;
     // Pass url to firmware bundle
-    string url = 2;
+    string url = 2 [(.blickfeld.base.validate) = {
+      string {
+        pattern: "^https?:\\/\\/[^\\s\\/$.?#].[^\\s]+$"
+      }
+    }];
   }
 }
 

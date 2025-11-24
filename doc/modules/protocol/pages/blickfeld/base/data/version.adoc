@@ -19,7 +19,7 @@ It additionaly adds the short hash of the corresponding commit.
 .2+| *patch* | uint32| - | - 
 3+| Increments when we make backwards compatible bug fixes.
 
-.2+| *revision* | optional string| - | - 
+.2+| *revision* | string| - | - 
 3+| Short hash of the commit in the corresponding project repo.
 
 .2+| *is_release* | bool| - | - 

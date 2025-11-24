@@ -45,7 +45,7 @@ User credentials
 |===
 | Field | Type | Default | Unit
 
-.2+| *name* | optional string| - | - 
+.2+| *name* | string| - | - 
 3+| the username (can be left out in case of default factory state)
 
 .2+| *password* | string| - | - 

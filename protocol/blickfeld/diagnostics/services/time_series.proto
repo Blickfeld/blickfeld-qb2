@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+import "blickfeld/diagnostics/data/time_series.proto";
+import "google/protobuf/empty.proto";
+package blickfeld.diagnostics.services;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_AUTHORIZED
+};
+
+// Request to get lifetime series data
+message TimeSeriesGetRequest {
+  // Time series key
+  string key = 1;
+  // Aggregate lifetime series into buckets with the given duration.
+  //  
+  // Default: 30 minutes
+  uint32 aggregation_duration = 2 [(.blickfeld.base.unit) = "s", (.blickfeld.base.validate) = {
+    number {
+      greater_or_equal: 1800
+      less_or_equal: 86400
+    }
+    optional: true
+  }];
+  // Requested time span
+  //  
+  // Default: 1 month
+  uint32 time_span = 3 [(.blickfeld.base.unit) = "s", (.blickfeld.base.validate) = {
+    number {
+      greater_or_equal: 3600
+    }
+    optional: true
+  }];
+}
+
+// Response to get lifetime series data
+message TimeSeriesGetResponse {
+  // Series data
+  .blickfeld.diagnostics.data.TimeSeries series = 1;
+}
+
+// Request to get available lifetime series
+message TimeSeriesListResponse {
+  // Map of series's
+  map<string, .blickfeld.diagnostics.data.TimeSeries.Meta> series = 1;
+}
+
+// This service provides access to the lifetime series data stored on the device.
+service TimeSeries {
+  option (.blickfeld.base.access_control_service) = {
+    level: LEVEL_AUTHORIZED
+  };
+  option (.blickfeld.base.protocol_maturity_service) = {
+    level: LEVEL_MAINTAINED
+  };
+  // Read out lifetime diagnostics time series for given key
+  rpc Get(.blickfeld.diagnostics.services.TimeSeriesGetRequest) returns (.blickfeld.diagnostics.services.TimeSeriesGetResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
+  // List available lifetime series
+  rpc List(.google.protobuf.Empty) returns (.blickfeld.diagnostics.services.TimeSeriesListResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
+}
+

@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+import "blickfeld/base/options/lifetime_diagnostics.proto";
+package blickfeld.diagnostics.data;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_AUTHORIZED
+};
+
+// Lifetime data series
+//  
+// This data is collected over the whole lifetime of the product.
+// Currently the minimum, average, and maximum values are stored for 30 min intervals.
+message TimeSeries {
+  // Meta information about the lifetime series
+  message Meta {
+    // Module from which the data was collected
+    string module = 1;
+    // Type of data
+    .blickfeld.base.LifeTimeDiagnostics.Type type = 2;
+  }
+  // The fields of the series are encoded as binary arrays.
+  // Binary types instead of native Protobuf types are used to improve the performance.
+  //  
+  // NOTE: All byte arrays are encoded in Little Endian.
+  message Binary {
+    // Number of entries in arrays below.
+    uint32 length = 1;
+    // Timestamps of time series.
+    //  
+    // Type: UInt64
+    bytes timestamp = 2 [(.blickfeld.base.numpy_dtype) = "<u8"];
+    // Aggregated minimum values.
+    //  
+    // Type: Float32
+    bytes minimum = 3 [(.blickfeld.base.numpy_dtype) = "<f4"];
+    // Aggregated average values.
+    //  
+    // Type: Float32
+    bytes average = 4 [(.blickfeld.base.numpy_dtype) = "<f4"];
+    // Aggregated average values.
+    //  
+    // Type: Float32
+    bytes maximum = 5 [(.blickfeld.base.numpy_dtype) = "<f4"];
+  }
+  // Binary data
+  .blickfeld.diagnostics.data.TimeSeries.Binary binary = 1;
+  // Meta information
+  .blickfeld.diagnostics.data.TimeSeries.Meta meta = 2;
+}
+

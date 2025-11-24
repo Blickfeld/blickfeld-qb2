@@ -23,15 +23,23 @@ message Account {
     STATE_BLOCKED = 3;
   }
   // Account name. This field is used as the username during login.
-  string name = 1;
+  string name = 1 [(.blickfeld.base.validate) = {
+    string {
+      pattern: "^[a-zA-Z0-9\\._-]{1,100}$"
+    }
+  }];
   // Access level which is granted to this account.
   .blickfeld.base.AccessControl.Level access_level = 2;
   // If true, this account has read-only access permissions.
   bool access_read_only = 8;
   // Counter for failed login attempts. If this value exceeds a configured threshold the account will be blocked.
-  uint32 failed_login_attempts = 5;
+  uint32 failed_login_attempts = 5 [(.blickfeld.base.validate) = {
+    optional: true
+  }];
   // The account state.
-  .blickfeld.secure.config.Account.State state = 6;
+  .blickfeld.secure.config.Account.State state = 6 [(.blickfeld.base.validate) = {
+    optional: true
+  }];
   reserved 4;
 }
 

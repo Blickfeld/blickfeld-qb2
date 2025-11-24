@@ -10,10 +10,22 @@ option (.blickfeld.base.access_control_file) = {
 // Public key certificate during the TLS handshake process
 message Certificate {
   // Certificate bytes (DER format)
-  bytes binary = 1;
+  bytes binary = 1 [(.blickfeld.base.validate) = {
+    bytes {
+      maximum: 4096
+    }
+  }];
   // String giving information about which key type was used for generation (e.g. RSA, key length)
-  string type = 2;
+  string type = 2 [(.blickfeld.base.validate) = {
+    string {
+      maximum: 32
+    }
+  }];
   // Serial number of certificate in padded hex format. Automatically assigned by the service when issued.
-  string serial = 3;
+  string serial = 3 [(.blickfeld.base.validate) = {
+    string {
+      pattern: "^([0-9A-Fa-f]{2}:){0,63}([0-9A-Fa-f]{2})$"
+    }
+  }];
 }
 

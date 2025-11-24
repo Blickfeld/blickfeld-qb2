@@ -1,0 +1,22 @@
+[#_blickfeld_toolkit_data_Record]
+= Record
+
+Wrapper message for record data types
+
+[#_blickfeld_toolkit_data_Record_File]
+== File
+
+One file of a recording
+
+.Available fields in blickfeld.toolkit.data.Record.File
+|===
+| Field | Type | Default | Unit
+
+.2+| *path* | string| - | - 
+3+| Path of the current data.
+
+.2+| *binary* | bytes| - | - 
+3+| Binary data.
+
+|===
+

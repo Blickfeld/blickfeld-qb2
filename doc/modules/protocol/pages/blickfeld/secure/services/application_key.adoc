@@ -27,7 +27,7 @@ Request to list applicaion keys
 |===
 | Field | Type | Default | Unit
 
-.2+| *account_uuid* | optional string| - | - 
+.2+| *account_uuid* | string| - | - 
 3+| Optional uuid of the account for which to list the application keys. If not provided the uuid from the presented JWT token will be 
 used.
 
@@ -74,7 +74,7 @@ Request to create an application key.
 |===
 | Field | Type | Default | Unit
 
-.2+| *account_uuid* | optional string| - | - 
+.2+| *account_uuid* | string| - | - 
 3+| Optional uuid of the account to which the application key is associated. If not provided the uuid from the presented JWT token will 
 be used.
 

@@ -15,15 +15,36 @@ message Destination {
   // Mqtt Endpoint definition
   message Mqtt {
     // mqtt server location
-    string server_fqdn = 1;
+    string server_fqdn = 1 [(.blickfeld.base.validate) = {
+      string {
+        maximum: 255
+        pattern: "^(?:(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\\.)+[a-zA-Z]{2,}|(?:(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.){3}(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d))$"
+      }
+    }];
     // mqtt server port will be set to 1883 if it is not set (server_port==0)
-    uint32 server_port = 2;
+    uint32 server_port = 2 [(.blickfeld.base.validate) = {
+      number {
+        greater_or_equal: 1
+        less_or_equal: 65535
+      }
+      optional: true
+    }];
     // mqtt server authentication settings
     .blickfeld.push.config.Authentication authentication = 3;
     // mqtt client identifier
-    string client_identifier = 4;
+    string client_identifier = 4 [(.blickfeld.base.validate) = {
+      string {
+        maximum: 1024
+      }
+    }];
     // mqtt topic - if empty the 'blickfeld/{data_type}/{encoding_type}/{config_name}' pattern is used as a default
-    string topic = 5 [(.blickfeld.base.optional) = true];
+    string topic = 5 [(.blickfeld.base.validate) = {
+      string {
+        minimum: 1
+        maximum: 1024
+      }
+      optional: true
+    }];
   }
   oneof destination_type {
     // mqtt server destination

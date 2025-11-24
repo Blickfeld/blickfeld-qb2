@@ -12,9 +12,19 @@ option (.blickfeld.base.access_control_file) = {
 // Is used to geo-reference device coordinate systems and produced data.
 message Geolocation {
   // Latitude angle
-  float latitude = 1 [(.blickfeld.base.unit) = "deg"];
+  float latitude = 1 [(.blickfeld.base.unit) = "deg", (.blickfeld.base.validate) = {
+    number {
+      greater_or_equal: -90
+      less_or_equal: 90
+    }
+  }];
   // Longitude angle
-  float longitude = 2 [(.blickfeld.base.unit) = "deg"];
+  float longitude = 2 [(.blickfeld.base.unit) = "deg", (.blickfeld.base.validate) = {
+    number {
+      greater_or_equal: -180
+      less_or_equal: 180
+    }
+  }];
   // Arbitrary metadata storage for client applications
   .google.protobuf.Struct metadata = 100;
 }

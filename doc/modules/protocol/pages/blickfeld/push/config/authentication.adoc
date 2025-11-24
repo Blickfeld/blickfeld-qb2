@@ -13,14 +13,5 @@ Authentication definition
 .2+| *password* | string| - | - 
 3+| the password used for authentication
 
-.2+| *server_certificate* | bytes| - | - 
-3+| the server certificate (will implicitly use SSL)
-
-.2+| *client_certificate* | bytes| - | - 
-3+| client certificate
-
-.2+| *client_key* | bytes| - | - 
-3+| client key
-
 |===
 

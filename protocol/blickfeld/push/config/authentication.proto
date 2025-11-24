@@ -12,14 +12,22 @@ option (.blickfeld.base.access_control_file) = {
 // Authentication definition
 message Authentication {
   // the user name used for authentication
-  string user = 1;
+  string user = 1 [(.blickfeld.base.validate) = {
+    string {
+      minimum: 1
+      maximum: 100
+    }
+    optional: true
+  }];
   // the password used for authentication
-  string password = 2;
-  // the server certificate (will implicitly use SSL)
-  bytes server_certificate = 3;
-  // client certificate
-  bytes client_certificate = 4;
-  // client key
-  bytes client_key = 5;
+  string password = 2 [(.blickfeld.base.validate) = {
+    string {
+      minimum: 1
+      maximum: 100
+    }
+    optional: true
+  }];
+  reserved 3, 4, 5;
+  reserved "server_certificate", "client_certificate", "client_key";
 }
 

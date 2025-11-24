@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+import "blickfeld/base/options/access_control.proto";
+// Options are not namespaced
+package blickfeld.base;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_PUBLIC
+};
+
+// This annotation is used by diagnostic modules to
+// collect long term statistics for the annotated field.
+message LifeTimeDiagnostics {
+  // Type of diagnostics.
+  //  
+  // Is used to aggregate multiple long term statistics.
+  enum Type {
+    // Unspecified type.
+    TYPE_UNSPECIFIED = 0;
+    // Temperature sensor or estimate.
+    TYPE_TEMPERATURE = 1;
+    // Indicates how much of the available resource is used.
+    TYPE_UTILIZATION = 2;
+    // Frequency measurement or estimate.
+    TYPE_RATE = 3;
+    // Electrical voltage sensor or estimate.
+    TYPE_VOLTAGE = 4;
+    // Generic numerical state.
+    TYPE_STATE = 5;
+  }
+  // Type
+  .blickfeld.base.LifeTimeDiagnostics.Type type = 1;
+}
+

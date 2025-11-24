@@ -315,5 +315,8 @@ Algorithm that monitors traffic moving through the zone.
 .2+| *expected_velocity* | float| - | m/s 
 3+| Expected velocity of the objects inside the traffic zone.
 
+.2+| *disable_rain_filter* | bool| - | - 
+3+| Disable the rain filtering as it might aggressively cut vehicles short
+
 |===
 

@@ -7,7 +7,7 @@ Configuration options for the firewall
 |===
 | Field | Type | Default | Unit
 
-.2+| *disable_insecure_network_ports* | optional bool| - | - 
+.2+| *disable_insecure_network_ports* | bool| - | - 
 3+| Disable all insecure, unencrypted & unauthenticated, network interface ports. 
  
 [NOTE] 

@@ -10,8 +10,16 @@ option (.blickfeld.base.access_control_file) = {
 // Private device key which is deployed on the Qb2 device and used for TLS authentification by Daedalus Proxy
 message PrivateKey {
   // Key bytes as binary
-  bytes binary = 1;
+  bytes binary = 1 [(.blickfeld.base.validate) = {
+    bytes {
+      maximum: 4096
+    }
+  }];
   // String giving information about which key type is used
-  string type = 2;
+  string type = 2 [(.blickfeld.base.validate) = {
+    string {
+      maximum: 32
+    }
+  }];
 }
 

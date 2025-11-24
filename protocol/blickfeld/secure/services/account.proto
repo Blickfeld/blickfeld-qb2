@@ -37,13 +37,21 @@ message AccountCreateResponse {
 // Request to block an existing account
 message AccountBlockRequest {
   // the uuid of the account to block
-  string uuid = 1;
+  string uuid = 1 [(.blickfeld.base.validate) = {
+    string {
+      pattern: "^[0-9A-Fa-f]{8}(?:-[0-9A-Fa-f]{4}){3}-[0-9A-Fa-f]{12}$"
+    }
+  }];
 }
 
 // Request to reset an existing account
 message AccountResetRequest {
   // the uuid of the account to reset
-  string uuid = 1;
+  string uuid = 1 [(.blickfeld.base.validate) = {
+    string {
+      pattern: "^[0-9A-Fa-f]{8}(?:-[0-9A-Fa-f]{4}){3}-[0-9A-Fa-f]{12}$"
+    }
+  }];
 }
 
 // Response after account has been reset.
@@ -60,16 +68,26 @@ message AccountResetResponse {
 // Request to delete an Account
 message AccountDeleteRequest {
   // Optional uuid of the account to delete. If left empty the uuid from the presented JWT token will be used.
-  string uuid = 1 [(.blickfeld.base.optional) = true, (.blickfeld.base.access_control_field) = {
+  string uuid = 1 [(.blickfeld.base.access_control_field) = {
     level: LEVEL_ADMIN
+  }, (.blickfeld.base.validate) = {
+    string {
+      pattern: "^[0-9A-Fa-f]{8}(?:-[0-9A-Fa-f]{4}){3}-[0-9A-Fa-f]{12}$"
+    }
+    optional: true
   }];
 }
 
 // Request to query account details
 message AccountGetRequest {
   // Optional uuid of the account to get. If left empty the uuid from the presented JWT token will be used.
-  string uuid = 1 [(.blickfeld.base.optional) = true, (.blickfeld.base.access_control_field) = {
+  string uuid = 1 [(.blickfeld.base.access_control_field) = {
     level: LEVEL_ADMIN
+  }, (.blickfeld.base.validate) = {
+    string {
+      pattern: "^[0-9A-Fa-f]{8}(?:-[0-9A-Fa-f]{4}){3}-[0-9A-Fa-f]{12}$"
+    }
+    optional: true
   }];
 }
 
@@ -86,18 +104,35 @@ message AccountStoreRequest {
   // Password update message
   message PasswordUpdate {
     // the current password
-    string current = 1;
+    string current = 1 [(.blickfeld.base.validate) = {
+      string {
+        maximum: 100
+      }
+    }];
     // the new password
-    string new = 2;
+    string new = 2 [(.blickfeld.base.validate) = {
+      string {
+        maximum: 100
+      }
+    }];
   }
   // Optional uuid of the account to store. If not provided the uuid from the presented JWT token will be used.
-  string uuid = 1 [(.blickfeld.base.optional) = true, (.blickfeld.base.access_control_field) = {
+  string uuid = 1 [(.blickfeld.base.access_control_field) = {
     level: LEVEL_ADMIN
+  }, (.blickfeld.base.validate) = {
+    string {
+      pattern: "^[0-9A-Fa-f]{8}(?:-[0-9A-Fa-f]{4}){3}-[0-9A-Fa-f]{12}$"
+    }
+    optional: true
   }];
   // Optional account data to store.
-  .blickfeld.secure.config.Account account = 2 [(.blickfeld.base.optional) = true];
+  .blickfeld.secure.config.Account account = 2 [(.blickfeld.base.validate) = {
+    optional: true
+  }];
   // Optional password update for the account to store.
-  .blickfeld.secure.services.AccountStoreRequest.PasswordUpdate password_update = 3 [(.blickfeld.base.optional) = true];
+  .blickfeld.secure.services.AccountStoreRequest.PasswordUpdate password_update = 3 [(.blickfeld.base.validate) = {
+    optional: true
+  }];
 }
 
 // This service supports the complete lifecycle of accounts which are managed by the current Qb2 device.

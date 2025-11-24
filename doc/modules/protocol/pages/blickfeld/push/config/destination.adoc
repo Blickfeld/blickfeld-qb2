@@ -33,7 +33,7 @@ Mqtt Endpoint definition
 .2+| *client_identifier* | string| - | - 
 3+| mqtt client identifier
 
-.2+| *topic* | optional string| - | - 
+.2+| *topic* | string| - | - 
 3+| mqtt topic - if empty the 'blickfeld/{data_type}/{encoding_type}/{config_name}' pattern is used as a default
 
 |===

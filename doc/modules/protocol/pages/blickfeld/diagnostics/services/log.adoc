@@ -26,14 +26,14 @@ Stream request
 |===
 | Field | Type | Default | Unit
 
-.2+| *cursor* | optional xref:blickfeld/diagnostics/data/log.adoc#_blickfeld_diagnostics_data_Log_Entry_Cursor[data.Log.Entry.Cursor] | - | - 
+.2+| *cursor* | xref:blickfeld/diagnostics/data/log.adoc#_blickfeld_diagnostics_data_Log_Entry_Cursor[data.Log.Entry.Cursor] | - | - 
 3+| The cursor pointing to the log entry from which to start the stream from. 
 This field is optional. If it is not set the stream will start from the tail of the journal. 
  
 NOTE: To be able to set this field and to specify a valid start position in the journal, first, a valid cursor needs to be received 
 via the response to this request. Further requests can then stream relatively to the received cursor.
 
-.2+| *time_direction* | optional xref:blickfeld/diagnostics/config/log.adoc#_blickfeld_diagnostics_config_Log_TimeDirection[config.Log.TimeDirection] | - | - 
+.2+| *time_direction* | xref:blickfeld/diagnostics/config/log.adoc#_blickfeld_diagnostics_config_Log_TimeDirection[config.Log.TimeDirection] | - | - 
 3+| The streaming direction is used to specify if the service should stream the log entries towards older or more recent messages: i.e. 
 backward or forward in time. This way, the client can either continuously fetch log messages one-by-one from the most recent to the 
 oldest or wait for the occurrence of new log entires.

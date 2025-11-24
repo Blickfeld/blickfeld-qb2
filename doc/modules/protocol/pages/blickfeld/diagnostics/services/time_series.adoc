@@ -1,0 +1,88 @@
+= Service: Time Series
+
+NOTE: This API is officially released and maintained.
+
+This service provides access to the lifetime series data stored on the device.
+
+.Available methods
+|===
+| Method | Request | Response
+
+| *xref:#Get[]* | xref:blickfeld/diagnostics/services/time_series.adoc#_blickfeld_diagnostics_services_TimeSeriesGetRequest[TimeSeriesGetRequest]| xref:blickfeld/diagnostics/services/time_series.adoc#_blickfeld_diagnostics_services_TimeSeriesGetResponse[TimeSeriesGetResponse]
+| *xref:#List[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/diagnostics/services/time_series.adoc#_blickfeld_diagnostics_services_TimeSeriesListResponse[TimeSeriesListResponse]
+|===
+[#Get]
+== Get
+
+Read out lifetime diagnostics time series for given key
+
+[#_blickfeld_diagnostics_services_TimeSeriesGetRequest]
+=== Request
+
+Request to get lifetime series data
+
+.Available fields in blickfeld.diagnostics.services.TimeSeriesGetRequest
+|===
+| Field | Type | Default | Unit
+
+.2+| *key* | string| - | - 
+3+| Time series key
+
+.2+| *aggregation_duration* | uint32| - | s 
+3+| Aggregate lifetime series into buckets with the given duration. 
+ 
+Default: 30 minutes
+
+.2+| *time_span* | uint32| - | s 
+3+| Requested time span 
+ 
+Default: 1 month
+
+|===
+
+[#_blickfeld_diagnostics_services_TimeSeriesGetResponse]
+=== Response
+
+Response to get lifetime series data
+
+.Available fields in blickfeld.diagnostics.services.TimeSeriesGetResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *series* | xref:blickfeld/diagnostics/data/time_series.adoc[data.TimeSeries] | - | - 
+3+| Series data
+
+|===
+
+[#List]
+== List
+
+List available lifetime series
+
+[#_blickfeld_diagnostics_services_TimeSeriesListResponse]
+=== Response
+
+Request to get available lifetime series
+
+.Available fields in blickfeld.diagnostics.services.TimeSeriesListResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *series* | repeated xref:blickfeld/diagnostics/services/time_series.adoc#_blickfeld_diagnostics_services_TimeSeriesListResponse_SeriesEntry[SeriesEntry] | - | - 
+3+| Map of series's
+
+|===
+
+[#_blickfeld_diagnostics_services_TimeSeriesListResponse_SeriesEntry]
+==== Series Entry
+
+
+
+.Available fields in blickfeld.diagnostics.services.TimeSeriesListResponse.SeriesEntry
+|===
+| Field | Type | Default | Unit
+
+| *key* | string| - | - 
+| *value* | xref:blickfeld/diagnostics/data/time_series.adoc#_blickfeld_diagnostics_data_TimeSeries_Meta[data.TimeSeries.Meta] | - | - 
+|===
+

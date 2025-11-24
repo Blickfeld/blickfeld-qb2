@@ -193,6 +193,8 @@ message ZoneAlgorithm {
   message TrafficLane {
     // Expected velocity of the objects inside the traffic zone.
     float expected_velocity = 1 [(.blickfeld.base.unit) = "m/s"];
+    // Disable the rain filtering as it might aggressively cut vehicles short
+    bool disable_rain_filter = 2;
   }
   // The user readable zone algorithm name
   string name = 1;

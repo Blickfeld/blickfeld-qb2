@@ -13,8 +13,13 @@ option (.blickfeld.base.access_control_file) = {
 message ApplicationKeyListRequest {
   // Optional uuid of the account for which to list the application keys. If not provided the uuid from the presented JWT token will be
   // used.
-  string account_uuid = 1 [(.blickfeld.base.optional) = true, (.blickfeld.base.access_control_field) = {
+  string account_uuid = 1 [(.blickfeld.base.access_control_field) = {
     level: LEVEL_ADMIN
+  }, (.blickfeld.base.validate) = {
+    string {
+      pattern: "^[0-9A-Fa-f]{8}(?:-[0-9A-Fa-f]{4}){3}-[0-9A-Fa-f]{12}$"
+    }
+    optional: true
   }];
 }
 
@@ -28,8 +33,13 @@ message ApplicationKeyListResponse {
 message ApplicationKeyCreateRequest {
   // Optional uuid of the account to which the application key is associated. If not provided the uuid from the presented JWT token will
   // be used.
-  string account_uuid = 1 [(.blickfeld.base.optional) = true, (.blickfeld.base.access_control_field) = {
+  string account_uuid = 1 [(.blickfeld.base.access_control_field) = {
     level: LEVEL_ADMIN
+  }, (.blickfeld.base.validate) = {
+    string {
+      pattern: "^[0-9A-Fa-f]{8}(?:-[0-9A-Fa-f]{4}){3}-[0-9A-Fa-f]{12}$"
+    }
+    optional: true
   }];
   // The application key to create. Minimum (optional) input is the value set in the `purpose` field. Everything else will be generated
   // and added on the server side.
@@ -53,7 +63,12 @@ message ApplicationKeyCreateResponse {
 message ApplicationKeyDeleteRequest {
   // The uuid of the application key to delete. Once the application key has been deleted all future authentication attempts with this
   // application key will be blocked.
-  string uuid = 1;
+  string uuid = 1 [(.blickfeld.base.validate) = {
+    string {
+      pattern: "^[0-9a-zA-Z]{32}$"
+    }
+    optional: true
+  }];
 }
 
 // Service for managing application keys.

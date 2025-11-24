@@ -1,0 +1,43 @@
+= Service: Record
+
+NOTE: This API is officially released and maintained.
+
+The record service allows streaming of recording data to a client. 
+It requests and combines all the required recording data 
+(metadata, raw, states, vtu, pcd) into one stream. 
+A message in the stream consists of a file-path and the corresponding data. 
+That means that one message represents one file in a recording archive.
+
+.Available methods
+|===
+| Method | Request | Response
+
+| *xref:#Stream[]* | xref:blickfeld/toolkit/services/record.adoc#_blickfeld_toolkit_services_RecordStreamRequest[RecordStreamRequest]| xref:blickfeld/toolkit/services/record.adoc#_blickfeld_toolkit_services_RecordStreamResponse[RecordStreamResponse]Stream 
+|===
+[#Stream]
+== Stream
+
+Get a stream of recording data.
+
+[#_blickfeld_toolkit_services_RecordStreamRequest]
+=== Request
+
+Request for getting a stream of record messages
+
+[#_blickfeld_toolkit_services_RecordStreamResponse]
+=== Response Stream
+
+Response for getting a stream of record messages
+
+.Available fields in blickfeld.toolkit.services.RecordStreamResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *file* | xref:blickfeld/toolkit/data/record.adoc#_blickfeld_toolkit_data_Record_File[data.Record.File] | - | - 
+3+| File of a recording
+
+.2+| *data_loss* | bool| - | - 
+3+| Indicates that the internal send buffer is full and drops data.
+
+|===
+

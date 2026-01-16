@@ -1,0 +1,58 @@
+= Quick Setup
+
+[CAUTION]
+====
+Please ensure that you have xref:working_principles:user-management.adoc[user management] enabled at your QbProtect and that all steps below are performed under the xref:working_principles:authentication.adoc[authorized user].
+====
+
+The following steps are involved to quickly start with QbProtect integration via ONVIF: 
+
+. Click `Configuration` to navigate to the configuration dashboard -> Find the `ONVIF` interface in the `Output` Column
+. By default, ONVIF functionality is not enabled, which is indicated by the corresponding message in the ONVIF widget 
+
++
+.The ONVIF interface: non-configured message in QbProtect configuration dashboard
+image::onvif/dashboard/setup.png[800,800]
+
+. Click `Setup` to enable ONVIF and automatically generate an ONVIF application key associated with your user. Please refer to the xref:onvif/general/authentication.adoc[User authentication] subsection for more information. Now the ONVIF interface is fully enabled and can be used by VMS systems or video players.
+
++
+[NOTE]
+====
+The resulting application key (`Password`) in combination with the account login (`Username`) can be used, when prompted, as credentials pair (login/password) in the VMS or video player.
+====
+
++
+.The ONVIF interface: ONVIF application credentials in QbProtect configuration dashboard
+image::onvif/dashboard/key_generation.png[800,800]
+
+. When VMS client is disconnected, the ONVIF widget will indicate that RTSP/ONVIF is inactive as shown in the Figure below. 
+
++
+.The ONVIF interface is enabled: ONVIF and RTSP are ready to be used
+image::onvif/dashboard/onvif_not_active.png[800,800]
+
+. Proceed with the xref:onvif/vms/index.adoc[VMS] integration guides (including the configuration of security xref:onvif/general/events.adoc[Events]) or with xref:onvif/general/rtsp.adoc[RTSP] streaming guides (if security events are not required).
+
++
+[CAUTION]
+====
+The direct RTSP video streaming (without ONVIF) does not forward any security-related events into VMS.
+====
+
+. If the integration of QbProtect into the VMS was performed successfully, the ONVIF widget will indicate that the RTSP stream and Event Subscription (only for active Pull-Point) are active as shown in the Figure below
+
++
+.The ONVIF interface: successful integration of QbProtect into VMS
+image::onvif/dashboard/active_vms.png[800,800]
+
+. Information about the ONVIF/RTSP states, the number of connected clients, and video rates can be found in `System` -> `Diagnostics` -> `Integrations` -> `ONVIF` and `Video` correspondingly.
+
++
+.The ONVIF interface diagnostics: active ONVIF and RTSP client connections
+image::onvif/dashboard/onvif_health.png[800,800]
+
+The functional integration of QbProtect into Senstar Symphony is shown in the Figure below.
+
+.Integation of QbProtect into Senstar Symphony using ONVIF interface
+image::onvif/vms/senstar/events/zone_intrusion.png[800,800]

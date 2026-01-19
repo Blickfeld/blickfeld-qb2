@@ -60,6 +60,9 @@ Qb2 modules
 .2+| *compute_module* | xref:blickfeld/diagnostics/data/health.adoc#_blickfeld_diagnostics_data_Health_Module_Health[Health] | - | - 
 3+| Health of the Blickfeld Compute module
 
+.2+| *onvif* | xref:blickfeld/diagnostics/data/health.adoc#_blickfeld_diagnostics_data_Health_Module_Health[Health] | - | - 
+3+| Health of the Blickfeld onvif module
+
 |===
 
 [#_blickfeld_diagnostics_data_Health_Module_Health]

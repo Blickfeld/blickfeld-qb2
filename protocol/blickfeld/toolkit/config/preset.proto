@@ -15,7 +15,11 @@ option (.blickfeld.base.access_control_file) = {
 // The specific settings are not stored as part of this message.
 message Preset {
   // Name of the preset.
-  string name = 1;
+  string name = 1 [(.blickfeld.base.validate) = {
+    string {
+      maximum: 100
+    }
+  }];
   // Detailed explanation of the preset use-case.
   string details = 2;
   // Product variant for which the preset is licensed and intended.

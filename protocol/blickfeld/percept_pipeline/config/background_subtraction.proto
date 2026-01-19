@@ -36,13 +36,22 @@ message BackgroundSubtraction {
       // If 0, the auto merging is disabled.
       //  
       // Reasonable default: 10 minutes
-      float auto_merge_object_duration = 2 [(.blickfeld.base.unit) = "s"];
+      float auto_merge_object_duration = 2 [(.blickfeld.base.unit) = "s", (.blickfeld.base.validate) = {
+        number {
+          greater_or_equal: 0
+          less_or_equal: 20
+        }
+      }];
       // Only enable the object awareness for the given object sizes.
       //  
       // If empty, it is enabled for all sizes.
       //  
       // Reasonable default: OBJECT_SIZE_MEDIUM, OBJECT_SIZE_LARGE.
-      repeated .blickfeld.percept_pipeline.config.ObjectSize sizes = 3;
+      repeated .blickfeld.percept_pipeline.config.ObjectSize sizes = 3 [(.blickfeld.base.validate) = {
+        repeated {
+          maximum: 3
+        }
+      }];
       // Disable for objects which are marked with the in_background property.
       //  
       // This can be beneficial in scenes where the continuous background model
@@ -54,15 +63,30 @@ message BackgroundSubtraction {
     // The amount of initially received frames which are used to build the background.
     //  
     // Reasonable default: 10
-    uint32 num_initialization_frames = 1;
+    uint32 num_initialization_frames = 1 [(.blickfeld.base.validate) = {
+      number {
+        greater_or_equal: 1
+        less_or_equal: 30
+      }
+    }];
     // Controls how fast objects switch between foreground and background. Exponential decay factor.
     //  
     // Reasonable default: 0.005
-    float exponential_decay = 2;
+    float exponential_decay = 2 [(.blickfeld.base.validate) = {
+      number {
+        greater_or_equal: 0.0001
+        less_or_equal: 0.01
+      }
+    }];
     // Controls how much noise the background/foreground is expected to have.
     //  
     // Reasonable default: 0.25
-    float min_weight_threshold_for_background = 3;
+    float min_weight_threshold_for_background = 3 [(.blickfeld.base.validate) = {
+      number {
+        greater_or_equal: 0.1
+        less_or_equal: 0.05
+      }
+    }];
     // Configure the object awareness of the background subtraction.
     .blickfeld.percept_pipeline.config.BackgroundSubtraction.MixtureOfGaussians.ObjectAwareness object_awareness = 5 [(.blickfeld.base.protocol_maturity_field) = {
       level: LEVEL_EXPERIMENTAL
@@ -76,15 +100,30 @@ message BackgroundSubtraction {
     // How many frames of the first received frames are used to build the background
     //  
     // Reasonable default: 10
-    uint32 num_initialization_frames = 1;
+    uint32 num_initialization_frames = 1 [(.blickfeld.base.validate) = {
+      number {
+        greater_or_equal: 1
+        less_or_equal: 30
+      }
+    }];
     // Size of voxels used for voxelization of the background during initialization.
     //  
     // Default: 0.05 m
-    float voxel_size = 3 [(.blickfeld.base.unit) = "m"];
+    float voxel_size = 3 [(.blickfeld.base.unit) = "m", (.blickfeld.base.validate) = {
+      number {
+        greater_or_equal: 0
+        less_or_equal: 0.15
+      }
+    }];
     // Minimum spatial distance to background to detect points as foreground
     //  
     // Default: 0.15 m
-    float min_distance = 4 [(.blickfeld.base.unit) = "m"];
+    float min_distance = 4 [(.blickfeld.base.unit) = "m", (.blickfeld.base.validate) = {
+      number {
+        greater_or_equal: 0.05
+        less_or_equal: 0.5
+      }
+    }];
     reserved 2;
   }
   oneof background_subtraction_type {

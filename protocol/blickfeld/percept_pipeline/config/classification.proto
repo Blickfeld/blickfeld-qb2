@@ -20,13 +20,28 @@ message Classification {
     message BoundingBoxSurface {
       // The surface area of the objects bounding box
       // should be larger than this value to be considered a small object.
-      float small_min_size = 1 [(.blickfeld.base.unit) = "m^2"];
+      float small_min_size = 1 [(.blickfeld.base.unit) = "m^2", (.blickfeld.base.validate) = {
+        number {
+          greater_or_equal: 0
+          less_or_equal: 0.05
+        }
+      }];
       // The surface area of the objects bounding box
       // should be larger than this value to be considered a medium object.
-      float medium_min_size = 2 [(.blickfeld.base.unit) = "m^2"];
+      float medium_min_size = 2 [(.blickfeld.base.unit) = "m^2", (.blickfeld.base.validate) = {
+        number {
+          greater_or_equal: 0
+          less_or_equal: 0.5
+        }
+      }];
       // The surface area of the objects bounding box
       // should be larger than this value to be considered a large object.
-      float large_min_size = 3 [(.blickfeld.base.unit) = "m^2"];
+      float large_min_size = 3 [(.blickfeld.base.unit) = "m^2", (.blickfeld.base.validate) = {
+        number {
+          greater_or_equal: 0.02
+          less_or_equal: 5
+        }
+      }];
     }
     oneof type {
       // Use object surface size for object classification.
@@ -39,9 +54,25 @@ message Classification {
     message Normalization {
       // The mean coefficients used to normalize each input feature.
       // For each input feature: (x - mean) / std
-      repeated float mean_coeffs = 1;
+      repeated float mean_coeffs = 1 [(.blickfeld.base.validate) = {
+        number {
+          greater_or_equal: 0
+          less_or_equal: 50
+        }
+        repeated {
+          maximum: 50
+        }
+      }];
       // The standard deviation coefficients used for normalization.
-      repeated float std_coeffs = 2;
+      repeated float std_coeffs = 2 [(.blickfeld.base.validate) = {
+        number {
+          greater_or_equal: 0
+          less_or_equal: 50
+        }
+        repeated {
+          maximum: 50
+        }
+      }];
     }
     // Machine learning model types.
     enum Type {
@@ -65,6 +96,12 @@ message Classification {
       //  - Per-axis variance: var_x, var_y, var_z.
       // Resulting feature vector: [λ1, λ2, λ3, height, width, length, var_x, var_y, var_z]
       FEATURE_GENERATOR_EIGVALS_DIMS_WITH_VARIANCE = 2;
+      // Generate features from:
+      //  - Eigenvalues (λ1, λ2, λ3) of the 3D covariance matrix.
+      //  - Object dimensions: height, width, and length.
+      //  - Per-axis variance: var_y, var_z.
+      //  - 3 segments across length and calculated of their mean and max height.
+      FEATURE_GENERATOR_EIGVALS_DIMS_VARIANCE_HEIGHT_SEGMENTS = 3;
     }
     // Serialized model weights.
     bytes weights = 1;
@@ -77,7 +114,9 @@ message Classification {
     // The subset of classes to use.
     .blickfeld.percept_pipeline.config.ObjectClass object_category = 5;
     // Arbitrary metadata storage about model training, containing information about data used for training and optimal hyperparameters.
-    .google.protobuf.Struct metadata = 100 [(.blickfeld.base.optional) = true];
+    .google.protobuf.Struct metadata = 100 [(.blickfeld.base.validate) = {
+      optional: true
+    }];
   }
   // Select the classification method to use: either rule-based size classification
   // or model-based classification using a machine learning model.

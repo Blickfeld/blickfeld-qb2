@@ -26,9 +26,13 @@ message GeometryComputeGroundAlignmentRequest {
   // accelerometer data is assumed to be expressed in the lidar coordinate frame
   .blickfeld.core_processing.data.Acceleration accelerometer_data = 1;
   // if a lidar frame is provided, it is used to estimate the z-coordinate of the translation as well.
-  .blickfeld.core_processing.data.Frame lidar_frame = 2 [(.blickfeld.base.optional) = true];
+  .blickfeld.core_processing.data.Frame lidar_frame = 2 [(.blickfeld.base.validate) = {
+    optional: true
+  }];
   // Ground plane alignment estimation strategy.
-  .blickfeld.percept_toolkit.services.GeometryComputeGroundAlignmentRequest.Strategy strategy = 3 [(.blickfeld.base.optional) = true];
+  .blickfeld.percept_toolkit.services.GeometryComputeGroundAlignmentRequest.Strategy strategy = 3 [(.blickfeld.base.validate) = {
+    optional: true
+  }];
 }
 
 // The estimated alignment to the ground/gravity.

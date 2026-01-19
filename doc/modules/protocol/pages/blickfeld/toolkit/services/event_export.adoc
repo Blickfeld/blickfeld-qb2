@@ -1,0 +1,53 @@
+= Service: Event Export
+
+NOTE: This API is officially released and maintained.
+
+The event export service allows streaming of event export data to a client. 
+It requests and combines all the required data into one stream. 
+The data consists of the metadata and one or multiple events. 
+Every event consists of an event file and multiple foreground, object and state files. 
+A message in the stream consists of a file-path and the corresponding data. 
+That means that one message represents one file in an event export archive.
+
+.Available methods
+|===
+| Method | Request | Response
+
+| *xref:#Stream[]* | xref:blickfeld/toolkit/services/event_export.adoc#_blickfeld_toolkit_services_EventExportStreamRequest[EventExportStreamRequest]| xref:blickfeld/toolkit/services/event_export.adoc#_blickfeld_toolkit_services_EventExportStreamResponse[EventExportStreamResponse]Stream 
+|===
+[#Stream]
+== Stream
+
+Get all requested events for the event export.
+
+[#_blickfeld_toolkit_services_EventExportStreamRequest]
+=== Request
+
+Request for getting a stream of event export messages
+
+.Available fields in blickfeld.toolkit.services.EventExportStreamRequest
+|===
+| Field | Type | Default | Unit
+
+.2+| *event_ids* | repeated string| - | - 
+3+| The events to be exported
+
+.2+| *history_replay_range* | optional uint32| - | - 
+3+| The capture window around an event for the historical data
+
+|===
+
+[#_blickfeld_toolkit_services_EventExportStreamResponse]
+=== Response Stream
+
+Response for getting a stream of event export messages
+
+.Available fields in blickfeld.toolkit.services.EventExportStreamResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *file* | xref:blickfeld/toolkit/data/file.adoc[data.File] | - | - 
+3+| File of a event export
+
+|===
+

@@ -14,7 +14,11 @@ option (.blickfeld.base.access_control_file) = {
 // Flow get request
 message FlowGetRequest {
   // Flow id
-  string id = 1;
+  string id = 1 [(.blickfeld.base.validate) = {
+    string {
+      pattern: "^[0-9a-zA-Z\\._]{1,32}$"
+    }
+  }];
   // If true, the request returns the NodeRed JSON format which can be directly imported.
   bool as_node_red_json = 2;
 }
@@ -40,7 +44,11 @@ message FlowStoreRequest {
   // ID of the flow
   //  
   // NOTE: For node_red_json, this has to match the ID in the NodeRED JSON format.
-  string id = 1;
+  string id = 1 [(.blickfeld.base.validate) = {
+    string {
+      pattern: "^[0-9a-zA-Z\\._]{1,32}$"
+    }
+  }];
   oneof kind {
     // Blickfeld Flow config with well-defined high-level attributes
     .blickfeld.flow.config.Flow flow = 2;
@@ -52,7 +60,11 @@ message FlowStoreRequest {
 // Flow delete request
 message FlowDeleteRequest {
   // Id of Blickfeld Flow
-  string id = 1;
+  string id = 1 [(.blickfeld.base.validate) = {
+    string {
+      pattern: "^[0-9a-zA-Z\\._]{1,32}$"
+    }
+  }];
 }
 
 // Flow watch request

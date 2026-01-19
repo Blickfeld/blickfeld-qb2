@@ -13,29 +13,63 @@ message Visualization {
   // RGB color used for coloring various elements and objects inside RTSP video frame
   message Color {
     // The amount of red in the color as a value in the interval [0, 1].
-    float red = 1;
+    float red = 1 [(.blickfeld.base.validate) = {
+      number {
+        greater_or_equal: 0
+        less_or_equal: 1
+      }
+      optional: true
+    }];
     // The amount of green in the color as a value in the interval [0, 1].
-    float green = 2;
+    float green = 2 [(.blickfeld.base.validate) = {
+      number {
+        greater_or_equal: 0
+        less_or_equal: 1
+      }
+      optional: true
+    }];
     // The amount of blue in the color as a value in the interval [0, 1].
-    float blue = 3;
+    float blue = 3 [(.blickfeld.base.validate) = {
+      number {
+        greater_or_equal: 0
+        less_or_equal: 1
+      }
+      optional: true
+    }];
     // The alpha channel (transparency) in the interval [0, 1]. 0 means transparent
-    float alpha = 4;
+    float alpha = 4 [(.blickfeld.base.validate) = {
+      number {
+        greater_or_equal: 0
+        less_or_equal: 1
+      }
+      optional: true
+    }];
   }
   // Visual configuration of point cloud frame. Element coloring can be disabled by unsetting the corresponding color.
   message Frame {
     // color used to mark background point
-    .blickfeld.video.config.Visualization.Color background = 1;
+    .blickfeld.video.config.Visualization.Color background = 1 [(.blickfeld.base.validate) = {
+      optional: true
+    }];
     // color used to mark foreground point - gray
-    .blickfeld.video.config.Visualization.Color foreground = 2;
+    .blickfeld.video.config.Visualization.Color foreground = 2 [(.blickfeld.base.validate) = {
+      optional: true
+    }];
     // clockwise rotation value applied to the frame
-    .blickfeld.video.config.Visualization.Rotation rotation = 7;
+    .blickfeld.video.config.Visualization.Rotation rotation = 7 [(.blickfeld.base.validate) = {
+      optional: true
+    }];
   }
   // Configuration of the camera
   message Camera {
     // camera position - where camera is located
-    .blickfeld.base.geometry.Vector3 position = 1;
+    .blickfeld.base.geometry.Vector3 position = 1 [(.blickfeld.base.validate) = {
+      optional: true
+    }];
     // camera target - target at which camera looks
-    .blickfeld.base.geometry.Vector3 target = 2;
+    .blickfeld.base.geometry.Vector3 target = 2 [(.blickfeld.base.validate) = {
+      optional: true
+    }];
   }
   // Defines the clockwise rotation value for the frame in the video stream
   enum Rotation {
@@ -49,8 +83,12 @@ message Visualization {
     ROTATION_270 = 3;
   }
   // frame configuration
-  .blickfeld.video.config.Visualization.Frame frame = 1;
+  .blickfeld.video.config.Visualization.Frame frame = 1 [(.blickfeld.base.validate) = {
+    optional: true
+  }];
   // camera configuration
-  .blickfeld.video.config.Visualization.Camera camera = 3;
+  .blickfeld.video.config.Visualization.Camera camera = 3 [(.blickfeld.base.validate) = {
+    optional: true
+  }];
 }
 

@@ -59,13 +59,13 @@ Properties of an object.
 | Field | Type | Default | Unit
 
 .2+| *num_points* | uint32| - | - 
-3+| / Number of measurements that belong to the object point cloud.
+3+| Number of measurements that belong to the object point cloud.
 
 .2+| *average_intensity* | uint32| - | - 
-3+| / Average intensity of the measurements from the object point cloud.
+3+| Average intensity of the measurements from the object point cloud.
 
 .2+| *median_reflectivity* | uint32| - | - 
-3+| / Median reflectivity of the measurements from the object point cloud.
+3+| Median reflectivity of the measurements from the object point cloud.
 
 .2+| *bounding_box_2d_surface* | float| - | - 
 3+| Surface area of the largest xz / yz bounding box plane. 

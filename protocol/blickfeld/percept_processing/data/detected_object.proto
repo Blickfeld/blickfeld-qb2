@@ -22,11 +22,11 @@ option (.blickfeld.base.access_control_file) = {
 message DetectedObject {
   // Properties of an object.
   message Properties {
-    // / Number of measurements that belong to the object point cloud.
+    // Number of measurements that belong to the object point cloud.
     uint32 num_points = 2;
-    // / Average intensity of the measurements from the object point cloud.
+    // Average intensity of the measurements from the object point cloud.
     uint32 average_intensity = 3;
-    // / Median reflectivity of the measurements from the object point cloud.
+    // Median reflectivity of the measurements from the object point cloud.
     uint32 median_reflectivity = 9;
     // Surface area of the largest xz / yz bounding box plane.
     // This is used for the simple object size classification.
@@ -37,7 +37,9 @@ message DetectedObject {
     // the tracking algorithm is about the detected object.
     //  
     // NOTE: This is preliminary implementation and might change its behavior significantly in upcoming releases.
-    float confidence = 5 [(.blickfeld.base.optional) = true];
+    float confidence = 5 [(.blickfeld.base.validate) = {
+      optional: true
+    }];
     // Set when bounding box of object is mostly located within the background / reference frame.
     // This is usually an indication for ground or vegetation detections.
     bool in_background = 6;
@@ -75,7 +77,9 @@ message DetectedObject {
   .blickfeld.base.geometry.Vector3 velocity = 13;
   // The geolocation of the object based on the map and the object position.
   // Only set when the geolocation is configured in the data source.
-  .blickfeld.base.config.Geolocation geolocation = 14 [(.blickfeld.base.optional) = true];
+  .blickfeld.base.config.Geolocation geolocation = 14 [(.blickfeld.base.validate) = {
+    optional: true
+  }];
   // List of object based security zone uuids in which the object is detected.
   repeated string in_zone_uuids = 15;
 }

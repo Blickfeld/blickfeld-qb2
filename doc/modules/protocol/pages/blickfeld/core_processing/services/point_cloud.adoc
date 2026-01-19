@@ -82,7 +82,7 @@ Request for setting the filter configuration
 |===
 | Field | Type | Default | Unit
 
-.2+| *filter* | xref:blickfeld/core_processing/config/point_cloud.adoc#_blickfeld_core_processing_config_PointCloud_Filter[config.PointCloud.Filter] | - | - 
+.2+| *filter* | optional xref:blickfeld/core_processing/config/point_cloud.adoc#_blickfeld_core_processing_config_PointCloud_Filter[config.PointCloud.Filter] | - | - 
 3+| Filter configuration which should be applied on the point cloud frames.
 
 |===

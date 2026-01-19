@@ -55,7 +55,7 @@ to an empty string to request the data of the current device.
 .2+| *port* | optional uint32| - | - 
 3+| The gRPC port of the Qb2 device. If unset the default gRPC ports 50051 (unencrypted) or 55551 (TLS) will be used.
 
-.2+| *map_from_lidar* | xref:blickfeld/base/geometry/transform.adoc[base.geometry.Transform] | - | - 
+.2+| *map_from_lidar* | optional xref:blickfeld/base/geometry/transform.adoc[base.geometry.Transform] | - | - 
 3+| Transformation from the lidar frame to the map frame. If this transform is not set, this will be interpreted as identify 
 transformation. Transforming all point cloud topics into the map frame results in a globally consistent combined point cloud in 
 map frame.

@@ -17,29 +17,86 @@ message Shape {
   // A 3 dimensional box.
   message Box {
     // The X, Y and Z dimension.
-    .blickfeld.base.geometry.Vector3 dimensions = 1;
+    .blickfeld.base.geometry.Vector3 dimensions = 1 [(.blickfeld.base.validate) = {
+      number {
+        greater: 0
+      }
+      path: "x"
+    }, (.blickfeld.base.validate) = {
+      number {
+        greater: 0
+      }
+      path: "y"
+    }, (.blickfeld.base.validate) = {
+      number {
+        greater: 0
+      }
+      path: "z"
+    }];
   }
   // A 3 dimensional cone.
   message Cone {
     // The X, Y and Z dimension of the cone. X and Y dimensions of the cone
     // define the ellipsoid at the bottom of the cone. The cone is narrowing along the z direction.
-    .blickfeld.base.geometry.Vector3 dimensions = 1;
+    .blickfeld.base.geometry.Vector3 dimensions = 1 [(.blickfeld.base.validate) = {
+      number {
+        greater: 0
+      }
+      path: "x"
+    }, (.blickfeld.base.validate) = {
+      number {
+        greater: 0
+      }
+      path: "y"
+    }, (.blickfeld.base.validate) = {
+      number {
+        greater: 0
+      }
+      path: "z"
+    }];
   }
   // A 3 dimensional cylinder base and a cone top.
   message CylinderCone {
     // The X, Y and Z dimension of the cone. X and Y dimensions of the cone
     // define the ellipsoid at the bottom of the cone. The cone is narrowing along the z direction.
-    .blickfeld.base.geometry.Vector3 dimensions = 1;
+    .blickfeld.base.geometry.Vector3 dimensions = 1 [(.blickfeld.base.validate) = {
+      number {
+        greater: 0
+      }
+      path: "x"
+    }, (.blickfeld.base.validate) = {
+      number {
+        greater: 0
+      }
+      path: "y"
+    }, (.blickfeld.base.validate) = {
+      number {
+        greater: 0
+      }
+      path: "z"
+    }];
     // The cylinder height in meters.
-    float cylinder_height = 2;
+    float cylinder_height = 2 [(.blickfeld.base.validate) = {
+      number {
+        greater_or_equal: 0
+      }
+    }];
   }
   // A 3 dimensional polygon.
   message Polygon {
     // The points defining the polygon ground area.
     // The points can be set in a clockwise or counter-clockwise order.
-    repeated .blickfeld.base.geometry.Vector2 points = 1;
+    repeated .blickfeld.base.geometry.Vector2 points = 1 [(.blickfeld.base.validate) = {
+      repeated {
+        minimum: 3
+      }
+    }];
     // The height of the polygon.
-    float height = 2;
+    float height = 2 [(.blickfeld.base.validate) = {
+      number {
+        greater: 0
+      }
+    }];
   }
   // Position and orientation of the center of the bounding box enclosing the shape.
   .blickfeld.base.geometry.Pose pose = 1;

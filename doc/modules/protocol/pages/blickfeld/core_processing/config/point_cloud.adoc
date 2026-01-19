@@ -24,7 +24,7 @@ The default sorting is by intensity.
 3+| Set lower threshold for reflectivity. 
 This can be tuned to improve the SNR when low-reflectivity targets have a lower priority.
 
-.2+| *minimum_reflectivity_range_limit* | optional xref:blickfeld/base/config/range.adoc#_blickfeld_base_config_Range_Float[base.config.Range.Float] | - | - 
+.2+| *minimum_reflectivity_range_limit* | optional xref:blickfeld/base/config/range.adoc#_blickfeld_base_config_Range_Float[base.config.Range.Float] | - | m 
 3+| Only apply the minimum_reflectivity filter for the given minimum and maximum range.
 
 .2+| *minimum_range* | optional float| - | m 

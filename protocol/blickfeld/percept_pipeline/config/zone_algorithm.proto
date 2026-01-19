@@ -21,7 +21,11 @@ message ZoneAlgorithm {
     // The geolocation of the center of the zone.
     .blickfeld.base.config.Geolocation center = 1;
     // The geolocation of the corners of the zone.
-    repeated .blickfeld.base.config.Geolocation corners = 2;
+    repeated .blickfeld.base.config.Geolocation corners = 2 [(.blickfeld.base.validate) = {
+      repeated {
+        maximum: 100
+      }
+    }];
   }
   // Algorithm that measure the volume of a zone
   //  
@@ -32,21 +36,39 @@ message ZoneAlgorithm {
     // Grid resolution per tile used to measure the volume.
     //  
     // Reasonable default: 0.1
-    float resolution = 1 [(.blickfeld.base.d_min) = 0.1, (.blickfeld.base.d_max) = 0.5, (.blickfeld.base.unit) = "m"];
+    float resolution = 1 [(.blickfeld.base.unit) = "m", (.blickfeld.base.validate) = {
+      number {
+        greater_or_equal: 0.1
+        less_or_equal: 0.5
+      }
+    }];
     // The measured volume while area covered by the zone is considered 'empty'. The value can be set using
     // TareVolume method while the area of the zone is empty.
     //  
     // Reasonable default: 0
-    float empty_volume = 2 [(.blickfeld.base.unit) = "m^3"];
+    float empty_volume = 2 [(.blickfeld.base.unit) = "m^3", (.blickfeld.base.validate) = {
+      number {
+        greater_or_equal: -1000000
+        less_or_equal: 1000000
+      }
+    }];
     // Link volume zone to occupancy zones (by uuid).
     //  
     // Disables the volume zone state when one of the occupancy zones is occupied.
-    repeated string disable_when_occupied_zone_uuids = 4 [(.blickfeld.base.optional) = true];
+    repeated string disable_when_occupied_zone_uuids = 4 [(.blickfeld.base.validate) = {
+      optional: true
+    }];
     // Angle of repose.
     //  
     // Steepest angle of descent when the measured material is piled.
     // See https://en.wikipedia.org/wiki/Angle_of_repose.
-    float angle_of_repose = 5 [(.blickfeld.base.optional) = true, (.blickfeld.base.unit) = "rad"];
+    float angle_of_repose = 5 [(.blickfeld.base.unit) = "rad", (.blickfeld.base.validate) = {
+      number {
+        greater_or_equal: 0
+        less: 1.5707963267948966
+      }
+      optional: true
+    }];
     // Minimum coverage value for zone.
     //  
     // When the estimated coverage is below the configured threshold,
@@ -56,14 +78,23 @@ message ZoneAlgorithm {
     // zone area is blocked or the sensor is temporarily failed.
     //  
     // Default: 0
-    float minimum_coverage = 6 [(.blickfeld.base.optional) = true];
+    float minimum_coverage = 6 [(.blickfeld.base.validate) = {
+      number {
+        greater_or_equal: 0
+      }
+      optional: true
+    }];
     reserved 3;
   }
   // Algorithm that triggers an alarm if movement was detected in the zone
   message Security {
     // Minimum number of (foreground) points in the security zone to trigger the alarm.
     // Reasonable default: 10
-    uint32 min_points = 1;
+    uint32 min_points = 1 [(.blickfeld.base.validate) = {
+      number {
+        greater_or_equal: 1
+      }
+    }];
     // Maximum number of (foreground) points in the security zone that still triggers an alarm.
     // More points will disable the alarm. This logic can be disabled by setting max_points to '0'.
     // Default: 0
@@ -71,7 +102,11 @@ message ZoneAlgorithm {
     // Minimum active intrusion duration before alarm is triggered.
     //  
     // Default: 0
-    float minimum_intruding_duration = 3 [(.blickfeld.base.unit) = "s"];
+    float minimum_intruding_duration = 3 [(.blickfeld.base.unit) = "s", (.blickfeld.base.validate) = {
+      number {
+        greater_or_equal: 0
+      }
+    }];
     // Minimum intrusion confidence before alarm is triggered.
     //  
     // Only applicable when the minimum intruding duration is configured.
@@ -81,29 +116,51 @@ message ZoneAlgorithm {
     // Alarm is kept active for the given duration to reduce jitter.
     //  
     // Default: 0
-    float hold_duration = 5 [(.blickfeld.base.unit) = "s"];
+    float hold_duration = 5 [(.blickfeld.base.unit) = "s", (.blickfeld.base.validate) = {
+      number {
+        greater_or_equal: 0
+      }
+    }];
     // Link security zone to occupancy zones (by uuid).
     //  
     // Disables the security zone state and alarms when one of the occupancy zones is occupied.
-    repeated string disable_when_occupied_zone_uuids = 6 [(.blickfeld.base.optional) = true];
+    repeated string disable_when_occupied_zone_uuids = 6 [(.blickfeld.base.validate) = {
+      optional: true
+    }];
   }
   // Algorithm that triggers an alarm when an object of one of the selected sizes is in the zone
   message ObjectBasedSecurity {
     // Selection of sizes which trigger an alarm. Each size in the array will only
     // trigger an alarm for the interval of that size.
-    repeated .blickfeld.percept_pipeline.config.ObjectSize alarm_sizes = 1;
+    repeated .blickfeld.percept_pipeline.config.ObjectSize alarm_sizes = 1 [(.blickfeld.base.validate) = {
+      repeated {
+        maximum: 3
+      }
+    }];
     // Minimum lifetime of object before alarm is triggered.
     //  
     // Default: 0
-    float minimum_intruder_lifetime = 6 [(.blickfeld.base.unit) = "s"];
+    float minimum_intruder_lifetime = 6 [(.blickfeld.base.unit) = "s", (.blickfeld.base.validate) = {
+      number {
+        greater_or_equal: 0
+      }
+    }];
     // Minimum track length of object before alarm is triggered.
     //  
     // Default: 0
-    float minimum_intruder_track_length = 7 [(.blickfeld.base.unit) = "m"];
+    float minimum_intruder_track_length = 7 [(.blickfeld.base.unit) = "m", (.blickfeld.base.validate) = {
+      number {
+        greater_or_equal: 0
+      }
+    }];
     // Minimum active intrusion duration before alarm is triggered.
     //  
     // Default: 0
-    float minimum_intruding_duration = 8 [(.blickfeld.base.unit) = "s"];
+    float minimum_intruding_duration = 8 [(.blickfeld.base.unit) = "s", (.blickfeld.base.validate) = {
+      number {
+        greater_or_equal: 0
+      }
+    }];
     // Trigger alarm for objects with the "in_background" property.
     //  
     // Enabling this might increase the false alarm rate.
@@ -117,7 +174,11 @@ message ZoneAlgorithm {
     // Alarm is kept active for the given duration to reduce jitter.
     //  
     // Default: 0
-    float hold_duration = 10 [(.blickfeld.base.unit) = "s"];
+    float hold_duration = 10 [(.blickfeld.base.unit) = "s", (.blickfeld.base.validate) = {
+      number {
+        greater_or_equal: 0
+      }
+    }];
     // Detect an object as intruder if any part of it enters the zone.
     // Only the center point of the object is considered when disabled.
     //  
@@ -126,7 +187,9 @@ message ZoneAlgorithm {
     // Link security zone to occupancy zones (by uuid).
     //  
     // Disables the security zone state and alarms when one of the occupancy zones is occupied.
-    repeated string disable_when_occupied_zone_uuids = 12 [(.blickfeld.base.optional) = true];
+    repeated string disable_when_occupied_zone_uuids = 12 [(.blickfeld.base.validate) = {
+      optional: true
+    }];
     // Detect an object as intruder if it is moving in the wrong direction, similar to the directional zone,
     // but covering an area.
     bool intrusion_on_wrong_direction = 13;
@@ -142,7 +205,9 @@ message ZoneAlgorithm {
     // This allows filtering false alarms when they have a significantly different intensity level than real objects.
     //  
     // Default: 0 (all average intensity values are considered)
-    float minimum_average_intruder_intensity = 15 [(.blickfeld.base.optional) = true];
+    float minimum_average_intruder_intensity = 15 [(.blickfeld.base.validate) = {
+      optional: true
+    }];
     reserved 2, 3, 5;
   }
   // Algorithm that excludes points from the input point cloud
@@ -153,7 +218,11 @@ message ZoneAlgorithm {
     // Minimum number of points to mark the zone as occupied.
     //  
     // Reasonable default: 10
-    uint32 min_points = 1;
+    uint32 min_points = 1 [(.blickfeld.base.validate) = {
+      number {
+        greater: 0
+      }
+    }];
     // If set, the min_points is not compared against zero but against an
     // adaptive baseline. The baseline is calculated with an exponential
     // filter with the zone point count as input.
@@ -163,13 +232,23 @@ message ZoneAlgorithm {
     // point count.
     //  
     // Reasonable default: 3600s (1 hour)
-    float adaptive_baseline_time_constant = 2 [(.blickfeld.base.optional) = true, (.blickfeld.base.unit) = "s"];
+    float adaptive_baseline_time_constant = 2 [(.blickfeld.base.unit) = "s", (.blickfeld.base.validate) = {
+      number {
+        greater: 0
+      }
+      optional: true
+    }];
     // The point cloud inside the zone is down sampled with a voxel grid.
     // This is done to achieve a distance-independent parametrization.
     // The size of a voxel cell can be configured with this parameter.
     //  
     // Default: 0.05m
-    float voxel_size = 3 [(.blickfeld.base.optional) = true, (.blickfeld.base.unit) = "m"];
+    float voxel_size = 3 [(.blickfeld.base.unit) = "m", (.blickfeld.base.validate) = {
+      number {
+        greater: 0
+      }
+      optional: true
+    }];
     // Invert the state of the zone
     //  
     // This might be useful in situations where e.g. a static crane should be detected in its home position.
@@ -179,27 +258,45 @@ message ZoneAlgorithm {
   message TraversalSecurity {
     // Selection of sizes which trigger an alarm.  An alarm will only be triggered by objects of sizes
     // specified in the array.
-    repeated .blickfeld.percept_pipeline.config.ObjectSize alarm_sizes = 1;
+    repeated .blickfeld.percept_pipeline.config.ObjectSize alarm_sizes = 1 [(.blickfeld.base.validate) = {
+      repeated {
+        maximum: 3
+      }
+    }];
     // Alarm is kept active for the given duration to reduce jitter.
     //  
     // Default: 0
-    float hold_duration = 2 [(.blickfeld.base.unit) = "s"];
+    float hold_duration = 2 [(.blickfeld.base.unit) = "s", (.blickfeld.base.validate) = {
+      number {
+        greater_or_equal: 0
+      }
+    }];
     // Link security zone to occupancy zones (by uuid).
     //  
     // Disables the security zone state and alarms when one of the occupancy zones is occupied.
-    repeated string disable_when_occupied_zone_uuids = 3 [(.blickfeld.base.optional) = true];
+    repeated string disable_when_occupied_zone_uuids = 3 [(.blickfeld.base.validate) = {
+      optional: true
+    }];
   }
   // Algorithm that monitors traffic moving through the zone.
   message TrafficLane {
     // Expected velocity of the objects inside the traffic zone.
-    float expected_velocity = 1 [(.blickfeld.base.unit) = "m/s"];
+    float expected_velocity = 1 [(.blickfeld.base.unit) = "m/s", (.blickfeld.base.validate) = {
+      number {
+        greater_or_equal: 0
+      }
+    }];
     // Disable the rain filtering as it might aggressively cut vehicles short
     bool disable_rain_filter = 2;
   }
   // The user readable zone algorithm name
   string name = 1;
   // The uuid of the zone algorithm (uuid4)
-  string uuid = 2;
+  string uuid = 2 [(.blickfeld.base.validate) = {
+    string {
+      pattern: "^[0-9A-Fa-f]{8}(?:-[0-9A-Fa-f]{4}){3}-[0-9A-Fa-f]{12}$"
+    }
+  }];
   // Geometric shape (usually a Box) in which the algorithm detects certain behaviors/scenarios
   .blickfeld.base.geometry.Shape shape = 3;
   // Disable this zone, setting this flag to `true` disables the evaluation of the zone
@@ -207,9 +304,13 @@ message ZoneAlgorithm {
   // Geolocation of the zone.
   //  
   // This field is read only and only set when the geolocation is configured in the data source.
-  .blickfeld.percept_pipeline.config.ZoneAlgorithm.Geolocation geolocation = 15 [(.blickfeld.base.optional) = true];
+  .blickfeld.percept_pipeline.config.ZoneAlgorithm.Geolocation geolocation = 15 [(.blickfeld.base.validate) = {
+    optional: true
+  }];
   // Arbitrary metadata storage for client applications
-  .google.protobuf.Struct metadata = 100 [(.blickfeld.base.optional) = true];
+  .google.protobuf.Struct metadata = 100 [(.blickfeld.base.validate) = {
+    optional: true
+  }];
   oneof algorithm_type {
     // Run volume monitoring within the zone
     .blickfeld.percept_pipeline.config.ZoneAlgorithm.Volume volume = 9;

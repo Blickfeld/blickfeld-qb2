@@ -18,12 +18,22 @@ message Tracking {
     // the sensitivity, meaning that tracking will only begin when an object is clearly detected in multiple consecutive frames.
     //  
     // default: 0.85, range: [0.01 ... 1.0]
-    float sensitivity = 1;
+    float sensitivity = 1 [(.blickfeld.base.validate) = {
+      number {
+        greater_or_equal: 0.01
+        less_or_equal: 1
+      }
+    }];
     // Defines the amount of acceleration noise that can happen in any random direction.
     // When tracking fails to properly follow fast-moving objects, increasing this value expands the search space for track association.
     //  
     // default: 0.3, range: [0.3 ... 10]
-    float acceleration_noise = 2 [(.blickfeld.base.unit) = "m^2 / s^4"];
+    float acceleration_noise = 2 [(.blickfeld.base.unit) = "m^2 / s^4", (.blickfeld.base.validate) = {
+      number {
+        greater_or_equal: 0.3
+        less_or_equal: 10
+      }
+    }];
     // Describes the expected deviation squared (variance) of the detection from the true center of the object
     //  
     // default: 0.3
@@ -31,32 +41,62 @@ message Tracking {
     // Defines the threshold below which a detection is ignored from being associated into the track
     //  
     // default 0.2,  range: [0.01 ... 0.9999]
-    float minimum_association_probability_for_detection = 4;
+    float minimum_association_probability_for_detection = 4 [(.blickfeld.base.validate) = {
+      number {
+        greater_or_equal: 0.01
+        less_or_equal: 0.9999
+      }
+    }];
     // Defines how often do true detections happen within the validation gate
     //  
     // default: 0.9995, range: [0.01 ... 0.9999]
-    float gate_probability = 5;
+    float gate_probability = 5 [(.blickfeld.base.validate) = {
+      number {
+        greater_or_equal: 0.01
+        less_or_equal: 0.9999
+      }
+    }];
     // Defines the probability expected to detect a true object in the scene.
     // Influences the algorithm in three ways: contributes to the estimation of clutter measurements, the possibility
     // of associating a missed detection to an existing track and the final probability of missed detection.
     //  
     // default: 0.88, range: [0.01 ... 0.9999]
-    float detection_probability = 6;
+    float detection_probability = 6 [(.blickfeld.base.validate) = {
+      number {
+        greater_or_equal: 0.01
+        less_or_equal: 0.9999
+      }
+    }];
     // Defines how many frames are used to keep objects without detections alive.
     // High values will keep the track alive for an extended period. This can be useful to pick up the
     // same objects' ids again after the previously tracked object has been hidden for some frames. Lower values cause the system to
     // discard non-visible tracks faster.
     //  
     // default: 0.995, range: [0.01 ... 0.9999]
-    float survival_probability = 7;
+    float survival_probability = 7 [(.blickfeld.base.validate) = {
+      number {
+        greater_or_equal: 0.01
+        less_or_equal: 0.9999
+      }
+    }];
     // Defines how quickly tracks are confirmed for detections
     //  
     // default: 0.75, range: [0.01 ... 0.9999]
-    float confirmed_existence_probability = 8;
+    float confirmed_existence_probability = 8 [(.blickfeld.base.validate) = {
+      number {
+        greater_or_equal: 0.01
+        less_or_equal: 0.9999
+      }
+    }];
     // Describes the existence probability at which a track gets deleted
     //  
     // default: 0.01, range: [0.01 ... 0.9999]
-    float minimum_existence_probability = 9;
+    float minimum_existence_probability = 9 [(.blickfeld.base.validate) = {
+      number {
+        greater_or_equal: 0.01
+        less_or_equal: 0.9999
+      }
+    }];
     // Determines the expected uncertainty in the position.
     // This influences the search radius for associating the second detection to this object.
     //  
@@ -75,24 +115,36 @@ message Tracking {
   // Higher sensitivity will make the tracker confirm the object faster
   //  
   // Reasonable default: 0.85
-  float sensitivity = 1 [deprecated = true];
+  float sensitivity = 1 [deprecated = true, (.blickfeld.base.validate) = {
+    optional: true
+  }];
   // The acceptance range of accelerations for the object to be tracked
   //  
   // Reasonable default: 0.3
-  float acceleration_noise = 2 [deprecated = true];
+  float acceleration_noise = 2 [deprecated = true, (.blickfeld.base.validate) = {
+    optional: true
+  }];
   // Higher probability will allow the object to be followed longer in the absence of observations
   //  
   // Reasonable default: 1
-  float survival_probability = 3 [deprecated = true];
+  float survival_probability = 3 [deprecated = true, (.blickfeld.base.validate) = {
+    optional: true
+  }];
   // The distance between saved object positions in the track path history.
   // The path history is stored for all currently tracked objects. The path resolution specifies the discretization of the stored
   // path. A higher value results in greater spacing between recorded positions.
   //  
   // Default value: 1 meter
-  float path_resolution = 5;
+  float path_resolution = 5 [(.blickfeld.base.validate) = {
+    optional: true
+  }];
   // Advanced tracking settings
   //  
   // NOTE: If set, configuration will override parameters in higher level tracking configuration.
-  .blickfeld.percept_pipeline.config.Tracking.Advanced advanced = 6;
+  .blickfeld.percept_pipeline.config.Tracking.Advanced advanced = 6 [(.blickfeld.base.validate) = {
+    optional: true
+  }];
+  // When enabled, medium and large objects will be independently tracked from background objects and objects of small size (and below).
+  bool size_dependent = 7;
 }
 

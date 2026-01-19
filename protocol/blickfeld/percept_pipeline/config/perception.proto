@@ -19,19 +19,33 @@ option (.blickfeld.base.access_control_file) = {
 // The configuration of perception algorithms used to run e.g. security zones
 message Perception {
   // Extract the foreground point cloud of the scene
-  .blickfeld.percept_pipeline.config.BackgroundSubtraction background_subtraction = 1;
+  .blickfeld.percept_pipeline.config.BackgroundSubtraction background_subtraction = 1 [(.blickfeld.base.validate) = {
+    optional: true
+  }];
   // Filter the foreground point cloud
-  repeated .blickfeld.percept_pipeline.config.PointCloudFilter foreground_point_cloud_filters = 2;
+  repeated .blickfeld.percept_pipeline.config.PointCloudFilter foreground_point_cloud_filters = 2 [(.blickfeld.base.validate) = {
+    optional: true
+  }];
   // Segment the foreground point cloud into clusters
-  .blickfeld.percept_pipeline.config.Clustering clustering = 8;
+  .blickfeld.percept_pipeline.config.Clustering clustering = 8 [(.blickfeld.base.validate) = {
+    optional: true
+  }];
   // Track the objects generated from the clustering
-  .blickfeld.percept_pipeline.config.Tracking tracking = 9;
+  .blickfeld.percept_pipeline.config.Tracking tracking = 9 [(.blickfeld.base.validate) = {
+    optional: true
+  }];
   // Classify object into small, medium and large objects
-  .blickfeld.percept_pipeline.config.Classification classification = 10;
+  .blickfeld.percept_pipeline.config.Classification classification = 10 [(.blickfeld.base.validate) = {
+    optional: true
+  }];
   // Keep a history of perception results
-  .blickfeld.percept_pipeline.config.History history = 11;
+  .blickfeld.percept_pipeline.config.History history = 11 [(.blickfeld.base.validate) = {
+    optional: true
+  }];
   // Detect disqualifying effects in the point cloud caused by weather
-  .blickfeld.percept_pipeline.config.Disqualification disqualification = 12;
+  .blickfeld.percept_pipeline.config.Disqualification disqualification = 12 [(.blickfeld.base.validate) = {
+    optional: true
+  }];
   reserved 3, 4, 5, 6, 7;
 }
 

@@ -17,9 +17,17 @@ option (.blickfeld.base.access_control_file) = {
 // Request for stream range method
 message HistoryStreamRangeRequest {
   // ID where the stream should start
-  string start_id = 1;
+  string start_id = 1 [(.blickfeld.base.validate) = {
+    string {
+      pattern: "^(\\d{1,20}-\\d{1,20}|\\d{1,20}|[+-\\\\$])$"
+    }
+  }];
   // ID where the stream should stop
-  string end_id = 2;
+  string end_id = 2 [(.blickfeld.base.validate) = {
+    string {
+      pattern: "^(\\d{1,20}-\\d{1,20}|\\d{1,20}|[+-\\\\$])$"
+    }
+  }];
 }
 
 // Response for stream range method

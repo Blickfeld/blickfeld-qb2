@@ -12,12 +12,32 @@ option (.blickfeld.base.access_control_file) = {
 // A quaternion for representing an orientation.
 message Quaternion {
   // The X component.
-  float x = 1;
+  float x = 1 [(.blickfeld.base.validate) = {
+    number {
+      greater_or_equal: -1
+      less_or_equal: 1
+    }
+  }];
   // The Y component.
-  float y = 2;
+  float y = 2 [(.blickfeld.base.validate) = {
+    number {
+      greater_or_equal: -1
+      less_or_equal: 1
+    }
+  }];
   // The Z component.
-  float z = 3;
+  float z = 3 [(.blickfeld.base.validate) = {
+    number {
+      greater_or_equal: -1
+      less_or_equal: 1
+    }
+  }];
   // The W component (real part).
-  float w = 4;
+  float w = 4 [(.blickfeld.base.validate) = {
+    number {
+      greater_or_equal: -1
+      less_or_equal: 1
+    }
+  }];
 }
 

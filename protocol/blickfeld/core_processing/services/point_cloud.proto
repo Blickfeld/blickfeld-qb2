@@ -33,7 +33,9 @@ message PointCloudGetResponse {
 // Request for setting the filter configuration
 message PointCloudSetFilterRequest {
   // Filter configuration which should be applied on the point cloud frames.
-  .blickfeld.core_processing.config.PointCloud.Filter filter = 1;
+  .blickfeld.core_processing.config.PointCloud.Filter filter = 1 [(.blickfeld.base.validate) = {
+    optional: true
+  }];
 }
 
 // Response for retrieving the current filter configuration

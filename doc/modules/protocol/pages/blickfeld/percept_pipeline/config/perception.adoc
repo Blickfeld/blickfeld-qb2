@@ -7,25 +7,25 @@ The configuration of perception algorithms used to run e.g. security zones
 |===
 | Field | Type | Default | Unit
 
-.2+| *background_subtraction* | xref:blickfeld/percept_pipeline/config/background_subtraction.adoc[BackgroundSubtraction] | - | - 
+.2+| *background_subtraction* | optional xref:blickfeld/percept_pipeline/config/background_subtraction.adoc[BackgroundSubtraction] | - | - 
 3+| Extract the foreground point cloud of the scene
 
 .2+| *foreground_point_cloud_filters* | repeated xref:blickfeld/percept_pipeline/config/point_cloud_filter.adoc[PointCloudFilter] | - | - 
 3+| Filter the foreground point cloud
 
-.2+| *clustering* | xref:blickfeld/percept_pipeline/config/clustering.adoc[Clustering] | - | - 
+.2+| *clustering* | optional xref:blickfeld/percept_pipeline/config/clustering.adoc[Clustering] | - | - 
 3+| Segment the foreground point cloud into clusters
 
-.2+| *tracking* | xref:blickfeld/percept_pipeline/config/tracking.adoc[Tracking] | - | - 
+.2+| *tracking* | optional xref:blickfeld/percept_pipeline/config/tracking.adoc[Tracking] | - | - 
 3+| Track the objects generated from the clustering
 
-.2+| *classification* | xref:blickfeld/percept_pipeline/config/classification.adoc[Classification] | - | - 
+.2+| *classification* | optional xref:blickfeld/percept_pipeline/config/classification.adoc[Classification] | - | - 
 3+| Classify object into small, medium and large objects
 
-.2+| *history* | xref:blickfeld/percept_pipeline/config/history.adoc[History] | - | - 
+.2+| *history* | optional xref:blickfeld/percept_pipeline/config/history.adoc[History] | - | - 
 3+| Keep a history of perception results
 
-.2+| *disqualification* | xref:blickfeld/percept_pipeline/config/disqualification.adoc[Disqualification] | - | - 
+.2+| *disqualification* | optional xref:blickfeld/percept_pipeline/config/disqualification.adoc[Disqualification] | - | - 
 3+| Detect disqualifying effects in the point cloud caused by weather
 
 |===

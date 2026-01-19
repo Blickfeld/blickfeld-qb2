@@ -14,7 +14,11 @@ option (.blickfeld.base.access_control_file) = {
 // A request to receive a stream of state list messages
 message VolumeMapStreamRequest {
   // Volume zone uuid
-  string zone_uuid = 2;
+  string zone_uuid = 2 [(.blickfeld.base.validate) = {
+    string {
+      pattern: "^[0-9A-Fa-f]{8}(?:-[0-9A-Fa-f]{4}){3}-[0-9A-Fa-f]{12}$"
+    }
+  }];
 }
 
 // A response for getting a stream of volume map messages from the running pipeline

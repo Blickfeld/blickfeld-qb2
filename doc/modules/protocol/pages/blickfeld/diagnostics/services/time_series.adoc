@@ -28,12 +28,12 @@ Request to get lifetime series data
 .2+| *key* | string| - | - 
 3+| Time series key
 
-.2+| *aggregation_duration* | uint32| - | s 
+.2+| *aggregation_duration* | optional uint32| - | s 
 3+| Aggregate lifetime series into buckets with the given duration. 
  
 Default: 30 minutes
 
-.2+| *time_span* | uint32| - | s 
+.2+| *time_span* | optional uint32| - | s 
 3+| Requested time span 
  
 Default: 1 month

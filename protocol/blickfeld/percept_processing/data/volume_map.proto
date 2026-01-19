@@ -27,10 +27,14 @@ message VolumeMap {
     bytes height = 3 [(.blickfeld.base.unit) = "m", (.blickfeld.base.numpy_dtype) = "<f4"];
     // Standard Deviation per tile
     // Type: Float32
-    bytes std_deviation = 4 [(.blickfeld.base.optional) = true, (.blickfeld.base.numpy_dtype) = "<f4"];
+    bytes std_deviation = 4 [(.blickfeld.base.numpy_dtype) = "<f4", (.blickfeld.base.validate) = {
+      optional: true
+    }];
     // Number Points per tile
     // Type: UInt16
-    bytes number_points = 5 [(.blickfeld.base.optional) = true, (.blickfeld.base.numpy_dtype) = "<u2"];
+    bytes number_points = 5 [(.blickfeld.base.numpy_dtype) = "<u2", (.blickfeld.base.validate) = {
+      optional: true
+    }];
   }
   // Timestamp of the lidar frame in which the volume map was calculated
   uint64 timestamp = 1 [(.blickfeld.base.unit) = "ns"];

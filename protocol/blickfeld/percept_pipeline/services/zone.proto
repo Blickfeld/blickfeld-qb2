@@ -22,7 +22,11 @@ message ZoneStoreRequest {
   // The new zone to be added. If there is a zone with the same uuid, that zone will get updated with this configuration.
   .blickfeld.percept_pipeline.config.ZoneAlgorithm zone = 1;
   // For a batch update: the new zones to be added. If any of them has a uuid matching an existing zone, it will get updated.
-  repeated .blickfeld.percept_pipeline.config.ZoneAlgorithm zones = 2;
+  repeated .blickfeld.percept_pipeline.config.ZoneAlgorithm zones = 2 [(.blickfeld.base.validate) = {
+    repeated {
+      maximum: 100
+    }
+  }];
   // If this is set to true, all existing zones that are not specified in this request will be deleted.
   bool delete_others = 3;
 }
@@ -30,9 +34,17 @@ message ZoneStoreRequest {
 // Request to delete zones
 message ZoneDeleteRequest {
   // The uuid of the zone to be deleted
-  string uuid = 1;
+  string uuid = 1 [(.blickfeld.base.validate) = {
+    string {
+      pattern: "^[0-9A-Fa-f]{8}(?:-[0-9A-Fa-f]{4}){3}-[0-9A-Fa-f]{12}$"
+    }
+  }];
   // For a batch delete: the uuids of the zones to be deleted
-  repeated string uuids = 2;
+  repeated string uuids = 2 [(.blickfeld.base.validate) = {
+    string {
+      pattern: "^[0-9A-Fa-f]{8}(?:-[0-9A-Fa-f]{4}){3}-[0-9A-Fa-f]{12}$"
+    }
+  }];
 }
 
 // Continuous response on zone list changes
@@ -44,7 +56,11 @@ message ZoneWatchResponse {
 // Request for the raw volume to be used for taring a volume zone
 message ZoneGetTareVolumeRequest {
   // The uuid of the volume zone
-  string zone_uuid = 1;
+  string zone_uuid = 1 [(.blickfeld.base.validate) = {
+    string {
+      pattern: "^[0-9A-Fa-f]{8}(?:-[0-9A-Fa-f]{4}){3}-[0-9A-Fa-f]{12}$"
+    }
+  }];
 }
 
 // Response containing the raw volume of the requested zone

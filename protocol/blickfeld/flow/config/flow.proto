@@ -15,7 +15,11 @@ option (.blickfeld.base.access_control_file) = {
 // This container is used to control high-level attributes of NodeRed flows.
 message Flow {
   // Human readable label of the flow
-  string name = 1;
+  string name = 1 [(.blickfeld.base.validate) = {
+    string {
+      maximum: 100
+    }
+  }];
   // Is it active?
   bool disabled = 2;
   // Is it read only?

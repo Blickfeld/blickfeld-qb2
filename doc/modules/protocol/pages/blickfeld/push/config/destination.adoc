@@ -24,7 +24,7 @@ Mqtt Endpoint definition
 .2+| *server_fqdn* | string| - | - 
 3+| mqtt server location
 
-.2+| *server_port* | uint32| - | - 
+.2+| *server_port* | optional uint32| - | - 
 3+| mqtt server port will be set to 1883 if it is not set (server_port==0)
 
 .2+| *authentication* | xref:blickfeld/push/config/authentication.adoc[Authentication] | - | - 
@@ -33,7 +33,7 @@ Mqtt Endpoint definition
 .2+| *client_identifier* | string| - | - 
 3+| mqtt client identifier
 
-.2+| *topic* | string| - | - 
+.2+| *topic* | optional string| - | - 
 3+| mqtt topic - if empty the 'blickfeld/{data_type}/{encoding_type}/{config_name}' pattern is used as a default
 
 |===

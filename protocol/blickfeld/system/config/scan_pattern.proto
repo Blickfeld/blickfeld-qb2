@@ -58,6 +58,7 @@ message ScanPattern {
       // compared to outside of it.
       optional float density_factor = 2 [default = 3, (.blickfeld.base.validate) = {
         number {
+          greater: 0
         }
       }];
       // Read-only parameter showing the number of scanlines in the foveated region. If the frame mode is set to up-down or separate,
@@ -73,6 +74,7 @@ message ScanPattern {
     // Due to the eye shape of the scan pattern, the vertical FoV decreases the outer boundaries of the horizontal mirror.
     optional float field_of_view = 1 [default = 0.87266463, (.blickfeld.base.unit) = "rad", (.blickfeld.base.validate) = {
       number {
+        greater_or_equal: 0
         less_or_equal: 0.87266462599716477
       }
     }];
@@ -131,12 +133,14 @@ message ScanPattern {
     // Target frame rate used to synchronize the point clouds of multiple LiDAR devices in a sensor setup
     optional double target = 1 [(.blickfeld.base.unit) = "Hz", (.blickfeld.base.validate) = {
       number {
+        greater_or_equal: 0
       }
       optional: true
     }];
     // Read-only parameter for the actual frame rate the LiDAR is currently running at
     optional double actual = 4 [(.blickfeld.base.unit) = "Hz", (.blickfeld.base.validate) = {
       number {
+        greater: 0
       }
       optional: true
     }];
@@ -145,6 +149,7 @@ message ScanPattern {
     // Read-only parameter for maximum achievable frame rate of the scan pattern
     optional double maximum = 2 [deprecated = true, (.blickfeld.base.unit) = "Hz", (.blickfeld.base.validate) = {
       number {
+        greater: 0
       }
       optional: true
     }];

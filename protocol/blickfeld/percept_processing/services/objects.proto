@@ -14,7 +14,9 @@ option (.blickfeld.base.access_control_file) = {
 // Request message for objects stream
 message ObjectsStreamRequest {
   // Fetch object list without tracking
-  bool untracked = 1 [(.blickfeld.base.optional) = true];
+  bool untracked = 1 [(.blickfeld.base.validate) = {
+    optional: true
+  }];
 }
 
 // A response for getting a stream of objects messages from the running

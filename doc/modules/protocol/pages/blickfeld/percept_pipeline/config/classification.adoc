@@ -134,5 +134,10 @@ Resulting feature vector: [λ1, λ2, λ3, height, width, length]
  - Object dimensions: height, width, and length. 
  - Per-axis variance: var_x, var_y, var_z. 
 Resulting feature vector: [λ1, λ2, λ3, height, width, length, var_x, var_y, var_z]
+| FEATURE_GENERATOR_EIGVALS_DIMS_VARIANCE_HEIGHT_SEGMENTS ^| 3 | Generate features from: 
+ - Eigenvalues (λ1, λ2, λ3) of the 3D covariance matrix. 
+ - Object dimensions: height, width, and length. 
+ - Per-axis variance: var_y, var_z. 
+ - 3 segments across length and calculated of their mean and max height.
 |===
 

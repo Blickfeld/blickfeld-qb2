@@ -33,7 +33,7 @@ Response for getting a stream of record messages
 |===
 | Field | Type | Default | Unit
 
-.2+| *file* | xref:blickfeld/toolkit/data/record.adoc#_blickfeld_toolkit_data_Record_File[data.Record.File] | - | - 
+.2+| *file* | xref:blickfeld/toolkit/data/file.adoc[data.File] | - | - 
 3+| File of a recording
 
 .2+| *data_loss* | bool| - | - 

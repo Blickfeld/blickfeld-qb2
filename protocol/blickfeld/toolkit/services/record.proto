@@ -3,7 +3,7 @@
 syntax = "proto3";
 
 import "blickfeld/base/options.proto";
-import "blickfeld/toolkit/data/record.proto";
+import "blickfeld/toolkit/data/file.proto";
 import "google/protobuf/empty.proto";
 package blickfeld.toolkit.services;
 
@@ -18,7 +18,7 @@ message RecordStreamRequest {
 // Response for getting a stream of record messages
 message RecordStreamResponse {
   // File of a recording
-  .blickfeld.toolkit.data.Record.File file = 1;
+  .blickfeld.toolkit.data.File file = 1;
   // Indicates that the internal send buffer is full and drops data.
   bool data_loss = 2;
 }

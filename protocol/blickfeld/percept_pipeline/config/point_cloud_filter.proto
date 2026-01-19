@@ -14,13 +14,51 @@ message PointCloudFilter {
   // Filter points based on the number of neighbors in a certain radius
   message RadiusOutlier {
     // Minimum number of neighbors a point has to have to be retained
-    uint32 min_neighbor_points = 1;
+    uint32 min_neighbor_points = 1 [(.blickfeld.base.validate) = {
+      number {
+        greater_or_equal: 1
+        less_or_equal: 30
+      }
+      optional: true
+    }];
     // All points within this radius are considered neighbors of a point
-    double neighbor_radius = 2;
+    double neighbor_radius = 2 [(.blickfeld.base.validate) = {
+      number {
+        greater_or_equal: 0.1
+        less_or_equal: 3
+      }
+      optional: true
+    }];
+  }
+  // Filter points based on a reflectivity threshold. The threshold is set to a configurable percentile of the reflectivities of the
+  // outliers from the radius outlier filter
+  message AdaptiveNoise {
+    // Maximum value for the reflectivity threshold
+    //  
+    // default: 1000
+    uint32 max_reflectivity_threshold = 1 [(.blickfeld.base.validate) = {
+      number {
+        greater_or_equal: 1
+        less_or_equal: 10000
+      }
+      optional: true
+    }];
+    // Percentile of the outlier reflectivities that is used as filtering threshold
+    //  
+    // default: 85 (85th percentile)
+    uint32 outlier_reflectivity_percentile = 2 [(.blickfeld.base.validate) = {
+      number {
+        greater_or_equal: 1
+        less_or_equal: 100
+      }
+      optional: true
+    }];
   }
   oneof point_cloud_filter_type {
     // Use radius outlier filter for noise reduction on point clouds
     .blickfeld.percept_pipeline.config.PointCloudFilter.RadiusOutlier radius_outlier = 1;
+    // Use adaptive noise filter to remove points based on their reflectivity
+    .blickfeld.percept_pipeline.config.PointCloudFilter.AdaptiveNoise adaptive_noise = 2;
   }
 }
 

@@ -53,8 +53,16 @@ message Health {
         float number_of_outlier_points = 2 [(.blickfeld.base.lifetime_diagnostics) = {
           type: TYPE_STATE
         }];
-        // Median reflectivity of outlier points (number of points which got not clustered)
+        // Median reflectivity of outlier points
         float median_reflectivity_of_outlier_points = 3 [(.blickfeld.base.lifetime_diagnostics) = {
+          type: TYPE_STATE
+        }];
+        // Reflectivity value used for adaptive noise filtering
+        float adaptive_noise_filter_threshold = 4 [(.blickfeld.base.lifetime_diagnostics) = {
+          type: TYPE_STATE
+        }];
+        // Number of points that were removed by the adaptive noise filter
+        float number_of_adaptive_noise_outliers = 5 [(.blickfeld.base.lifetime_diagnostics) = {
           type: TYPE_STATE
         }];
       }

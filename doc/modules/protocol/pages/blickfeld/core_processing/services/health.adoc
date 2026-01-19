@@ -65,7 +65,7 @@ Health set config request
 |===
 | Field | Type | Default | Unit
 
-.2+| *config* | xref:blickfeld/core_processing/config/health.adoc[config.Health] | - | - 
+.2+| *config* | optional xref:blickfeld/core_processing/config/health.adoc[config.Health] | - | - 
 3+| Health parameters
 
 |===

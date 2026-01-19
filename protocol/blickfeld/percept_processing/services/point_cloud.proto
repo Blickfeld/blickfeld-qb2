@@ -31,10 +31,17 @@ message PointCloudStreamRequest {
   oneof point_cloud_source {    option (.blickfeld.base.optional_one_of) = true;
 
     // fqdn of the data source to get the point cloud from
-    string fqdn = 3;
+    string fqdn = 3 [(.blickfeld.base.validate) = {
+      string {
+        maximum: 255
+        pattern: "^(?:(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\\.)+[a-zA-Z]{2,}|(?:(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.){3}(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d))$"
+      }
+    }];
   }
   // If set, point cloud is cropped to given shape
-  .blickfeld.base.geometry.Shape crop = 5 [(.blickfeld.base.optional) = true];
+  .blickfeld.base.geometry.Shape crop = 5 [(.blickfeld.base.validate) = {
+    optional: true
+  }];
   reserved 4;
 }
 

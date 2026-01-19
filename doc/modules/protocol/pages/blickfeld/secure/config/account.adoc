@@ -17,10 +17,10 @@ authenticated.
 .2+| *access_read_only* | bool| - | - 
 3+| If true, this account has read-only access permissions.
 
-.2+| *failed_login_attempts* | uint32| - | - 
+.2+| *failed_login_attempts* | optional uint32| - | - 
 3+| Counter for failed login attempts. If this value exceeds a configured threshold the account will be blocked.
 
-.2+| *state* | xref:blickfeld/secure/config/account.adoc#_blickfeld_secure_config_Account_State[State] | - | - 
+.2+| *state* | optional xref:blickfeld/secure/config/account.adoc#_blickfeld_secure_config_Account_State[State] | - | - 
 3+| The account state.
 
 |===

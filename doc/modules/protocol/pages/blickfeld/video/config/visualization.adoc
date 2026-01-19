@@ -7,10 +7,10 @@ Message representing the visuals configuration of the RTSP video stream
 |===
 | Field | Type | Default | Unit
 
-.2+| *frame* | xref:blickfeld/video/config/visualization.adoc#_blickfeld_video_config_Visualization_Frame[Frame] | - | - 
+.2+| *frame* | optional xref:blickfeld/video/config/visualization.adoc#_blickfeld_video_config_Visualization_Frame[Frame] | - | - 
 3+| frame configuration
 
-.2+| *camera* | xref:blickfeld/video/config/visualization.adoc#_blickfeld_video_config_Visualization_Camera[Camera] | - | - 
+.2+| *camera* | optional xref:blickfeld/video/config/visualization.adoc#_blickfeld_video_config_Visualization_Camera[Camera] | - | - 
 3+| camera configuration
 
 |===
@@ -24,16 +24,16 @@ RGB color used for coloring various elements and objects inside RTSP video frame
 |===
 | Field | Type | Default | Unit
 
-.2+| *red* | float| - | - 
+.2+| *red* | optional float| - | - 
 3+| The amount of red in the color as a value in the interval [0, 1].
 
-.2+| *green* | float| - | - 
+.2+| *green* | optional float| - | - 
 3+| The amount of green in the color as a value in the interval [0, 1].
 
-.2+| *blue* | float| - | - 
+.2+| *blue* | optional float| - | - 
 3+| The amount of blue in the color as a value in the interval [0, 1].
 
-.2+| *alpha* | float| - | - 
+.2+| *alpha* | optional float| - | - 
 3+| The alpha channel (transparency) in the interval [0, 1]. 0 means transparent
 
 |===
@@ -47,13 +47,13 @@ Visual configuration of point cloud frame. Element coloring can be disabled by u
 |===
 | Field | Type | Default | Unit
 
-.2+| *background* | xref:blickfeld/video/config/visualization.adoc#_blickfeld_video_config_Visualization_Color[Color] | - | - 
+.2+| *background* | optional xref:blickfeld/video/config/visualization.adoc#_blickfeld_video_config_Visualization_Color[Color] | - | - 
 3+| color used to mark background point
 
-.2+| *foreground* | xref:blickfeld/video/config/visualization.adoc#_blickfeld_video_config_Visualization_Color[Color] | - | - 
+.2+| *foreground* | optional xref:blickfeld/video/config/visualization.adoc#_blickfeld_video_config_Visualization_Color[Color] | - | - 
 3+| color used to mark foreground point - gray
 
-.2+| *rotation* | xref:blickfeld/video/config/visualization.adoc#_blickfeld_video_config_Visualization_Rotation[Rotation] | - | - 
+.2+| *rotation* | optional xref:blickfeld/video/config/visualization.adoc#_blickfeld_video_config_Visualization_Rotation[Rotation] | - | - 
 3+| clockwise rotation value applied to the frame
 
 |===
@@ -67,10 +67,10 @@ Configuration of the camera
 |===
 | Field | Type | Default | Unit
 
-.2+| *position* | xref:blickfeld/base/geometry/vector3.adoc[base.geometry.Vector3] | - | - 
+.2+| *position* | optional xref:blickfeld/base/geometry/vector3.adoc[base.geometry.Vector3] | - | - 
 3+| camera position - where camera is located
 
-.2+| *target* | xref:blickfeld/base/geometry/vector3.adoc[base.geometry.Vector3] | - | - 
+.2+| *target* | optional xref:blickfeld/base/geometry/vector3.adoc[base.geometry.Vector3] | - | - 
 3+| camera target - target at which camera looks
 
 |===

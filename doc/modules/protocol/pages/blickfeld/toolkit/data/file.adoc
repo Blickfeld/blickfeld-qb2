@@ -1,0 +1,17 @@
+[#_blickfeld_toolkit_data_File]
+= File
+
+One file of a recording or event export
+
+.Available fields in blickfeld.toolkit.data.File
+|===
+| Field | Type | Default | Unit
+
+.2+| *path* | string| - | - 
+3+| Path of the current data.
+
+.2+| *binary* | bytes| - | - 
+3+| Binary data.
+
+|===
+

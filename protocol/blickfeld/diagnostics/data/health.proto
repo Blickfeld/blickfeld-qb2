@@ -41,6 +41,8 @@ message Health {
     .blickfeld.diagnostics.data.Health.Module.Health video = 12 [(.blickfeld.base.product_variant_field) = PRODUCT_VARIANT_QBPROTECT];
     // Health of the Blickfeld Compute module
     .blickfeld.diagnostics.data.Health.Module.Health compute_module = 13;
+    // Health of the Blickfeld onvif module
+    .blickfeld.diagnostics.data.Health.Module.Health onvif = 14 [(.blickfeld.base.product_variant_field) = PRODUCT_VARIANT_QBPROTECT];
     reserved 8;
     reserved "percept_processing";
   }

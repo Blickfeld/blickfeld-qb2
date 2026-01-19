@@ -28,18 +28,47 @@ message PointCloud {
     }
     // Set maximum number of returns per point.
     // By default, secondary returns are disabled. Set this, e.g. to 2, to enable secondary returns.
-    uint32 maximum_returns_per_point = 1 [(.blickfeld.base.optional) = true];
+    uint32 maximum_returns_per_point = 1 [(.blickfeld.base.validate) = {
+      optional: true
+    }];
     // Select sorting method for return candidates.
     // The default sorting is by intensity.
-    .blickfeld.core_processing.config.PointCloud.Filter.Sorting sorting = 3 [(.blickfeld.base.optional) = true];
+    .blickfeld.core_processing.config.PointCloud.Filter.Sorting sorting = 3 [(.blickfeld.base.validate) = {
+      optional: true
+    }];
     // Set lower threshold for reflectivity.
     // This can be tuned to improve the SNR when low-reflectivity targets have a lower priority.
-    uint32 minimum_reflectivity = 4 [(.blickfeld.base.optional) = true];
+    uint32 minimum_reflectivity = 4 [(.blickfeld.base.validate) = {
+      number {
+        less_or_equal: 10000
+      }
+      optional: true
+    }];
     // Only apply the minimum_reflectivity filter for the given minimum and maximum range.
-    .blickfeld.base.config.Range.Float minimum_reflectivity_range_limit = 6 [(.blickfeld.base.optional) = true];
+    .blickfeld.base.config.Range.Float minimum_reflectivity_range_limit = 6 [(.blickfeld.base.unit) = "m", (.blickfeld.base.validate) = {
+      optional: true
+    }, (.blickfeld.base.validate) = {
+      number {
+        greater_or_equal: 0
+        less_or_equal: 250
+      }
+      path: "minimum"
+    }, (.blickfeld.base.validate) = {
+      number {
+        greater_or_equal: 0
+        less_or_equal: 250
+      }
+      path: "maximum"
+    }];
     // Set lower threshold for range.
     // Default value is 1m.
-    float minimum_range = 5 [(.blickfeld.base.optional) = true, (.blickfeld.base.unit) = "m"];
+    float minimum_range = 5 [(.blickfeld.base.unit) = "m", (.blickfeld.base.validate) = {
+      number {
+        greater_or_equal: 0
+        less_or_equal: 100
+      }
+      optional: true
+    }];
   }
 }
 

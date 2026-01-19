@@ -20,22 +20,32 @@ message Frame {
     // Cartesian coordinates.
     // 3-dimensional array in row-major format with [x, y, z] tuples.
     // Type: Float32
-    bytes cartesian = 2 [(.blickfeld.base.optional) = true, (.blickfeld.base.unit) = "m", (.blickfeld.base.numpy_dtype) = "(3,)<f4"];
+    bytes cartesian = 2 [(.blickfeld.base.unit) = "m", (.blickfeld.base.numpy_dtype) = "(3,)<f4", (.blickfeld.base.validate) = {
+      optional: true
+    }];
     // Estimated number of photons.
     // 1-dimensional array.
     // Type: UInt16
-    bytes photon_count = 3 [(.blickfeld.base.optional) = true, (.blickfeld.base.numpy_dtype) = "<u2"];
+    bytes photon_count = 3 [(.blickfeld.base.numpy_dtype) = "<u2", (.blickfeld.base.validate) = {
+      optional: true
+    }];
     // Unique direction identifiers within a frame and scan pattern.
     // 1-dimensional array.
     // Type: UInt32
-    bytes direction_id = 5 [(.blickfeld.base.optional) = true, (.blickfeld.base.numpy_dtype) = "<u4"];
+    bytes direction_id = 5 [(.blickfeld.base.numpy_dtype) = "<u4", (.blickfeld.base.validate) = {
+      optional: true
+    }];
     // Unix timestamp of points.
     // Type: UInt64
-    bytes timestamp = 6 [(.blickfeld.base.optional) = true, (.blickfeld.base.unit) = "ns", (.blickfeld.base.numpy_dtype) = "<u8"];
+    bytes timestamp = 6 [(.blickfeld.base.unit) = "ns", (.blickfeld.base.numpy_dtype) = "<u8", (.blickfeld.base.validate) = {
+      optional: true
+    }];
     // Arbitrary metadata for annotation of the binary data fields.
     // 1-dimensional array.
     // Type: UInt16
-    bytes metadata = 100 [(.blickfeld.base.optional) = true, (.blickfeld.base.numpy_dtype) = "<u2"];
+    bytes metadata = 100 [(.blickfeld.base.numpy_dtype) = "<u2", (.blickfeld.base.validate) = {
+      optional: true
+    }];
   }
   // Incremental frame ID since startup of the device.
   uint64 id = 1;

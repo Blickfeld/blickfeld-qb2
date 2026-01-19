@@ -11,10 +11,14 @@ A message representing exactly one vehicle that is detected in the scene.
 3+| Timestamp of creation
 
 .2+| *position* | xref:blickfeld/base/geometry/vector2.adoc[base.geometry.Vector2] | - | m 
-3+| The position of the vehicle (in the local coordinate system of the zone)
+3+| The position of the vehicle (in the local coordinate system of the zone). 
+ 
+NOTE: The y-coordinate gives the front of the vehicle, not its center.
 
 .2+| *dimensions* | xref:blickfeld/base/geometry/vector3.adoc[base.geometry.Vector3] | - | m 
-3+| Dimensions of the vehicle
+3+| Dimensions of the vehicle. 
+ 
+NOTE: The height (z-dimension) is measured from the ground, not from the bottom of the traffic lane zone.
 
 .2+| *velocity* | float| - | m/s 
 3+| Velocity of the vehicle (in y-direction)

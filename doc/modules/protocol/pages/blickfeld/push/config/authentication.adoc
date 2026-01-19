@@ -7,10 +7,10 @@ Authentication definition
 |===
 | Field | Type | Default | Unit
 
-.2+| *user* | string| - | - 
+.2+| *user* | optional string| - | - 
 3+| the user name used for authentication
 
-.2+| *password* | string| - | - 
+.2+| *password* | optional string| - | - 
 3+| the password used for authentication
 
 |===

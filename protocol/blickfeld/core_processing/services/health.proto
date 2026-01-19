@@ -25,7 +25,9 @@ message HealthWatchResponse {
 // Health set config request
 message HealthSetConfigRequest {
   // Health parameters
-  .blickfeld.core_processing.config.Health config = 1;
+  .blickfeld.core_processing.config.Health config = 1 [(.blickfeld.base.validate) = {
+    optional: true
+  }];
 }
 
 // Health get config response

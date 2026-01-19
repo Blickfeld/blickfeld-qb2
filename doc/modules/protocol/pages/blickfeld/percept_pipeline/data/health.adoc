@@ -143,7 +143,13 @@ Motion detection
 3+| Number of outlier points (number of points which got not clustered)
 
 .2+| *median_reflectivity_of_outlier_points* | float| - | - 
-3+| Median reflectivity of outlier points (number of points which got not clustered)
+3+| Median reflectivity of outlier points
+
+.2+| *adaptive_noise_filter_threshold* | float| - | - 
+3+| Reflectivity value used for adaptive noise filtering
+
+.2+| *number_of_adaptive_noise_outliers* | float| - | - 
+3+| Number of points that were removed by the adaptive noise filter
 
 |===
 

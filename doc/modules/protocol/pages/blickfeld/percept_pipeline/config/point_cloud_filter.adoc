@@ -10,6 +10,9 @@ Algorithm for filtering point clouds
 .2+| *radius_outlier* | xref:blickfeld/percept_pipeline/config/point_cloud_filter.adoc#_blickfeld_percept_pipeline_config_PointCloudFilter_RadiusOutlier[RadiusOutlier] | - | - 
 3+| Use radius outlier filter for noise reduction on point clouds
 
+.2+| *adaptive_noise* | xref:blickfeld/percept_pipeline/config/point_cloud_filter.adoc#_blickfeld_percept_pipeline_config_PointCloudFilter_AdaptiveNoise[AdaptiveNoise] | - | - 
+3+| Use adaptive noise filter to remove points based on their reflectivity
+
 |===
 
 [#_blickfeld_percept_pipeline_config_PointCloudFilter_RadiusOutlier]
@@ -21,11 +24,33 @@ Filter points based on the number of neighbors in a certain radius
 |===
 | Field | Type | Default | Unit
 
-.2+| *min_neighbor_points* | uint32| - | - 
+.2+| *min_neighbor_points* | optional uint32| - | - 
 3+| Minimum number of neighbors a point has to have to be retained
 
-.2+| *neighbor_radius* | double| - | - 
+.2+| *neighbor_radius* | optional double| - | - 
 3+| All points within this radius are considered neighbors of a point
+
+|===
+
+[#_blickfeld_percept_pipeline_config_PointCloudFilter_AdaptiveNoise]
+== Adaptive Noise
+
+Filter points based on a reflectivity threshold. The threshold is set to a configurable percentile of the reflectivities of the 
+outliers from the radius outlier filter
+
+.Available fields in blickfeld.percept_pipeline.config.PointCloudFilter.AdaptiveNoise
+|===
+| Field | Type | Default | Unit
+
+.2+| *max_reflectivity_threshold* | optional uint32| - | - 
+3+| Maximum value for the reflectivity threshold 
+ 
+default: 1000
+
+.2+| *outlier_reflectivity_percentile* | optional uint32| - | - 
+3+| Percentile of the outlier reflectivities that is used as filtering threshold 
+ 
+default: 85 (85th percentile)
 
 |===
 

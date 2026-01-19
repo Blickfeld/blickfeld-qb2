@@ -12,10 +12,16 @@ option (.blickfeld.base.access_control_file) = {
 message Health {
   // Set the point rate lower limit. If the point rate
   // is lower than this limit, the device is considered to be covered.
-  uint32 point_rate_lower_limit = 1 [(.blickfeld.base.optional) = true];
+  uint32 point_rate_lower_limit = 1 [(.blickfeld.base.validate) = {
+    optional: true
+  }];
   // The limit to detect the alignment has changed.
-  float point_cloud_alignment_deviation_norm_upper_limit = 2 [(.blickfeld.base.optional) = true];
+  float point_cloud_alignment_deviation_norm_upper_limit = 2 [(.blickfeld.base.validate) = {
+    optional: true
+  }];
   // Set the point cloud reference alignment.
-  .blickfeld.core_processing.data.Acceleration point_cloud_reference_alignment = 3 [(.blickfeld.base.optional) = true];
+  .blickfeld.core_processing.data.Acceleration point_cloud_reference_alignment = 3 [(.blickfeld.base.validate) = {
+    optional: true
+  }];
 }
 

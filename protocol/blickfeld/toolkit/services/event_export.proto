@@ -1,0 +1,56 @@
+// Copyright (c) 2025 Blickfeld GmbH.
+// All rights reserved.
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+import "blickfeld/toolkit/data/file.proto";
+import "google/protobuf/empty.proto";
+package blickfeld.toolkit.services;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_AUTHORIZED
+};
+
+// Request for getting a stream of event export messages
+message EventExportStreamRequest {
+  // The events to be exported
+  repeated string event_ids = 1 [(.blickfeld.base.validate) = {
+    optional: true
+  }];
+  // The capture window around an event for the historical data
+  uint32 history_replay_range = 2 [(.blickfeld.base.validate) = {
+    number {
+      greater_or_equal: 1000
+      less_or_equal: 15000
+    }
+    optional: true
+  }];
+}
+
+// Response for getting a stream of event export messages
+message EventExportStreamResponse {
+  // File of a event export
+  .blickfeld.toolkit.data.File file = 1;
+}
+
+// The event export service allows streaming of event export data to a client.
+// It requests and combines all the required data into one stream.
+// The data consists of the metadata and one or multiple events.
+// Every event consists of an event file and multiple foreground, object and state files.
+// A message in the stream consists of a file-path and the corresponding data.
+// That means that one message represents one file in an event export archive.
+service EventExport {
+  option (.blickfeld.base.access_control_service) = {
+    level: LEVEL_AUTHORIZED
+  };
+  option (.blickfeld.base.protocol_maturity_service) = {
+    level: LEVEL_MAINTAINED
+  };
+  // Get all requested events for the event export.
+  rpc Stream(.blickfeld.toolkit.services.EventExportStreamRequest) returns (stream .blickfeld.toolkit.services.EventExportStreamResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
+}
+

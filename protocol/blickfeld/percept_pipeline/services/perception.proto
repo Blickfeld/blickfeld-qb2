@@ -40,7 +40,9 @@ message PerceptionResetBackgroundRequest {
   // NOTE: This is only supported for the mixture of gaussian background subtraction.
   //  
   // Type: UInt32
-  bytes binary_direction_id = 2 [(.blickfeld.base.optional) = true, (.blickfeld.base.numpy_dtype) = "<u4"];
+  bytes binary_direction_id = 2 [(.blickfeld.base.numpy_dtype) = "<u4", (.blickfeld.base.validate) = {
+    optional: true
+  }];
   reserved 1;
   reserved "fqdns";
 }

@@ -1,13 +1,13 @@
 = Hexagon
 :experimental:
 
-This section provides information on how to integrate QbProtect with Hexagon dC3. Please refer to the xref:onvif/general/index.adoc[ONVIF section] beforehand for general information on using ONVIF with https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect].
+This section provides information on how to integrate QbProtect with Hexagon dC3. Please refer to the xref:onvif/index.adoc[ONVIF section] beforehand for general information on using ONVIF with https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect].
 
 [NOTE]
 ====
-The following Hexagon dC3 components have been used in the examples below:  
+The following Hexagon dC3 components have been used in the examples below:
 
-* HxGN dC3 Server - Version 9.0.1.216 
+* HxGN dC3 Server - Version 9.0.1.216
 * HxGN dC3 Video Client - Version 9.0
 ====
 
@@ -21,17 +21,17 @@ Events originating from dynamic event sources (e.g., intrusion events from a par
 
 The HxGN dC3 Video Client is used to add https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect] into HxGN dC3 VMS.
 
-The procedure includes the following steps: 
+The procedure includes the following steps:
 
 . Launch the HxGN dC3 Video Client and connect to the active HxGN dC3 server instance
 . Navigate to `Configuration Mode` tab -> Click `Create camera` ->  Give a distinguishable name to the QbProtect device, e.g. `QbProtect`
 . Set the `Manufacturer` to `Onvif` Tab -> Set `Type` to `ONVIF Smart Driver`
-. Click `Use Authorization` toggle -> Enter the FQDN or IP of QbProtect in the `Hostname` field and `Username/Password` in the corresponding credential fields. 
+. Click `Use Authorization` toggle -> Enter the FQDN or IP of QbProtect in the `Hostname` field and `Username/Password` in the corresponding credential fields.
 
 +
 [NOTE]
 ====
-Please refer to the xref:onvif/general/index.adoc#user-authentication[User Authentication (ONVIF/RTSP)] subsection to find out how to obtain valid ONVIF credentials required for QbProtect VMS integrations.
+Please refer to the xref:onvif/authentication.adoc[User authentication] subsection to find out how to obtain valid ONVIF credentials required for QbProtect VMS integrations.
 ====
 
 +
@@ -42,10 +42,10 @@ image::onvif/vms/hexagon/add/add.png[800,800]
 . General Information about the added QbProtect should be depicted in section `Encoder/camera` -> 'General'. Device should also pop up in the available 'Cameras' section.
 
 +
-.Adding QbProtect into HxGN dC3: general device information 
+.Adding QbProtect into HxGN dC3: general device information
 image::onvif/vms/hexagon/add/add_general.png[800,800]
 
-. The live preview of the point cloud should be available in the `Surveillance Mode` tab 
+. The live preview of the point cloud should be available in the `Surveillance Mode` tab
 +
 .Adding QbProtect into HxGN dC3: live video stream
 image::onvif/vms/hexagon/add/add_result.png[800,800]
@@ -63,13 +63,13 @@ The example below shows how https://www.blickfeld.com/lidar-sensor-products/qbpr
 
 [NOTE]
 ====
-Please refer to the xref:onvif/general/index.adoc#_events[Events] subsection to learn about the available ONVIF event topics.
+Please refer to the xref:onvif/events.adoc[Events] subsection to learn about the available ONVIF event topics.
 ====
 
 
 [[configure-events]]
-=== Configure Events Handling 
-The events configuration procedure includes the following steps: 
+=== Configure Events Handling
+The events configuration procedure includes the following steps:
 
 . Launch HxGN dC3 Video Client and connect to the active HxGN dC3 Server instance (optional)
 . Navigate to `Configuration Mode` tab -> Click `Cameras` (right pane) -> Click on the added QbProtect
@@ -84,9 +84,9 @@ image::onvif/vms/hexagon/events/event_configure.png[800,800]
 
 [[configure-alarms]]
 === Configure Alarm Rule Chain
-The HxGN dC3 alarm rule chain consists of event source (`Start` and `End` hooks) and event action (`Actions at start of alarm` and `Actions at end of alarm` hooks). It allows to map a dedicated action (e.g., AlarmWatchDog, recording of the video stream, etc.) to the event of the particular type (e.g., motion, zone intrusion). 
+The HxGN dC3 alarm rule chain consists of event source (`Start` and `End` hooks) and event action (`Actions at start of alarm` and `Actions at end of alarm` hooks). It allows to map a dedicated action (e.g., AlarmWatchDog, recording of the video stream, etc.) to the event of the particular type (e.g., motion, zone intrusion).
 
-The alarm rule chain configuration procedure includes the following steps: 
+The alarm rule chain configuration procedure includes the following steps:
 
 . Perform the xref:onvif/vms/hexagon.adoc#configure-events[ONVIF events configuration], as shown in the subsection above
 . Navigate to `Configuration Mode` tab -> Click `Create Alarm` -> Give a distinguishable name to the alarm, e.g. `TamperingMovementAlarm` -> Click `Ok`

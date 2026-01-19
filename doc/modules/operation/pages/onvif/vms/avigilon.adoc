@@ -1,11 +1,11 @@
 = Avigilon
 :experimental:
 
-This section provides information on how to integrate QbProtect with Avigilon Unity VMS. Please refer to the xref:onvif/general/index.adoc[ONVIF section] beforehand for general information on using ONVIF with https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect].
+This section provides information on how to integrate QbProtect with Avigilon Unity VMS. Please refer to the xref:onvif/index.adoc[ONVIF section] beforehand for general information on using ONVIF with https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect].
 
 [NOTE]
 ====
-The following Avigilon Unity components have been used in the examples below:  
+The following Avigilon Unity components have been used in the examples below:
 
 * Avigilon Unity Client - Version 8.6.0.8 (build 1746566476)
 * Avigilon Unity Admin Tool - Version 8.6.0.8
@@ -17,16 +17,16 @@ The following Avigilon Unity components have been used in the examples below:
 
 [CAUTION]
 ====
-Events originating from dynamic event sources (e.g., security zones) have to be correctly exposed to the VMS each time a new zone configuration is introduced via xref:introduction:webgui_tutorial.adoc[WebGUI]. 
+Events originating from dynamic event sources (e.g., security zones) have to be correctly exposed to the VMS each time a new zone configuration is introduced via xref:introduction:webgui_tutorial.adoc[WebGUI].
 Please either pre-configure all the required security zones in xref:introduction:webgui_tutorial.adoc[WebGUI] before adding the QbProtect into the VMS or re-add the existing QbProtect to the  Avigilon Unity Client to re-expose events from newly configured dynamic sources.
 ====
 
 The Avigilon Unity Client is used to add https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect] into Avigilon Unity VMS.
 
-The procedure includes the following steps: 
+The procedure includes the following steps:
 
 . Launch the Avigilon Unity Client and connect to the active Avigilon Unity server instance using `Site Login` tab
-. Navigate to `Site Setup` tab -> Select the active server instance -> Click `Connect/Disconnect Devices` 
+. Navigate to `Site Setup` tab -> Select the active server instance -> Click `Connect/Disconnect Devices`
 
 +
 .Adding QbProtect into Avigilon Unity: Connect/Disconnect Devices
@@ -37,7 +37,7 @@ image::onvif/vms/avigilon/add/connect_disconnect.png[800,800]
 +
 [NOTE]
 ====
-Please refer to the xref:onvif/general/index.adoc#user-authentication[User Authentication (ONVIF/RTSP)] subsection to find out how to obtain valid ONVIF credentials required for QbProtect VMS integrations.
+Please refer to the xref:onvif/authentication.adoc[User authentication] subsection to find out how to obtain valid ONVIF credentials required for QbProtect VMS integrations.
 ====
 
 +
@@ -59,7 +59,7 @@ image::onvif/vms/avigilon/add/add_properties.png[400,400]
 .Adding QbProtect into Avigilon Unity: Connected Devices
 image::onvif/vms/avigilon/add/add_connected.png[800,800]
 
-. The live preview of the point cloud should be available in the `View` tab 
+. The live preview of the point cloud should be available in the `View` tab
 +
 .Adding QbProtect into Avigilon Unity: live video stream
 image::onvif/vms/avigilon/add/add_result.png[800,800]
@@ -77,12 +77,12 @@ The example below shows how https://www.blickfeld.com/lidar-sensor-products/qbpr
 
 [NOTE]
 ====
-Please refer to the xref:onvif/general/index.adoc#_events[Events] subsection to learn about the available ONVIF event topics.
+Please refer to the xref:onvif/events.adoc[Events] subsection to learn about the available ONVIF event topics.
 ====
 
 [[configure-events]]
-=== Configure Events Handling 
-The events configuration procedure includes the following steps: 
+=== Configure Events Handling
+The events configuration procedure includes the following steps:
 
 . Launch Avigilon Unity Client and connect to the active Avigilon Unity Server instance (optional)
 . Navigate to `Setup` tab -> Click on the added QbProtect -> Click `ONVIF Event Subscription`
@@ -103,9 +103,9 @@ image::onvif/vms/avigilon/events/add_moved.png[800,800]
 
 [[configure-alarms]]
 === Configure Alarm Rule Chain
-The Avigilon Unity alarm rule chain consists of event source (`ONVIF Event Started` and `ONVIF Event Ended` hooks) and event action. It allows to map a dedicated action (e.g., a particular alarm, recording of the video stream, etc.) to the event of the particular type (e.g., motion, zone intrusion). 
+The Avigilon Unity alarm rule chain consists of event source (`ONVIF Event Started` and `ONVIF Event Ended` hooks) and event action. It allows to map a dedicated action (e.g., a particular alarm, recording of the video stream, etc.) to the event of the particular type (e.g., motion, zone intrusion).
 
-The alarm rule chain configuration procedure includes the following steps: 
+The alarm rule chain configuration procedure includes the following steps:
 
 . Navigate to `Site Setup` tab -> Select the active server instance -> Click `Alarms` -> Click `Add`
 . Set Alarm Trigger Source to `External Software Event` -> Click `Next`

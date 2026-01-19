@@ -1,0 +1,17 @@
+= ONVIF
+
+The https://www.onvif.org/profiles-add-ons-specifications/[ONVIF] standard and corresponding protocol allow seamless integration of compatible IP-based security cameras into existing security enviroments managed by Video Management Systems (https://en.wikipedia.org/wiki/Video_management_system[VMS]). The https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect] brings the ONVIF protocol support and can be easily used as an advanced drop-in replacement of the security camera in already established security xref:onvif/vms/index.adoc[VMS]  environments without extra configuration overheads.
+
+.Integation of QbProtect into Senstar Symphony using ONVIF interface
+image::onvif/vms/senstar/events/zone_intrusion.png[800,800]
+
+[NOTE]
+====
+Please refer to the xref:onvif/quick_setup.adoc[Quick Setup] guide to get started with your ONVIF integration.
+====
+
+https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect] brings crucial ONVIF functionality inherent in all security applications:
+
+* xref:onvif/rtsp.adoc[RTSP] video stream of a 2-D projected point cloud for visual observation of the security scene
+* xref:onvif/events.adoc[Events] for alarms generation (e.g. motion, intrusion)
+* xref:onvif/authentication.adoc[User authentication] & Encrypted ONVIF/RTSP connection

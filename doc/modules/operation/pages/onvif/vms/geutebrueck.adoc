@@ -1,11 +1,11 @@
 = Geutebrueck
 :experimental:
 
-This section provides information on how to integrate QbProtect with Geutebrueck G-Core. Please refer to the xref:onvif/general/index.adoc[ONVIF section] beforehand for general information on using ONVIF with https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect].
+This section provides information on how to integrate QbProtect with Geutebrueck G-Core. Please refer to the xref:onvif/index.adoc[ONVIF section] beforehand for general information on using ONVIF with https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect].
 
 [NOTE]
 ====
-The following Geutebrück components have been used in the examples below:  
+The following Geutebrück components have been used in the examples below:
 
 * G-Core Server, G-Set, G-View and G-PLC Simulator - Versions 8.2.0.870
 ====
@@ -20,17 +20,17 @@ Events originating from dynamic event sources (e.g., security zones) have to be 
 
 The G-Set tool is used to add https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect] into Geutebrück G-Core VMS.
 
-The procedure includes the following steps: 
+The procedure includes the following steps:
 
 . Launch G-Set and connect to the active G-Core server instance
-. Navigate to `Media channels/Hardware` -> `Hardware` -> `Hardware module list` -> `Add device` -> `ONVIF IPC IP camera plugin settings` 
-. Navigate to `Module channel` -> `Hardware settings` -> give a distinguishable name to the QbProtect device, e.g., `QbProtect` 
-. Navigate to the `Connection` Tab 
-. Enter the FQDN or IP of QbProtect in the `Hostname` field and `Username/Password` in the corresponding credential fields 
+. Navigate to `Media channels/Hardware` -> `Hardware` -> `Hardware module list` -> `Add device` -> `ONVIF IPC IP camera plugin settings`
+. Navigate to `Module channel` -> `Hardware settings` -> give a distinguishable name to the QbProtect device, e.g., `QbProtect`
+. Navigate to the `Connection` Tab
+. Enter the FQDN or IP of QbProtect in the `Hostname` field and `Username/Password` in the corresponding credential fields
 +
 [NOTE]
 ====
-Please refer to the xref:onvif/general/index.adoc#user-authentication[User Authentication (ONVIF/RTSP)] subsection to find out how to obtain valid ONVIF credentials required for QbProtect VMS integrations.
+Please refer to the xref:onvif/authentication.adoc[User authentication] subsection to find out how to obtain valid ONVIF credentials required for QbProtect VMS integrations.
 ====
 
 . Toggle `Use Https` to enable secure connection on port 443 (enables secure ONVIF connection and an encrypted RTSP stream)
@@ -41,7 +41,7 @@ image::onvif/vms/geutebrueck/add/g_set_hardware.png[800,800]
 
 . Navigate to `Media channels/Hardware` -> `Media channels` -> `Live Streaming` -> select `Channel 001` as a media channel source
 . Send these configuration settings to the G-Core server using the corresponding button in the top left corner
-. The live preview of the point cloud should be available in the preview window of G-Set 
+. The live preview of the point cloud should be available in the preview window of G-Set
 
 +
 .Adding QbProtect into Geutebrück G-Core: G-Set media channel configuration
@@ -66,21 +66,21 @@ The example below shows how https://www.blickfeld.com/lidar-sensor-products/qbpr
 
 [NOTE]
 ====
-Please refer to the xref:onvif/general/index.adoc#_events[Events] subsection to learn about the available ONVIF event topics.
+Please refer to the xref:onvif/events.adoc[Events] subsection to learn about the available ONVIF event topics.
 ====
 
-=== Configure Events Handling 
-In this example, a single security zone called `Security Zone 1` has been configured using QbProtect xref:introduction:webgui_tutorial.adoc[WebGUI], as shown in the Figure below. 
+=== Configure Events Handling
+In this example, a single security zone called `Security Zone 1` has been configured using QbProtect xref:introduction:webgui_tutorial.adoc[WebGUI], as shown in the Figure below.
 
 .QbProtect WebGUI viewer and Geutebrück G-View: single zone in the security scene
 image::onvif/vms/geutebrueck/events/zone.png[800,800]
 
-The events configuration procedure includes the following steps: 
+The events configuration procedure includes the following steps:
 
 . Launch G-Set and connect to the active G-Core server instance (optional)
 . Navigate to `Media channels/Hardware` -> `Hardware` -> `Hardware module list` -> `QbProtect` -> `Module channel`
 . Navigate to the `Event handling` tab -> Toggle `Enable Event Handling with...` -> select `WS-BaseNotification`
-. Toggle `Send unkown events as...` -> select `OnvifNotificationMessage Action` 
+. Toggle `Send unkown events as...` -> select `OnvifNotificationMessage Action`
 . Send these configuration settings to the G-Core server using the corresponding button in the top left corner
 . Trigger the `Get event info!` button to get the list of supported QbProtect events
 . The topic `tns1:Blickfeld/IntrusionZoneSecurityZone1` corresponding to the configured `Security Zone 1` should be displayed in the list of available events
@@ -98,9 +98,9 @@ image::onvif/vms/geutebrueck/events/g_plc.png[800,800]
 
 
 === Configure Rule Chain
-The Geutebrück G-Core `Events` can be used to configure simple rule chains, while `Behaviour rules` targeting the more sophisticated configurations. In this example, we will consider the simple event rule chain configuration. The Geutebrück event rule chain consists of event source (`StartBy` and `StopBy` hooks) and event action (`OnStart` and `OnStop` hooks). It allows to map a dedicated action (e.g., manual alarm action, adding entry log, etc.) to the event of the particular type (e.g., motion, zone intrusion). 
+The Geutebrück G-Core `Events` can be used to configure simple rule chains, while `Behaviour rules` targeting the more sophisticated configurations. In this example, we will consider the simple event rule chain configuration. The Geutebrück event rule chain consists of event source (`StartBy` and `StopBy` hooks) and event action (`OnStart` and `OnStop` hooks). It allows to map a dedicated action (e.g., manual alarm action, adding entry log, etc.) to the event of the particular type (e.g., motion, zone intrusion).
 
-The event rule chain configuration procedure includes the following steps: 
+The event rule chain configuration procedure includes the following steps:
 
 . Navigate to `Events/Behaviour rules` -> `Events` -> `Event List` -> `Add new event`
 . Navigate to `Event` tab -> give a meaningful name to the event in the `Name` field, e.g., `Security Zone 1 Intrusion` -> toggle this event to be `Active`

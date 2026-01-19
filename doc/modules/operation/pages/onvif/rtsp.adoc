@@ -69,24 +69,24 @@ Please refer to the subsection below to find out how to establish the RTSP strea
 
 == RTSP streaming
 
-The RTSP video stream URL of the following generic format: `rtsp://user:key@qb2-ABC123XYZ.muc.blickfeld.com:port/local/pointcloud/core` may be used by various clients for the consumption of the RTSP video stream. The format of the URL may vary depending on the desired RTSP transport. Examples of RTSP URLs and how they are used with selected video clients are shown in the subsections below. 
+The RTSP video stream URL of the following generic format: `rtsp://user:key@qb2-ABC123XYZ.muc.blickfeld.com:port/local/pointcloud/core` may be used by various clients for the consumption of the RTSP video stream. The format of the URL may vary depending on the desired RTSP transport. Examples of RTSP URLs and how they are used with selected video clients are shown in the subsections below.
 
 [NOTE]
 ====
-* Please refer to the xref:onvif/general/index.adoc#user-authentication[User Authentication (ONVIF/RTSP)] to find out how to obtain a valid ONVIF credentials pair `user:key`.
+* Please refer to the xref:onvif/authentication.adoc[User authentication] to find out how to obtain a valid ONVIF credentials pair `user:key`.
 * Please adapt the device FQDN `qb2-ABC123XYZ.muc.blickfeld.com` and credentials pair `user:key` to your QbProtect configuration.
 * RTSP clients also impose limitations on the supported tunneled RTSP transports. The `RTSP over HTTPS` connection is not supported by `VLC`/`GStreamer`/`FFmpeg` clients (requires an extra TLS layer). The `FFmpeg` client also does not support the `RTSP over HTTP`. The support by VMS systems is vendor-specific.
 ====
 
 === https://www.videolan.org/[VLC] (GUI)
 
-Before opening the RTSP stream, please make sure to select the correct `Demuxer` configuration for the desired RTSP Transport via `Tools` -> `Preferences` -> `Show settings` -> `All` -> `Input / Codecs` -> `Demuxers` -> `RTP/RTSP`, as shown in the <<vlc-settings,Figure {counter:figure}>> below. 
+Before opening the RTSP stream, please make sure to select the correct `Demuxer` configuration for the desired RTSP Transport via `Tools` -> `Preferences` -> `Show settings` -> `All` -> `Input / Codecs` -> `Demuxers` -> `RTP/RTSP`, as shown in the <<vlc-settings,Figure {counter:figure}>> below.
 
 [[vlc-settings]]
 .VLC settings for: 1. RTP/AVP (UDP) - default 2. RTP/AVP/TCP(interleaved) - only `Use RTP over RTSP (TCP)` is enabled 3. RTSP over HTTP - only `Tunnel RTSP and RTP over HTTP` is enabled
 image::onvif/generic/rtsp/vlc_settings.png[800,800]
 
-RTSP URLs can be used via `Media` -> `Open Network Stream` -> `Play` , as shown in the <<vlc-url,Figure {counter:figure}>> below. 
+RTSP URLs can be used via `Media` -> `Open Network Stream` -> `Play` , as shown in the <<vlc-url,Figure {counter:figure}>> below.
 
 [[vlc-url]]
 .VLC streaming URL
@@ -146,7 +146,7 @@ ffplay -rtsp_transport tcp rtsp://user:key@qb2-ABC123XYZ.muc.blickfeld.com:554/l
 ----
 
 === xref:onvif/vms/index.adoc[VMS]
-VMS systems provide vendor-specific generic RTSP drivers (direct RTSP streaming) or ONVIF conformant drivers (RTSP stream is obtained via URL from ONVIF). 
+VMS systems provide vendor-specific generic RTSP drivers (direct RTSP streaming) or ONVIF conformant drivers (RTSP stream is obtained via URL from ONVIF).
 
 [IMPORTANT]
 ====
@@ -163,7 +163,7 @@ image::onvif/generic/rtsp/rtsp_generic.png[800,800]
 The RTSP transport is usually selected manually or from the provided list of media profiles. The exemplification of RTSP transport selection for xref:onvif/vms/milestone.adoc[Milestone XProtect Management Client] is depicted in the <<rtsp-transports-milestone,Figure {counter:figure}>> below.
 
 [[rtsp-transports-milestone]]
-.The selection of the RTSP transport in Milestone XProtect Management Client 
+.The selection of the RTSP transport in Milestone XProtect Management Client
 image::onvif/generic/rtsp/rtsp_transports.png[800,800]
 
 
@@ -181,7 +181,7 @@ Information about the QbProtect RTSP health state, the number of connected clien
 .The RTSP diagnostics: the number of active RTSP clients and stream rates
 image::onvif/generic/rtsp/rtsp_diagnostics.png[800,800]
 
-In this example, the QbProtect scan pattern frame rate was set to `8` Hz and a single RTSP client is connected to QbProtect. 
+In this example, the QbProtect scan pattern frame rate was set to `8` Hz and a single RTSP client is connected to QbProtect.
 
 . The `Fetch` rate indicates the rate at which raw point-cloud frames are consumed from the internal processing pipeline
 . The `Render` rate indicates the rate at which video frames are produced from raw point-cloud frames

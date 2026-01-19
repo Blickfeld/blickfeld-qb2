@@ -1,11 +1,11 @@
 = Bosch
 :experimental:
 
-This section provides information on how to integrate QbProtect with Bosch BVMS. Please refer to the xref:onvif/general/index.adoc[ONVIF section] beforehand for general information on using ONVIF with https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect].
+This section provides information on how to integrate QbProtect with Bosch BVMS. Please refer to the xref:onvif/index.adoc[ONVIF section] beforehand for general information on using ONVIF with https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect].
 
 [NOTE]
 ====
-The following Bosch BVMS components have been used in the examples below:  
+The following Bosch BVMS components have been used in the examples below:
 
 * BVMS Configuration Client - Version 12.3 (build 12.3.0.171)
 * BVMS Operator Client - Version 12.3 (build 12.3.0.171)
@@ -16,15 +16,15 @@ The following Bosch BVMS components have been used in the examples below:
 
 [CAUTION]
 ====
-Events originating from dynamic event sources (e.g., security zones) have to be correctly exposed to the VMS each time a new zone configuration is introduced via xref:introduction:webgui_tutorial.adoc[WebGUI]. 
+Events originating from dynamic event sources (e.g., security zones) have to be correctly exposed to the VMS each time a new zone configuration is introduced via xref:introduction:webgui_tutorial.adoc[WebGUI].
 Please either pre-configure all the required security zones in xref:introduction:webgui_tutorial.adoc[WebGUI] before adding the QbProtect into the VMS or re-add the existing QbProtect to the Bosch BMVS to re-expose events from newly configured dynamic sources.
 ====
 
 The BVMS Configuration Client is used to add https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect] into Bosch BVMS.
 
-The procedure includes the following steps: 
+The procedure includes the following steps:
 
-. Launch the BVMS Configuration Client and login using your BVMS password 
+. Launch the BVMS Configuration Client and login using your BVMS password
 . Navigate to `Devices` tab -> Right Click `Live Only` in the `Device Tree` -> Select `Add ONVIF Encoder`
 . Give a meaningful name to the QbProtect device -> Enter the FQDN or IP of QbProtect in the `Network address` field -> Set port `443` for encrypted RTSP video stream
 . Set `User name/Password` in the corresponding `Credentials` fields -> Toggle `Secure connection` -> Click `Test`
@@ -32,7 +32,7 @@ The procedure includes the following steps:
 +
 [NOTE]
 ====
-Please refer to the xref:onvif/general/index.adoc#user-authentication[User Authentication (ONVIF/RTSP)] subsection to find out how to obtain valid ONVIF credentials required for QbProtect VMS integrations.
+Please refer to the xref:onvif/authentication.adoc[User authentication] subsection to find out how to obtain valid ONVIF credentials required for QbProtect VMS integrations.
 ====
 
 +
@@ -47,8 +47,8 @@ image::onvif/vms/bosch/add/add.png[800,800]
 image::onvif/vms/bosch/add/add_logical_tree.png[800,800]
 
 . Click `Save` icon -> Click `Activate Working Copy of Configuration` -> Toggle `Force activation for all Operator Clients` -> Click `OK` ->  Wait untill BVMS Operator Client restarts
-. Launch the BVMS Operator Client and login using your BVMS password 
-. Drag and drop `QbProtect` camera from the `Logical Tree` to the `Image Pane` -> The live preview of the point cloud should be available in the `Image Pane` 
+. Launch the BVMS Operator Client and login using your BVMS password
+. Drag and drop `QbProtect` camera from the `Logical Tree` to the `Image Pane` -> The live preview of the point cloud should be available in the `Image Pane`
 +
 .Adding QbProtect into Bosch BVMS: live video stream in BVMS Operator Client
 image::onvif/vms/bosch/add/added.png[800,800]
@@ -66,12 +66,12 @@ The example below shows how https://www.blickfeld.com/lidar-sensor-products/qbpr
 
 [NOTE]
 ====
-Please refer to the xref:onvif/general/index.adoc#_events[Events] subsection to learn about the available ONVIF event topics.
+Please refer to the xref:onvif/events.adoc[Events] subsection to learn about the available ONVIF event topics.
 ====
 
 [[configure-events]]
-=== Configure Events Handling 
-The events configuration procedure includes the following steps: 
+=== Configure Events Handling
+The events configuration procedure includes the following steps:
 
 . Launch the BVMS Configuration Client and login using your BVMS password (optional)
 . Navigate to `Devices` tab -> Navigate to `Device Tree` (right pane) -> Click on the added QbProtect
@@ -87,16 +87,16 @@ image::onvif/vms/bosch/events/events_moved.png[800,800]
 
 [[configure-alarms]]
 === Configure Alarm Rule Chain
-The Bosch BVMS alarm rule chain consists of event source and event action. It allows to map a dedicated action (e.g., a particular alarm, recording of the video stream, etc.) to the event of the particular type (e.g., motion, zone intrusion). 
+The Bosch BVMS alarm rule chain consists of event source and event action. It allows to map a dedicated action (e.g., a particular alarm, recording of the video stream, etc.) to the event of the particular type (e.g., motion, zone intrusion).
 
-The alarm rule chain configuration procedure includes the following steps: 
+The alarm rule chain configuration procedure includes the following steps:
 
 . Navigate to `Events` tab -> Click `ONVIF camera` -> Click `Onvif Generic Data 01` -> Click `Settings for Onvif Generic Data 01` -> Set schedules for `Trigger Alarm`, `Log` and `Script` to `Always` -> Click `Save` icon
 +
 .QbProtect events: ONVIF events schedule configuration in Bosch BVMS
 image::onvif/vms/bosch/events/events_schedule.png[800,800]
 
-. Navigate to `Alarms` tab -> Click `ONVIF camera` -> Click `Onvif Generic Data 01` -> Click `Settings for Onvif Generic Data 01` 
+. Navigate to `Alarms` tab -> Click `ONVIF camera` -> Click `Onvif Generic Data 01` -> Click `Settings for Onvif Generic Data 01`
 . Select `Camera1` -> Set `Priority` to be 3 -> Give a meaningful title to the alarm, e.g. `Tampering Moved` -> Assign `Camera 1` to the `Alarm Image Pane` 1 ->  `Click `Save` icon
 +
 .QbProtect events: alarm configuration in Bosch BVMS

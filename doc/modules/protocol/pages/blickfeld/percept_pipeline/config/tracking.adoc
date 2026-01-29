@@ -23,7 +23,7 @@ Reasonable default: 0.3
 .2+| *survival_probability* | optional float| - | - 
 3+| Higher probability will allow the object to be followed longer in the absence of observations 
  
-Reasonable default: 1
+Reasonable default: 0.995
 
 .2+| *path_resolution* | optional float| - | - 
 3+| The distance between saved object positions in the track path history. 
@@ -62,7 +62,7 @@ default: 0.85, range: [0.01 ... 1.0]
 3+| Defines the amount of acceleration noise that can happen in any random direction. 
 When tracking fails to properly follow fast-moving objects, increasing this value expands the search space for track association. 
  
-default: 0.3, range: [0.3 ... 10]
+default: 0.3, range: [0.0 ... 10]
 
 .2+| *observation_noise* | float| - | - 
 3+| Describes the expected deviation squared (variance) of the detection from the true center of the object 

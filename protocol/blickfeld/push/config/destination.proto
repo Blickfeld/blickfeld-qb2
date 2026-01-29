@@ -34,8 +34,10 @@ message Destination {
     // mqtt client identifier
     string client_identifier = 4 [(.blickfeld.base.validate) = {
       string {
+        minimum: 1
         maximum: 1024
       }
+      optional: true
     }];
     // mqtt topic - if empty the 'blickfeld/{data_type}/{encoding_type}/{config_name}' pattern is used as a default
     string topic = 5 [(.blickfeld.base.validate) = {

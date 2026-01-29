@@ -48,7 +48,7 @@ Configuration for retrieving point clouds from a Qb2
 |===
 | Field | Type | Default | Unit
 
-.2+| *fqdn* | string| - | - 
+.2+| *fqdn* | optional string| - | - 
 3+| The fully qualified domain name of the Qb2 device. For on-device processing/configuration, 'fqdn' can be set 
 to an empty string to request the data of the current device.
 

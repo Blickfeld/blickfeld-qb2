@@ -30,7 +30,7 @@ Mqtt Endpoint definition
 .2+| *authentication* | xref:blickfeld/push/config/authentication.adoc[Authentication] | - | - 
 3+| mqtt server authentication settings
 
-.2+| *client_identifier* | string| - | - 
+.2+| *client_identifier* | optional string| - | - 
 3+| mqtt client identifier
 
 .2+| *topic* | optional string| - | - 

@@ -17,6 +17,9 @@ Timestamp is synchronized if Time Synchronization is configured.
 .2+| *binary* | xref:blickfeld/core_processing/data/frame.adoc#_blickfeld_core_processing_data_Frame_Binary[Binary] | - | - 
 3+| Binary buffer with point cloud vectors
 
+.2+| *acceleration* | xref:blickfeld/core_processing/data/acceleration.adoc[Acceleration] | - | - 
+3+| Filtered acceleration
+
 |===
 
 [#_blickfeld_core_processing_data_Frame_Binary]

@@ -59,5 +59,10 @@ Response for stream range method
 .2+| *foreground* | xref:blickfeld/core_processing/data/frame.adoc[core_processing.data.Frame] | - | - 
 3+| Historical foreground point cloud
 
+.2+| *zone_coverage* | optional xref:blickfeld/core_processing/data/frame.adoc[core_processing.data.Frame] | - | - 
+3+| Historical zone coverage point cloud 
+ 
+Only available for zones where a minimum coverage is configured.
+
 |===
 

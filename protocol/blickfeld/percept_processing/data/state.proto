@@ -21,6 +21,8 @@ message State {
   message ObjectBasedSecurity {
     // If there is an alarm or not in the zone.
     bool alarm = 1;
+    // The tampered alarm
+    bool tampered = 6;
     // Map of objects where the key is the UUID of the object that triggered the alarm.
     map<string, .blickfeld.percept_processing.data.DetectedObject> objects = 2;
     // Active intrusion. Can be used as pre-alarm.
@@ -31,11 +33,15 @@ message State {
     // The moving average window size can be configured with
     // the minimum intruding duration parameter.
     float intrusion_confidence = 4;
+    // Active tampering of zone. The minimum coverage is too low.
+    .blickfeld.percept_processing.data.Flag tampering = 5;
   }
   // A message containing an alarm state of a zone.
   message Security {
     // If there is an alarm or not in the zone.
     bool alarm = 1;
+    // The tampered alarm
+    bool tampered = 7;
     // The current number of lidar points detected in the zone.
     uint32 num_detected_points = 2;
     // Foreground point cloud inside zone which triggered the alarm.
@@ -48,6 +54,8 @@ message State {
     // The moving average window size can be configured with
     // the minimum intruding duration parameter.
     float intrusion_confidence = 5;
+    // Active tampering of zone. The minimum coverage is too low.
+    .blickfeld.percept_processing.data.Flag tampering = 6;
   }
   // A message containing the volume state of a zone.
   // This is based on one volume zone.
@@ -71,10 +79,14 @@ message State {
   message TraversalSecurity {
     // The traversal alarm
     bool alarm = 1;
+    // The tampered alarm
+    bool tampered = 5;
     // The objects which triggered the inbound alarm
     map<string, .blickfeld.percept_processing.data.DetectedObject> objects = 2;
     // Active traversal
     .blickfeld.percept_processing.data.Flag intrusion = 3;
+    // Active tampering of zone. The minimum coverage is too low.
+    .blickfeld.percept_processing.data.Flag tampering = 4;
   }
   // A message containing the state of a traffic lane zone.
   message TrafficLane {
@@ -97,6 +109,8 @@ message State {
     // The state of a traffic lane zone
     .blickfeld.percept_processing.data.State.TrafficLane traffic_lane = 12;
   }
+  // The estimated zone coverage
+  float coverage = 13;
   reserved 1, 2, 3, 4, 6;
 }
 

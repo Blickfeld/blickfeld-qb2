@@ -1,0 +1,1 @@
+Linked occupancy zones (default: empty list):: List of xref:zone_types/occupancy.adoc[occupancy zones]. Evaluation of this zone is skipped when any of the occupancy zones are occupied. The default value (empty list) will always trigger the zone's measurement.

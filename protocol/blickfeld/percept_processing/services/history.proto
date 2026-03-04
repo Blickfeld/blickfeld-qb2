@@ -38,6 +38,12 @@ message HistoryStreamRangeResponse {
   .blickfeld.percept_processing.data.States states = 2;
   // Historical foreground point cloud
   .blickfeld.core_processing.data.Frame foreground = 3;
+  // Historical zone coverage point cloud
+  //  
+  // Only available for zones where a minimum coverage is configured.
+  .blickfeld.core_processing.data.Frame zone_coverage = 4 [(.blickfeld.base.validate) = {
+    optional: true
+  }];
 }
 
 // The history service provides historical data.

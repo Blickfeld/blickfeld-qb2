@@ -3,6 +3,7 @@
 syntax = "proto3";
 
 import "blickfeld/base/options.proto";
+import "blickfeld/core_processing/data/frame.proto";
 import "blickfeld/percept_processing/data/detected_object.proto";
 import "blickfeld/percept_processing/data/disqualification.proto";
 import "blickfeld/percept_processing/data/state.proto";
@@ -21,6 +22,54 @@ option (.blickfeld.base.access_control_file) = {
 message Event {
   // Container for security-related events
   message Security {
+    // A tampering started in one or multiple security zones.
+    message TamperingStarted {
+    }
+    // A tampering ended.
+    message TamperingEnded {
+      // ID of the TamperingStarted event.
+      string started_event_id = 1;
+      // Duration of the tampering event.
+      float duration = 2 [(.blickfeld.base.unit) = "s"];
+    }
+    // A moved tampering started.
+    message MovedTamperingStarted {
+    }
+    // A moved tampering ended.
+    message MovedTamperingEnded {
+      // ID of the MovedTamperingStarted event.
+      string started_event_id = 1;
+      // Duration of the tampering event.
+      float duration = 2 [(.blickfeld.base.unit) = "s"];
+    }
+    // A covered tampering started.
+    message CoveredTamperingStarted {
+    }
+    // A covered tampering ended.
+    message CoveredTamperingEnded {
+      // ID of the CoveredTamperingStarted event.
+      string started_event_id = 1;
+      // Duration of the tampering event.
+      float duration = 2 [(.blickfeld.base.unit) = "s"];
+    }
+    // A tampering started in a security zone.
+    message ZoneTamperingStarted {
+      // UUID of the security zone.
+      string zone_uuid = 1;
+      // Zone coverage point cloud
+      .blickfeld.core_processing.data.Frame point_cloud = 2;
+      // Snapshot of the zone state.
+      .blickfeld.percept_processing.data.State state = 3;
+    }
+    // A tampering of a security zone ended.
+    message ZoneTamperingEnded {
+      // UUID of the security zone.
+      string zone_uuid = 1;
+      // ID of the ZoneTamperingStarted event.
+      string started_event_id = 2;
+      // Duration of the tampering event.
+      float duration = 3 [(.blickfeld.base.unit) = "s"];
+    }
     // An intrusion started in one or multiple security zones.
     message IntrusionStarted {
     }
@@ -84,6 +133,22 @@ message Event {
     .blickfeld.percept_processing.data.Event.Security.ZoneIntrusionStarted security_zone_intrusion_started = 4;
     // Security: Zone intrusion ended
     .blickfeld.percept_processing.data.Event.Security.ZoneIntrusionEnded security_zone_intrusion_ended = 5;
+    // Security: Tampering started
+    .blickfeld.percept_processing.data.Event.Security.TamperingStarted security_tampering_started = 11;
+    // Security: Tampering ended
+    .blickfeld.percept_processing.data.Event.Security.TamperingEnded security_tampering_ended = 12;
+    // Security: Moved tampering started
+    .blickfeld.percept_processing.data.Event.Security.MovedTamperingStarted security_moved_tampering_started = 13;
+    // Security: Moved tampering ended
+    .blickfeld.percept_processing.data.Event.Security.MovedTamperingEnded security_moved_tampering_ended = 14;
+    // Security: Covered tampering started
+    .blickfeld.percept_processing.data.Event.Security.CoveredTamperingStarted security_covered_tampering_started = 15;
+    // Security: Covered tampering ended
+    .blickfeld.percept_processing.data.Event.Security.CoveredTamperingEnded security_covered_tampering_ended = 16;
+    // Security: Zone tampering started
+    .blickfeld.percept_processing.data.Event.Security.ZoneTamperingStarted security_zone_tampering_started = 17;
+    // Security: Zone tampering ended
+    .blickfeld.percept_processing.data.Event.Security.ZoneTamperingEnded security_zone_tampering_ended = 18;
     // Disqualification: Fog detected
     .blickfeld.percept_processing.data.Event.Disqualification.Fog disqualification_fog_detected = 6;
     // Disqualification: Fog not detected anymore

@@ -1,0 +1,39 @@
+// Copyright (c) 2026 Blickfeld GmbH.
+// All rights reserved.
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+package blickfeld.hardware.services;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_AUTHORIZED
+};
+
+// Stream request message
+message SerialStreamRequest {
+  // Line which should be written to serial device
+  string line = 1;
+}
+
+// Straem response message
+message SerialStreamResponse {
+  // Line which was read from serial device
+  string line = 1;
+}
+
+// This service allows to interface the serial / UART connection.
+//  
+// NOTE: The serial connection is not available for all hardware variants.
+service Serial {
+  option (.blickfeld.base.access_control_service) = {
+    level: LEVEL_AUTHORIZED
+  };
+  option (.blickfeld.base.protocol_maturity_service) = {
+    level: LEVEL_EXPERIMENTAL
+  };
+  // Bi-directional stream for UART interface
+  //  
+  // The communication is terminated with newlines. The baud rate is fixed to 115200.
+  rpc Stream(stream .blickfeld.hardware.services.SerialStreamRequest) returns (stream .blickfeld.hardware.services.SerialStreamResponse);
+}
+

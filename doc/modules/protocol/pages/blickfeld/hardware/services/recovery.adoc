@@ -1,0 +1,39 @@
+= Service: Recovery
+
+NOTE: This API is officially released and maintained.
+
+This service allows getting the state of the recovery mode. 
+If the recovery mode was entered due to exceeding the allowed 
+boot attempts, a normal boot can be attempted again.
+
+.Available methods
+|===
+| Method | Request | Response
+
+| *xref:#Get[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/hardware/services/recovery.adoc#_blickfeld_hardware_services_RecoveryGetResponse[RecoveryGetResponse]
+| *xref:#AttemptBoot[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
+|===
+[#Get]
+== Get
+
+Get the state of the recovery mode.
+
+[#_blickfeld_hardware_services_RecoveryGetResponse]
+=== Response
+
+Response containing the recovery state
+
+.Available fields in blickfeld.hardware.services.RecoveryGetResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *recovery* | xref:blickfeld/hardware/data/recovery.adoc[data.Recovery] | - | - 
+3+| The cause for entering recovery mode
+
+|===
+
+[#AttemptBoot]
+== AttemptBoot
+
+Reset the flags and reboot the device.
+

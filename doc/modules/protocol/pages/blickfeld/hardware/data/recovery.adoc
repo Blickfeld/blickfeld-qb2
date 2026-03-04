@@ -1,0 +1,29 @@
+[#_blickfeld_hardware_data_Recovery]
+= Recovery
+
+A recovery message contains information about the recovery state.
+
+.Available fields in blickfeld.hardware.data.Recovery
+|===
+| Field | Type | Default | Unit
+
+.2+| *reason* | xref:blickfeld/hardware/data/recovery.adoc#_blickfeld_hardware_data_Recovery_Reason[Reason] | - | - 
+3+| The reason for entering recovery mode.
+
+|===
+
+[#_blickfeld_hardware_data_Recovery_Reason]
+== Reason
+
+Possible reasons for entering the recovery mode.
+
+.Available values for blickfeld.hardware.data.Recovery.Reason enum
+[cols='25h,5,~']
+|===
+| Name | Value | Description
+
+| REASON_UNSPECIFIED ^| 0 | Recovery mode is not active
+| REASON_BOOT_ATTEMPTS_EXCEEDED ^| 1 | Recovery mode entered because of too many boot attempts
+| REASON_FIRMWARE_UPDATE_FAILED ^| 2 | Recovery mode entered because of a failed firmware update
+|===
+

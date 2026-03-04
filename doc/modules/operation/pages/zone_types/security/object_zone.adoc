@@ -23,7 +23,14 @@ include::partial$zone_types_security_intrusion_conditions_object_size.adoc[]
 
 Intrusion on wrong direction (default: false):: An alarm is only raised if an object moves in a specific direction. This makes the behavior of the object-based zone similar to the one of the xref:zone_types/security/directional_zone.adoc[directional zone], only covering a larger area. To change the triggering direction, the zone needs to be rotated.
 Minimum intruder velocity (default: 0.028, unit: stem:[$\frac{m}{s}$]):: The minimum velocity of the detected object before it can trigger an alarm. The default setting prevents still objects from causing false alarms.
-NOTE: The minimum intruder velocity only has an effect if the *intrusion on wrong direction* is *enabled*.
++
+[NOTE]
+====
+The minimum intruder velocity only has an effect if the *intrusion on wrong direction* is *enabled*.
+
+This parameter is currently not exposed in the WebGUI. It can be configured through the xref:protocol:blickfeld/percept_pipeline/config/zone_algorithm.adoc#_blickfeld_percept_pipeline_config_ZoneAlgorithm_ObjectBasedSecurity[zone configuration API].
+====
+
 Intrusion on partial entry (default: false):: If enabled, an alarm is raised if any point of the object intrudes the zone, otherwise the center of the object is considered for intrusion. Enabling this option might increase the false alarm rate.
 Minimum intruder lifetime (default: 0, unit: stem:[$s$]):: The minimum lifetime of the detected object before it can trigger an alarm.
 Minimum intruder track length (default: 0, unit: stem:[$m$]):: The minimum length of the object's track before it can trigger an alarm.
@@ -33,6 +40,10 @@ include::partial$zone_types_security_intrusion_conditions.adoc[]
 ### Output options
 
 include::partial$zone_types_security_output_options.adoc[]
+
+### Tampering
+
+include::partial$zone_types_security_tampering.adoc[]
 
 ## Algorithm
 

@@ -48,7 +48,8 @@ Tare volume (default: 0, unit: stem:[$m^{3}$]):: The baseline volume of the zone
 The output settings configure when *not* to output measurement results. This is useful to avoid measurement outliers when trucks, wheel loaders or other equipment obstructs the scene (e.g., during loading or unloading).
 
 Minimum coverage (default: 0, unit: stem:[$\%$]):: The minimum portion of volume map tiles which have to be based on actual points in the input point cloud. Output of the measurement is skipped when coverage falls below the minimum threshold. The default value of zero percent will output every measurement.
-Linked occupancy zones (default: empty list):: List of xref:zone_types/occupancy.adoc[occupancy zones]. Measurement of the volume zone is skipped when any of the occupancy zones are occupied. The default value (empty list) will always trigger the zone's measurement.
+
+include::partial$zone_types_output_link_occupancy.adoc[]
 
 ## Algorithm
 

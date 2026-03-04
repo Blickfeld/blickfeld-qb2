@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+package blickfeld.diagnostics.config;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_AUTHORIZED
+};
+
+// base tunnel configuration
+message Tunnel {
+  // OpenVPN client tunnel
+  //  
+  // NOTE: This feature is only available when the configured Qb2 license supports it.
+  message OpenVpn {
+    // full config with credentials
+    string configuration = 1 [(.blickfeld.base.validate) = {
+      string {
+        minimum: 1
+        maximum: 65536
+      }
+    }];
+    // option to disable the tunnel
+    bool disabled = 2 [(.blickfeld.base.validate) = {
+      optional: true
+    }];
+  }
+  oneof type {
+    // openvpn tunnel
+    .blickfeld.diagnostics.config.Tunnel.OpenVpn openvpn = 1;
+  }
+}
+

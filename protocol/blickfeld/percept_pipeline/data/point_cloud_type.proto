@@ -27,5 +27,7 @@ enum PointCloudType {
   POINT_CLOUD_TYPE_BACKGROUND = 6;
   // Point cloud containing a collection of points with annotation per point
   POINT_CLOUD_TYPE_ANNOTATED = 7;
+  // Point cloud which visualizes the current zone coverage
+  POINT_CLOUD_TYPE_ZONE_COVERAGE = 8;
 }
 

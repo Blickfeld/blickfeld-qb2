@@ -127,6 +127,17 @@ message ZoneAlgorithm {
     repeated string disable_when_occupied_zone_uuids = 6 [(.blickfeld.base.validate) = {
       optional: true
     }];
+    // Minimum coverage of bounding box
+    //  
+    // A SecurityZoneTampering event is emitted when the coverage is below the specified minimum coverage.
+    //  
+    // Default: 0 (the coverage estimator is not executed)
+    float minimum_coverage = 7 [(.blickfeld.base.validate) = {
+      number {
+        greater_or_equal: 0
+        less_or_equal: 1
+      }
+    }];
   }
   // Algorithm that triggers an alarm when an object of one of the selected sizes is in the zone
   message ObjectBasedSecurity {
@@ -208,6 +219,17 @@ message ZoneAlgorithm {
     float minimum_average_intruder_intensity = 15 [(.blickfeld.base.validate) = {
       optional: true
     }];
+    // Minimum coverage of bounding box
+    //  
+    // A SecurityZoneTampering event is emitted when the coverage is below the specified minimum coverage.
+    //  
+    // Default: 0 (the coverage estimator is not executed)
+    float minimum_coverage = 16 [(.blickfeld.base.validate) = {
+      number {
+        greater_or_equal: 0
+        less_or_equal: 1
+      }
+    }];
     reserved 2, 3, 5;
   }
   // Algorithm that excludes points from the input point cloud
@@ -276,6 +298,17 @@ message ZoneAlgorithm {
     // Disables the security zone state and alarms when one of the occupancy zones is occupied.
     repeated string disable_when_occupied_zone_uuids = 3 [(.blickfeld.base.validate) = {
       optional: true
+    }];
+    // Minimum coverage of bounding box
+    //  
+    // A SecurityZoneTampering event is emitted when the coverage is below the specified minimum coverage.
+    //  
+    // Default: 0 (the coverage estimator is not executed)
+    float minimum_coverage = 4 [(.blickfeld.base.validate) = {
+      number {
+        greater_or_equal: 0
+        less_or_equal: 1
+      }
     }];
   }
   // Algorithm that monitors traffic moving through the zone.

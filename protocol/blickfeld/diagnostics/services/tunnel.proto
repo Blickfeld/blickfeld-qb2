@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+import "blickfeld/base/options.proto";
+import "blickfeld/diagnostics/config/tunnel.proto";
+package blickfeld.diagnostics.services;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_ADMIN
+};
+
+// Persist tunnel configuration
+message TunnelSetRequest {
+  // tunnel configuration
+  .blickfeld.diagnostics.config.Tunnel tunnel = 1;
+}
+
+// Read persisted tunnel configuration
+message TunnelGetResponse {
+  // tunnel configuration
+  .blickfeld.diagnostics.config.Tunnel tunnel = 1;
+}
+
+// The Tunnel service offers methods to create remote control & service tunnels.
+service Tunnel {
+  option (.blickfeld.base.access_control_service) = {
+    level: LEVEL_ADMIN
+  };
+  // set configuration
+  rpc Set(.blickfeld.diagnostics.services.TunnelSetRequest) returns (.google.protobuf.Empty);
+  // get configuration
+  rpc Get(.google.protobuf.Empty) returns (.blickfeld.diagnostics.services.TunnelGetResponse);
+}
+

@@ -29,6 +29,10 @@ include::partial$zone_types_security_intrusion_conditions.adoc[]
 
 include::partial$zone_types_security_output_options.adoc[]
 
+### Tampering
+
+include::partial$zone_types_security_tampering.adoc[]
+
 ## Algorithm
 
 The algorithm uses its enclosed portion of the xref:motion_detection/index.adoc[foreground point cloud] as input data. It operates in two stages:

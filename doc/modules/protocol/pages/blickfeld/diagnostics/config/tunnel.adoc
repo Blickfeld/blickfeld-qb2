@@ -1,0 +1,33 @@
+[#_blickfeld_diagnostics_config_Tunnel]
+= Tunnel
+
+base tunnel configuration
+
+.Available fields in blickfeld.diagnostics.config.Tunnel
+|===
+| Field | Type | Default | Unit
+
+.2+| *openvpn* | xref:blickfeld/diagnostics/config/tunnel.adoc#_blickfeld_diagnostics_config_Tunnel_OpenVpn[OpenVpn] | - | - 
+3+| openvpn tunnel
+
+|===
+
+[#_blickfeld_diagnostics_config_Tunnel_OpenVpn]
+== Open Vpn
+
+OpenVPN client tunnel 
+ 
+NOTE: This feature is only available when the configured Qb2 license supports it.
+
+.Available fields in blickfeld.diagnostics.config.Tunnel.OpenVpn
+|===
+| Field | Type | Default | Unit
+
+.2+| *configuration* | string| - | - 
+3+| full config with credentials
+
+.2+| *disabled* | optional bool| - | - 
+3+| option to disable the tunnel
+
+|===
+

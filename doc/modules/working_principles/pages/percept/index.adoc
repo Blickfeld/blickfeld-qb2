@@ -16,9 +16,9 @@ The https://www.blickfeld.com/applications/security/[security mode] of the Perce
 xref:operation:motion_detection/index.adoc[Motion detection]:: Separation of the input data into background (static) and foreground (in motion).
 xref:operation:object_tracking/index.adoc[Object tracking]:: Detection and tracking of objects in the scene.
 xref:operation:zone_types/security/index.adoc[Zone state computation]:: Compute alarm states for all configured zones.
-Alarm history:: Event-based capturing of snapshots and scene activity before and after an alarm.
+Events & Alarm history:: Event-based capturing of snapshots and scene activity before and after an alarm state.
 
-## Volume 
+## Volume
 
 [NOTE]
 ====
@@ -29,4 +29,3 @@ The https://www.blickfeld.com/applications/volume-monitoring/[volume mode] of th
 
 Point cloud acquisition & fusion:: The local point cloud is queried. All input point clouds are geometrically combined if more than one sensor is active in the sensor setup.
 xref:operation:zone_types/volume.adoc[Zone volume state computation]:: Calculate the measured volume in stem:[$m^{3}$] and the corresponding volume map for each zone in the scene.
-

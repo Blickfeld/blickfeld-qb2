@@ -1,0 +1,49 @@
+= Service: Serial
+
+CAUTION: This API is not yet officially released nor maintained.
+
+This service allows to interface the serial / UART connection. 
+ 
+NOTE: The serial connection is not available for all hardware variants.
+
+.Available methods
+|===
+| Method | Request | Response
+
+| *xref:#Stream[]* | xref:blickfeld/hardware/services/serial.adoc#_blickfeld_hardware_services_SerialStreamRequest[SerialStreamRequest]Stream | xref:blickfeld/hardware/services/serial.adoc#_blickfeld_hardware_services_SerialStreamResponse[SerialStreamResponse]Stream 
+|===
+[#Stream]
+== Stream
+
+Bi-directional stream for UART interface 
+ 
+The communication is terminated with newlines. The baud rate is fixed to 115200.
+
+[#_blickfeld_hardware_services_SerialStreamRequest]
+=== Request Stream
+
+Stream request message
+
+.Available fields in blickfeld.hardware.services.SerialStreamRequest
+|===
+| Field | Type | Default | Unit
+
+.2+| *line* | string| - | - 
+3+| Line which should be written to serial device
+
+|===
+
+[#_blickfeld_hardware_services_SerialStreamResponse]
+=== Response Stream
+
+Straem response message
+
+.Available fields in blickfeld.hardware.services.SerialStreamResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *line* | string| - | - 
+3+| Line which was read from serial device
+
+|===
+

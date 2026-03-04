@@ -1,0 +1,39 @@
+// Copyright (c) 2026 Blickfeld GmbH.
+// All rights reserved.
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+import "blickfeld/hardware/data/recovery.proto";
+import "google/protobuf/empty.proto";
+package blickfeld.hardware.services;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_AUTHORIZED
+};
+
+// Response containing the recovery state
+message RecoveryGetResponse {
+  // The cause for entering recovery mode
+  .blickfeld.hardware.data.Recovery recovery = 1;
+}
+
+// This service allows getting the state of the recovery mode.
+// If the recovery mode was entered due to exceeding the allowed
+// boot attempts, a normal boot can be attempted again.
+service Recovery {
+  option (.blickfeld.base.access_control_service) = {
+    level: LEVEL_AUTHORIZED
+  };
+  option (.blickfeld.base.protocol_maturity_service) = {
+    level: LEVEL_MAINTAINED
+  };
+  // Get the state of the recovery mode.
+  rpc Get(.google.protobuf.Empty) returns (.blickfeld.hardware.services.RecoveryGetResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
+  // Reset the flags and reboot the device.
+  rpc AttemptBoot(.google.protobuf.Empty) returns (.google.protobuf.Empty);
+}
+

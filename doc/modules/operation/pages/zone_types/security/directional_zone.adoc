@@ -25,6 +25,10 @@ include::partial$zone_types_security_intrusion_conditions_object_size.adoc[]
 
 include::partial$zone_types_security_output_options.adoc[]
 
+### Tampering
+
+include::partial$zone_types_security_tampering.adoc[]
+
 ## Algorithm
 
 The algorithm uses the tracked objects from xref:object_tracking/index.adoc[object tracking] as input data. It operates in two stages:

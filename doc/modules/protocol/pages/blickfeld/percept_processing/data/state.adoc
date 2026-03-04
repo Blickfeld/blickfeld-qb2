@@ -30,6 +30,9 @@ States will get calculated on every frame of measurement.
 .2+| *traffic_lane* | xref:blickfeld/percept_processing/data/state.adoc#_blickfeld_percept_processing_data_State_TrafficLane[TrafficLane] | - | - 
 3+| The state of a traffic lane zone
 
+.2+| *coverage* | float| - | - 
+3+| The estimated zone coverage
+
 |===
 
 [#_blickfeld_percept_processing_data_State_ObjectBasedSecurity]
@@ -44,6 +47,9 @@ A message containing an alarm state of a zone.
 .2+| *alarm* | bool| - | - 
 3+| If there is an alarm or not in the zone.
 
+.2+| *tampered* | bool| - | - 
+3+| The tampered alarm
+
 .2+| *objects* | repeated xref:blickfeld/percept_processing/data/state.adoc#_blickfeld_percept_processing_data_State_ObjectBasedSecurity_ObjectsEntry[ObjectsEntry] | - | - 
 3+| Map of objects where the key is the UUID of the object that triggered the alarm.
 
@@ -56,6 +62,9 @@ A message containing an alarm state of a zone.
 Calculates a moving average of the intrusion state. 
 The moving average window size can be configured with 
 the minimum intruding duration parameter.
+
+.2+| *tampering* | xref:blickfeld/percept_processing/data/flag.adoc[Flag] | - | - 
+3+| Active tampering of zone. The minimum coverage is too low.
 
 |===
 
@@ -84,6 +93,9 @@ A message containing an alarm state of a zone.
 .2+| *alarm* | bool| - | - 
 3+| If there is an alarm or not in the zone.
 
+.2+| *tampered* | bool| - | - 
+3+| The tampered alarm
+
 .2+| *num_detected_points* | uint32| - | - 
 3+| The current number of lidar points detected in the zone.
 
@@ -99,6 +111,9 @@ A message containing an alarm state of a zone.
 Calculates a moving average of the intrusion state. 
 The moving average window size can be configured with 
 the minimum intruding duration parameter.
+
+.2+| *tampering* | xref:blickfeld/percept_processing/data/flag.adoc[Flag] | - | - 
+3+| Active tampering of zone. The minimum coverage is too low.
 
 |===
 
@@ -152,11 +167,17 @@ A message containing the traversal state of a zone.
 .2+| *alarm* | bool| - | - 
 3+| The traversal alarm
 
+.2+| *tampered* | bool| - | - 
+3+| The tampered alarm
+
 .2+| *objects* | repeated xref:blickfeld/percept_processing/data/state.adoc#_blickfeld_percept_processing_data_State_TraversalSecurity_ObjectsEntry[ObjectsEntry] | - | - 
 3+| The objects which triggered the inbound alarm
 
 .2+| *intrusion* | xref:blickfeld/percept_processing/data/flag.adoc[Flag] | - | - 
 3+| Active traversal
+
+.2+| *tampering* | xref:blickfeld/percept_processing/data/flag.adoc[Flag] | - | - 
+3+| Active tampering of zone. The minimum coverage is too low.
 
 |===
 

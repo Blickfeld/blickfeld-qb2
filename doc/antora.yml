@@ -1,4 +1,4 @@
-display_version: JAKOB v2.14
+display_version: CLEO v2.15
 name: Qb2
 nav:
 - modules/ROOT/nav.adoc
@@ -9,4 +9,4 @@ nav:
 - modules/developer/nav.adoc
 - modules/service_and_maintenance/nav.adoc
 title: Qb Series
-version: JAKOB v2.14
+version: CLEO v2.15

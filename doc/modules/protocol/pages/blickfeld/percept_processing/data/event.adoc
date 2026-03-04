@@ -25,6 +25,30 @@ Thus, an event is often directly actionable.
 .2+| *security_zone_intrusion_ended* | xref:blickfeld/percept_processing/data/event.adoc#_blickfeld_percept_processing_data_Event_Security_ZoneIntrusionEnded[Security.ZoneIntrusionEnded] | - | - 
 3+| Security: Zone intrusion ended
 
+.2+| *security_tampering_started* | xref:blickfeld/percept_processing/data/event.adoc#_blickfeld_percept_processing_data_Event_Security_TamperingStarted[Security.TamperingStarted] | - | - 
+3+| Security: Tampering started
+
+.2+| *security_tampering_ended* | xref:blickfeld/percept_processing/data/event.adoc#_blickfeld_percept_processing_data_Event_Security_TamperingEnded[Security.TamperingEnded] | - | - 
+3+| Security: Tampering ended
+
+.2+| *security_moved_tampering_started* | xref:blickfeld/percept_processing/data/event.adoc#_blickfeld_percept_processing_data_Event_Security_MovedTamperingStarted[Security.MovedTamperingStarted] | - | - 
+3+| Security: Moved tampering started
+
+.2+| *security_moved_tampering_ended* | xref:blickfeld/percept_processing/data/event.adoc#_blickfeld_percept_processing_data_Event_Security_MovedTamperingEnded[Security.MovedTamperingEnded] | - | - 
+3+| Security: Moved tampering ended
+
+.2+| *security_covered_tampering_started* | xref:blickfeld/percept_processing/data/event.adoc#_blickfeld_percept_processing_data_Event_Security_CoveredTamperingStarted[Security.CoveredTamperingStarted] | - | - 
+3+| Security: Covered tampering started
+
+.2+| *security_covered_tampering_ended* | xref:blickfeld/percept_processing/data/event.adoc#_blickfeld_percept_processing_data_Event_Security_CoveredTamperingEnded[Security.CoveredTamperingEnded] | - | - 
+3+| Security: Covered tampering ended
+
+.2+| *security_zone_tampering_started* | xref:blickfeld/percept_processing/data/event.adoc#_blickfeld_percept_processing_data_Event_Security_ZoneTamperingStarted[Security.ZoneTamperingStarted] | - | - 
+3+| Security: Zone tampering started
+
+.2+| *security_zone_tampering_ended* | xref:blickfeld/percept_processing/data/event.adoc#_blickfeld_percept_processing_data_Event_Security_ZoneTamperingEnded[Security.ZoneTamperingEnded] | - | - 
+3+| Security: Zone tampering ended
+
 .2+| *disqualification_fog_detected* | xref:blickfeld/percept_processing/data/event.adoc#_blickfeld_percept_processing_data_Event_Disqualification_Fog[Disqualification.Fog] | - | - 
 3+| Disqualification: Fog detected
 
@@ -46,6 +70,112 @@ Thus, an event is often directly actionable.
 == Security
 
 Container for security-related events
+
+[#_blickfeld_percept_processing_data_Event_Security_TamperingStarted]
+=== Tampering Started
+
+A tampering started in one or multiple security zones.
+
+[#_blickfeld_percept_processing_data_Event_Security_TamperingEnded]
+=== Tampering Ended
+
+A tampering ended.
+
+.Available fields in blickfeld.percept_processing.data.Event.Security.TamperingEnded
+|===
+| Field | Type | Default | Unit
+
+.2+| *started_event_id* | string| - | - 
+3+| ID of the TamperingStarted event.
+
+.2+| *duration* | float| - | s 
+3+| Duration of the tampering event.
+
+|===
+
+[#_blickfeld_percept_processing_data_Event_Security_MovedTamperingStarted]
+=== Moved Tampering Started
+
+A moved tampering started.
+
+[#_blickfeld_percept_processing_data_Event_Security_MovedTamperingEnded]
+=== Moved Tampering Ended
+
+A moved tampering ended.
+
+.Available fields in blickfeld.percept_processing.data.Event.Security.MovedTamperingEnded
+|===
+| Field | Type | Default | Unit
+
+.2+| *started_event_id* | string| - | - 
+3+| ID of the MovedTamperingStarted event.
+
+.2+| *duration* | float| - | s 
+3+| Duration of the tampering event.
+
+|===
+
+[#_blickfeld_percept_processing_data_Event_Security_CoveredTamperingStarted]
+=== Covered Tampering Started
+
+A covered tampering started.
+
+[#_blickfeld_percept_processing_data_Event_Security_CoveredTamperingEnded]
+=== Covered Tampering Ended
+
+A covered tampering ended.
+
+.Available fields in blickfeld.percept_processing.data.Event.Security.CoveredTamperingEnded
+|===
+| Field | Type | Default | Unit
+
+.2+| *started_event_id* | string| - | - 
+3+| ID of the CoveredTamperingStarted event.
+
+.2+| *duration* | float| - | s 
+3+| Duration of the tampering event.
+
+|===
+
+[#_blickfeld_percept_processing_data_Event_Security_ZoneTamperingStarted]
+=== Zone Tampering Started
+
+A tampering started in a security zone.
+
+.Available fields in blickfeld.percept_processing.data.Event.Security.ZoneTamperingStarted
+|===
+| Field | Type | Default | Unit
+
+.2+| *zone_uuid* | string| - | - 
+3+| UUID of the security zone.
+
+.2+| *point_cloud* | xref:blickfeld/core_processing/data/frame.adoc[core_processing.data.Frame] | - | - 
+3+| Zone coverage point cloud
+
+.2+| *state* | xref:blickfeld/percept_processing/data/state.adoc[State] | - | - 
+3+| Snapshot of the zone state.
+
+|===
+
+[#_blickfeld_percept_processing_data_Event_Security_ZoneTamperingEnded]
+=== Zone Tampering Ended
+
+A tampering of a security zone ended.
+
+.Available fields in blickfeld.percept_processing.data.Event.Security.ZoneTamperingEnded
+|===
+| Field | Type | Default | Unit
+
+.2+| *zone_uuid* | string| - | - 
+3+| UUID of the security zone.
+
+.2+| *started_event_id* | string| - | - 
+3+| ID of the ZoneTamperingStarted event.
+
+.2+| *duration* | float| - | s 
+3+| Duration of the tampering event.
+
+|===
 
 [#_blickfeld_percept_processing_data_Event_Security_IntrusionStarted]
 === Intrusion Started

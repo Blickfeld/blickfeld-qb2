@@ -1,1 +1,3 @@
 Hold duration (default: 0, unit: stem:[$s$]):: Minimum hold time for the alarm when active. A value of 0 (default) will disable the alarm as soon as the conditions for raising the alarm are no longer met.
+
+include::partial$zone_types_output_link_occupancy.adoc[]

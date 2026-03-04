@@ -1,6 +1,7 @@
 syntax = "proto3";
 
 import "blickfeld/base/options.proto";
+import "blickfeld/core_processing/data/acceleration.proto";
 package blickfeld.core_processing.data;
 
 option cc_enable_arenas = true;
@@ -54,5 +55,7 @@ message Frame {
   uint64 timestamp = 2 [(.blickfeld.base.unit) = "ns"];
   // Binary buffer with point cloud vectors
   .blickfeld.core_processing.data.Frame.Binary binary = 3;
+  // Filtered acceleration
+  .blickfeld.core_processing.data.Acceleration acceleration = 4;
 }
 

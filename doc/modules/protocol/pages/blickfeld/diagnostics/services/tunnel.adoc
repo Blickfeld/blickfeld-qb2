@@ -1,0 +1,51 @@
+= Service: Tunnel
+
+CAUTION: This API is not yet officially released nor maintained.
+
+The Tunnel service offers methods to create remote control & service tunnels.
+
+.Available methods
+|===
+| Method | Request | Response
+
+| *xref:#Set[]* | xref:blickfeld/diagnostics/services/tunnel.adoc#_blickfeld_diagnostics_services_TunnelSetRequest[TunnelSetRequest]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
+| *xref:#Get[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/diagnostics/services/tunnel.adoc#_blickfeld_diagnostics_services_TunnelGetResponse[TunnelGetResponse]
+|===
+[#Set]
+== Set
+
+set configuration
+
+[#_blickfeld_diagnostics_services_TunnelSetRequest]
+=== Request
+
+Persist tunnel configuration
+
+.Available fields in blickfeld.diagnostics.services.TunnelSetRequest
+|===
+| Field | Type | Default | Unit
+
+.2+| *tunnel* | xref:blickfeld/diagnostics/config/tunnel.adoc[config.Tunnel] | - | - 
+3+| tunnel configuration
+
+|===
+
+[#Get]
+== Get
+
+get configuration
+
+[#_blickfeld_diagnostics_services_TunnelGetResponse]
+=== Response
+
+Read persisted tunnel configuration
+
+.Available fields in blickfeld.diagnostics.services.TunnelGetResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *tunnel* | xref:blickfeld/diagnostics/config/tunnel.adoc[config.Tunnel] | - | - 
+3+| tunnel configuration
+
+|===
+

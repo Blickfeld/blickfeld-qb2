@@ -155,6 +155,13 @@ Default: 0
  
 Disables the security zone state and alarms when one of the occupancy zones is occupied.
 
+.2+| *minimum_coverage* | float| - | - 
+3+| Minimum coverage of bounding box 
+ 
+A SecurityZoneTampering event is emitted when the coverage is below the specified minimum coverage. 
+ 
+Default: 0 (the coverage estimator is not executed)
+
 |===
 
 [#_blickfeld_percept_pipeline_config_ZoneAlgorithm_ObjectBasedSecurity]
@@ -232,6 +239,13 @@ This allows filtering false alarms when they have a significantly different inte
  
 Default: 0 (all average intensity values are considered)
 
+.2+| *minimum_coverage* | float| - | - 
+3+| Minimum coverage of bounding box 
+ 
+A SecurityZoneTampering event is emitted when the coverage is below the specified minimum coverage. 
+ 
+Default: 0 (the coverage estimator is not executed)
+
 |===
 
 [#_blickfeld_percept_pipeline_config_ZoneAlgorithm_Exclusion]
@@ -300,6 +314,13 @@ Default: 0
 3+| Link security zone to occupancy zones (by uuid). 
  
 Disables the security zone state and alarms when one of the occupancy zones is occupied.
+
+.2+| *minimum_coverage* | float| - | - 
+3+| Minimum coverage of bounding box 
+ 
+A SecurityZoneTampering event is emitted when the coverage is below the specified minimum coverage. 
+ 
+Default: 0 (the coverage estimator is not executed)
 
 |===
 

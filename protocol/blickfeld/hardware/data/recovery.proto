@@ -1,0 +1,26 @@
+// Copyright (c) 2026 Blickfeld GmbH.
+// All rights reserved.
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+package blickfeld.hardware.data;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_AUTHORIZED
+};
+
+// A recovery message contains information about the recovery state.
+message Recovery {
+  // Possible reasons for entering the recovery mode.
+  enum Reason {
+    // Recovery mode is not active
+    REASON_UNSPECIFIED = 0;
+    // Recovery mode entered because of too many boot attempts
+    REASON_BOOT_ATTEMPTS_EXCEEDED = 1;
+    // Recovery mode entered because of a failed firmware update
+    REASON_FIRMWARE_UPDATE_FAILED = 2;
+  }
+  // The reason for entering recovery mode.
+  .blickfeld.hardware.data.Recovery.Reason reason = 1;
+}
+

@@ -1,0 +1,64 @@
+= Recovery Mode
+
+This guide demonstrates how to check whether the Qb2 is in recovery mode and what caused it. Additionally, it shows how to attempt a reboot into the existing firmware from the recovery mode.
+
+NOTE: Please follow the xref:developer:client_libraries/python.adoc[Python Client Library Guide] to install the Python package first.
+
+
+== Check if Qb2 is in recovery mode
+
+In the following code snippet, the xref:protocol:blickfeld/hardware/services/recovery.adoc#Get[Get] method of the xref:protocol:blickfeld/hardware/services/recovery.adoc[Recovery] service is used to get information about whether the device is in recovery mode and the reason for it.
+
+[source, python]
+----
+import blickfeld_qb2
+
+def get_recovery_state() -> None:
+    # Create token factory using an application key
+    token_factory = blickfeld_qb2.TokenFactory(
+      application_key_secret="application-key-for-qb2-xxxxxxxxx"
+      )
+
+    # Open a secure connection to Qb2
+    with blickfeld_qb2.Channel("qb2-xxxxxxxxx", token=token_factory) as channel:
+        # Use recovery service
+        service = blickfeld_qb2.hardware.services.Recovery(channel)
+
+        # Get the information from the recovery service
+        response = service.get()
+
+        # Print the response
+        print(response)
+
+get_recovery_state()
+----
+
+Output:
+[source, text]
+----
+RecoveryGetResponse(recovery=Recovery(reason=2))
+----
+For a list of possible reasons, see the definition of the xref:protocol:blickfeld/hardware/data/recovery.adoc[Recovery] object.
+
+== Reboot into existing firmware
+
+If the device is in the recovery mode due to another reason than an interrupted firmware upgrade, a boot into the existing firmware can be attempted. The following code snippet shows how to use the xref:protocol:blickfeld/hardware/services/recovery.adoc#AttemptBoot[AttemptBoot] method of the xref:protocol:blickfeld/hardware/services/recovery.adoc[Recovery] service.
+
+[source, python]
+----
+def attempt_boot_from_recovery() -> None:
+    # Create token factory using an application key
+    token_factory = blickfeld_qb2.TokenFactory(
+      application_key_secret="application-key-for-qb2-xxxxxxxxx"
+      )
+
+    # Open a secure connection to Qb2
+    with blickfeld_qb2.Channel("qb2-xxxxxxxxx", token=token_factory) as channel:
+        # Use Recovery service
+        service = blickfeld_qb2.hardware.services.Recovery(channel)
+
+        # Call the service to attempt a boot into the existing firmware
+        service.attempt_boot()
+
+attempt_boot_from_recovery()
+----

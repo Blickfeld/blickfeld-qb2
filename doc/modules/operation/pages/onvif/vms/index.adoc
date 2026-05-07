@@ -30,5 +30,7 @@ QbProtect is not yet fully compliant with dedicated ONVIF https://www.onvif.org/
 
 | https://www.keenfinity-group.com/xn/en/solutions/management-software/bvms/[Bosch GmbH]
 | xref:onvif/vms/bosch.adoc[Bosch BVMS]
-|===
 
+| https://www.dallmeier.com/products/software/semsy-compact/[Dallmeier electronic GmbH & Co.KG]
+| xref:onvif/vms/dallmeier.adoc[Hemisphere SeMSy Compact]
+|===

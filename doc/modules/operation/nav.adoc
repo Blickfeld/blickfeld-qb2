@@ -10,6 +10,7 @@
 *** xref:operation:onvif/vms/index.adoc[]
 **** xref:operation:onvif/vms/avigilon.adoc[]
 **** xref:operation:onvif/vms/bosch.adoc[]
+**** xref:operation:onvif/vms/dallmeier.adoc[]
 **** xref:operation:onvif/vms/geutebrueck.adoc[]
 **** xref:operation:onvif/vms/hexagon.adoc[]
 **** xref:operation:onvif/vms/milestone.adoc[]

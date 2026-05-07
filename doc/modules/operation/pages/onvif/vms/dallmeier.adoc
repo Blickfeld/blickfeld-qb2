@@ -1,0 +1,98 @@
+= Dallmeier
+:experimental:
+
+This section provides information on how to integrate QbProtect with Hemisphere SeMSy Compact. Please refer to the xref:onvif/index.adoc[ONVIF section] beforehand for general information on using ONVIF with https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect].
+
+[NOTE]
+====
+The following software and hardware components have been used in the examples below:
+
+* Dallmeier VideoNetBox - MK4
+* Dallmeier Hemisphere SeMSy Compact - Version 5.6.11.354
+* Dallmeier NetConfig3 - Version 11.11.2
+====
+
+[[add-device]]
+== Add Device
+
+[CAUTION]
+====
+The delivery of ONVIF events over metadata stream is currently work in progress.
+
+Please get access to events from QbProtect via gRPC API or Blickfeld Flow.
+====
+
+In this example the NetConfig3 tool is used to add https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect] into Hemisphere SeMSy Compact VMS via the VideoNetBox (MK4) recorder.
+
+The procedure includes the following steps:
+
+. Launch the NetConfig3 tool and login to the configured VideoNetBox (MK4) recorder using the recorder credentials
+
++
+.Login into VideoNetBox (MK4) recorder using NetConfig3 tool
+image::onvif/vms/dallmeier/add/netconf3.png[400,400]
+
+. Navigate to the `Recording` tab -> Click `Cameras / Tracks`
+
++
+.Adding QbProtect into Hemisphere SeMSy Compact: cameras and tracks
+image::onvif/vms/dallmeier/add/cameras_tracks.png[800,800]
+
+. Select and click a free slot under `Camera Name` column. Give a distinguishable name to the QbProtect device, e.g. `QbProtect`
+
++
+.Adding QbProtect into Hemisphere SeMSy Compact: camera name
+image::onvif/vms/dallmeier/add/give_name.png[800,800]
+
+. Click on the corresponding slot under `LP Track` column -> Select `3rd Party` to be the camera category -> Select `ONVIF Camera` as a camera type -> Click `OK`
+
++
+.Adding QbProtect into Hemisphere SeMSy Compact: 3rd party ONVIF camera
+image::onvif/vms/dallmeier/add/third_party.png[200,200]
+
+. Make sure that both `Recording active` and `NAT` toggles are set to be active
+. Make sure that Port is set to `80` and protocol is set to `http`
+. Enter the FQDN or IP of QbProtect in the `IP Adress` field and `Username/Password` in the corresponding credential fields -> Click `Check Camera`
+
++
+.Adding QbProtect into Hemisphere SeMSy Compact: add device
+image::onvif/vms/dallmeier/add/add_device.png[800,800]
+
++
+[NOTE]
+====
+Please refer to the xref:onvif/authentication.adoc[User authentication] subsection to find out how to obtain valid ONVIF credentials required for QbProtect VMS integrations.
+====
+
+. QbProtect should be succesfuly detected as a third party ONVIF camera -> The firmware version of the device appear in the popup window -> Click `OK`
+
++
+.Adding QbProtect into Hemisphere SeMSy Compact: general device information
+image::onvif/vms/dallmeier/add/add_general.png[800,800]
+
+. The available media profile should be detected in the corresponding `Profile section` -> Click `OK`
+
++
+.Adding QbProtect into Hemisphere SeMSy Compact: media profile
+image::onvif/vms/dallmeier/add/media_profile.png[800,800]
+
+. Launch the `Hemisphere SeMSy Compact` VMS -> Make sure that Dallmeier VideoNetBox is added in the VMS (in this example the VideoNetBox was added to the VMS under the `VNB` name as shown in Figure below)
+
++
+.Adding QbProtect into Hemisphere SeMSy Compact: edit VideoNetworkBox device
+image::onvif/vms/dallmeier/add/add_vnb.png[600,600]
+
+. Right click on `VNB` -> Click `Update all devices` -> the `QbProtect` should appear in the list of the devices connected via VideoNetworkBox
+
+. Select the device and drop it in the viewer -> The live view of the point cloud should be available in the SeMSy Compact viewer
+
++
+.Adding QbProtect into Hemisphere SeMSy Compact: live video stream
+image::onvif/vms/dallmeier/add/add_result.png[800,800]
+
+[NOTE]
+====
+The perspective of the RTSP video stream in VMS can be synchronized with the one configured in the xref:introduction:webgui_tutorial.adoc[WebGUI]. For that, navigate to the Viewer page of the QbProtect WebGUI, configure the desired view perspective, and apply the keyboard shortcut kbd:[Shift+V].
+====
+
+The live video stream of the https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect] point cloud can be accessed and observed in Hemisphere SeMSy Compact after successfully completing the required steps above.

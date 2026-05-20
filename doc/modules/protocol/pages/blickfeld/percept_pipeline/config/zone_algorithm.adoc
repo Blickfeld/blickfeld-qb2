@@ -113,6 +113,12 @@ zone area is blocked or the sensor is temporarily failed.
  
 Default: 0
 
+.2+| *disable_noise_filter* | bool| - | - 
+3+| Noise filter for volume measurement. 
+ 
+Disables the noise filter, which performs 1D-clustering and noise removal to prevent spikes 
+in the volume measurement due to noise or other disturbances.
+
 |===
 
 [#_blickfeld_percept_pipeline_config_ZoneAlgorithm_Security]

@@ -14,18 +14,58 @@ are connected. This allows a faster retrieval of frames once a client connects a
 
 | *xref:#Start[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
 | *xref:#Stop[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
+| *xref:#Get[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/hardware/services/device_operation.adoc#_blickfeld_hardware_services_DeviceOperationGetResponse[DeviceOperationGetResponse]
+| *xref:#Watch[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/hardware/services/device_operation.adoc#_blickfeld_hardware_services_DeviceOperationWatchResponse[DeviceOperationWatchResponse]Stream 
 |===
 [#Start]
 == Start
 
 Method to start the device operation. 
 This starts the operation ot the deflection mirrors and the laser triggering. 
-When this call is used, the device will stay in operation until stop is called (independent// of clients being 
-connected or not).
+When this call is used, the device will stay in operation until stop is called 
+(independent of clients being connected or not).
 
 [#Stop]
 == Stop
 
 Method to stop the device operation. 
-This will stop the deflection mirror operation and laser triggering.
+This stops the triggering the laser and the movement of the deflection mirrors.
+
+[#Get]
+== Get
+
+Get the current status of the device operation
+
+[#_blickfeld_hardware_services_DeviceOperationGetResponse]
+=== Response
+
+Response containing the current device operation state
+
+.Available fields in blickfeld.hardware.services.DeviceOperationGetResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *device_operation* | xref:blickfeld/hardware/data/device_operation.adoc[data.DeviceOperation] | - | - 
+3+| device operation state
+
+|===
+
+[#Watch]
+== Watch
+
+Subscribe to status updates of the device operation
+
+[#_blickfeld_hardware_services_DeviceOperationWatchResponse]
+=== Response Stream
+
+Response containing the current device operation state
+
+.Available fields in blickfeld.hardware.services.DeviceOperationWatchResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *device_operation* | xref:blickfeld/hardware/data/device_operation.adoc[data.DeviceOperation] | - | - 
+3+| device operation state
+
+|===
 

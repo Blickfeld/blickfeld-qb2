@@ -45,6 +45,47 @@ message Visualization {
       optional: true
     }];
   }
+  // Text overlay element
+  message Text {
+    // font size
+    int32 size = 1 [(.blickfeld.base.validate) = {
+      number {
+        greater_or_equal: 1
+        less_or_equal: 16
+      }
+      optional: true
+    }];
+    // font color
+    .blickfeld.video.config.Visualization.Color color = 2 [(.blickfeld.base.validate) = {
+      optional: true
+    }];
+    // text content
+    string content = 3 [(.blickfeld.base.validate) = {
+      string {
+        maximum: 40
+      }
+      optional: true
+    }];
+  }
+  // Visual configuration of video stream overlay. Element can be disabled by unsetting the corresponding color.
+  message Overlay {
+    // visual configuration of an overlay element
+    message Element {
+      // content on the left: text or logo
+      oneof type_oneof {
+        // text element
+        .blickfeld.video.config.Visualization.Text text = 3;
+      }
+      // when hidden this element will not be rendered
+      bool hidden = 5 [(.blickfeld.base.validate) = {
+        optional: true
+      }];
+    }
+    // footer overlay element
+    .blickfeld.video.config.Visualization.Overlay.Element footer = 1;
+    // header overlay element
+    .blickfeld.video.config.Visualization.Overlay.Element header = 2;
+  }
   // Visual configuration of point cloud frame. Element coloring can be disabled by unsetting the corresponding color.
   message Frame {
     // color used to mark background point
@@ -84,6 +125,10 @@ message Visualization {
   }
   // frame configuration
   .blickfeld.video.config.Visualization.Frame frame = 1 [(.blickfeld.base.validate) = {
+    optional: true
+  }];
+  // overlay configuration
+  .blickfeld.video.config.Visualization.Overlay overlay = 2 [(.blickfeld.base.validate) = {
     optional: true
   }];
   // camera configuration

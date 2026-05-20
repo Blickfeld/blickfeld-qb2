@@ -1,0 +1,24 @@
+// Copyright (c) 2026 Blickfeld GmbH.
+// All rights reserved.
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+package blickfeld.hardware.data;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_AUTHORIZED
+};
+
+// *
+// This message describes the current device operation state
+message DeviceOperation {
+  // Indicate the running state of the device.
+  bool running = 1;
+  // The current device operation mode was set manually and will remain persistent.
+  // Changing the state requires calling the
+  // xref:protocol:blickfeld/hardware/services/device_operation.adoc#Start[Start] or
+  // xref:protocol:blickfeld/hardware/services/device_operation.adoc#Start[Stop] method of the
+  // xref:protocol:blickfeld/hardware/services/device_operation.adoc[DeviceOperation] Service.
+  bool manual = 2;
+}
+

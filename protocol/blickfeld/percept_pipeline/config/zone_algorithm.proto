@@ -84,6 +84,11 @@ message ZoneAlgorithm {
       }
       optional: true
     }];
+    // Noise filter for volume measurement.
+    //  
+    // Disables the noise filter, which performs 1D-clustering and noise removal to prevent spikes
+    // in the volume measurement due to noise or other disturbances.
+    bool disable_noise_filter = 7;
     reserved 3;
   }
   // Algorithm that triggers an alarm if movement was detected in the zone

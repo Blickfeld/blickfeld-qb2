@@ -10,6 +10,9 @@ Message representing the visuals configuration of the RTSP video stream
 .2+| *frame* | optional xref:blickfeld/video/config/visualization.adoc#_blickfeld_video_config_Visualization_Frame[Frame] | - | - 
 3+| frame configuration
 
+.2+| *overlay* | optional xref:blickfeld/video/config/visualization.adoc#_blickfeld_video_config_Visualization_Overlay[Overlay] | - | - 
+3+| overlay configuration
+
 .2+| *camera* | optional xref:blickfeld/video/config/visualization.adoc#_blickfeld_video_config_Visualization_Camera[Camera] | - | - 
 3+| camera configuration
 
@@ -35,6 +38,60 @@ RGB color used for coloring various elements and objects inside RTSP video frame
 
 .2+| *alpha* | optional float| - | - 
 3+| The alpha channel (transparency) in the interval [0, 1]. 0 means transparent
+
+|===
+
+[#_blickfeld_video_config_Visualization_Text]
+== Text
+
+Text overlay element
+
+.Available fields in blickfeld.video.config.Visualization.Text
+|===
+| Field | Type | Default | Unit
+
+.2+| *size* | optional int32| - | - 
+3+| font size
+
+.2+| *color* | optional xref:blickfeld/video/config/visualization.adoc#_blickfeld_video_config_Visualization_Color[Color] | - | - 
+3+| font color
+
+.2+| *content* | optional string| - | - 
+3+| text content
+
+|===
+
+[#_blickfeld_video_config_Visualization_Overlay]
+== Overlay
+
+Visual configuration of video stream overlay. Element can be disabled by unsetting the corresponding color.
+
+.Available fields in blickfeld.video.config.Visualization.Overlay
+|===
+| Field | Type | Default | Unit
+
+.2+| *footer* | xref:blickfeld/video/config/visualization.adoc#_blickfeld_video_config_Visualization_Overlay_Element[Element] | - | - 
+3+| footer overlay element
+
+.2+| *header* | xref:blickfeld/video/config/visualization.adoc#_blickfeld_video_config_Visualization_Overlay_Element[Element] | - | - 
+3+| header overlay element
+
+|===
+
+[#_blickfeld_video_config_Visualization_Overlay_Element]
+=== Element
+
+visual configuration of an overlay element
+
+.Available fields in blickfeld.video.config.Visualization.Overlay.Element
+|===
+| Field | Type | Default | Unit
+
+.2+| *text* | xref:blickfeld/video/config/visualization.adoc#_blickfeld_video_config_Visualization_Text[Text] | - | - 
+3+| text element
+
+.2+| *hidden* | optional bool| - | - 
+3+| when hidden this element will not be rendered
 
 |===
 

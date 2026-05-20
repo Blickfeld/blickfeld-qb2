@@ -40,7 +40,7 @@ service Visualization {
     level: LEVEL_MAINTAINED
   };
   // Gets named visual configuration
-  rpc Get(.blickfeld.video.services.VisualizationGetRequest) returns (stream .blickfeld.video.services.VisualizationGetResponse) {
+  rpc Get(.blickfeld.video.services.VisualizationGetRequest) returns (.blickfeld.video.services.VisualizationGetResponse) {
     option (.blickfeld.base.access_control_method) = {
       read_only: true
     };

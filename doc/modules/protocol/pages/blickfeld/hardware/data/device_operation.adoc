@@ -1,0 +1,22 @@
+[#_blickfeld_hardware_data_DeviceOperation]
+= Device Operation
+
+ 
+This message describes the current device operation state
+
+.Available fields in blickfeld.hardware.data.DeviceOperation
+|===
+| Field | Type | Default | Unit
+
+.2+| *running* | bool| - | - 
+3+| Indicate the running state of the device.
+
+.2+| *manual* | bool| - | - 
+3+| The current device operation mode was set manually and will remain persistent. 
+Changing the state requires calling the 
+xref:protocol:blickfeld/hardware/services/device_operation.adoc#Start[Start] or 
+xref:protocol:blickfeld/hardware/services/device_operation.adoc#Start[Stop] method of the 
+xref:protocol:blickfeld/hardware/services/device_operation.adoc[DeviceOperation] Service.
+
+|===
+

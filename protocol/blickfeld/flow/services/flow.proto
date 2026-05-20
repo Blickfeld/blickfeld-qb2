@@ -16,7 +16,7 @@ message FlowGetRequest {
   // Flow id
   string id = 1 [(.blickfeld.base.validate) = {
     string {
-      pattern: "^[0-9a-zA-Z\\._]{1,32}$"
+      pattern: "^[0-9a-zA-Z\\._-]{1,36}$"
     }
   }];
   // If true, the request returns the NodeRed JSON format which can be directly imported.
@@ -46,7 +46,7 @@ message FlowStoreRequest {
   // NOTE: For node_red_json, this has to match the ID in the NodeRED JSON format.
   string id = 1 [(.blickfeld.base.validate) = {
     string {
-      pattern: "^[0-9a-zA-Z\\._]{1,32}$"
+      pattern: "^[0-9a-zA-Z\\._-]{1,36}$"
     }
   }];
   oneof kind {
@@ -62,7 +62,7 @@ message FlowDeleteRequest {
   // Id of Blickfeld Flow
   string id = 1 [(.blickfeld.base.validate) = {
     string {
-      pattern: "^[0-9a-zA-Z\\._]{1,32}$"
+      pattern: "^[0-9a-zA-Z\\._-]{1,36}$"
     }
   }];
 }

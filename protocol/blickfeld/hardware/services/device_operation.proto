@@ -1,12 +1,25 @@
 syntax = "proto3";
 
 import "blickfeld/base/options.proto";
+import "blickfeld/hardware/data/device_operation.proto";
 import "google/protobuf/empty.proto";
 package blickfeld.hardware.services;
 
 option (.blickfeld.base.access_control_file) = {
   level: LEVEL_AUTHORIZED
 };
+
+// Response containing the current device operation state
+message DeviceOperationGetResponse {
+  // device operation state
+  .blickfeld.hardware.data.DeviceOperation device_operation = 1;
+}
+
+// Response containing the current device operation state
+message DeviceOperationWatchResponse {
+  // device operation state
+  .blickfeld.hardware.data.DeviceOperation device_operation = 1;
+}
 
 // This service is used for starting and stopping the device operation.
 // Normally, the device is started and stopped based on the client connections. If there is a client using the Qb2, the
@@ -22,11 +35,15 @@ service DeviceOperation {
   };
   // Method to start the device operation.
   // This starts the operation ot the deflection mirrors and the laser triggering.
-  // When this call is used, the device will stay in operation until stop is called (independent// of clients being
-  // connected or not).
+  // When this call is used, the device will stay in operation until stop is called
+  // (independent of clients being connected or not).
   rpc Start(.google.protobuf.Empty) returns (.google.protobuf.Empty);
   // Method to stop the device operation.
-  // This will stop the deflection mirror operation and laser triggering.
+  // This stops the triggering the laser and the movement of the deflection mirrors.
   rpc Stop(.google.protobuf.Empty) returns (.google.protobuf.Empty);
+  // Get the current status of the device operation
+  rpc Get(.google.protobuf.Empty) returns (.blickfeld.hardware.services.DeviceOperationGetResponse);
+  // Subscribe to status updates of the device operation
+  rpc Watch(.google.protobuf.Empty) returns (stream .blickfeld.hardware.services.DeviceOperationWatchResponse);
 }
 

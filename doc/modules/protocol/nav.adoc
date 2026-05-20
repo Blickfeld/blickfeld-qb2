@@ -90,6 +90,7 @@
 **** config
 ***** xref:protocol:blickfeld/hardware/config/identification.adoc[Identification]
 **** data
+***** xref:protocol:blickfeld/hardware/data/device_operation.adoc[Device Operation]
 ***** xref:protocol:blickfeld/hardware/data/recovery.adoc[Recovery]
 **** services
 ***** xref:protocol:blickfeld/hardware/services/compute_module.adoc[Compute Module]

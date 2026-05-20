@@ -10,7 +10,7 @@ and to extra overlay elements (e.g. logo branding, time, clock, background color
 |===
 | Method | Request | Response
 
-| *xref:#Get[]* | xref:blickfeld/video/services/visualization.adoc#_blickfeld_video_services_VisualizationGetRequest[VisualizationGetRequest]| xref:blickfeld/video/services/visualization.adoc#_blickfeld_video_services_VisualizationGetResponse[VisualizationGetResponse]Stream 
+| *xref:#Get[]* | xref:blickfeld/video/services/visualization.adoc#_blickfeld_video_services_VisualizationGetRequest[VisualizationGetRequest]| xref:blickfeld/video/services/visualization.adoc#_blickfeld_video_services_VisualizationGetResponse[VisualizationGetResponse]
 | *xref:#Set[]* | xref:blickfeld/video/services/visualization.adoc#_blickfeld_video_services_VisualizationSetRequest[VisualizationSetRequest]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
 |===
 [#Get]
@@ -24,7 +24,7 @@ Gets named visual configuration
 Get Visualization Request
 
 [#_blickfeld_video_services_VisualizationGetResponse]
-=== Response Stream
+=== Response
 
 Get Visualization response
 

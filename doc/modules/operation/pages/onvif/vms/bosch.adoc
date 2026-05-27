@@ -95,7 +95,7 @@ The live video stream of the https://www.blickfeld.com/lidar-sensor-products/qbp
 
 == Events
 
-The example below shows how https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect] events can be used to trigger alarms and record a video stream in Bosch BVMS. After QbProtect has been xref:onvif/bosch.adoc#add-device[added to the Bosch BVMS], it can be configured to use QbProtect events for alarm generation. In this example, one security zone `Security Zone 1` has been configured using QbProtect xref:introduction:webgui_tutorial.adoc[WebGUI] to exemplify the configuration process, as shown in the Figure below.
+The example below shows how https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect] events can be used to trigger alarms and record a video stream in Bosch BVMS. After QbProtect has been xref:onvif/vms/bosch.adoc#add-device[added to the Bosch BVMS], it can be configured to use QbProtect events for alarm generation. In this example, one security zone `Security Zone 1` has been configured using QbProtect xref:introduction:webgui_tutorial.adoc[WebGUI] to exemplify the configuration process, as shown in the Figure below.
 
 .QbProtect WebGUI viewer and BVMS operator client: single zone in the security scene
 image::onvif/vms/bosch/events/events_webgui.png[800,800]
@@ -121,7 +121,7 @@ image::onvif/vms/bosch/events/events_list.png[800,800]
 +
 [NOTE]
 ====
-Please re-open BVMS configuration client to populate the event list with event topics from security zones, which have been added in WebGUI once the device was already integrated into BVMS. 
+Please re-open BVMS configuration client to populate the event list with event topics from security zones, which have been added in WebGUI once the device was already integrated into BVMS.
 ====
 
 . Set `ONVIF Topic` to `IntrusionZoneSecurityZone1` from the drop-down list -> Set `ONVIF Data Name` to `State` -> Set `ONVIF Data Type` to `boolean` -> Set `ONVIF Data Value` to `True` -> Click `Save` icon
@@ -162,7 +162,7 @@ image::onvif/vms/bosch/events/events_recording.png[800,800]
 .QbProtect events: ONVIF intrusion event in the security zone raises alarm
 image::onvif/vms/bosch/events/events_triggered.png[800,800]
 
-. The recorded timeline can be found under the `Playback Mode` 
+. The recorded timeline can be found under the `Playback Mode`
 
 +
 .QbProtect events: recorded video timeline

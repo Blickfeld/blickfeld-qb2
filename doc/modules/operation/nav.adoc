@@ -14,6 +14,7 @@
 **** xref:operation:onvif/vms/geutebrueck.adoc[]
 **** xref:operation:onvif/vms/hexagon.adoc[]
 **** xref:operation:onvif/vms/milestone.adoc[]
+**** xref:operation:onvif/vms/myrasis.adoc[]
 **** xref:operation:onvif/vms/senstar.adoc[]
 *** xref:operation:onvif/authentication.adoc[]
 *** xref:operation:onvif/events.adoc[]

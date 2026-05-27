@@ -1,0 +1,144 @@
+= Myrasis
+:experimental:
+
+This section provides information on how to integrate QbProtect with Myrasis VMS. Please refer to the xref:onvif/index.adoc[ONVIF section] beforehand for general information on using ONVIF with https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect].
+
+[NOTE]
+====
+The following Myrasis components have been used in the examples below:
+
+* Myrasis System Manager Enterprise Plus - Version 9.9.6.1
+* Myrasis Spotter Enterprise Plus - Version 9.9.6.1
+* Onvifipcapture Driver - Version 1.9.19.0
+
+====
+
+[[add-device]]
+== Add Device
+
+[CAUTION]
+====
+Events originating from dynamic event sources (e.g. security zones) have to be correctly exposed to the VMS each time a new zone configuration is introduced via xref:introduction:webgui_tutorial.adoc[WebGUI].
+Please either pre-configure all the required security zones in xref:introduction:webgui_tutorial.adoc[WebGUI] before adding the QbProtect into the VMS or re-initialize the existing QbProtect in the Mirasys System Manager (`Hardware` -> Select existing QbProtect -> Click `Edit IP Camera` icon -> Click `OK` without changing any settings) to re-expose events from newly configured dynamic sources.
+====
+
+The Myrasis System Manager is used to add https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect] into Myrasis VMS. The procedure includes the following steps:
+
+. Launch the Myrasis System Manager and connect to the active recording server instance
+. Navigate to `VMS Servers` tab -> Double click `Hardware` under the `Local Recorder` tab -> Click `Add Device` icon
+
++
+.Adding QbProtect into Myrasis VMS: Add Hardware
+image::onvif/vms/myrasis/add/add_hardware.png[800,800]
+
+. Set `Driver` to `OnvifIPCapture` -> Enter the FQDN or IP of QbProtect in the `Address` field -> Set Port to `443`
+
++
+.Adding QbProtect into Myrasis VMS: Configure IP Camera
+image::onvif/vms/myrasis/add/add_device.png[800,800]
+
+. Set `Username name` / `Password` in the corresponding credential fields ->  Click `OK`
+
++
+[NOTE]
+====
+Please refer to the xref:onvif/authentication.adoc[User authentication] subsection to find out how to obtain valid ONVIF credentials required for QbProtect VMS integrations.
+====
+
+. Accept IP camera driver -> Click `OK` -> The QbProtect will be detected as camera ->  Give a distinguishable name to the QbProtect device, e.g. `QbProtect` -> Click `OK`
+
++
+.Adding QbProtect into Myrasis VMS: accept detected QbProtect
+image::onvif/vms/myrasis/add/accept_device.png[800,800]
+
+. Navigate to `VMS Servers` tab -> Double click `Cameras` under the `Local Recorder` tab -> QbProtect should be visible under the `General` tab -> Make sure that `TransportType` is set to `RTP over HTTP` -> The live RTSP preview of the point cloud should be available in the `Reference image` preview window
+
++
+.Adding QbProtect into Myrasis VMS: QbProtect transport type settings
+image::onvif/vms/myrasis/add/added_device.png[800,800]
+
+. Launch the Myrasis Spotter and connect to the active recording server instance
+. QbProtect should be available under `Cameras` toggle -> Drag and drop it into the Myrasis Spotter viewer
+
++
+.Adding QbProtect into Myrasis VMS: live video stream in Myrasis Spotter
+image::onvif/vms/myrasis/add/added_spotter.png[800,800]
+
+[NOTE]
+====
+The perspective of the RTSP video stream in VMS can be synchronized with the one configured in the xref:introduction:webgui_tutorial.adoc[WebGUI]. For that, navigate to the Viewer page of the QbProtect WebGUI, configure the desired view perspective, and apply the keyboard shortcut kbd:[Shift+V].
+====
+
+The live video stream of the https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect] point cloud can be accessed and observed in Myrasis Spotter viewer after successfully completing the required steps above.
+
+
+== Events
+
+The example below shows how https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect] events can be used to trigger alarms in Myrasis VMS. After QbProtect has been xref:onvif/vms/myrasis.adoc#add-device[added to the Myrasis VMS], it can be configured to use QbProtect events for alarm generation. In this example, one security zone `Security Zone 1` has been configured using QbProtect xref:introduction:webgui_tutorial.adoc[WebGUI] to exemplify the configuration process, as shown in the Figure below.
+
+.QbProtect WebGUI viewer and Myrasis Spotter client: single zone in the security scene
+image::onvif/vms/myrasis/events/events_webgui.png[800,800]
+
+[NOTE]
+====
+Please refer to the xref:onvif/events.adoc[Events] subsection to learn about the available ONVIF event topics.
+====
+
+[[configure-events]]
+=== Configure Events Handling
+The events configuration procedure includes the following steps:
+
+. Launch the Myrasis System Manager and connect to the active recording server instance (optional)
+. Navigate to `VMS Servers` tab -> Double click `Alarm Triggers` under the `Local Recorder` tab -> Click `Add new alarm trigger` icon
+. Set alarm type to `ONVIF` -> The list of supported events should be shown in the topic drop-down list -> Select `IntrusionZoneSecurityZone1` topic from the list -> Give a distinguishable name to the trigger source, e.g. `Security Zone 1` -> Click on the `Plus` icon for the additional filters configuration
+
++
+.Myrasis System Manager alarm trigger configuration: create alarm trigger
+image::onvif/vms/myrasis/events/alarm_trigger.png[800,800]
+
+. Click `Add Parameter` -> Set Parameter name to `State` -> Set Value to `True` -> Set Operation to `Equal` -> Click `OK`
+
++
+.Myrasis System Manager alarm trigger configuration: configure alarm trigger filter
+image::onvif/vms/myrasis/events/alarm_trigger_filter.png[800,800]
+
+. The configured alarm trigger `Security Zone 1` should be available in the list of the configured alarm triggers -> Make sure that `Enable alarm triggering API` is active -> Click `OK` to finalize the trigger configuration
+
++
+.Myrasis System Manager alarm trigger configuration: alarm trigger for the Security Zone 1
+image::onvif/vms/myrasis/events/alarm_trigger_configured.png[800,800]
+
+[[configure-alarms]]
+=== Configure Alarm Rule Chain
+The Myrasis VMS alarm rule chain maps the configured alarm trigger to a dedicated action (e.g. a particular alarm, recording of the video stream, etc.). The alarm rule chain configuration procedure includes the following steps:
+
+. Navigate to `VMS Servers` tab -> Double click `Alarms` under the `Local Recorder` tab -> Click `New Alarm` icon
+. Navigate to the `General` tab -> Give a distinguishable name to the alarm configuration, e.g. `Security Zone 1 - Intrusion Alarm` -> Set priority to `High` -> Toggle alarm `Visible` in Service profile
+
++
+.Myrasis System Manager alarm configuration: create alarm rule chain
+image::onvif/vms/myrasis/events/alarm_rule_chain_configuration.png[800,800]
+
+. Navigate to the `Trigger` tab -> Set type to `Metadata` -> Make sure that `Security Zone 1` is in the Zone pane
+
++
+.Myrasis System Manager alarm configuration: alarm rule chain trigger
+image::onvif/vms/myrasis/events/alarm_rule_chain_trigger.png[800,800]
+
+. Navigate to the `Actions` tab -> Select `QbProtect` in the `Type` pane -> Select the desired action type, e.g. `Disable alarms` -> Click the `Right Arrow` icon to bring it to the `Visible` pane -> Set the highest filtered alarm priority to `Low`
+
++
+.Myrasis System Manager alarm configuration: alarm rule chain action
+image::onvif/vms/myrasis/events/alarm_rule_chain_action.png[800,800]
+
+. Click `OK` to finalize the alarm rule chain configuration
+
++
+.Myrasis System Manager alarm configuration: configured alarm rule chain
+image::onvif/vms/myrasis/events/alarm_rule_chain_configured.png[800,800]
+
+. The zone intrusion event in the Security Zone 1 from QbProtect and the configured intrusion event rule chain will be generating an alarm in Myrasis VMS Spotter, as shown in the Figure below.
+
++
+.Myrasis Spotter: ONVIF intrusion event in the security zone raises an alarm
+image::onvif/vms/myrasis/events/alarm_triggered.png[800,800]

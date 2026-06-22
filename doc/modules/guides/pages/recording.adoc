@@ -1,0 +1,110 @@
+= Recording
+:imagesdir: ../assets/images
+
+The Blickfeld Qb2 provides a recording service that allows users to create recordings directly in the xref:introduction:webgui_tutorial.adoc[WebGUI].
+However, in some situations the WebGUI may not be accessible, and a recording must be created programmatically.
+
+NOTE: Please follow the xref:developer:client_libraries/python.adoc[Python Client Library Guide] to install the Python package first.
+
+
+== Creating a recording
+
+With the xref:protocol:blickfeld/toolkit/services/record.adoc#Stream[Stream] method of the xref:protocol:blickfeld/toolkit/services/record.adoc[Record] service, it is possible to request metadata and point cloud files to create a recording.
+The following code snippet shows how the toolkit service is used to retrieve the recording data as a stream. It is then written to a zip archive in the directory where the code was run. The structure of the resulting recording is explained in the section <<_recording_archive_structure>>.
+
+
+[source, python]
+----
+
+import pathlib
+import zipfile
+from datetime import datetime
+
+import blickfeld_qb2
+
+
+def stream_recording(zip_archive: zipfile.ZipFile) -> None:
+    # Create token factory using an application key
+    token_factory = blickfeld_qb2.TokenFactory(
+        application_key_secret="application-key-for-qb2-xxxxxxxxx"
+    )
+
+    # Open a secure connection to Qb2
+    with blickfeld_qb2.Channel("qb2-xxxxxxxxx", token=token_factory) as channel:
+        # Use recording service
+        recording_service = blickfeld_qb2.toolkit.services.Record(channel=channel)
+
+        # Request a recording stream from Qb2
+        for response in recording_service.stream(
+            # The type of point cloud to record, e.g. the full frame or only the foreground
+            point_cloud_type=blickfeld_qb2.percept_pipeline.data.PointCloudType.POINT_CLOUD_TYPE_FULL,
+            # Option to disable the states stream in the recording to reduce data
+            disable_states=False,
+            # Option to disable streaming of .vtu and .pcd formats to reduce data
+            disable_vtu_and_pcd=False
+        ):
+            # The recording service sets a flag if data is potentially lost
+            if response.data_loss:
+                print("Potential data loss e.g. due to low network bandwidth")
+
+            # Create a new file inside the zip archive
+            with zip_archive.open(response.file.path, mode="w") as zf:
+                # Write the data to the file
+                zf.write(response.file.binary)
+
+
+# Set the name of the recording
+recording_name = f"recording_{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.zip"
+
+# The recording will be saved under the recording name
+output_zip = pathlib.Path(recording_name)
+
+# Create a zipfile at the set path to store the data from the stream
+with zipfile.ZipFile(output_zip, mode="w", compression=zipfile.ZIP_STORED) as zip_archive:
+    # Start the recording stream
+    print("Start recording ...")
+    try:
+        stream_recording(zip_archive)
+
+    # Stop the recording by pressing Ctrl+C
+    except KeyboardInterrupt:
+        zip_size_mb = sum([zinfo.file_size for zinfo in zip_archive.filelist]) / 1_000_000
+        print(f"Finished recording {recording_name} with size {round(zip_size_mb, ndigits=1)} MB.")
+
+----
+
+
+== Recording archive structure
+Recordings created by the recording service follow the structure below. Using the fields of the xref:protocol:blickfeld/toolkit/services/record.adoc#_blickfeld_toolkit_services_RecordStreamRequest[RecordStreamRequest], the amount of data in the recording can be reduced by leaving out the states as well as the `.vtu` and `.pcd` files. The request can also be used to request a specific xref:protocol:blickfeld/percept_pipeline/data/point_cloud_type.adoc[PointCloudType]. Regardless of the requested type, the recorded point cloud frames will always be saved in the `raw/` directory.
+
+[source, subs="+macros,+callouts"]
+----
+|-📁 recording/		                      # Archive containing the recorded data
+| |-📁 states/			                  # Output of the xref:protocol:blickfeld/percept_processing/services/states.adoc#Stream[states stream]
+|   |-states_timestamp-1.json		      # xref:protocol:blickfeld/percept_processing/data/states.adoc[States] captured at timestamp 1
+|   |-states_timestamp-2.json
+|   |- ...
+|
+| |-📁 raw/			                      # Point clouds in xref:protocol:blickfeld/core_processing/data/frame.adoc[Frame] format
+|   |-frame_timestamp-1.pb		          # Frame at timestamp 1
+|   |-frame_timestamp-2.pb
+|   |- ...
+|
+| |-📁 metadata/                          # Configurations saved as .json
+|   |-toolkitRecordStreamRequest.json     # xref:protocol:blickfeld/toolkit/services/record.adoc#_blickfeld_toolkit_services_RecordStreamRequest[RecordStreamRequest] that was sent to start the recording
+|   |-systemScanPattern.json              # The xref:protocol:blickfeld/system/data/scan_pattern.adoc[ScanPattern] of the Qb2
+|   |-systemFirmware.json                 # The xref:protocol:blickfeld/system/data/firmware.adoc[Firmware] running on the Qb2
+|   |-perceptPipelineReferenceFrame.json  # The background point cloud as a xref:protocol:blickfeld/core_processing/data/frame.adoc[Frame]
+|   |-perceptPipelinePerception.json      # The xref:protocol:blickfeld/percept_pipeline/config/perception.adoc[Perception] settings of the Qb2
+|   |-perceptPipelineDataSource.json      # The configured xref:protocol:blickfeld/percept_pipeline/config/data_source.adoc[DataSource]
+|   |-hardwareIdentification.json         # The product xref:protocol:blickfeld/hardware/config/identification.adoc[Identification]
+|   |-coreProcessingAcceleration.json     # The measured xref:protocol:blickfeld/core_processing/data/acceleration.adoc[Acceleration]
+|
+| |-frame_frame-id-1.vtu                  # Point cloud at frame-id-1 as .vtu <1>
+| |-frame_frame-id-1.pcd                  # Point cloud at frame-id-1 as .pcd <2>
+| |-frame_frame-id-2.vtu
+| |-frame_frame-id-2.pcd
+| |- ...
+----
+<1> `.vtu` files are in `Visualization Toolkit (VTK) Unstructured Grid` format. For more information, see: https://docs.vtk.org/en/latest/vtk_file_formats/vtkxml_file_format.html#unstructuredgrid
+<2> `.pcd` files are in `Point Cloud Data` format. For more information, see: https://pcl.readthedocs.io/projects/tutorials/en/master/pcd_file_format.html#pcd-file-format

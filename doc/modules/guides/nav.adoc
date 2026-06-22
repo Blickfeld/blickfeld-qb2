@@ -4,6 +4,7 @@
 ** xref:guides:diagnostics_health.adoc[]
 ** xref:guides:fetch_events.adoc[]
 ** xref:guides:hardware_recovery_mode.adoc[]
+** xref:guides:recording.adoc[]
 ** xref:guides:system_firmware_update.adoc[]
 ** xref:guides:system_network_configuration.adoc[]
 ** xref:guides:system_scan_pattern.adoc[]

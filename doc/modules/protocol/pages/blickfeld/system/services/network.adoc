@@ -15,6 +15,8 @@ at run-time. The "GetStatus()" API brings configuration and statistical informat
 | *xref:#GetConfig[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/system/config/network.adoc[config.Network]
 | *xref:#Validate[]* | xref:blickfeld/system/services/network.adoc#_blickfeld_system_services_NetworkValidateRequest[NetworkValidateRequest]| xref:blickfeld/system/services/network.adoc#_blickfeld_system_services_NetworkValidateResponse[NetworkValidateResponse]
 | *xref:#GetMacAddresses[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/system/services/network.adoc#_blickfeld_system_services_NetworkGetMacAddressesResponse[NetworkGetMacAddressesResponse]
+| *xref:#EnableWireless[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
+| *xref:#DisableWireless[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
 |===
 [#GetStatus]
 == GetStatus
@@ -92,4 +94,18 @@ Response with mac addresses
 3+| Mac address of wireless / WiFi interface
 
 |===
+
+[#EnableWireless]
+== EnableWireless
+
+Enable wireless chip and driver. 
+ 
+NOTE: A reboot is required to apply the operation.
+
+[#DisableWireless]
+== DisableWireless
+
+Disable wireless chip and driver. 
+ 
+NOTE: A reboot is required to apply the operation.
 

@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+import "blickfeld/secure/config/access_control.proto";
+import "google/protobuf/empty.proto";
+package blickfeld.secure.services;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_ADMIN
+};
+
+// Response to access control get method
+message AccessControlGetResponse {
+  // Access control config
+  .blickfeld.secure.config.AccessControl access_control = 1;
+}
+
+// Service to configure the access control behaviour.
+service AccessControl {
+  // If called, token-based access is permanently prohibited for Blickfeld support.
+  // This can be enabled to harden the security of the device.
+  //  
+  // [WARNING]
+  // When the password to the admin account is lost, access can not be recovered.
+  // The device is bricked and can only be recovered with a full erase during rework.
+  rpc ProhibitSupportAccess(.google.protobuf.Empty) returns (.google.protobuf.Empty) {
+    option (.blickfeld.base.access_control_method) = {
+      level: LEVEL_ADMIN
+    };
+  }
+  // 
+  // Get current access control config.
+  rpc Get(.google.protobuf.Empty) returns (.blickfeld.secure.services.AccessControlGetResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      level: LEVEL_ADMIN
+    };
+  }
+  // 
+}
+

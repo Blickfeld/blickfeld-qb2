@@ -1,0 +1,58 @@
+// Copyright (c) 2024 Blickfeld GmbH.
+// All rights reserved.
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+package blickfeld.percept_processing.config;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_AUTHORIZED
+};
+
+// Event which can be injected into the percept pipeline
+// May be used to check the functional state of the assembled applications
+message EventInject {
+  // Container for security-related events
+  message Security {
+    // Motion
+    message Motion {
+    }
+    // Tampering moved
+    message MovedTampering {
+    }
+    // Tampering covered
+    message CoveredTampering {
+    }
+    // Tampering (per zone)
+    message ZoneTampering {
+      // UUID of the security zone
+      string zone_uuid = 1;
+    }
+    // Intrusion (per zone)
+    message ZoneIntrusion {
+      // UUID of the security zone
+      string zone_uuid = 1;
+    }
+  }
+  // Duration of the injected event
+  // Default: 1 s
+  float duration = 1 [(.blickfeld.base.unit) = "s", (.blickfeld.base.validate) = {
+    number {
+      greater_or_equal: 0.1
+    }
+    optional: true
+  }];
+  oneof type {
+    // Security: Motion
+    .blickfeld.percept_processing.config.EventInject.Security.Motion security_motion = 2;
+    // Security: Moved tampering
+    .blickfeld.percept_processing.config.EventInject.Security.MovedTampering security_moved_tampering = 3;
+    // Security: Covered tampering
+    .blickfeld.percept_processing.config.EventInject.Security.CoveredTampering security_covered_tampering = 4;
+    // Security: Zone tampering
+    .blickfeld.percept_processing.config.EventInject.Security.ZoneTampering security_zone_tampering = 5;
+    // Security: Zone intrusion
+    .blickfeld.percept_processing.config.EventInject.Security.ZoneIntrusion security_zone_intrusion = 6;
+  }
+}
+

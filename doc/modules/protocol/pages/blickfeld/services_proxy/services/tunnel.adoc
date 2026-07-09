@@ -1,0 +1,51 @@
+= Service: Tunnel
+
+NOTE: This API is officially released and maintained.
+
+gRPC tunnel service which is used to reverse proxy gRPC calls.
+
+.Available methods
+|===
+| Method | Request | Response
+
+| *xref:#Set[]* | xref:blickfeld/services_proxy/services/tunnel.adoc#_blickfeld_services_proxy_services_TunnelSetRequest[TunnelSetRequest]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
+| *xref:#Get[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/services_proxy/services/tunnel.adoc#_blickfeld_services_proxy_services_TunnelGetResponse[TunnelGetResponse]
+|===
+[#Set]
+== Set
+
+Set configuration
+
+[#_blickfeld_services_proxy_services_TunnelSetRequest]
+=== Request
+
+Message to set tunnel config
+
+.Available fields in blickfeld.services_proxy.services.TunnelSetRequest
+|===
+| Field | Type | Default | Unit
+
+.2+| *config* | xref:blickfeld/services_proxy/config/tunnel.adoc[config.Tunnel] | - | - 
+3+| Config
+
+|===
+
+[#Get]
+== Get
+
+Get configuration
+
+[#_blickfeld_services_proxy_services_TunnelGetResponse]
+=== Response
+
+Message to Get tunnel config
+
+.Available fields in blickfeld.services_proxy.services.TunnelGetResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *config* | xref:blickfeld/services_proxy/config/tunnel.adoc[config.Tunnel] | - | - 
+3+| Config
+
+|===
+

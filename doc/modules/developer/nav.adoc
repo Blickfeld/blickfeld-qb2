@@ -144,6 +144,8 @@
 ****** xref:protocol:blickfeld/percept_pipeline/services/perception.adoc[Perception]
 ****** xref:protocol:blickfeld/percept_pipeline/services/zone.adoc[Zone]
 **** percept_processing
+***** config
+****** xref:protocol:blickfeld/percept_processing/config/event_inject.adoc[Event Inject]
 ***** data
 ****** xref:protocol:blickfeld/percept_processing/data/detected_object.adoc[Detected Object]
 ****** xref:protocol:blickfeld/percept_processing/data/disqualification.adoc[Disqualification]
@@ -184,6 +186,7 @@
 ****** xref:protocol:blickfeld/push/services/push.adoc[Push]
 **** secure
 ***** config
+****** xref:protocol:blickfeld/secure/config/access_control.adoc[Access Control]
 ****** xref:protocol:blickfeld/secure/config/account.adoc[Account]
 ****** xref:protocol:blickfeld/secure/config/application_key.adoc[Application Key]
 ****** xref:protocol:blickfeld/secure/config/certificate.adoc[Certificate]
@@ -195,6 +198,7 @@
 ****** xref:protocol:blickfeld/secure/data/health.adoc[Health]
 ****** xref:protocol:blickfeld/secure/data/license.adoc[License]
 ***** services
+****** xref:protocol:blickfeld/secure/services/access_control.adoc[Access Control]
 ****** xref:protocol:blickfeld/secure/services/account.adoc[Account]
 ****** xref:protocol:blickfeld/secure/services/application_key.adoc[Application Key]
 ****** xref:protocol:blickfeld/secure/services/authentication.adoc[Authentication]
@@ -203,6 +207,14 @@
 ****** xref:protocol:blickfeld/secure/services/health.adoc[Health]
 ****** xref:protocol:blickfeld/secure/services/license.adoc[License]
 ****** xref:protocol:blickfeld/secure/services/session.adoc[Session]
+**** services_proxy
+***** config
+****** xref:protocol:blickfeld/services_proxy/config/tunnel.adoc[Tunnel]
+***** data
+****** xref:protocol:blickfeld/services_proxy/data/health.adoc[Health]
+***** services
+****** xref:protocol:blickfeld/services_proxy/services/health.adoc[Health]
+****** xref:protocol:blickfeld/services_proxy/services/tunnel.adoc[Tunnel]
 **** system
 ***** config
 ****** xref:protocol:blickfeld/system/config/device.adoc[Device]

@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+package blickfeld.services_proxy.config;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_AUTHORIZED
+};
+
+// Tunnel configuration
+message Tunnel {
+  // Enable the Blickfeld Services tunnel
+  bool enable = 1;
+}
+

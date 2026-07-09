@@ -209,10 +209,15 @@ message ZoneAlgorithm {
     // Detect an object as intruder if it is moving in the wrong direction, similar to the directional zone,
     // but covering an area.
     bool intrusion_on_wrong_direction = 13;
+    // Treat a turnaround inside an area with directional detection as intrusion.
+    // The parameter only has an effect when intrusion_on_wrong_direction is enabled.
+    //  
+    // NOTE: This might cause more false alarms as the intrusion condition is more sensitive.
+    bool intrusion_on_turnaround = 17;
     // Minimum velocity an intruder has to have to trigger an intrusion on wrong direction. Prevents standing objects or persons from
     // triggering a false alarm.
     //  
-    // Only applicable if intrusion on wrong direction is enabled.
+    // Only applicable if intrusion_on_wrong_direction is enabled.
     //  
     // Default: 0.028 (equals 0.1 km/h)
     float minimum_intruder_velocity = 14 [(.blickfeld.base.unit) = "m/s"];

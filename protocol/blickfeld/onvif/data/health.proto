@@ -17,12 +17,14 @@ message Health {
   }
   // Describes the connected VMS client
   message Client {
-    // IP address of the client
+    // IP address of the VMS client
     string ip = 1;
     // Time since the client has been actively pulling the ONVIF notifications
     uint32 uptime = 2 [(.blickfeld.base.unit) = "s"];
     // Active subscription topics (key: topic name)
     map<string, .blickfeld.onvif.data.Health.Topic> subscribed_topics = 3;
+    // Name of the HTTP user-agent used by VMS client
+    string user_agent = 4;
   }
   // High-level health state of module
   .blickfeld.base.data.Health.State state = 1;

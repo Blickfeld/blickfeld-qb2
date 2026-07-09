@@ -19,5 +19,8 @@ Carries information about active connection: current statistics and network conf
 .2+| *link_speed* | uint32| - | MBit/s 
 3+| Link speed of network interface
 
+.2+| *wireless_enabled* | bool| - | - 
+3+| If true, the wireless chip is enabled
+
 |===
 

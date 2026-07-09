@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+import "blickfeld/services_proxy/data/health.proto";
+import "google/protobuf/empty.proto";
+package blickfeld.services_proxy.services;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_AUTHORIZED
+};
+
+// Response to health get request
+message HealthGetResponse {
+  // Health state
+  .blickfeld.services_proxy.data.Health health = 1;
+}
+
+// Stream response to health watch request
+message HealthWatchResponse {
+  // Health state
+  .blickfeld.services_proxy.data.Health health = 1;
+}
+
+// The health service provides methods to monitor operational status of the module
+service Health {
+  option (.blickfeld.base.access_control_service) = {
+    level: LEVEL_AUTHORIZED
+  };
+  option (.blickfeld.base.protocol_maturity_service) = {
+    level: LEVEL_MAINTAINED
+  };
+  // Returns the current health status of the module
+  rpc Get(.google.protobuf.Empty) returns (.blickfeld.services_proxy.services.HealthGetResponse);
+  // Can be used to attach to the health monitoring status information of the module
+  rpc Watch(.google.protobuf.Empty) returns (stream .blickfeld.services_proxy.services.HealthWatchResponse);
+}
+

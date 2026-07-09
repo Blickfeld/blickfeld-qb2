@@ -24,6 +24,21 @@ Get a stream of recording data.
 
 Request for getting a stream of record messages
 
+.Available fields in blickfeld.toolkit.services.RecordStreamRequest
+|===
+| Field | Type | Default | Unit
+
+.2+| *point_cloud_type* | optional xref:blickfeld/percept_pipeline/data/point_cloud_type.adoc[percept_pipeline.data.PointCloudType] | - | - 
+3+| The type of point cloud to stream
+
+.2+| *disable_states* | bool| - | - 
+3+| Reduce the amount of data by not recording states
+
+.2+| *disable_vtu_and_pcd* | bool| - | - 
+3+| Reduce the amount of data by not recording vtu and pcd files
+
+|===
+
 [#_blickfeld_toolkit_services_RecordStreamResponse]
 === Response Stream
 

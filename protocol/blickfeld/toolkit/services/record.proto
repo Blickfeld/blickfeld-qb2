@@ -3,8 +3,8 @@
 syntax = "proto3";
 
 import "blickfeld/base/options.proto";
+import "blickfeld/percept_pipeline/data/point_cloud_type.proto";
 import "blickfeld/toolkit/data/file.proto";
-import "google/protobuf/empty.proto";
 package blickfeld.toolkit.services;
 
 option (.blickfeld.base.access_control_file) = {
@@ -13,6 +13,14 @@ option (.blickfeld.base.access_control_file) = {
 
 // Request for getting a stream of record messages
 message RecordStreamRequest {
+  // The type of point cloud to stream
+  .blickfeld.percept_pipeline.data.PointCloudType point_cloud_type = 1 [(.blickfeld.base.validate) = {
+    optional: true
+  }];
+  // Reduce the amount of data by not recording states
+  bool disable_states = 2;
+  // Reduce the amount of data by not recording vtu and pcd files
+  bool disable_vtu_and_pcd = 3;
 }
 
 // Response for getting a stream of record messages

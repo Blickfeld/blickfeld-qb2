@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+import "blickfeld/base/data/health.proto";
+import "blickfeld/base/options.proto";
+package blickfeld.services_proxy.data;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_AUTHORIZED
+};
+
+// Message representing health
+message Health {
+  // High-level state of module
+  .blickfeld.base.data.Health.State state = 1;
+  // Reason for given state. Is not set if state is STATE_OK.
+  string state_reason = 2;
+}
+

@@ -1,0 +1,79 @@
+[#_blickfeld_percept_processing_config_EventInject]
+= Event Inject
+
+Event which can be injected into the percept pipeline 
+May be used to check the functional state of the assembled applications
+
+.Available fields in blickfeld.percept_processing.config.EventInject
+|===
+| Field | Type | Default | Unit
+
+.2+| *duration* | optional float| - | s 
+3+| Duration of the injected event 
+Default: 1 s
+
+.2+| *security_motion* | xref:blickfeld/percept_processing/config/event_inject.adoc#_blickfeld_percept_processing_config_EventInject_Security_Motion[Security.Motion] | - | - 
+3+| Security: Motion
+
+.2+| *security_moved_tampering* | xref:blickfeld/percept_processing/config/event_inject.adoc#_blickfeld_percept_processing_config_EventInject_Security_MovedTampering[Security.MovedTampering] | - | - 
+3+| Security: Moved tampering
+
+.2+| *security_covered_tampering* | xref:blickfeld/percept_processing/config/event_inject.adoc#_blickfeld_percept_processing_config_EventInject_Security_CoveredTampering[Security.CoveredTampering] | - | - 
+3+| Security: Covered tampering
+
+.2+| *security_zone_tampering* | xref:blickfeld/percept_processing/config/event_inject.adoc#_blickfeld_percept_processing_config_EventInject_Security_ZoneTampering[Security.ZoneTampering] | - | - 
+3+| Security: Zone tampering
+
+.2+| *security_zone_intrusion* | xref:blickfeld/percept_processing/config/event_inject.adoc#_blickfeld_percept_processing_config_EventInject_Security_ZoneIntrusion[Security.ZoneIntrusion] | - | - 
+3+| Security: Zone intrusion
+
+|===
+
+[#_blickfeld_percept_processing_config_EventInject_Security]
+== Security
+
+Container for security-related events
+
+[#_blickfeld_percept_processing_config_EventInject_Security_Motion]
+=== Motion
+
+Motion
+
+[#_blickfeld_percept_processing_config_EventInject_Security_MovedTampering]
+=== Moved Tampering
+
+Tampering moved
+
+[#_blickfeld_percept_processing_config_EventInject_Security_CoveredTampering]
+=== Covered Tampering
+
+Tampering covered
+
+[#_blickfeld_percept_processing_config_EventInject_Security_ZoneTampering]
+=== Zone Tampering
+
+Tampering (per zone)
+
+.Available fields in blickfeld.percept_processing.config.EventInject.Security.ZoneTampering
+|===
+| Field | Type | Default | Unit
+
+.2+| *zone_uuid* | string| - | - 
+3+| UUID of the security zone
+
+|===
+
+[#_blickfeld_percept_processing_config_EventInject_Security_ZoneIntrusion]
+=== Zone Intrusion
+
+Intrusion (per zone)
+
+.Available fields in blickfeld.percept_processing.config.EventInject.Security.ZoneIntrusion
+|===
+| Field | Type | Default | Unit
+
+.2+| *zone_uuid* | string| - | - 
+3+| UUID of the security zone
+
+|===
+

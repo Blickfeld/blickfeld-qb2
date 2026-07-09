@@ -13,6 +13,9 @@ Thus, an event is often directly actionable.
 .2+| *timestamp* | uint64| - | - 
 3+| Unix timestamp of event
 
+.2+| *injected* | bool| - | - 
+3+| Indicates if event was injected via injected method of event service to the pipeline and was not produced by the pipeline
+
 .2+| *security_intrusion_started* | xref:blickfeld/percept_processing/data/event.adoc#_blickfeld_percept_processing_data_Event_Security_IntrusionStarted[Security.IntrusionStarted] | - | - 
 3+| Security: Intrusion started
 
@@ -63,6 +66,12 @@ Thus, an event is often directly actionable.
 
 .2+| *disqualification_rain_stopped* | xref:blickfeld/percept_processing/data/event.adoc#_blickfeld_percept_processing_data_Event_Disqualification_Rain[Disqualification.Rain] | - | - 
 3+| Disqualification: Rain not detected anymore
+
+.2+| *security_motion_started* | xref:blickfeld/percept_processing/data/event.adoc#_blickfeld_percept_processing_data_Event_Security_MotionStarted[Security.MotionStarted] | - | - 
+3+| Security: Motion started
+
+.2+| *security_motion_ended* | xref:blickfeld/percept_processing/data/event.adoc#_blickfeld_percept_processing_data_Event_Security_MotionEnded[Security.MotionEnded] | - | - 
+3+| Security: Motion ended
 
 |===
 
@@ -236,6 +245,28 @@ An intrusion of a security zone ended.
 
 .2+| *duration* | float| - | s 
 3+| Duration of the intrusion event.
+
+|===
+
+[#_blickfeld_percept_processing_data_Event_Security_MotionStarted]
+=== Motion Started
+
+A motion started in the security scene.
+
+[#_blickfeld_percept_processing_data_Event_Security_MotionEnded]
+=== Motion Ended
+
+A motion ended in the security scene.
+
+.Available fields in blickfeld.percept_processing.data.Event.Security.MotionEnded
+|===
+| Field | Type | Default | Unit
+
+.2+| *started_event_id* | string| - | - 
+3+| ID of the MotionStarted event.
+
+.2+| *duration* | float| - | s 
+3+| Duration of the motion event.
 
 |===
 

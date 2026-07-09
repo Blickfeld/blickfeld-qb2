@@ -69,6 +69,15 @@ message PointCloud {
       }
       optional: true
     }];
+    // Set upper threshold for range.
+    // Default value is 100m.
+    float maximum_range = 7 [(.blickfeld.base.unit) = "m", (.blickfeld.base.validate) = {
+      number {
+        greater_or_equal: 0
+        less_or_equal: 100
+      }
+      optional: true
+    }];
   }
 }
 

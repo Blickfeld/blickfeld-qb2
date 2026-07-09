@@ -1,0 +1,14 @@
+[#_blickfeld_services_proxy_config_Tunnel]
+= Tunnel
+
+Tunnel configuration
+
+.Available fields in blickfeld.services_proxy.config.Tunnel
+|===
+| Field | Type | Default | Unit
+
+.2+| *enable* | bool| - | - 
+3+| Enable the Blickfeld Services tunnel
+
+|===
+

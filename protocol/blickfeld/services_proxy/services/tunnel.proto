@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+import "blickfeld/secure/config/certificate.proto";
+import "blickfeld/services_proxy/config/tunnel.proto";
+import "google/protobuf/empty.proto";
+package blickfeld.services_proxy.services;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_AUTHORIZED
+};
+
+// Message to set tunnel config
+message TunnelSetRequest {
+  // Config
+  .blickfeld.services_proxy.config.Tunnel config = 1;
+}
+
+// Message to Get tunnel config
+message TunnelGetResponse {
+  // Config
+  .blickfeld.services_proxy.config.Tunnel config = 1;
+}
+
+// gRPC tunnel service which is used to reverse proxy gRPC calls.
+service Tunnel {
+  option (.blickfeld.base.access_control_service) = {
+    level: LEVEL_AUTHORIZED
+  };
+  option (.blickfeld.base.protocol_maturity_service) = {
+    level: LEVEL_MAINTAINED
+  };
+  // Set configuration
+  rpc Set(.blickfeld.services_proxy.services.TunnelSetRequest) returns (.google.protobuf.Empty);
+  // Get configuration
+  rpc Get(.google.protobuf.Empty) returns (.blickfeld.services_proxy.services.TunnelGetResponse);
+}
+

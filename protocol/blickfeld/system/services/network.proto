@@ -69,5 +69,21 @@ service Network {
       read_only: true
     };
   }
+  // Enable wireless chip and driver.
+  //  
+  // NOTE: A reboot is required to apply the operation.
+  rpc EnableWireless(.google.protobuf.Empty) returns (.google.protobuf.Empty) {
+    option (.blickfeld.base.access_control_method) = {
+      level: LEVEL_ADMIN
+    };
+  }
+  // Disable wireless chip and driver.
+  //  
+  // NOTE: A reboot is required to apply the operation.
+  rpc DisableWireless(.google.protobuf.Empty) returns (.google.protobuf.Empty) {
+    option (.blickfeld.base.access_control_method) = {
+      level: LEVEL_ADMIN
+    };
+  }
 }
 

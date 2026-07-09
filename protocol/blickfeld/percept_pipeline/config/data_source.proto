@@ -88,6 +88,30 @@ message DataSource {
       optional: true
     }];
   }
+  // Configuration options for Swarm mode
+  message Swarm {
+    // Device role inside the swarm
+    oneof role {
+      // This device is the swarm leader.
+      bool leader = 1;
+      // This device is managed by another device.
+      .blickfeld.percept_pipeline.config.DataSource.Qb2 follower = 2;
+    }
+    // Maximum latency of the data fusion in swarm mode:
+    // after the leader's own frame is ready for fusion, the leader waits at most this long for the
+    // matching data of all remote devices. Fusion is triggered immediately once all expected remote
+    // data has been received. (default: 0.25 seconds)
+    float synchronization_delay = 3 [(.blickfeld.base.unit) = "s", (.blickfeld.base.validate) = {
+      number {
+        greater_or_equal: 0.01
+        less_or_equal: 2
+      }
+    }];
+    // Arbitrary metadata storage for client applications
+    .google.protobuf.Struct metadata = 100 [(.blickfeld.base.validate) = {
+      optional: true
+    }];
+  }
   oneof data_source_type {
     // Use Qb2 lidars to retrieve point clouds
     .blickfeld.percept_pipeline.config.DataSource.Qb2Setup qb2_setup = 3;
@@ -101,22 +125,21 @@ message DataSource {
   .blickfeld.base.config.Geolocation geolocation_of_map = 4 [(.blickfeld.base.validate) = {
     optional: true
   }];
-  // Experimental mode which enables configuration synchronization and distributed processing.
+  // Mode which enables configuration synchronization and distributed processing.
   //  
-  // All processing-related configuration, e.g. scan pattern and zones, are automatically
-  // synchronized between all members in the sensor setup.
-  // Also the sensor setup itself is replicated on all sensors.
+  // Processing and synchronization is managed by a dedicated leader sensor.
+  // All processing-related configuration, e.g. scan pattern and perception parameters are
+  // synchronized from the leader sensor onto every follower sensor in the sensor setup.
   //  
-  // The object lists of all sensors are fused and tracked on every member in the swarm.
-  // Thus, also all object-based security zones are evaluated on every sensor.
-  // This leads to a high availablity and redundancy without requiring a master processing
-  // unit would be a single point of failure.
-  bool swarm = 5 [(.blickfeld.base.protocol_maturity_field) = {
-    level: LEVEL_EXPERIMENTAL
+  // The object lists and foreground point clouds of all sensors are fused and processed on the
+  // leader sensor of the swarm. This will allow processing of object-based security zones
+  // and point-based security zones across the combined field of view.
+  .blickfeld.percept_pipeline.config.DataSource.Swarm swarm = 7 [(.blickfeld.base.protocol_maturity_field) = {
+    level: LEVEL_MAINTAINED
   }];
   // Allow that devices in the setup are temporarily not available or failed.
   //  
-  // Re-connection attempts are performed continously.
+  // Re-connection attempts are performed continuously.
   // A warning with the list of unavailable sensors is raised.
   // If all sensors are unavailable, the pipeline will fail.
   bool allow_unavailable_lidars = 6;

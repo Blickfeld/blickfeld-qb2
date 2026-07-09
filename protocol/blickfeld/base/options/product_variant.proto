@@ -15,8 +15,10 @@ enum ProductVariant {
   PRODUCT_VARIANT_UNSPECIFIED = 0;
   // QbBasic - Basic & Core product variant.
   PRODUCT_VARIANT_QBBASIC = 1;
-  // QbProtect - Tailored product variant for security & protection applications.
+  // QbProtect - Tailored product variant for long range security & protection applications.
   PRODUCT_VARIANT_QBPROTECT = 2;
+  // QbProtect S - Tailored product variant for short range security & protection applications.
+  PRODUCT_VARIANT_QBPROTECT_S = 5;
   // QbVolume - Tailored product variant for stockpile management applications.
   PRODUCT_VARIANT_QBVOLUME = 3;
   // Qb2 - Generic product variant allowing the exploration & discovery of new applicaton areas for smart lidar.

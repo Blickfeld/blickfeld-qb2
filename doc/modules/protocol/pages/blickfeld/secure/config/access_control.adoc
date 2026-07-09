@@ -1,0 +1,19 @@
+[#_blickfeld_secure_config_AccessControl]
+= Access Control
+
+Access control related configuration
+
+.Available fields in blickfeld.secure.config.AccessControl
+|===
+| Field | Type | Default | Unit
+
+.2+| *disable_support_access* | bool| - | - 
+3+| If true, token-based access is prohibited for Blickfeld support. 
+This can be enabled to harden the security of the device. 
+ 
+[WARNING] 
+When the password to the admin account is lost, access can not be recovered. 
+The device is bricked and can only be recovered with a full erase during rework.
+
+|===
+

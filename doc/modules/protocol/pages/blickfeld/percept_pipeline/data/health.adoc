@@ -75,6 +75,19 @@ network bandwidth / stability issues.
 .2+| *environmental_effects* | bool| - | - 
 3+| There are some environmental influences, e.g. fog, rain or snow in the scene.
 
+.2+| *firmware_mismatch* | bool| - | - 
+3+| The firmware version does not match the version running on this device. 
+A version differing on patch level is allowed. 
+ 
+[NOTE] 
+This flag is only set when swarm is enabled.
+
+.2+| *data_loss* | bool| - | - 
+3+| Data loss during stream synchronization occurred 
+ 
+[NOTE] 
+This flag is only set when swarm is enabled.
+
 |===
 
 [#_blickfeld_percept_pipeline_data_Health_DataSource_DeviceEntry]

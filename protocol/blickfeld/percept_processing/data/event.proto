@@ -98,6 +98,16 @@ message Event {
       // Duration of the intrusion event.
       float duration = 3 [(.blickfeld.base.unit) = "s"];
     }
+    // A motion started in the security scene.
+    message MotionStarted {
+    }
+    // A motion ended in the security scene.
+    message MotionEnded {
+      // ID of the MotionStarted event.
+      string started_event_id = 1;
+      // Duration of the motion event.
+      float duration = 2 [(.blickfeld.base.unit) = "s"];
+    }
   }
   // Container for traffic-related events
   message Traffic {
@@ -124,6 +134,8 @@ message Event {
   }
   // Unix timestamp of event
   uint64 timestamp = 1;
+  // Indicates if event was injected via injected method of event service to the pipeline and was not produced by the pipeline
+  bool injected = 21;
   oneof type {
     // Security: Intrusion started
     .blickfeld.percept_processing.data.Event.Security.IntrusionStarted security_intrusion_started = 2;
@@ -159,6 +171,10 @@ message Event {
     .blickfeld.percept_processing.data.Event.Disqualification.Rain disqualification_rain_detected = 9;
     // Disqualification: Rain not detected anymore
     .blickfeld.percept_processing.data.Event.Disqualification.Rain disqualification_rain_stopped = 10;
+    // Security: Motion started
+    .blickfeld.percept_processing.data.Event.Security.MotionStarted security_motion_started = 19;
+    // Security: Motion ended
+    .blickfeld.percept_processing.data.Event.Security.MotionEnded security_motion_ended = 20;
   }
 }
 

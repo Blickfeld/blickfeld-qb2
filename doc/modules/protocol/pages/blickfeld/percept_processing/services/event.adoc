@@ -10,6 +10,7 @@ Service for actionable events
 
 | *xref:#Stream[]* | xref:blickfeld/percept_processing/services/event.adoc#_blickfeld_percept_processing_services_EventStreamRequest[EventStreamRequest]| xref:blickfeld/percept_processing/services/event.adoc#_blickfeld_percept_processing_services_EventStreamResponse[EventStreamResponse]Stream 
 | *xref:#Get[]* | xref:blickfeld/percept_processing/services/event.adoc#_blickfeld_percept_processing_services_EventGetRequest[EventGetRequest]| xref:blickfeld/percept_processing/services/event.adoc#_blickfeld_percept_processing_services_EventGetResponse[EventGetResponse]
+| *xref:#Inject[]* | xref:blickfeld/percept_processing/services/event.adoc#_blickfeld_percept_processing_services_EventInjectRequest[EventInjectRequest]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
 |===
 [#Stream]
 == Stream
@@ -58,12 +59,16 @@ $revision is usually 0 but incremented when there a multiple events per second.
 .2+| *event* | xref:blickfeld/percept_processing/data/event.adoc[data.Event] | - | - 
 3+| Event payload.
 
+.2+| *end_of_batch* | bool| - | - 
+3+| Indicates if this event is the last one in the batch after frame processing 
+Is set only when being used in the live streaming mode
+
 |===
 
 [#Get]
 == Get
 
-Method to get one Event by its id
+A method to get one Event by its id
 
 [#_blickfeld_percept_processing_services_EventGetRequest]
 === Request
@@ -90,6 +95,25 @@ Response to Get method
 
 .2+| *event* | xref:blickfeld/percept_processing/data/event.adoc[data.Event] | - | - 
 3+| Event payload
+
+|===
+
+[#Inject]
+== Inject
+
+A method to inject test events into the pipeline
+
+[#_blickfeld_percept_processing_services_EventInjectRequest]
+=== Request
+
+A request for injecting test events into the pipeline
+
+.Available fields in blickfeld.percept_processing.services.EventInjectRequest
+|===
+| Field | Type | Default | Unit
+
+.2+| *event_injects* | repeated xref:blickfeld/percept_processing/config/event_inject.adoc[config.EventInject] | - | - 
+3+| Events to inject
 
 |===
 

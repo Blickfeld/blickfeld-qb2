@@ -18,22 +18,21 @@ Individual lidars are referenced to the map coordinate system via their `map_fro
 [NOTE] 
 If the map_from_lidar transform is not an identity transformation, this is not the geolocation of an individual sensor.
 
-.2+| *swarm* | bool| - | - 
-3+| Experimental mode which enables configuration synchronization and distributed processing. 
+.2+| *swarm* | xref:blickfeld/percept_pipeline/config/data_source.adoc#_blickfeld_percept_pipeline_config_DataSource_Swarm[Swarm] | - | - 
+3+| Mode which enables configuration synchronization and distributed processing. 
  
-All processing-related configuration, e.g. scan pattern and zones, are automatically 
-synchronized between all members in the sensor setup. 
-Also the sensor setup itself is replicated on all sensors. 
+Processing and synchronization is managed by a dedicated leader sensor. 
+All processing-related configuration, e.g. scan pattern and perception parameters are 
+synchronized from the leader sensor onto every follower sensor in the sensor setup. 
  
-The object lists of all sensors are fused and tracked on every member in the swarm. 
-Thus, also all object-based security zones are evaluated on every sensor. 
-This leads to a high availablity and redundancy without requiring a master processing 
-unit would be a single point of failure.
+The object lists and foreground point clouds of all sensors are fused and processed on the 
+leader sensor of the swarm. This will allow processing of object-based security zones 
+and point-based security zones across the combined field of view.
 
 .2+| *allow_unavailable_lidars* | bool| - | - 
 3+| Allow that devices in the setup are temporarily not available or failed. 
  
-Re-connection attempts are performed continously. 
+Re-connection attempts are performed continuously. 
 A warning with the list of unavailable sensors is raised. 
 If all sensors are unavailable, the pipeline will fail.
 
@@ -107,6 +106,32 @@ The configuration of a Qb2 setup of the LiDAR devices
 .2+| *trigger* | optional xref:blickfeld/percept_pipeline/config/data_source.adoc#_blickfeld_percept_pipeline_config_DataSource_Trigger[Trigger] | - | - 
 3+| If the field is set trigger mode is enabled. If the field is not set, the pipeline outputs are computed 
 with the frequency of configured lidars, i.e. the scan pattern configured on those.
+
+|===
+
+[#_blickfeld_percept_pipeline_config_DataSource_Swarm]
+== Swarm
+
+Configuration options for Swarm mode
+
+.Available fields in blickfeld.percept_pipeline.config.DataSource.Swarm
+|===
+| Field | Type | Default | Unit
+
+.2+| *leader* | bool| - | - 
+3+| This device is the swarm leader.
+
+.2+| *follower* | xref:blickfeld/percept_pipeline/config/data_source.adoc#_blickfeld_percept_pipeline_config_DataSource_Qb2[Qb2] | - | - 
+3+| This device is managed by another device.
+
+.2+| *synchronization_delay* | float| - | s 
+3+| Maximum latency of the data fusion in swarm mode: 
+after the leader's own frame is ready for fusion, the leader waits at most this long for the 
+matching data of all remote devices. Fusion is triggered immediately once all expected remote 
+data has been received. (default: 0.25 seconds)
+
+.2+| *metadata* | optional https://protobuf.dev/reference/protobuf/google.protobuf/#struct[google.protobuf.Struct] | - | - 
+3+| Arbitrary metadata storage for client applications
 
 |===
 

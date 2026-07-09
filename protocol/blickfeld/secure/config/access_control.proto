@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+package blickfeld.secure.config;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_ADMIN
+};
+
+// Access control related configuration
+message AccessControl {
+  // If true, token-based access is prohibited for Blickfeld support.
+  // This can be enabled to harden the security of the device.
+  //  
+  // [WARNING]
+  // When the password to the admin account is lost, access can not be recovered.
+  // The device is bricked and can only be recovered with a full erase during rework.
+  bool disable_support_access = 2;
+}
+

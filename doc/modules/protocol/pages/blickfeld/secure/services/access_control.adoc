@@ -1,0 +1,42 @@
+= Service: Access Control
+
+CAUTION: This API is not yet officially released nor maintained.
+
+Service to configure the access control behaviour.
+
+.Available methods
+|===
+| Method | Request | Response
+
+| *xref:#ProhibitSupportAccess[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
+| *xref:#Get[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/secure/services/access_control.adoc#_blickfeld_secure_services_AccessControlGetResponse[AccessControlGetResponse]
+|===
+[#ProhibitSupportAccess]
+== ProhibitSupportAccess
+
+If called, token-based access is permanently prohibited for Blickfeld support. 
+This can be enabled to harden the security of the device. 
+ 
+[WARNING] 
+When the password to the admin account is lost, access can not be recovered. 
+The device is bricked and can only be recovered with a full erase during rework.
+
+[#Get]
+== Get
+
+Get current access control config.
+
+[#_blickfeld_secure_services_AccessControlGetResponse]
+=== Response
+
+Response to access control get method
+
+.Available fields in blickfeld.secure.services.AccessControlGetResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *access_control* | xref:blickfeld/secure/config/access_control.adoc[config.AccessControl] | - | - 
+3+| Access control config
+
+|===
+

@@ -19,6 +19,8 @@ message NetworkStatus {
   optional .blickfeld.system.config.Network active_config = 1;
   // Link speed of network interface
   optional uint32 link_speed = 5 [(.blickfeld.base.unit) = "MBit/s"];
+  // If true, the wireless chip is enabled
+  optional bool wireless_enabled = 6;
   reserved 2;
 }
 

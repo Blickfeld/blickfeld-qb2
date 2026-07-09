@@ -3,7 +3,9 @@
 syntax = "proto3";
 
 import "blickfeld/base/options.proto";
+import "blickfeld/percept_processing/config/event_inject.proto";
 import "blickfeld/percept_processing/data/event.proto";
+import "google/protobuf/empty.proto";
 package blickfeld.percept_processing.services;
 
 option (.blickfeld.base.access_control_file) = {
@@ -39,6 +41,9 @@ message EventStreamResponse {
   string id = 1;
   // Event payload.
   .blickfeld.percept_processing.data.Event event = 2;
+  // Indicates if this event is the last one in the batch after frame processing
+  // Is set only when being used in the live streaming mode
+  bool end_of_batch = 3;
 }
 
 // Request for Get method
@@ -57,6 +62,16 @@ message EventGetResponse {
   .blickfeld.percept_processing.data.Event event = 2;
 }
 
+// A request for injecting test events into the pipeline
+message EventInjectRequest {
+  // Events to inject
+  repeated .blickfeld.percept_processing.config.EventInject event_injects = 1 [(.blickfeld.base.validate) = {
+    repeated {
+      maximum: 50
+    }
+  }];
+}
+
 // Service for actionable events
 service Event {
   option (.blickfeld.base.access_control_service) = {
@@ -71,11 +86,13 @@ service Event {
       read_only: true
     };
   }
-  // Method to get one Event by its id
+  // A method to get one Event by its id
   rpc Get(.blickfeld.percept_processing.services.EventGetRequest) returns (.blickfeld.percept_processing.services.EventGetResponse) {
     option (.blickfeld.base.access_control_method) = {
       read_only: true
     };
   }
+  // A method to inject test events into the pipeline
+  rpc Inject(.blickfeld.percept_processing.services.EventInjectRequest) returns (.google.protobuf.Empty);
 }
 

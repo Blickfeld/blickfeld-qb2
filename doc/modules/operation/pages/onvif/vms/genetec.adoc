@@ -1,0 +1,120 @@
+= Genetec
+:experimental:
+
+This section provides information on how to integrate QbProtect with Genetec Security Center. Please refer to the xref:onvif/index.adoc[ONVIF section] beforehand for general information on using ONVIF with https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect].
+
+[NOTE]
+====
+The following Genetec components have been used in the examples below:
+
+* Genetec Security Desk - Version 5.13.3.0 (build 3132.18)
+* Genetec Config Tool - Version 5.13.3.0 (build 3132.18)
+* Genetec Security Center Drivers - Version 13.3.0
+====
+
+[[add-device]]
+== Add Device
+
+The Genetec Config Tool is used to add https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect] into Genetec Security Center.
+
+The procedure includes the following steps:
+
+. Launch the Config Tool and enter your user credentials
+. Navigate to `Tasks` -> `Administration` -> `Video` -> `Role and units`
+. Right click on the `Archiver` -> Select `Add an entry` -> Select `Video Unit`
++
+.Adding QbProtect into Genetec Security Center: add video unit
+image::onvif/vms/genetec/add/video_unit.png[800,800]
+
+. Select `ONVIF` in Manufacturer drop-down menu -> Select `All` in Product type
+. Enter the FQDN or IP of QbProtect and `Username/Password` in the corresponding credential fields
+. Set Port to `80` -> Click `Add and close`
++
+[NOTE]
+====
+Please refer to the xref:onvif/authentication.adoc[User authentication] subsection to find out how to obtain valid ONVIF credentials required for QbProtect VMS integrations.
+====
+
++
+.Adding QbProtect into Genetec Security Center: video unit configuration
+image::onvif/vms/genetec/add/video_unit_onvif.png[800,800]
+
+. Give a distinguishable name to the QbProtect device, e.g. `QbProtect` -> Click `Apply`
+. General information about detected QbProtect should be available in the `Identity` tab as well as the RTSP live preview
++
+.Adding QbProtect into Genetec Security Center: general information about QbProtect
+image::onvif/vms/genetec/add/video_unit_added.png[800,800]
+
++
+.Adding QbProtect into Genetec Security Center: live RTSP preview
+image::onvif/vms/genetec/add/video_unit_live_preview.png[800,800]
+
+. Launch the Genetec Security Desk and enter your user credentials
+. Navigate to `Tasks` -> `Operation` -> `Monitoring`
+. Double click on the added QbProtect to observe the live RTSP stream of a point cloud
+
++
+.Adding QbProtect into Genetec Security Center: live RTSP video stream in Security Desk
+image::onvif/vms/genetec/add/video_unit_rtsp.png[800,800]
+
+[NOTE]
+====
+The perspective of the RTSP video stream in VMS can be synchronized with the one configured in the xref:introduction:webgui_tutorial.adoc[WebGUI]. For that, navigate to the Viewer page of the QbProtect WebGUI, configure the desired view perspective, and apply the keyboard shortcut kbd:[Shift+V].
+====
+
+The live video stream of the https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect] point cloud can be accessed and observed in Genetec Security Desk Monitoring after successfully completing the required steps above.
+
+== Events
+
+The example below shows how https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect] events can be used to trigger alarms in Genetec Security Center. After QbProtect has been xref:onvif/vms/genetec.adoc#add-device[added to the Genetec Security Center], it can be configured to use QbProtect events for alarm generation. In this example, one security zone `Security Zone 1` has been configured using QbProtect xref:introduction:webgui_tutorial.adoc[WebGUI] to exemplify the configuration process, as shown in the Figure below.
+
+.QbProtect WebGUI viewer and Genetec Security Desk Monitor: single zone in the security scene
+image::onvif/vms/genetec/events/events_webgui.png[800,800]
+
+[NOTE]
+====
+Please refer to the xref:onvif/events.adoc[Events] subsection to learn about the available ONVIF event topics. Be aware that only events in default ONVIF namespaces are supported.
+====
+
+[[configure-alarms]]
+=== Configure Alarm Rule Chain
+The alarms configuration procedure includes the following steps:
+
+. Launch the Config Tool and enter your user credentials (optional)
+. Navigate to `Tasks` -> `Administration` -> `Alarms`
+. Click `Alarm` to create new alarm associated with zone intrusion
+. Give a meaningful name to the alarm, e.g. `Security Zone 1 - Intruded`
++
+.Genetec Security Center: intrusion (per zone) alarm configuration in Config Tool
+image::onvif/vms/genetec/events/alarms_intrusion.png[800,800]
+
+. Click `Alarm` to create new alarm associated with zone tampering
+. Give a meaningful name to the alarm, e.g. `Security Zones - Tampered`
++
+.Genetec Security Center: tampering (per scene) alarm configuration in Config Tool
+image::onvif/vms/genetec/events/alarms_tampering.png[800,800]
+
+. Assign an Alarm recipient, e.g. `Admin` to each alarm
+. Select an action triggered by each alarm, e.g. `Play a sound` -> Click `Apply`
+
+[[configure-events]]
+=== Configure Events Handling
+The events configuration procedure includes the following steps:
+
+. Launch the Config Tool and enter your user credentials (optional)
+. Navigate to `Tasks` -> `Administration` -> `Video` -> Select previously configured QbProtect
+. Select `Identity` tab -> `Relationships` -> `Actions` -> Click on `Plus` to create a new `Event-to-action` relationship
+. Select `RuleEngine/FieldDetector/ObjectsInside` and type `Security Zone 1` as a source of intrusion event -> Select `Trigger an alarm` in `Action` drop-down -> Select previously configured `Security Zone 1 - Intruded` alarm in `Alarm drop down` -> Click `Save`
++
+.Genetec Security Center: intrusion (per zone) event-to-action configuration in Config Tool
+image::onvif/vms/genetec/events/relationship_intrusion.png[800,800]
+
+. Select `VideoSource/GlobalSceneChange/AnalyticsService` as a source of tampering event -> Select `Trigger an alarm` in `Action` drop-down -> Select previously configured `Security Zones - Tampered` alarm in `Alarm drop down` -> Click `Save`
++
+.Genetec Security Center: tampering (per scene) event-to-action configuration in Config Tool
+image::onvif/vms/genetec/events/relationship_tampering.png[800,800]
+
+Tampering of any security zone in the security scene or the intrusion event in the `Security Zone 1` and the associated alarm rule chains will generate corresponding alarms in the Genetec Alarm monitor, as shown in the Figure below.
+
+.Genetec Security Center: intrusion (Security Zone 1) and tampering (per scene) alarms observed in Alarm monitor
+image::onvif/vms/genetec/events/alarm_raised.png[800,800]

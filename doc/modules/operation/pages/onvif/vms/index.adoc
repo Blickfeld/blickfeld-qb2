@@ -34,6 +34,9 @@ QbProtect is not yet fully compliant with dedicated ONVIF https://www.onvif.org/
 | https://www.dallmeier.com/products/software/semsy-compact/[Dallmeier electronic GmbH & Co.KG]
 | xref:onvif/vms/dallmeier.adoc[Hemisphere SeMSy Compact]
 
-| https://www.mirasys.com/video-management-system/[Myrasis Oy]
-| xref:onvif/vms/myrasis.adoc[Myrasis VMS]
+| https://www.mirasys.com/video-management-system/[Mirasys Oy]
+| xref:onvif/vms/mirasys.adoc[Mirasys VMS]
+
+| https://www.genetec.com/products/unified-security/omnicast[Genetec Inc]
+| xref:onvif/vms/genetec.adoc[Genetec Security Center]
 |===

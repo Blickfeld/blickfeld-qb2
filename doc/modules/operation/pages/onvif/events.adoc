@@ -26,7 +26,7 @@ In addition to the video stream of the security scene, https://www.blickfeld.com
 | RTSP Metadata
 | ❌
 | RTSP/RTP
-| 
+|
 
 |===
 
@@ -34,66 +34,114 @@ The list of supported events, their description and type are shown in the <<even
 
 [NOTE]
 ====
-Events origininating from dynamic event sources (e.g. intrusion event from a particular security zone) are called `Dynamic`. Other events are called `Static`. The https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect] has to be re-added into VMS in oder to expose events from dynamic sources newly configured via QbProtect xref:introduction:webgui_tutorial.adoc[WebGUI].
+Events are served in two namespaces: the proprietary `Blickfeld` namespace and, where applicable, its standard `ONVIF` alternative. In such cases the same underlying event is published under both topics — a VMS can subscribe to whichever it supports.
 ====
 
+[NOTE]
+====
+Events originating from dynamic event sources (e.g. intrusion event from a particular security zone) are called `Dynamic`. Other events are called `Static`.
+====
+
+[NOTE]
+====
+The https://www.blickfeld.com/lidar-sensor-products/qbprotect/[QbProtect] has to be re-added into VMS in order to re-expose Blickfeld namespace events from dynamic sources newly configured via QbProtect xref:introduction:webgui_tutorial.adoc[WebGUI].
+====
 
 [[events-list]]
 .QbProtect ONVIF events
-[%header,cols="1,4,1"]
+[%header,cols="1,6,1"]
 |===
-|Name | Description| Availability
+|Availability |Topic and Description | Namespace
 
-a|[,console]
+| Static
+a|
+[,console]
 ----
 tns1:VideoSource/MotionAlarm
 ----
-| Motion event in the observed security scene | Static
+Motion event in the observed security scene.
+.3+.^|ONVIF
 
+| Dynamic
+a|
+[,console]
+----
+tns1:RuleEngine/FieldDetector/ObjectsInside
+----
+Intrusion event in the pre-configured security zone, where the name of the security zone should be used as a `Rule`.
 
-a|[,console]
+*Also served as:* `tns1:Blickfeld/IntrusionZone{Name}`
+
+| Static
+a|
+[,console]
+----
+tns1:VideoSource/GlobalSceneChange/AnalyticsService
+----
+QbProtect has been either moved or covered.
+
+*Also served as:* `tns1:Blickfeld/Tampering`
+
+| Static
+a|
+[,console]
 ----
 tns1:Blickfeld/Intrusion
 ----
-| Aggregated intrusion event in pre-configured security zones. Security zones that are configured in QbProtect WebGUI but are not used as ONVIF event sources are also considered as sources for this event. | Static
+Aggregated intrusion event in pre-configured security zones. Security zones that are configured in QbProtect WebGUI but are not used as ONVIF event sources are also considered as sources for this event.
+.7+.^|Blickfeld
 
-a|[,console]
+| Dynamic
+a|
+[,console]
 ----
 tns1:Blickfeld/IntrusionZone{Name}
 ----
-| Intrusion event in the pre-configured intrusion zone, where {Name} is replaced by the name of the configured zone (e.g., if the zone is called "Gate One", then the corresponding event will be called `IntrusionZoneGateOne` ) | Dynamic
+Intrusion event in the pre-configured intrusion zone, where {Name} is replaced by the name of the configured zone (e.g., if the zone is called "Gate One", then the corresponding event will be called `IntrusionZoneGateOne`).
 
-a|[,console]
+*Also served as:* `tns1:RuleEngine/FieldDetector/ObjectsInside`
+
+| Static
+a|
+[,console]
 ----
 tns1:Blickfeld/HealthFailure
 ----
-| QbProtect is in the failed state (one or more failures). The actual root cause can be found at QbProtect diagnostics page | Static
+QbProtect is in the failed state (one or more failures). The actual root cause can be found at QbProtect diagnostics page.
 
-a|[,console]
+| Static
+a|
+[,console]
 ----
 tns1:Blickfeld/HealthWarning
 ----
-| QbProtect is in the warning state (one or more warnings). The actual root cause can be found at QbProtect diagnostics page | Static
+QbProtect is in the warning state (one or more warnings). The actual root cause can be found at QbProtect diagnostics page.
 
-a|[,console]
+| Static
+a|
+[,console]
 ----
 tns1:Blickfeld/TamperingCovered
 ----
-| The window of QbProtect has been covered | Static
+The window of QbProtect has been covered.
 
-a|[,console]
+| Static
+a|
+[,console]
 ----
 tns1:Blickfeld/TamperingMoved
 ----
-| QbProtect has been moved or rotated | Static
+QbProtect has been moved or rotated.
 
-
-a|[,console]
+| Static
+a|
+[,console]
 ----
 tns1:Blickfeld/Tampering
 ----
+QbProtect has been either moved or covered.
 
-| QbProtect has been either moved or covered | Static
+*Also served as:* `tns1:VideoSource/GlobalSceneChange/AnalyticsService`
 |===
 
 

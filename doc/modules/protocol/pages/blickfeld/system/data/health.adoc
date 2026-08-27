@@ -45,6 +45,9 @@ Status message for time synchronization
 .2+| *ntp* | xref:blickfeld/system/data/health.adoc#_blickfeld_system_data_Health_TimeSynchronization_Ntp[Ntp] | - | - 
 3+| Status for NTP time synchronization
 
+.2+| *manual* | xref:blickfeld/system/data/health.adoc#_blickfeld_system_data_Health_TimeSynchronization_Manual[Manual] | - | - 
+3+| Status for manual time configuration
+
 |===
 
 [#_blickfeld_system_data_Health_TimeSynchronization_Ntp]
@@ -73,6 +76,23 @@ Status message representing the NTP time synchronization status
 
 .2+| *precision* | float| - | s 
 3+| Precision of the NTP time synchronization
+
+|===
+
+[#_blickfeld_system_data_Health_TimeSynchronization_Manual]
+=== Manual
+
+Status message representing the manual time configuration status
+
+.Available fields in blickfeld.system.data.Health.TimeSynchronization.Manual
+|===
+| Field | Type | Default | Unit
+
+.2+| *serving_time* | bool| - | - 
+3+| Flag indicating that this device serves its system time to other devices
+
+.2+| *clients* | uint32| - | - 
+3+| Number of NTP clients which are currently served
 
 |===
 

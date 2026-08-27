@@ -38,8 +38,14 @@ message PointCloudStreamRequest {
       }
     }];
   }
-  // If set, point cloud is cropped to given shape
+  // If set, point cloud is cropped to given shape. Combined with `crops` (if also set) as a union.
   .blickfeld.base.geometry.Shape crop = 5 [(.blickfeld.base.validate) = {
+    optional: true
+  }];
+  // If set, the point cloud is additionally cropped to the union of the given shapes. Combined with
+  // `crop` (if also set) as a union. Useful to reduce payload size when only specific volumes are of
+  // interest.
+  repeated .blickfeld.base.geometry.Shape crops = 6 [(.blickfeld.base.validate) = {
     optional: true
   }];
   reserved 4;

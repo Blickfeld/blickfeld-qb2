@@ -28,6 +28,13 @@ message Health {
       // Precision of the NTP time synchronization
       float precision = 6 [(.blickfeld.base.unit) = "s"];
     }
+    // Status message representing the manual time configuration status
+    message Manual {
+      // Flag indicating that this device serves its system time to other devices
+      bool serving_time = 1;
+      // Number of NTP clients which are currently served
+      uint32 clients = 2;
+    }
     // High-level state of the time synchronization
     .blickfeld.base.data.Health.State state = 1;
     // Reason for given state. Is not set if state is STATE_OK.
@@ -40,6 +47,8 @@ message Health {
     oneof type {
       // Status for NTP time synchronization
       .blickfeld.system.data.Health.TimeSynchronization.Ntp ntp = 4;
+      // Status for manual time configuration
+      .blickfeld.system.data.Health.TimeSynchronization.Manual manual = 6;
     }
   }
   // High-level state of module

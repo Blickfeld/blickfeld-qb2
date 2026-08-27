@@ -33,6 +33,15 @@ States will get calculated on every frame of measurement.
 .2+| *coverage* | float| - | - 
 3+| The estimated zone coverage
 
+.2+| *coverage_observed_area* | float| - | m^2 
+3+| Estimated area of the zone which is observed at all, i.e. the extent `coverage` is measured over. 
+ 
+Zero means the zone is not observed. Deliberately an area and not a beam count: the number of 
+beams reaching a zone falls with the square of its distance, so a distant sensor with a complete 
+view of the zone would report a far smaller count than a close one which merely clips a corner 
+of it. Across a swarm this expresses how well a sensor is placed for the zone, and only the 
+well-placed sensors decide whether it is tampered.
+
 |===
 
 [#_blickfeld_percept_processing_data_State_ObjectBasedSecurity]

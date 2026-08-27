@@ -111,6 +111,14 @@ message State {
   }
   // The estimated zone coverage
   float coverage = 13;
+  // Estimated area of the zone which is observed at all, i.e. the extent `coverage` is measured over.
+  //  
+  // Zero means the zone is not observed. Deliberately an area and not a beam count: the number of
+  // beams reaching a zone falls with the square of its distance, so a distant sensor with a complete
+  // view of the zone would report a far smaller count than a close one which merely clips a corner
+  // of it. Across a swarm this expresses how well a sensor is placed for the zone, and only the
+  // well-placed sensors decide whether it is tampered.
+  float coverage_observed_area = 14 [(.blickfeld.base.unit) = "m^2"];
   reserved 1, 2, 3, 4, 6;
 }
 

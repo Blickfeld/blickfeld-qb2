@@ -56,7 +56,15 @@ States of the security scene
 3+| Indicates if there is tampering due to device movement
 
 .2+| *covered_tampering* | bool| - | - 
-3+| Indicates if there is tampering due to device coverage
+3+| Indicates if there is tampering due to device coverage 
+ 
+What this is measured from depends on whether any zone configures a minimum coverage. 
+With one, every device sets this as the rollup over the zone states it decided itself, 
+and a leader ignores what its sensors report here: a follower's rollup covers its own 
+single view only, so aggregating it would let one blocked sensor tamper the whole 
+swarm. With none, there is nothing to measure per zone and each sensor falls back to a 
+whole-device verdict from its point rate, which a leader does aggregate across its 
+sensors - that verdict carries no zone rollup and so speaks for no single zone.
 
 .2+| *tampering* | bool| - | - 
 3+| Indicates if device is tampered - either due to movement or coverage

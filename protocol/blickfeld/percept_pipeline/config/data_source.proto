@@ -100,7 +100,7 @@ message DataSource {
     // Maximum latency of the data fusion in swarm mode:
     // after the leader's own frame is ready for fusion, the leader waits at most this long for the
     // matching data of all remote devices. Fusion is triggered immediately once all expected remote
-    // data has been received. (default: 0.25 seconds)
+    // data has been received. (default: 1 second)
     float synchronization_delay = 3 [(.blickfeld.base.unit) = "s", (.blickfeld.base.validate) = {
       number {
         greater_or_equal: 0.01

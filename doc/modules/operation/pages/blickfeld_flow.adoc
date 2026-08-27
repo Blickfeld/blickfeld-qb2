@@ -1,18 +1,18 @@
 = Blickfeld Flow
 
-Blickfeld Flow is a low-code prototyping and integration tool for customizing and extending the functionality of the Qb2 sensor.
+Blickfeld Flow is a low-code prototyping and integration tool for customizing and extending the functionality of the Qb sensor.
 It is based on the open-source tool https://nodered.org[Node-Red], an efficient and state-of-the-art flow-based programming tool for event-driven applications.
 The tool is seamlessly integrated in the Blickfeld sensor while maintaining the flexibility and the https://flows.nodered.org/[library] provided by the open-source community.
 
 == Key features
 
-* Simple access to the Blickfeld Qb2 API through built-in nodes
+* Simple access to the Blickfeld Qb API through built-in nodes
 * Browser-based wiring and editing of flows with the WebGUI
 * Support for various input and output interfaces such as REST, Websocket, MQTT, Kafka, ..
 * Live deployment of changes with status and debug messages
 * Deployment of custom Javascript methods
 * Import, export and library support to re-use flows
-* Fully integrated and on-device execution (flows can be configured to start automatically with the power-up of Qb2)
+* Fully integrated and on-device execution (flows can be configured to start automatically with the power-up of Qb)
 
 == How to get started?
 
@@ -23,20 +23,21 @@ With Blickfeld Flow, users can generate new flows by simply dragging nodes into 
 
 Overall, it is highly recommended to follow the https://nodered.org/docs/[Node-Red documentation] and its https://nodered.org/docs/tutorials/first-flow[tutorials].
 
-== Qb2 API access
+== Qb API access
 
-The Blickfeld Qb2 Method Node offers direct access to the gRPC API of both local Qb2 and Qb2 devices within the same network.
+The Blickfeld Qb Method Node offers direct access to the gRPC API of both the local Qb and remote Qb devices within the same network.
 All request and response messages are available in JSON format.
 
 Detailed information about the services, methods, and parameters can be found in the Protocol section of this documentation.
+See the xref:guides:flow_qb2_method.adoc[Blickfeld Qb Method Node] guide for how to connect, select methods, map requests and responses, and use streaming with auto-reconnect.
 
-Additionally, built-in flows are available for reference.
+Additionally, built-in flows are available for reference, and ready-to-import example flows ship with the node (menu btn:[≡] -> *Import* -> *Examples*).
 
 == Limitations
 
 === Compute power
 
-Qb2 devices leverage a quad-core ARM Cortex-A72 processor for on-device processing tasks.
+Qb devices leverage a quad-core ARM Cortex-A72 processor for on-device processing tasks.
 Only a fraction of this computational capacity is allocated to Blickfeld flows.
 Consequently, resource-intensive flows might exhibit reduced performance.
 It is worth highlighting that this adjustment does not significantly impact the fundamental operations of the core device. This is because Blickfeld Flows are executed with a lower process priority, ensuring the stability of core device functionalities.

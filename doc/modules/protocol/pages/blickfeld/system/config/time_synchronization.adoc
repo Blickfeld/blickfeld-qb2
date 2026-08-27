@@ -22,6 +22,18 @@ Use ListTimeZones to retrieve the available time zones.
  
 Default: UTC
 
+.2+| *serve_time* | bool| - | - 
+3+| Serve the system time of this device to other devices in the network 
+ 
+Starts a local, non-authoritative NTP server (stratum 10) which distributes the system time of this device. 
+Access is restricted to the subnet of the device. 
+It is intended for isolated networks without an NTP server and is managed automatically by the leader 
+device of a swarm which uses manual time synchronization. 
+ 
+[NOTE] 
+The served time is only as accurate as the configured reference. 
+The option has no effect when NTP time synchronization is used.
+
 |===
 
 [#_blickfeld_system_config_TimeSynchronization_Ntp]

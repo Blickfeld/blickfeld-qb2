@@ -150,7 +150,7 @@ QbProtect has been either moved or covered.
 ====
 ONVIF events delivered with firmware version https://github.com/Blickfeld/blickfeld-qb2/releases/tag/v2.9[JACK v2.9] and below are considered to be legacy. They remain functional in the existing QbProtect setups after firmware upgrades; however, they will not be further expanded. To obtain the most recent list of supported events after the installation of a newer firmware release, please follow the procedure below:
 
-1. Remove all existing ONVIF HTTP xref:working_principles:authentication.adoc#_application_key[application keys] from all configured user accounts
+1. Remove all existing ONVIF keys (xref:working_principles:authentication.adoc#_application_key[application keys] with `ONVIF / RTSP access`) from all configured user accounts
 2. Reboot QbProtect
 
 Once fulfilled, the new event list is persistently exposed for the configuration in your VMS system.

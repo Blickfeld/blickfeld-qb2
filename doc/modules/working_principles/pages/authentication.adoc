@@ -118,7 +118,7 @@ image::authentication_admin_application_key.png[]
 [NOTE]
 ====
 
-The `HTTP authentication` option can be enabled to connect Qb2 to an xref:operation:onvif/index.adoc[ONVIF compliant Video Management System (VMS)] or to directly obtain a RTSP video stream using a video player. 
+The `ONVIF / RTSP access` option makes an application key an ONVIF key. It can be enabled to connect Qb2 to an xref:operation:onvif/index.adoc[ONVIF compliant Video Management System (VMS)] or to directly obtain a RTSP video stream using a video player. See xref:operation:onvif/authentication.adoc[ONVIF user authentication] for what an ONVIF key may do and for the ONVIF users a VMS can create.
 
 ====
 

@@ -44,6 +44,35 @@ message ApplicationKeyCreateRequest {
   // The application key to create. Minimum (optional) input is the value set in the `purpose` field. Everything else will be generated
   // and added on the server side.
   .blickfeld.secure.config.ApplicationKey application_key = 2;
+  // Optional key in plain text, in place of a generated one. Only for application keys with a username.
+  string key = 3 [(.blickfeld.base.validate) = {
+    string {
+      minimum: 1
+      maximum: 64
+    }
+    optional: true
+  }];
+}
+
+// Request to update an application key with a username.
+message ApplicationKeyUpdateRequest {
+  // The uuid of the application key to update.
+  string uuid = 1 [(.blickfeld.base.validate) = {
+    string {
+      pattern: "^[0-9a-zA-Z]{32}$"
+    }
+  }];
+  // The new purpose, access level and read-only flag; an unset access level keeps the key's. The remaining fields are
+  // ignored.
+  .blickfeld.secure.config.ApplicationKey application_key = 2;
+  // Optional new key in plain text. The key is kept when empty.
+  string key = 3 [(.blickfeld.base.validate) = {
+    string {
+      minimum: 1
+      maximum: 64
+    }
+    optional: true
+  }];
 }
 
 // Response containing the plain-text key information of the generated application key.
@@ -87,6 +116,12 @@ service ApplicationKey {
   }
   // Create an application key for the authenticated account.
   rpc Create(.blickfeld.secure.services.ApplicationKeyCreateRequest) returns (.blickfeld.secure.services.ApplicationKeyCreateResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
+  // Update the access level, read-only flag, purpose and key of an application key with a username.
+  rpc Update(.blickfeld.secure.services.ApplicationKeyUpdateRequest) returns (.google.protobuf.Empty) {
     option (.blickfeld.base.access_control_method) = {
       read_only: true
     };

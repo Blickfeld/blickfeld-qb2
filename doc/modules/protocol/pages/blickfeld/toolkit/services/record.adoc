@@ -6,7 +6,12 @@ The record service allows streaming of recording data to a client.
 It requests and combines all the required recording data 
 (metadata, raw, states, vtu, pcd) into one stream. 
 A message in the stream consists of a file-path and the corresponding data. 
-That means that one message represents one file in a recording archive.
+That means that one message represents one file in a recording archive. 
+ 
+If the device is the leader of a swarm, the whole swarm is recorded. The point cloud and the 
+configuration of every sensor, including the leader itself, is then stored below 
+`sensors/<serial-number>/` instead of in the root of the archive. The root only holds the results 
+of the processing, which the leader does for the whole swarm.
 
 .Available methods
 |===

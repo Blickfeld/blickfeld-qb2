@@ -1,0 +1,22 @@
+// Copyright (c) 2026 Blickfeld GmbH.
+// All rights reserved.
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+import "google/protobuf/descriptor.proto";
+package blickfeld.percept_processing;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_AUTHORIZED
+};
+
+extend .google.protobuf.FieldOptions {
+  // The event this one closes, named by its field in Event.type.
+  //  
+  // An event which reports a state is emitted as a pair: one when the state rises and one when
+  // it falls, the second naming the first in started_event_id and carrying the duration between
+  // them. Consumers pair the two up to report a single event, and this is where that pairing is
+  // declared - so that a new pair is one annotation rather than a list in every consumer.
+  string closes = 55000 [json_name = "closes"];
+}
+

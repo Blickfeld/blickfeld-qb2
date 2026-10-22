@@ -2,6 +2,7 @@
 // All rights reserved.
 syntax = "proto3";
 
+import "blickfeld/base/geometry/transform.proto";
 import "blickfeld/base/options.proto";
 import "blickfeld/percept_pipeline/config/data_source.proto";
 import "google/protobuf/empty.proto";
@@ -29,6 +30,68 @@ message DataSourceWatchResponse {
   .blickfeld.percept_pipeline.config.DataSource data_source = 1;
 }
 
+// Request for refining a set of lidar poses
+message DataSourceRegisterRequest {
+  // The lidars to register against each other, with the poses to start from. They do not have to be the configured
+  // ones, so a setup can be registered while it is being put together.
+  repeated .blickfeld.percept_pipeline.config.DataSource.Qb2 lidars = 1 [(.blickfeld.base.validate) = {
+    repeated {
+      minimum: 2
+    }
+  }];
+}
+
+// The refined lidar poses and how well they came out
+message DataSourceRegisterResponse {
+  // Result for a single lidar of the configuration
+  message Lidar {
+    // Identifies which of the requested lidars this is
+    string serial_number = 1;
+    // The refined pose, to be stored on the lidar it belongs to
+    .blickfeld.base.geometry.Transform map_from_lidar = 2;
+    // Fraction of this lidar's points that find a counterpart in the fused cloud of the others. It measures the
+    // extrinsic calibration between the sensors, which levelling cannot improve.
+    float agreement = 3;
+  }
+  // One entry per requested lidar, in the order they were given
+  repeated .blickfeld.percept_pipeline.services.DataSourceRegisterResponse.Lidar lidars = 1;
+  // Angle between the fused ground plane and the map z-axis once the poses above are applied
+  float tilt_deg = 2 [(.blickfeld.base.unit) = "deg"];
+  // Spread between the individual lidars' estimates of the floor height. It measures how far a residual tilt lifts
+  // each lidar's own patch of floor, not how well the lidars agree with each other.
+  float floor_height_spread = 3 [(.blickfeld.base.unit) = "m"];
+  // The rigid correction the levelling applied to the map frame. Everything persisted in that frame, zones in
+  // particular, is expressed in the old one and has to be corrected with it to stay where it was.
+  .blickfeld.base.geometry.Transform map_correction = 4;
+}
+
+// Request for estimating the ground alignment of a single lidar
+message DataSourceAlignRequest {
+  // How to estimate the ground plane
+  enum Strategy {
+    // Unspecified. Behaves like STRATEGY_AUTO.
+    STRATEGY_UNSPECIFIED = 0;
+    // Uses the plane segmentation when it agrees with the measured gravity, and the accelerometer otherwise.
+    STRATEGY_AUTO = 1;
+    // Uses the orientation and translation computed from the plane segmentation.
+    STRATEGY_PLANE_SEGMENTATION = 2;
+    // Uses the orientation from the accelerometer.
+    STRATEGY_ACCELEROMETER = 3;
+  }
+  // The lidar to align. It does not have to be a configured one, so a lidar can be aligned while it is being added.
+  .blickfeld.percept_pipeline.config.DataSource.Qb2 lidar = 1;
+  // How to estimate the ground plane
+  .blickfeld.percept_pipeline.services.DataSourceAlignRequest.Strategy strategy = 2 [(.blickfeld.base.validate) = {
+    optional: true
+  }];
+}
+
+// The estimated pose of the lidar
+message DataSourceAlignResponse {
+  // Transforms the lidar's points onto the ground plane
+  .blickfeld.base.geometry.Transform map_from_lidar = 1;
+}
+
 // The data source service allows getting, configuring and receiving updates of the data source used for processing pipelines.
 // The data source configuration specifies where to retrieve the point cloud data for further processing.
 service DataSource {
@@ -54,5 +117,16 @@ service DataSource {
       read_only: true
     };
   }
+  // Refines the poses of a set of lidars against each other and levels the fused ground plane on z = 0.
+  //  
+  // The point clouds are fetched from the lidars themselves, so only their definitions travel with the request.
+  // The refined poses are returned and not stored: applying them is a separate decision, because anything already
+  // placed in the map frame moves with it.
+  rpc Register(.blickfeld.percept_pipeline.services.DataSourceRegisterRequest) returns (.blickfeld.percept_pipeline.services.DataSourceRegisterResponse);
+  // Estimates the pose that puts a single lidar's point cloud on the ground plane.
+  //  
+  // The frame and the accelerometer reading are fetched from the lidar, so a lidar that is not part of the
+  // configuration yet can be aligned while it is being added.
+  rpc Align(.blickfeld.percept_pipeline.services.DataSourceAlignRequest) returns (.blickfeld.percept_pipeline.services.DataSourceAlignResponse);
 }
 

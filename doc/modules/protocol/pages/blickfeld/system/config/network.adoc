@@ -20,7 +20,7 @@ Specifies the persistent system-wide hostname which should be assigned to the ne
 3+|  
 This setting enables dynamic "DHCP" network configuration mode. The "DHCP" mode is used to dynamically get IPv4/v6 network 
 configuration from DHCP server in automatic fashion. Can be used standalone or, if required, can be combined with "static" 
-configuration settings.
+configuration settings. The "dhcp6" setting overrides it for IPv6.
 
 .2+| *manual* | optional xref:blickfeld/system/config/network.adoc#_blickfeld_system_config_Network_Static[Static] | - | - 
 3+|  
@@ -31,7 +31,9 @@ their combination.
 3+|  
 (WIP - attention, no fallbacks!) This settings enables automatic "Link-local" network configuration mode. In this scenario, 
 device itself selects and assigns IP addresses from a particular range. For IPv4: from 169.254.0.0 through 169.254.255.255. The IPv6 
-link-local prefix is FE80::/10 and is used to create a link-local IPv6 address on an interface
+link-local prefix is FE80::/10 and is used to create a link-local IPv6 address on an interface. 
+ 
+The IPv6 link-local address is also assigned whenever a static IPv6 configuration is set, as IPv6 requires it on the interface.
 
 .2+| *wireless* | optional xref:blickfeld/system/config/network.adoc#_blickfeld_system_config_Network_Wireless[Wireless] | - | - 
 3+| If the field is set, the device switches from the Ethernet to the WiFi interface.
@@ -39,6 +41,11 @@ link-local prefix is FE80::/10 and is used to create a link-local IPv6 address o
 .2+| *authentication* | optional xref:blickfeld/system/config/network.adoc#_blickfeld_system_config_Network_Authentication[Authentication] | - | - 
 3+| Authentication configuration for joining a network. 
 If this field is set the device starts to communicate with a authentication server (e.g. RADIUS).
+
+.2+| *dhcp6* | bool| - | - 
+3+|  
+This setting enables DHCPv6 for the IPv6 network configuration separately from the "dhcp" setting, which then only applies to IPv4. 
+If unset, DHCPv6 follows the "dhcp" setting.
 
 |===
 

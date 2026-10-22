@@ -19,6 +19,11 @@ message TimeSynchronization {
         pattern: "^(?:(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\\.)+[A-Za-z]{2,63}\\.?|(?:\\d{1,3}\\.){3}\\d{1,3})$"
       }
     }];
+    // Use the NTP time servers advertised by a DHCP server in addition to the listed ones
+    //  
+    // [NOTE]
+    // Without any listed servers, the advertised ones are used regardless of this setting.
+    bool from_dhcp = 2;
   }
   // Manual time configuration
   //  

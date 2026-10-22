@@ -1,0 +1,57 @@
+= Service: Camera
+
+CAUTION: This API is not yet officially released nor maintained.
+
+Service for what a camera sees, as the other services here serve the pipeline's other output. 
+ 
+Finding a camera and aiming it are the `percept_pipeline` `Camera` service's.
+
+.Available methods
+|===
+| Method | Request | Response
+
+| *xref:#Stream[]* | xref:blickfeld/percept_processing/services/camera.adoc#_blickfeld_percept_processing_services_CameraStreamRequest[CameraStreamRequest]| xref:blickfeld/percept_processing/services/camera.adoc#_blickfeld_percept_processing_services_CameraStreamResponse[CameraStreamResponse]Stream 
+|===
+[#Stream]
+== Stream
+
+A camera's live video, for as long as the caller keeps the stream open. 
+ 
+The first message carries the format to configure a decoder with; the pictures follow, 
+starting at a keyframe, so something can be shown at once. The format is sent again whenever 
+it changes, and is followed by a keyframe. The encoded video is the camera's own, passed on 
+without being decoded or encoded again; every viewer of a camera shares the one stream the 
+device receives from it.
+
+[#_blickfeld_percept_processing_services_CameraStreamRequest]
+=== Request
+
+A request to receive a stream of a camera's video.
+
+.Available fields in blickfeld.percept_processing.services.CameraStreamRequest
+|===
+| Field | Type | Default | Unit
+
+.2+| *camera* | xref:blickfeld/percept_pipeline/config/data_source.adoc#_blickfeld_percept_pipeline_config_DataSource_Camera[percept_pipeline.config.DataSource.Camera] | - | - 
+3+| The camera to stream video from, described as the data source describes one. 
+ 
+A camera that is configured is recognised by its `serial_number` and served from the stream 
+the pipeline already receives from it; one that is not needs its connection filled in and is 
+served from a stream opened for this call alone.
+
+|===
+
+[#_blickfeld_percept_processing_services_CameraStreamResponse]
+=== Response Stream
+
+One message of a camera's video stream.
+
+.Available fields in blickfeld.percept_processing.services.CameraStreamResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *video* | xref:blickfeld/percept_processing/data/camera.adoc#_blickfeld_percept_processing_data_Camera_Video[data.Camera.Video] | - | - 
+3+| The format the pictures that follow are encoded in, or one of those pictures.
+
+|===
+

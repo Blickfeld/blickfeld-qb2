@@ -4,6 +4,7 @@ syntax = "proto3";
 
 import "blickfeld/base/config/geolocation.proto";
 import "blickfeld/base/geometry/transform.proto";
+import "blickfeld/base/geometry/vector3.proto";
 import "blickfeld/base/options.proto";
 import "google/protobuf/struct.proto";
 package blickfeld.percept_pipeline.config;
@@ -74,6 +75,148 @@ message DataSource {
       }
     }];
   }
+  // A camera watching the scene alongside the lidars.
+  //  
+  // Its video is passed on to viewers and recorded with the events it saw. A camera that can pan,
+  // tilt and zoom is also aimed at them, once `ptz` says how; whether it can is asked of the
+  // camera itself.
+  message Camera {
+    // How the device reaches a camera over ONVIF.
+    message Onvif {
+      // The fully qualified domain name of the ONVIF device service. Unlike `Qb2.fqdn`, this
+      // is always required: there is no "current device" case for a camera.
+      string fqdn = 1 [(.blickfeld.base.validate) = {
+        string {
+          maximum: 255
+          pattern: "^(?:(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\\.)+[a-zA-Z]{2,}|(?:(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.){3}(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d))$"
+        }
+      }];
+      // The ONVIF device service port. If unset the default ONVIF port 80 is used.
+      uint32 port = 2 [(.blickfeld.base.validate) = {
+        number {
+          greater_or_equal: 1
+          less_or_equal: 65535
+        }
+        optional: true
+      }];
+      // ONVIF authentication username.
+      //  
+      // An administrator's login is used once, when it is stored: the device creates an
+      // Operator account of its own on the camera, and stores that account instead.
+      string username = 3 [(.blickfeld.base.validate) = {
+        optional: true
+      }];
+      // ONVIF authentication password. Write-only: it is never read back. A camera stored
+      // again with the same `username` and no password keeps the one it has.
+      string password = 4 [(.blickfeld.base.validate) = {
+        optional: true
+      }];
+    }
+    // How a camera that can pan, tilt and zoom is aimed at a point of the map.
+    message Ptz {
+      // A pan/tilt/zoom position, in the camera's own coordinate space.
+      message Position {
+        // Pan position.
+        float pan = 1;
+        // Tilt position.
+        float tilt = 2;
+        // Zoom position.
+        float zoom = 3;
+      }
+      // Calibration mapping a map-frame position to a pan/tilt/zoom command for a specific
+      // camera.
+      message Calibration {
+        // Half the angular field of view the camera sees fully zoomed out, at zoom 0. With
+        // `half_fov_at_zoom_1` this is the range a zoom command interpolates across.
+        float half_fov_at_zoom_0 = 1 [(.blickfeld.base.unit) = "rad", (.blickfeld.base.validate) = {
+          number {
+            greater: 0
+          }
+          optional: true
+        }];
+        // Half the angular field of view the camera sees fully zoomed in, at zoom 1. Must be smaller
+        // than `half_fov_at_zoom_0`. A camera missing either is left fully zoomed out.
+        float half_fov_at_zoom_1 = 10 [(.blickfeld.base.unit) = "rad", (.blickfeld.base.validate) = {
+          number {
+            greater: 0
+          }
+          optional: true
+        }];
+        // Pan offset between the camera's zero position and the map frame, applied before
+        // `pan_scale` converts the angle into the camera's own units.
+        float pan_offset = 2 [(.blickfeld.base.unit) = "rad", (.blickfeld.base.validate) = {
+          optional: true
+        }];
+        // Tilt offset between the camera's zero position and the map frame, applied before
+        // `tilt_scale` converts the angle into the camera's own units.
+        float tilt_offset = 3 [(.blickfeld.base.unit) = "rad", (.blickfeld.base.validate) = {
+          optional: true
+        }];
+        // Invert the pan axis direction.
+        bool invert_pan = 4;
+        // Invert the tilt axis direction.
+        bool invert_tilt = 5;
+        // Pan units the camera reports and accepts per radian of rotation. A camera whose
+        // normalised space spans -1..1 over a full turn has a `pan_scale` of 1/pi; one that works
+        // in degrees has 180/pi. Defaults to 1, meaning the camera's units are radians.
+        float pan_scale = 8 [(.blickfeld.base.validate) = {
+          number {
+            greater: 0
+          }
+          optional: true
+        }];
+        // Tilt units the camera reports and accepts per radian of rotation, the tilt-axis
+        // counterpart of `pan_scale`. Defaults to 1, meaning the camera's units are radians.
+        float tilt_scale = 9 [(.blickfeld.base.validate) = {
+          number {
+            greater: 0
+          }
+          optional: true
+        }];
+      }
+      // Calibration needed to turn a map-frame point into a pan/tilt/zoom command, resolved
+      // by the same client solve as `Camera.map_from_camera`.
+      //  
+      // The correspondences it was solved from are the client's: the device aims by the
+      // answer and has no use for the workings, and a solve that only runs while somebody is
+      // calibrating does not belong on a device that has to keep a pipeline fed.
+      .blickfeld.percept_pipeline.config.DataSource.Camera.Ptz.Calibration calibration = 1;
+      // Whether automatic tracking aims this camera at what the lidars are tracking. A
+      // camera with no `calibration` is not aimed whatever this says: there is nothing to
+      // turn a map-frame target into a pan/tilt/zoom command with.
+      bool tracking = 2;
+    }
+    // Serial number of the camera, as the camera itself reports it. Named as the lidar names its
+    // own. Used to key camera health and video.
+    string serial_number = 1 [(.blickfeld.base.validate) = {
+      string {
+        minimum: 1
+      }
+    }];
+    // How the device reaches the camera.
+    oneof connection {
+      // Over ONVIF.
+      .blickfeld.percept_pipeline.config.DataSource.Camera.Onvif onvif = 2;
+    }
+    // Transformation from the camera frame to the map frame, resolved from the WebGUI
+    // calibration wizard. If this transform is not set, it is interpreted as identity
+    // transformation.
+    .blickfeld.base.geometry.Transform map_from_camera = 3 [(.blickfeld.base.validate) = {
+      optional: true
+    }];
+    // How to aim the camera, for one that can pan, tilt and zoom. Left unset the camera is
+    // not aimed: it is fixed, or not calibrated yet.
+    .blickfeld.percept_pipeline.config.DataSource.Camera.Ptz ptz = 4 [(.blickfeld.base.validate) = {
+      optional: true
+    }];
+    // Disable this camera, setting this flag to `true` stops any control and video capture
+    // for it.
+    bool disabled = 5;
+    // Arbitrary metadata storage for client applications
+    .google.protobuf.Struct metadata = 100 [(.blickfeld.base.validate) = {
+      optional: true
+    }];
+  }
   // The configuration of a Qb2 setup of the LiDAR devices
   message Qb2Setup {
     // the qb2 lidars to get the point clouds from
@@ -81,6 +224,14 @@ message DataSource {
       repeated {
         minimum: 1
       }
+    }];
+    // Cameras watching the scene alongside the lidars above.
+    //  
+    // A camera is not a point cloud source and does not participate in swarm synchronization
+    // or data fusion; it is a consumer of the tracking output. Whether a camera is aimed
+    // automatically is its own `tracking` flag.
+    repeated .blickfeld.percept_pipeline.config.DataSource.Camera cameras = 3 [(.blickfeld.base.validate) = {
+      optional: true
     }];
     // If the field is set trigger mode is enabled. If the field is not set, the pipeline outputs are computed
     // with the frequency of configured lidars, i.e. the scan pattern configured on those.

@@ -285,6 +285,15 @@ message ZoneAlgorithm {
     //  
     // This might be useful in situations where e.g. a static crane should be detected in its home position.
     bool invert = 4;
+    // Emit an event when the zone becomes occupied and when it becomes free again.
+    //  
+    // The events are listed in the event history. They do not affect the device-wide alarm
+    // state, which keeps them distinguishable from the alarm of a security zone. A device which
+    // stops without observing the end of an event reports that end on its next start, marked as
+    // not observed.
+    //  
+    // Default: false
+    bool generate_events = 5;
   }
   // Algorithm that detects if objects are traversing through the zone.
   message TraversalSecurity {

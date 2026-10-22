@@ -1,0 +1,123 @@
+[#_blickfeld_percept_processing_data_Camera]
+= Camera
+
+What a camera contributes to the perception output: its video, live and as recorded into the 
+history. 
+ 
+The pictures are passed on as the camera encoded them and decoded by whoever shows them, so a 
+device needs no decoder of its own to record what a camera saw.
+
+[#_blickfeld_percept_processing_data_Camera_Video]
+== Video
+
+One message of a camera's video: how the pictures are encoded, or one of them.
+
+.Available fields in blickfeld.percept_processing.data.Camera.Video
+|===
+| Field | Type | Default | Unit
+
+.2+| *format* | xref:blickfeld/percept_processing/data/camera.adoc#_blickfeld_percept_processing_data_Camera_Video_Format[Format] | - | - 
+3+| How the pictures that follow are encoded.
+
+.2+| *picture* | xref:blickfeld/percept_processing/data/camera.adoc#_blickfeld_percept_processing_data_Camera_Video_Picture[Picture] | - | - 
+3+| One encoded picture.
+
+|===
+
+[#_blickfeld_percept_processing_data_Camera_Video_Format]
+=== Format
+
+How a camera's video is encoded, which is what a decoder is configured with.
+
+.Available fields in blickfeld.percept_processing.data.Camera.Video.Format
+|===
+| Field | Type | Default | Unit
+
+.2+| *codec* | string| - | - 
+3+| RFC 6381 codec string, e.g. `avc1.4d4016`, as WebCodecs' `VideoDecoderConfig.codec` takes it.
+
+.2+| *binary* | bytes| - | - 
+3+| Decoder configuration the codec defines, as WebCodecs' `VideoDecoderConfig.description` 
+takes it. For H.264 this is the `AVCDecoderConfigurationRecord` (ISO/IEC 14496-15) 
+carrying the SPS and PPS.
+
+.2+| *width* | uint32| - | px 
+3+| Width of the picture.
+
+.2+| *height* | uint32| - | px 
+3+| Height of the picture.
+
+|===
+
+[#_blickfeld_percept_processing_data_Camera_Video_Picture]
+=== Picture
+
+One encoded picture of a camera's video.
+
+.Available fields in blickfeld.percept_processing.data.Camera.Video.Picture
+|===
+| Field | Type | Default | Unit
+
+.2+| *timestamp* | uint64| - | ns 
+3+| Unix timestamp at which the camera captured the picture, from its own clock where it 
+reports one, and the time the device received it otherwise.
+
+.2+| *keyframe* | bool| - | - 
+3+| Whether the picture decodes on its own. A decoder has to start at one of these.
+
+.2+| *binary* | bytes| - | - 
+3+| The encoded picture. For H.264 these are its NAL units, each prefixed with its length 
+as 4 byte big endian (`avc` format).
+
+|===
+
+[#_blickfeld_percept_processing_data_Camera_Video_Segment]
+=== Segment
+
+A run of a camera's video between one keyframe and the next. 
+ 
+The segments of consecutive history frames continue each other, so a camera's video over 
+a range of frames is its segments one after the other. The first segment of a capture 
+window starts at a keyframe, which is where decoding the video of that window starts.
+
+.Available fields in blickfeld.percept_processing.data.Camera.Video.Segment
+|===
+| Field | Type | Default | Unit
+
+.2+| *serial_number* | string| - | - 
+3+| `config.DataSource.Camera.serial_number` of the camera it was recorded by.
+
+.2+| *object_uuid* | optional string| - | - 
+3+| UUID of the DetectedObject the camera was tracking while it was recorded, if any.
+
+.2+| *format* | xref:blickfeld/percept_processing/data/camera.adoc#_blickfeld_percept_processing_data_Camera_Video_Format[Format] | - | - 
+3+| How the pictures are encoded.
+
+.2+| *pictures* | repeated xref:blickfeld/percept_processing/data/camera.adoc#_blickfeld_percept_processing_data_Camera_Video_Picture[Picture] | - | - 
+3+| The pictures in the order they were captured.
+
+.2+| *position* | optional xref:blickfeld/percept_pipeline/config/data_source.adoc#_blickfeld_percept_pipeline_config_DataSource_Camera_Ptz_Position[percept_pipeline.config.DataSource.Camera.Ptz.Position] | - | - 
+3+| Where the camera was pointing while it recorded them. 
+ 
+A picture on its own does not say which way the camera was facing, so replaying one 
+cannot show where in the scene it was looking. Recorded beside the pictures, the 
+aim can be drawn with them - and followed as a replay runs, rather than being stuck 
+wherever the camera happens to point now. Unset for a camera that cannot be aimed.
+
+|===
+
+[#_blickfeld_percept_processing_data_Camera_Video_Segments]
+=== Segments
+
+The video one or more cameras took since the previous frame of the history, up to the 
+moment of this one.
+
+.Available fields in blickfeld.percept_processing.data.Camera.Video.Segments
+|===
+| Field | Type | Default | Unit
+
+.2+| *segments* | repeated xref:blickfeld/percept_processing/data/camera.adoc#_blickfeld_percept_processing_data_Camera_Video_Segment[Segment] | - | - 
+3+| Segments in the order they were recorded, for any camera.
+
+|===
+

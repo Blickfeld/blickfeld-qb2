@@ -9,6 +9,7 @@ import "blickfeld/percept_processing/data/disqualification.proto";
 import "blickfeld/percept_processing/data/state.proto";
 import "blickfeld/percept_processing/data/vehicle.proto";
 import "blickfeld/percept_processing/data/volume_map.proto";
+import "blickfeld/percept_processing/options.proto";
 package blickfeld.percept_processing.data;
 
 option (.blickfeld.base.access_control_file) = {
@@ -123,6 +124,33 @@ message Event {
       .blickfeld.percept_processing.data.Disqualification disqualification = 4;
     }
   }
+  // Container for occupancy-related events
+  message Occupancy {
+    // A zone became occupied.
+    message ZoneOccupied {
+      // UUID of the occupancy zone.
+      string zone_uuid = 1;
+      // Snapshot of the zone state.
+      .blickfeld.percept_processing.data.State state = 2;
+      // The points the zone counted on the frame which raised this event.
+      //  
+      // Down-sampled with the voxel size the zone configures, so it is the cloud the count was
+      // taken over rather than every return inside the zone. A security setup smooths that
+      // count across frames before it decides, so the two can differ by a few points. A zone
+      // which inverts its state is raised when its count drops below the minimum, so its cloud
+      // is close to empty by construction.
+      .blickfeld.core_processing.data.Frame point_cloud = 3;
+    }
+    // A zone became free again.
+    message ZoneFreed {
+      // UUID of the occupancy zone.
+      string zone_uuid = 1;
+      // ID of the ZoneOccupied event.
+      string started_event_id = 2;
+      // Duration of the occupancy event.
+      float duration = 3 [(.blickfeld.base.unit) = "s"];
+    }
+  }
   // Container for disqualification-related events
   message Disqualification {
     // Fog was detected in the point cloud.
@@ -136,31 +164,37 @@ message Event {
   uint64 timestamp = 1;
   // Indicates if event was injected via injected method of event service to the pipeline and was not produced by the pipeline
   bool injected = 21;
+  // The end of this event was not observed.
+  //  
+  // It is written when the pipeline comes back up after it stopped without closing the event, for
+  // example after a power cycle. The timestamp is therefore the restart, and the duration an upper
+  // bound: the event ended somewhere between the last frame the device processed and it.
+  bool end_not_observed = 24;
   oneof type {
     // Security: Intrusion started
     .blickfeld.percept_processing.data.Event.Security.IntrusionStarted security_intrusion_started = 2;
     // Security: Intrusion ended
-    .blickfeld.percept_processing.data.Event.Security.IntrusionEnded security_intrusion_ended = 3;
+    .blickfeld.percept_processing.data.Event.Security.IntrusionEnded security_intrusion_ended = 3 [(.blickfeld.percept_processing.closes) = "security_intrusion_started"];
     // Security: Zone intrusion started
     .blickfeld.percept_processing.data.Event.Security.ZoneIntrusionStarted security_zone_intrusion_started = 4;
     // Security: Zone intrusion ended
-    .blickfeld.percept_processing.data.Event.Security.ZoneIntrusionEnded security_zone_intrusion_ended = 5;
+    .blickfeld.percept_processing.data.Event.Security.ZoneIntrusionEnded security_zone_intrusion_ended = 5 [(.blickfeld.percept_processing.closes) = "security_zone_intrusion_started"];
     // Security: Tampering started
     .blickfeld.percept_processing.data.Event.Security.TamperingStarted security_tampering_started = 11;
     // Security: Tampering ended
-    .blickfeld.percept_processing.data.Event.Security.TamperingEnded security_tampering_ended = 12;
+    .blickfeld.percept_processing.data.Event.Security.TamperingEnded security_tampering_ended = 12 [(.blickfeld.percept_processing.closes) = "security_tampering_started"];
     // Security: Moved tampering started
     .blickfeld.percept_processing.data.Event.Security.MovedTamperingStarted security_moved_tampering_started = 13;
     // Security: Moved tampering ended
-    .blickfeld.percept_processing.data.Event.Security.MovedTamperingEnded security_moved_tampering_ended = 14;
+    .blickfeld.percept_processing.data.Event.Security.MovedTamperingEnded security_moved_tampering_ended = 14 [(.blickfeld.percept_processing.closes) = "security_moved_tampering_started"];
     // Security: Covered tampering started
     .blickfeld.percept_processing.data.Event.Security.CoveredTamperingStarted security_covered_tampering_started = 15;
     // Security: Covered tampering ended
-    .blickfeld.percept_processing.data.Event.Security.CoveredTamperingEnded security_covered_tampering_ended = 16;
+    .blickfeld.percept_processing.data.Event.Security.CoveredTamperingEnded security_covered_tampering_ended = 16 [(.blickfeld.percept_processing.closes) = "security_covered_tampering_started"];
     // Security: Zone tampering started
     .blickfeld.percept_processing.data.Event.Security.ZoneTamperingStarted security_zone_tampering_started = 17;
     // Security: Zone tampering ended
-    .blickfeld.percept_processing.data.Event.Security.ZoneTamperingEnded security_zone_tampering_ended = 18;
+    .blickfeld.percept_processing.data.Event.Security.ZoneTamperingEnded security_zone_tampering_ended = 18 [(.blickfeld.percept_processing.closes) = "security_zone_tampering_started"];
     // Disqualification: Fog detected
     .blickfeld.percept_processing.data.Event.Disqualification.Fog disqualification_fog_detected = 6;
     // Disqualification: Fog not detected anymore
@@ -174,7 +208,11 @@ message Event {
     // Security: Motion started
     .blickfeld.percept_processing.data.Event.Security.MotionStarted security_motion_started = 19;
     // Security: Motion ended
-    .blickfeld.percept_processing.data.Event.Security.MotionEnded security_motion_ended = 20;
+    .blickfeld.percept_processing.data.Event.Security.MotionEnded security_motion_ended = 20 [(.blickfeld.percept_processing.closes) = "security_motion_started"];
+    // Occupancy: Zone became occupied
+    .blickfeld.percept_processing.data.Event.Occupancy.ZoneOccupied occupancy_zone_occupied = 22;
+    // Occupancy: Zone became free
+    .blickfeld.percept_processing.data.Event.Occupancy.ZoneFreed occupancy_zone_freed = 23 [(.blickfeld.percept_processing.closes) = "occupancy_zone_occupied"];
   }
 }
 

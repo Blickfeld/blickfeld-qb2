@@ -1,4 +1,4 @@
-display_version: AMINA v3.0
+display_version: LOA v3.1
 name: Qb2
 nav:
 - modules/ROOT/nav.adoc
@@ -9,4 +9,4 @@ nav:
 - modules/developer/nav.adoc
 - modules/service_and_maintenance/nav.adoc
 title: Qb Series
-version: AMINA v3.0
+version: LOA v3.1

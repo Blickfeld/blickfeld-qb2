@@ -1,0 +1,184 @@
+// Copyright (c) 2026 Blickfeld GmbH.
+// All rights reserved.
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+import "blickfeld/percept_pipeline/config/data_source.proto";
+package blickfeld.percept_pipeline.services;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_AUTHORIZED
+};
+
+// A request to identify the camera at an address.
+message CameraProbeRequest {
+  // The camera to probe, described as the data source describes one. Only the connection has to
+  // be filled in; leave its credentials unset to probe anonymously.
+  .blickfeld.percept_pipeline.config.DataSource.Camera camera = 1;
+}
+
+// What answered at the probed address.
+message CameraProbeResponse {
+  // The probed camera, ready to be stored in `DataSource.Qb2Setup.camera` once the installer has
+  // calibrated it and the password is filled back in.
+  //  
+  // The request's connection parameters without the password, with `serial_number` set to what
+  // the camera reports and `ptz` set for a camera that can pan, tilt and zoom. One that cannot is
+  // still a camera: video works, automatic tracking and aiming by hand do not.
+  .blickfeld.percept_pipeline.config.DataSource.Camera camera = 1;
+  // Manufacturer, as the camera reports it.
+  string manufacturer = 2;
+  // Model, as the camera reports it.
+  string model = 3;
+  // Firmware version, as the camera reports it.
+  string firmware_version = 4;
+}
+
+// One thing to do with a camera, sent on a `PtzControl` stream.
+message CameraPtzControlRequest {
+  // Move the camera to an absolute pan/tilt/zoom position.
+  message Move {
+    // Absolute pan/tilt/zoom position to move to.
+    .blickfeld.percept_pipeline.config.DataSource.Camera.Ptz.Position position = 1;
+  }
+  // Bring a point of the camera's own picture to the centre of it.
+  //  
+  // The offset is a fraction of the frame, so nothing needs to know the camera's field of view,
+  // and it therefore holds at any zoom.
+  message CenterOn {
+    // Where in the picture the point is, as a fraction of the frame from its centre: -0.5 is the
+    // left edge, +0.5 the right.
+    float x = 1 [(.blickfeld.base.validate) = {
+      number {
+        greater_or_equal: -0.5
+        less_or_equal: 0.5
+      }
+    }];
+    // The same down the frame: -0.5 is the top edge, +0.5 the bottom.
+    float y = 2 [(.blickfeld.base.validate) = {
+      number {
+        greater_or_equal: -0.5
+        less_or_equal: 0.5
+      }
+    }];
+  }
+  // Bring a rectangle of the camera's own picture to the centre of it, and zoom until it fills
+  // the frame.
+  //  
+  // The rectangle is in the same fractions of the frame `CenterOn` takes, so nothing needs to
+  // know the camera's field of view to ask for it. Working out the zoom does need to know how
+  // that camera's zoom axis maps to focal length; where its `ptz.calibration` does not say, the
+  // device measures it off the camera once and remembers it for as long as the session lives.
+  message ZoomTo {
+    // Centre of the rectangle across the frame, from its centre: -0.5 is the left edge, +0.5 the
+    // right.
+    float x = 1 [(.blickfeld.base.validate) = {
+      number {
+        greater_or_equal: -0.5
+        less_or_equal: 0.5
+      }
+    }];
+    // Centre of the rectangle down the frame, from its centre: -0.5 is the top edge, +0.5 the
+    // bottom.
+    float y = 2 [(.blickfeld.base.validate) = {
+      number {
+        greater_or_equal: -0.5
+        less_or_equal: 0.5
+      }
+    }];
+    // Width of the rectangle as a fraction of the frame's width.
+    //  
+    // Widening the frame is as valid as narrowing it: a rectangle larger than the frame zooms out.
+    float width = 3 [(.blickfeld.base.validate) = {
+      number {
+        greater: 0
+        less_or_equal: 4
+      }
+    }];
+    // Height of the rectangle as a fraction of the frame's height. Whichever of the two needs the
+    // smaller zoom is the one that fits, so the whole rectangle ends up inside the frame.
+    float height = 4 [(.blickfeld.base.validate) = {
+      number {
+        greater: 0
+        less_or_equal: 4
+      }
+    }];
+  }
+  // The camera to drive, on the first message of the stream. Later messages inherit it: a stream
+  // drives one camera, which is what lets automatic tracking be held off exactly that one.
+  //  
+  // A camera that is configured is recognised by its `serial_number` and driven over the session
+  // the pipeline already holds; one that is not gets a session for the life of the stream, which
+  // is how a client aims a camera the installer has not committed to yet.
+  .blickfeld.percept_pipeline.config.DataSource.Camera camera = 1;
+  // What to do. A message carrying none takes the camera over without moving it, which is how a
+  // caller holds automatic tracking off while it decides what to ask for.
+  oneof command {
+    // Move to an absolute pan/tilt/zoom position.
+    .blickfeld.percept_pipeline.services.CameraPtzControlRequest.Move move = 2;
+    // Bring a point of the camera's own picture to the centre of it.
+    .blickfeld.percept_pipeline.services.CameraPtzControlRequest.CenterOn center_on = 3;
+    // Bring a rectangle of the picture to the centre and fill the frame with it.
+    .blickfeld.percept_pipeline.services.CameraPtzControlRequest.ZoomTo zoom_to = 4;
+  }
+}
+
+// What became of one command on a `PtzControl` stream, in the order they were sent.
+message CameraPtzControlResponse {
+  // Whether the camera took it. A camera that is not connected, or one that refused the move,
+  // answers false rather than failing the stream - the next command may well work, and a caller
+  // aiming on somebody's behalf needs to be able to say so without starting again.
+  bool accepted = 1;
+  // Why it did not, where it did not. Empty otherwise.
+  string reason = 2;
+  // Where the head came to rest, for a camera that can be aimed.
+  //  
+  // Answered once the camera reports itself still, so it is where the command actually ended
+  // rather than where it was passing through - which is what makes a measurement off a sequence
+  // of commands possible. Left unset for a camera that cannot be aimed, and for one that never
+  // reports itself still, where waiting longer would only hold the stream up.
+  .blickfeld.percept_pipeline.config.DataSource.Camera.Ptz.Position position = 3 [(.blickfeld.base.validate) = {
+    optional: true
+  }];
+}
+
+// Service for finding cameras and aiming the ones that can be aimed.
+//  
+// Complements the `DataSource` service, which stores the configuration a camera is described by,
+// and the `percept_processing` `Camera` service, which serves what a camera sees.
+service Camera {
+  option (.blickfeld.base.access_control_service) = {
+    level: LEVEL_AUTHORIZED
+  };
+  option (.blickfeld.base.protocol_maturity_service) = {
+    level: LEVEL_EXPERIMENTAL
+  };
+  // Identify what answers at an address, before a camera is added to the data source.
+  //  
+  // This is what lets a client offer to add a camera for an address the user typed, without the
+  // camera having been configured first. A camera the data source already holds is named by its
+  // `serial_number` and probed with the credentials stored for it. Fails with `UNAUTHENTICATED` if the device requires
+  // credentials that were not supplied, so a caller can probe anonymously and only ask the user
+  // for credentials when the device actually demands them. Fails with `FAILED_PRECONDITION` if
+  // the camera offers no encoder to stream from besides the one it records with, which is left
+  // to whatever else records it.
+  rpc Probe(.blickfeld.percept_pipeline.services.CameraProbeRequest) returns (.blickfeld.percept_pipeline.services.CameraProbeResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      read_only: true
+    };
+  }
+  // Drive one camera by hand, for as long as the stream is open.
+  //  
+  // Automatic tracking is held off that camera while the stream lives and takes it back when the
+  // stream ends, however it ends - the caller closing it, the page it was opened from being
+  // reloaded, or the connection dropping. That is the point of aiming by hand being a stream
+  // rather than a call: a camera cannot be left paused by a client that went away, which is
+  // exactly what a flag somebody has to remember to clear does.
+  //  
+  // The first message names the camera and may carry no command, which takes it over without
+  // moving it. Every message after that is one thing to do with it; each is answered, in order,
+  // so a caller can tell a command the camera refused from one it has not finished yet. Where
+  // the camera is while it is being driven is reported by the `Health` service.
+  rpc PtzControl(stream .blickfeld.percept_pipeline.services.CameraPtzControlRequest) returns (stream .blickfeld.percept_pipeline.services.CameraPtzControlResponse);
+}
+

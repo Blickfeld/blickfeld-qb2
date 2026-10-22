@@ -10,6 +10,7 @@ Service interface for managing the point cloud distortion correction.
 
 | *xref:#Enable[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
 | *xref:#Disable[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
+| *xref:#Status[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/core_processing/services/distortion_correction.adoc#_blickfeld_core_processing_services_DistortionCorrectionStatusResponse[DistortionCorrectionStatusResponse]
 |===
 [#Enable]
 == Enable
@@ -17,12 +18,34 @@ Service interface for managing the point cloud distortion correction.
 Enable the distortion correction. If available, the user configuration will be taken, otherwise the factory configuration will be 
 used. 
  
-NOTE: Enabling the distortion correction is persistent, meaning it will still be enabled after reboot.
+NOTE: Enabling the distortion correction is persistent, meaning it will still be enabled after reboot and after a factory reset.
 
 [#Disable]
 == Disable
 
 Disable the distortion correction. 
  
-NOTE: Disabling the distortion correction is persistent, meaning it will still be disabled after reboot.
+NOTE: Disabling the distortion correction is persistent, meaning it will still be disabled after reboot and after a factory reset.
+
+[#Status]
+== Status
+
+Whether the distortion correction is enabled, and whether a valid configuration is available to apply.
+
+[#_blickfeld_core_processing_services_DistortionCorrectionStatusResponse]
+=== Response
+
+The response which can be retrieved with a "Status" call
+
+.Available fields in blickfeld.core_processing.services.DistortionCorrectionStatusResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *enabled* | bool| - | - 
+3+| The distortion correction is enabled. It is applied when a valid configuration is available as well.
+
+.2+| *available* | bool| - | - 
+3+| A valid configuration, user or factory, is available.
+
+|===
 

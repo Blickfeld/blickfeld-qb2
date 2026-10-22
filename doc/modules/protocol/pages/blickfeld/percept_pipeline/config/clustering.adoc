@@ -16,7 +16,7 @@ Algorithms for detecting objects as clustered points in the foreground scene.
 |===
 
 [#_blickfeld_percept_pipeline_config_Clustering_DBScan]
-== D BScan
+== DBScan
 
 Density-based spatial clustering algorithm using the euclidean distance between points
 

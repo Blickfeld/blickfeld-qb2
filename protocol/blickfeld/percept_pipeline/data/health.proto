@@ -4,6 +4,7 @@ syntax = "proto3";
 
 import "blickfeld/base/data/health.proto";
 import "blickfeld/base/options.proto";
+import "blickfeld/percept_pipeline/config/data_source.proto";
 import "blickfeld/percept_pipeline/data/state.proto";
 package blickfeld.percept_pipeline.data;
 
@@ -47,8 +48,39 @@ message Health {
       // Error flags
       .blickfeld.percept_pipeline.data.Health.DataSource.Device.ErrorFlags error_flags = 1;
     }
+    // Configured camera.
+    message Camera {
+      // Error flags
+      message ErrorFlags {
+        // The connection to the camera has failed.
+        // This is most probably caused by power supply or network connectivity issues.
+        bool connect_failed = 1;
+        // A pan/tilt/zoom move or position request failed.
+        bool ptz_fault = 2;
+        // The camera's video stream is not being received.
+        bool stream_failed = 3;
+        // The camera offers no encoder to stream from besides the one it records with.
+        bool stream_unsupported = 4;
+      }
+      // Error flags
+      .blickfeld.percept_pipeline.data.Health.DataSource.Camera.ErrorFlags error_flags = 1;
+      // Where the camera is pointing, for one that can pan, tilt and zoom.
+      //  
+      // Reflects moves made from anywhere - automatic tracking, a client driving it by hand,
+      // somebody at the camera's own interface - so watching health is how a client follows a
+      // camera it is not itself driving. Left unset for a camera that cannot be aimed, or one
+      // that is not answering.
+      .blickfeld.percept_pipeline.config.DataSource.Camera.Ptz.Position position = 2 [(.blickfeld.base.validate) = {
+        optional: true
+      }];
+      // Whether the camera is moving right now, so a client can tell a position it has
+      // settled at from one it is passing through.
+      bool moving = 3;
+    }
     // Map of devices. The key is the serial number of the device.
     map<string, .blickfeld.percept_pipeline.data.Health.DataSource.Device> device = 1;
+    // Map of cameras. The key is `DataSource.Camera.serial_number`.
+    map<string, .blickfeld.percept_pipeline.data.Health.DataSource.Camera> camera = 2;
   }
   // Perception pipeline related statistics
   message Statistics {

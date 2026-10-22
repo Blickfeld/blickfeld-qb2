@@ -91,6 +91,159 @@ device and configured 'lidars'.
 
 |===
 
+[#_blickfeld_percept_pipeline_config_DataSource_Camera]
+== Camera
+
+A camera watching the scene alongside the lidars. 
+ 
+Its video is passed on to viewers and recorded with the events it saw. A camera that can pan, 
+tilt and zoom is also aimed at them, once `ptz` says how; whether it can is asked of the 
+camera itself.
+
+.Available fields in blickfeld.percept_pipeline.config.DataSource.Camera
+|===
+| Field | Type | Default | Unit
+
+.2+| *serial_number* | string| - | - 
+3+| Serial number of the camera, as the camera itself reports it. Named as the lidar names its 
+own. Used to key camera health and video.
+
+.2+| *onvif* | xref:blickfeld/percept_pipeline/config/data_source.adoc#_blickfeld_percept_pipeline_config_DataSource_Camera_Onvif[Onvif] | - | - 
+3+| Over ONVIF.
+
+.2+| *map_from_camera* | optional xref:blickfeld/base/geometry/transform.adoc[base.geometry.Transform] | - | - 
+3+| Transformation from the camera frame to the map frame, resolved from the WebGUI 
+calibration wizard. If this transform is not set, it is interpreted as identity 
+transformation.
+
+.2+| *ptz* | optional xref:blickfeld/percept_pipeline/config/data_source.adoc#_blickfeld_percept_pipeline_config_DataSource_Camera_Ptz[Ptz] | - | - 
+3+| How to aim the camera, for one that can pan, tilt and zoom. Left unset the camera is 
+not aimed: it is fixed, or not calibrated yet.
+
+.2+| *disabled* | bool| - | - 
+3+| Disable this camera, setting this flag to `true` stops any control and video capture 
+for it.
+
+.2+| *metadata* | optional https://protobuf.dev/reference/protobuf/google.protobuf/#struct[google.protobuf.Struct] | - | - 
+3+| Arbitrary metadata storage for client applications
+
+|===
+
+[#_blickfeld_percept_pipeline_config_DataSource_Camera_Onvif]
+=== Onvif
+
+How the device reaches a camera over ONVIF.
+
+.Available fields in blickfeld.percept_pipeline.config.DataSource.Camera.Onvif
+|===
+| Field | Type | Default | Unit
+
+.2+| *fqdn* | string| - | - 
+3+| The fully qualified domain name of the ONVIF device service. Unlike `Qb2.fqdn`, this 
+is always required: there is no "current device" case for a camera.
+
+.2+| *port* | optional uint32| - | - 
+3+| The ONVIF device service port. If unset the default ONVIF port 80 is used.
+
+.2+| *username* | optional string| - | - 
+3+| ONVIF authentication username. 
+ 
+An administrator's login is used once, when it is stored: the device creates an 
+Operator account of its own on the camera, and stores that account instead.
+
+.2+| *password* | optional string| - | - 
+3+| ONVIF authentication password. Write-only: it is never read back. A camera stored 
+again with the same `username` and no password keeps the one it has.
+
+|===
+
+[#_blickfeld_percept_pipeline_config_DataSource_Camera_Ptz]
+=== Ptz
+
+How a camera that can pan, tilt and zoom is aimed at a point of the map.
+
+.Available fields in blickfeld.percept_pipeline.config.DataSource.Camera.Ptz
+|===
+| Field | Type | Default | Unit
+
+.2+| *calibration* | xref:blickfeld/percept_pipeline/config/data_source.adoc#_blickfeld_percept_pipeline_config_DataSource_Camera_Ptz_Calibration[Calibration] | - | - 
+3+| Calibration needed to turn a map-frame point into a pan/tilt/zoom command, resolved 
+by the same client solve as `Camera.map_from_camera`. 
+ 
+The correspondences it was solved from are the client's: the device aims by the 
+answer and has no use for the workings, and a solve that only runs while somebody is 
+calibrating does not belong on a device that has to keep a pipeline fed.
+
+.2+| *tracking* | bool| - | - 
+3+| Whether automatic tracking aims this camera at what the lidars are tracking. A 
+camera with no `calibration` is not aimed whatever this says: there is nothing to 
+turn a map-frame target into a pan/tilt/zoom command with.
+
+|===
+
+[#_blickfeld_percept_pipeline_config_DataSource_Camera_Ptz_Position]
+==== Position
+
+A pan/tilt/zoom position, in the camera's own coordinate space.
+
+.Available fields in blickfeld.percept_pipeline.config.DataSource.Camera.Ptz.Position
+|===
+| Field | Type | Default | Unit
+
+.2+| *pan* | float| - | - 
+3+| Pan position.
+
+.2+| *tilt* | float| - | - 
+3+| Tilt position.
+
+.2+| *zoom* | float| - | - 
+3+| Zoom position.
+
+|===
+
+[#_blickfeld_percept_pipeline_config_DataSource_Camera_Ptz_Calibration]
+==== Calibration
+
+Calibration mapping a map-frame position to a pan/tilt/zoom command for a specific 
+camera.
+
+.Available fields in blickfeld.percept_pipeline.config.DataSource.Camera.Ptz.Calibration
+|===
+| Field | Type | Default | Unit
+
+.2+| *half_fov_at_zoom_0* | optional float| - | rad 
+3+| Half the angular field of view the camera sees fully zoomed out, at zoom 0. With 
+`half_fov_at_zoom_1` this is the range a zoom command interpolates across.
+
+.2+| *half_fov_at_zoom_1* | optional float| - | rad 
+3+| Half the angular field of view the camera sees fully zoomed in, at zoom 1. Must be smaller 
+than `half_fov_at_zoom_0`. A camera missing either is left fully zoomed out.
+
+.2+| *pan_offset* | optional float| - | rad 
+3+| Pan offset between the camera's zero position and the map frame, applied before 
+`pan_scale` converts the angle into the camera's own units.
+
+.2+| *tilt_offset* | optional float| - | rad 
+3+| Tilt offset between the camera's zero position and the map frame, applied before 
+`tilt_scale` converts the angle into the camera's own units.
+
+.2+| *invert_pan* | bool| - | - 
+3+| Invert the pan axis direction.
+
+.2+| *invert_tilt* | bool| - | - 
+3+| Invert the tilt axis direction.
+
+.2+| *pan_scale* | optional float| - | - 
+3+| Pan units the camera reports and accepts per radian of rotation. A camera whose 
+normalised space spans -1..1 over a full turn has a `pan_scale` of 1/pi; one that works 
+in degrees has 180/pi. Defaults to 1, meaning the camera's units are radians.
+
+.2+| *tilt_scale* | optional float| - | - 
+3+| Tilt units the camera reports and accepts per radian of rotation, the tilt-axis 
+counterpart of `pan_scale`. Defaults to 1, meaning the camera's units are radians.
+
+|===
+
 [#_blickfeld_percept_pipeline_config_DataSource_Qb2Setup]
 == Qb2 Setup
 
@@ -102,6 +255,13 @@ The configuration of a Qb2 setup of the LiDAR devices
 
 .2+| *lidars* | repeated xref:blickfeld/percept_pipeline/config/data_source.adoc#_blickfeld_percept_pipeline_config_DataSource_Qb2[Qb2] | - | - 
 3+| the qb2 lidars to get the point clouds from
+
+.2+| *cameras* | repeated xref:blickfeld/percept_pipeline/config/data_source.adoc#_blickfeld_percept_pipeline_config_DataSource_Camera[Camera] | - | - 
+3+| Cameras watching the scene alongside the lidars above. 
+ 
+A camera is not a point cloud source and does not participate in swarm synchronization 
+or data fusion; it is a consumer of the tracking output. Whether a camera is aimed 
+automatically is its own `tracking` flag.
 
 .2+| *trigger* | optional xref:blickfeld/percept_pipeline/config/data_source.adoc#_blickfeld_percept_pipeline_config_DataSource_Trigger[Trigger] | - | - 
 3+| If the field is set trigger mode is enabled. If the field is not set, the pipeline outputs are computed 

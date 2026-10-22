@@ -48,6 +48,12 @@ Configuration message for NTP time synchronization
 .2+| *servers* | repeated string| - | - 
 3+| List of NTP time servers which are to be used
 
+.2+| *from_dhcp* | bool| - | - 
+3+| Use the NTP time servers advertised by a DHCP server in addition to the listed ones 
+ 
+[NOTE] 
+Without any listed servers, the advertised ones are used regardless of this setting.
+
 |===
 
 [#_blickfeld_system_config_TimeSynchronization_Manual]

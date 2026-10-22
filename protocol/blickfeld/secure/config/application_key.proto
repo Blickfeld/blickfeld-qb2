@@ -24,9 +24,17 @@ message ApplicationKey {
   }];
   // If true, this application key has read-only access permissions.
   bool access_read_only = 7;
-  // If true, allow http basic access authentication using this key.
-  // This option is required for ONVIF and RTSP video streaming.
+  // If true, this key authenticates ONVIF requests and RTSP video streams (HTTP digest, WS-UsernameToken, RTSP basic and digest)
+  // and can not be used for a regular login.
   bool access_http = 8;
+  // Optional name to authenticate ONVIF and RTSP with in place of the account name, i.e. an ONVIF user. Requires `access_http`.
+  // Has to be unique among all account names and application key usernames.
+  string username = 10 [(.blickfeld.base.validate) = {
+    string {
+      pattern: "^[a-zA-Z0-9\\._-]{1,100}$"
+    }
+    optional: true
+  }];
   reserved 4, 6;
 }
 

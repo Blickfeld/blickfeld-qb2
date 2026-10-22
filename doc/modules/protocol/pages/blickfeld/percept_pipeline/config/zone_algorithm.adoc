@@ -302,6 +302,16 @@ Default: 0.05m
  
 This might be useful in situations where e.g. a static crane should be detected in its home position.
 
+.2+| *generate_events* | bool| - | - 
+3+| Emit an event when the zone becomes occupied and when it becomes free again. 
+ 
+The events are listed in the event history. They do not affect the device-wide alarm 
+state, which keeps them distinguishable from the alarm of a security zone. A device which 
+stops without observing the end of an event reports that end on its next start, marked as 
+not observed. 
+ 
+Default: false
+
 |===
 
 [#_blickfeld_percept_pipeline_config_ZoneAlgorithm_TraversalSecurity]

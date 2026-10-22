@@ -2,7 +2,7 @@
 include::partial$blickfeld_urls.adoc[]
 :stem: latexmath
 
-The object detection step receives the xref:motion_detection/index.adoc[foreground point cloud] as input data. A preprocessing step https://www.open3d.org/docs/latest/tutorial/Advanced/pointcloud_outlier_removal.html#Point-cloud-outlier-removal[removes outlier points] from the foreground point cloud. Then, a variant of the https://ieeexplore.ieee.org/document/9356727[DBSCAN clustering  algorithm] is applied to the filtered point cloud to find cohesive segments or clusters.
+The object detection step receives the xref:motion_detection/index.adoc[foreground point cloud] as input data. A preprocessing step https://www.open3d.org/docs/latest/tutorial/geometry/pointcloud_outlier_removal.html#Point-cloud-outlier-removal[removes outlier points] from the foreground point cloud. Then, a variant of the https://ieeexplore.ieee.org/document/9356727[DBSCAN clustering  algorithm] is applied to the filtered point cloud to find cohesive segments or clusters.
 
 ## Parameters
 
@@ -28,7 +28,7 @@ Object detection consists of three steps: point cloud filtering, clustering, and
 
 ### Foreground neighbor filter
 
-The https://www.open3d.org/docs/latest/tutorial/Advanced/pointcloud_outlier_removal.html#Point-cloud-outlier-removal[radius outlier filter] removes outlier points. This specific algorithm considers points as outliers when they do not have a significant number of neighbor points (default: 3) within a configured radius (default: 0.5 stem:[$m$]).
+The https://www.open3d.org/docs/latest/tutorial/geometry/pointcloud_outlier_removal.html#Radius-outlier-removal[radius outlier filter] removes outlier points. This specific algorithm considers points as outliers when they do not have a significant number of neighbor points (default: 3) within a configured radius (default: 0.5 stem:[$m$]).
 
 ### DBScan clustering
 

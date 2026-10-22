@@ -17,7 +17,7 @@ It is used to implement the custom storage API: https://nodered.org/docs/api/sto
 | *xref:#Watch[]* | xref:blickfeld/flow/services/flow.adoc#_blickfeld_flow_services_FlowWatchRequest[FlowWatchRequest]| xref:blickfeld/flow/services/flow.adoc#_blickfeld_flow_services_FlowWatchResponse[FlowWatchResponse]Stream 
 | *xref:#StoreGlobalNodes[]* | xref:blickfeld/flow/services/flow.adoc#_blickfeld_flow_services_FlowStoreGlobalNodesRequest[FlowStoreGlobalNodesRequest]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
 | *xref:#GetGlobalNodes[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/flow/services/flow.adoc#_blickfeld_flow_services_FlowGetGlobalNodesResponse[FlowGetGlobalNodesResponse]
-| *xref:#WatchGlobalNodes[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/flow/services/flow.adoc#_blickfeld_flow_services_FlowWatchGlobalNodesResponse[FlowWatchGlobalNodesResponse]
+| *xref:#WatchGlobalNodes[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/flow/services/flow.adoc#_blickfeld_flow_services_FlowWatchGlobalNodesResponse[FlowWatchGlobalNodesResponse]Stream 
 | *xref:#Reload[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
 |===
 [#Get]
@@ -216,7 +216,7 @@ Flow get global nodes response
 Watch global nodes
 
 [#_blickfeld_flow_services_FlowWatchGlobalNodesResponse]
-=== Response
+=== Response Stream
 
 Flow watch global nodes response
 

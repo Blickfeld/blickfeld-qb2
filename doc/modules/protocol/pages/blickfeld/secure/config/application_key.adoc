@@ -18,8 +18,12 @@ field should help users to quickly identify different application keys but can a
 3+| If true, this application key has read-only access permissions.
 
 .2+| *access_http* | bool| - | - 
-3+| If true, allow http basic access authentication using this key. 
-This option is required for ONVIF and RTSP video streaming.
+3+| If true, this key authenticates ONVIF requests and RTSP video streams (HTTP digest, WS-UsernameToken, RTSP basic and digest) 
+and can not be used for a regular login.
+
+.2+| *username* | optional string| - | - 
+3+| Optional name to authenticate ONVIF and RTSP with in place of the account name, i.e. an ONVIF user. Requires `access_http`. 
+Has to be unique among all account names and application key usernames.
 
 |===
 

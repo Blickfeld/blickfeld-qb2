@@ -13,6 +13,8 @@ The data source configuration specifies where to retrieve the point cloud data f
 | *xref:#Set[]* | xref:blickfeld/percept_pipeline/services/data_source.adoc#_blickfeld_percept_pipeline_services_DataSourceSetRequest[DataSourceSetRequest]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
 | *xref:#Reset[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
 | *xref:#Watch[]* | https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]| xref:blickfeld/percept_pipeline/services/data_source.adoc#_blickfeld_percept_pipeline_services_DataSourceWatchResponse[DataSourceWatchResponse]Stream 
+| *xref:#Register[]* | xref:blickfeld/percept_pipeline/services/data_source.adoc#_blickfeld_percept_pipeline_services_DataSourceRegisterRequest[DataSourceRegisterRequest]| xref:blickfeld/percept_pipeline/services/data_source.adoc#_blickfeld_percept_pipeline_services_DataSourceRegisterResponse[DataSourceRegisterResponse]
+| *xref:#Align[]* | xref:blickfeld/percept_pipeline/services/data_source.adoc#_blickfeld_percept_pipeline_services_DataSourceAlignRequest[DataSourceAlignRequest]| xref:blickfeld/percept_pipeline/services/data_source.adoc#_blickfeld_percept_pipeline_services_DataSourceAlignResponse[DataSourceAlignResponse]
 |===
 [#Get]
 == Get
@@ -73,6 +75,131 @@ Continuous response on data source changes
 
 .2+| *data_source* | xref:blickfeld/percept_pipeline/config/data_source.adoc[config.DataSource] | - | - 
 3+| The currently set data source
+
+|===
+
+[#Register]
+== Register
+
+Refines the poses of a set of lidars against each other and levels the fused ground plane on z = 0. 
+ 
+The point clouds are fetched from the lidars themselves, so only their definitions travel with the request. 
+The refined poses are returned and not stored: applying them is a separate decision, because anything already 
+placed in the map frame moves with it.
+
+[#_blickfeld_percept_pipeline_services_DataSourceRegisterRequest]
+=== Request
+
+Request for refining a set of lidar poses
+
+.Available fields in blickfeld.percept_pipeline.services.DataSourceRegisterRequest
+|===
+| Field | Type | Default | Unit
+
+.2+| *lidars* | repeated xref:blickfeld/percept_pipeline/config/data_source.adoc#_blickfeld_percept_pipeline_config_DataSource_Qb2[config.DataSource.Qb2] | - | - 
+3+| The lidars to register against each other, with the poses to start from. They do not have to be the configured 
+ones, so a setup can be registered while it is being put together.
+
+|===
+
+[#_blickfeld_percept_pipeline_services_DataSourceRegisterResponse]
+=== Response
+
+The refined lidar poses and how well they came out
+
+.Available fields in blickfeld.percept_pipeline.services.DataSourceRegisterResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *lidars* | repeated xref:blickfeld/percept_pipeline/services/data_source.adoc#_blickfeld_percept_pipeline_services_DataSourceRegisterResponse_Lidar[Lidar] | - | - 
+3+| One entry per requested lidar, in the order they were given
+
+.2+| *tilt_deg* | float| - | deg 
+3+| Angle between the fused ground plane and the map z-axis once the poses above are applied
+
+.2+| *floor_height_spread* | float| - | m 
+3+| Spread between the individual lidars' estimates of the floor height. It measures how far a residual tilt lifts 
+each lidar's own patch of floor, not how well the lidars agree with each other.
+
+.2+| *map_correction* | xref:blickfeld/base/geometry/transform.adoc[base.geometry.Transform] | - | - 
+3+| The rigid correction the levelling applied to the map frame. Everything persisted in that frame, zones in 
+particular, is expressed in the old one and has to be corrected with it to stay where it was.
+
+|===
+
+[#_blickfeld_percept_pipeline_services_DataSourceRegisterResponse_Lidar]
+==== Lidar
+
+Result for a single lidar of the configuration
+
+.Available fields in blickfeld.percept_pipeline.services.DataSourceRegisterResponse.Lidar
+|===
+| Field | Type | Default | Unit
+
+.2+| *serial_number* | string| - | - 
+3+| Identifies which of the requested lidars this is
+
+.2+| *map_from_lidar* | xref:blickfeld/base/geometry/transform.adoc[base.geometry.Transform] | - | - 
+3+| The refined pose, to be stored on the lidar it belongs to
+
+.2+| *agreement* | float| - | - 
+3+| Fraction of this lidar's points that find a counterpart in the fused cloud of the others. It measures the 
+extrinsic calibration between the sensors, which levelling cannot improve.
+
+|===
+
+[#Align]
+== Align
+
+Estimates the pose that puts a single lidar's point cloud on the ground plane. 
+ 
+The frame and the accelerometer reading are fetched from the lidar, so a lidar that is not part of the 
+configuration yet can be aligned while it is being added.
+
+[#_blickfeld_percept_pipeline_services_DataSourceAlignRequest]
+=== Request
+
+Request for estimating the ground alignment of a single lidar
+
+.Available fields in blickfeld.percept_pipeline.services.DataSourceAlignRequest
+|===
+| Field | Type | Default | Unit
+
+.2+| *lidar* | xref:blickfeld/percept_pipeline/config/data_source.adoc#_blickfeld_percept_pipeline_config_DataSource_Qb2[config.DataSource.Qb2] | - | - 
+3+| The lidar to align. It does not have to be a configured one, so a lidar can be aligned while it is being added.
+
+.2+| *strategy* | optional xref:blickfeld/percept_pipeline/services/data_source.adoc#_blickfeld_percept_pipeline_services_DataSourceAlignRequest_Strategy[Strategy] | - | - 
+3+| How to estimate the ground plane
+
+|===
+
+[#_blickfeld_percept_pipeline_services_DataSourceAlignRequest_Strategy]
+==== Strategy
+
+How to estimate the ground plane
+
+.Available values for blickfeld.percept_pipeline.services.DataSourceAlignRequest.Strategy enum
+[cols='25h,5,~']
+|===
+| Name | Value | Description
+
+| STRATEGY_UNSPECIFIED ^| 0 | Unspecified. Behaves like STRATEGY_AUTO.
+| STRATEGY_AUTO ^| 1 | Uses the plane segmentation when it agrees with the measured gravity, and the accelerometer otherwise.
+| STRATEGY_PLANE_SEGMENTATION ^| 2 | Uses the orientation and translation computed from the plane segmentation.
+| STRATEGY_ACCELEROMETER ^| 3 | Uses the orientation from the accelerometer.
+|===
+
+[#_blickfeld_percept_pipeline_services_DataSourceAlignResponse]
+=== Response
+
+The estimated pose of the lidar
+
+.Available fields in blickfeld.percept_pipeline.services.DataSourceAlignResponse
+|===
+| Field | Type | Default | Unit
+
+.2+| *map_from_lidar* | xref:blickfeld/base/geometry/transform.adoc[base.geometry.Transform] | - | - 
+3+| Transforms the lidar's points onto the ground plane
 
 |===
 

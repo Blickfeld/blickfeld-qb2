@@ -4,6 +4,7 @@ syntax = "proto3";
 
 import "blickfeld/base/options.proto";
 import "blickfeld/core_processing/data/frame.proto";
+import "blickfeld/percept_processing/data/camera.proto";
 import "blickfeld/percept_processing/data/objects.proto";
 import "blickfeld/percept_processing/data/states.proto";
 import "google/protobuf/empty.proto";
@@ -42,6 +43,10 @@ message HistoryStreamRangeResponse {
   //  
   // Only available for zones where a minimum coverage is configured.
   .blickfeld.core_processing.data.Frame zone_coverage = 4 [(.blickfeld.base.validate) = {
+    optional: true
+  }];
+  // Video the cameras recorded since the previous frame of the history.
+  .blickfeld.percept_processing.data.Camera.Video.Segments camera_video = 6 [(.blickfeld.base.validate) = {
     optional: true
   }];
 }

@@ -23,6 +23,7 @@ Voxel size (default: 0.05, unit: stem:[$m$]):: The voxel size used for downsampl
 ### Output options
 
 Invert state:: Invert the zone output state.
+Generate events (default: false):: Emit an event when the zone becomes occupied and another one when it becomes free again. The events are listed in the event history and, in the security vertical, can be replayed. They do not affect the device-wide alarm state, which makes an occupancy alarm distinguishable from the intrusion alarm of a xref:zone_types/security/index.adoc[security zone]. They follow the zone output state, i.e. an inverted zone emits the occupied event when its point count drops below the minimum. The occupied event carries the points the zone counted on the frame which raised it, so the event can be reviewed against what caused it. A device which stops without observing the end of an event, for example because it lost power, reports that end on its next start and marks it as not observed; the duration is then an upper bound.
 
 ## Algorithm
 
@@ -52,3 +53,9 @@ See full xref:protocol:blickfeld/percept_processing/data/state.adoc#_blickfeld_p
 Occupied:: Boolean flag indicating the occupied state.
 Number of detected points:: Number of points counted inside the zone.
 Baseline:: Current value of the adaptive baseline. The value will always be zero if the adaptive baseline calculation is not enabled.
+
+### Event
+
+The xref:zone_types/occupancy.adoc#_output_options[generated] event which reports that the zone became occupied carries, besides the zone UUID and a snapshot of the state:
+
+Point cloud:: The points the zone counted on the frame which raised the event, down-sampled with the xref:zone_types/occupancy.adoc#_occupancy_conditions[zone's voxel size]. A zone which inverts its state is raised when its point count drops below the minimum, so its cloud is close to empty by construction.

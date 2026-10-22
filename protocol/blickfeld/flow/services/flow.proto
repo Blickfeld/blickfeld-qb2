@@ -149,7 +149,7 @@ service Flow {
     };
   }
   // Watch global nodes
-  rpc WatchGlobalNodes(.google.protobuf.Empty) returns (.blickfeld.flow.services.FlowWatchGlobalNodesResponse) {
+  rpc WatchGlobalNodes(.google.protobuf.Empty) returns (stream .blickfeld.flow.services.FlowWatchGlobalNodesResponse) {
     option (.blickfeld.base.access_control_method) = {
       read_only: true
     };

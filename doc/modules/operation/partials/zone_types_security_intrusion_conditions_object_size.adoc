@@ -4,4 +4,4 @@ Alarm sizes (default: LARGE, MEDIUM):: Filter objects based on size. Only object
 * *_MEDIUM_*: Non-occluded individual humans, standing or crawling.
 * *_SMALL_*: Crouching humans, partially occluded persons or small animals (e.g., rabbits).
 +
-NOTE: The size category boundaries are xref:object_tracking/detection.adoc#_classification[configurable and can be adjusted].
+NOTE: The size category boundaries are xref:object_tracking/classification.adoc#_1_size_based_classification[configurable and can be adjusted].

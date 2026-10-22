@@ -1,0 +1,95 @@
+// Copyright (c) 2026 Blickfeld GmbH.
+// All rights reserved.
+syntax = "proto3";
+
+import "blickfeld/base/options.proto";
+import "blickfeld/percept_pipeline/config/data_source.proto";
+package blickfeld.percept_processing.data;
+
+option (.blickfeld.base.access_control_file) = {
+  level: LEVEL_AUTHORIZED
+};
+
+// What a camera contributes to the perception output: its video, live and as recorded into the
+// history.
+//  
+// The pictures are passed on as the camera encoded them and decoded by whoever shows them, so a
+// device needs no decoder of its own to record what a camera saw.
+message Camera {
+  // One message of a camera's video: how the pictures are encoded, or one of them.
+  message Video {
+    // How a camera's video is encoded, which is what a decoder is configured with.
+    message Format {
+      // RFC 6381 codec string, e.g. `avc1.4d4016`, as WebCodecs' `VideoDecoderConfig.codec` takes it.
+      string codec = 1;
+      // Decoder configuration the codec defines, as WebCodecs' `VideoDecoderConfig.description`
+      // takes it. For H.264 this is the `AVCDecoderConfigurationRecord` (ISO/IEC 14496-15)
+      // carrying the SPS and PPS.
+      bytes binary = 2;
+      // Width of the picture.
+      uint32 width = 3 [(.blickfeld.base.unit) = "px"];
+      // Height of the picture.
+      uint32 height = 4 [(.blickfeld.base.unit) = "px"];
+    }
+    // One encoded picture of a camera's video.
+    message Picture {
+      // Unix timestamp at which the camera captured the picture, from its own clock where it
+      // reports one, and the time the device received it otherwise.
+      uint64 timestamp = 1 [(.blickfeld.base.unit) = "ns"];
+      // Whether the picture decodes on its own. A decoder has to start at one of these.
+      bool keyframe = 2;
+      // The encoded picture. For H.264 these are its NAL units, each prefixed with its length
+      // as 4 byte big endian (`avc` format).
+      bytes binary = 3 [(.blickfeld.base.validate) = {
+        bytes {
+          minimum: 1
+        }
+      }];
+    }
+    // A run of a camera's video between one keyframe and the next.
+    //  
+    // The segments of consecutive history frames continue each other, so a camera's video over
+    // a range of frames is its segments one after the other. The first segment of a capture
+    // window starts at a keyframe, which is where decoding the video of that window starts.
+    message Segment {
+      // `config.DataSource.Camera.serial_number` of the camera it was recorded by.
+      string serial_number = 1;
+      // UUID of the DetectedObject the camera was tracking while it was recorded, if any.
+      string object_uuid = 2 [(.blickfeld.base.validate) = {
+        optional: true
+      }];
+      // How the pictures are encoded.
+      .blickfeld.percept_processing.data.Camera.Video.Format format = 3;
+      // The pictures in the order they were captured.
+      repeated .blickfeld.percept_processing.data.Camera.Video.Picture pictures = 4 [(.blickfeld.base.validate) = {
+        repeated {
+          minimum: 1
+        }
+      }];
+      // Where the camera was pointing while it recorded them.
+      //  
+      // A picture on its own does not say which way the camera was facing, so replaying one
+      // cannot show where in the scene it was looking. Recorded beside the pictures, the
+      // aim can be drawn with them - and followed as a replay runs, rather than being stuck
+      // wherever the camera happens to point now. Unset for a camera that cannot be aimed.
+      .blickfeld.percept_pipeline.config.DataSource.Camera.Ptz.Position position = 5 [(.blickfeld.base.validate) = {
+        optional: true
+      }];
+    }
+    // The video one or more cameras took since the previous frame of the history, up to the
+    // moment of this one.
+    message Segments {
+      // Segments in the order they were recorded, for any camera.
+      repeated .blickfeld.percept_processing.data.Camera.Video.Segment segments = 1;
+    }
+    // One or the other: a format holds for the pictures that follow it, and is sent again
+    // whenever it changes.
+    oneof content {
+      // How the pictures that follow are encoded.
+      .blickfeld.percept_processing.data.Camera.Video.Format format = 1;
+      // One encoded picture.
+      .blickfeld.percept_processing.data.Camera.Video.Picture picture = 2;
+    }
+  }
+}
+

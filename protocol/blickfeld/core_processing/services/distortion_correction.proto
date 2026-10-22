@@ -5,13 +5,24 @@ import "google/protobuf/empty.proto";
 package blickfeld.core_processing.services;
 
 option (.blickfeld.base.access_control_file) = {
-  level: LEVEL_ADMIN
+  level: LEVEL_AUTHORIZED
 };
+
+// The response which can be retrieved with a "Status" call
+message DistortionCorrectionStatusResponse {
+  option (.blickfeld.base.access_control_message) = {
+    level: LEVEL_AUTHORIZED
+  };
+  // The distortion correction is enabled. It is applied when a valid configuration is available as well.
+  bool enabled = 1;
+  // A valid configuration, user or factory, is available.
+  bool available = 2;
+}
 
 // Service interface for managing the point cloud distortion correction.
 service DistortionCorrection {
   option (.blickfeld.base.access_control_service) = {
-    level: LEVEL_ADMIN
+    level: LEVEL_AUTHORIZED
   };
   option (.blickfeld.base.protocol_maturity_service) = {
     level: LEVEL_EXPERIMENTAL
@@ -19,11 +30,26 @@ service DistortionCorrection {
   // Enable the distortion correction. If available, the user configuration will be taken, otherwise the factory configuration will be
   // used.
   //  
-  // NOTE: Enabling the distortion correction is persistent, meaning it will still be enabled after reboot.
-  rpc Enable(.google.protobuf.Empty) returns (.google.protobuf.Empty);
+  // NOTE: Enabling the distortion correction is persistent, meaning it will still be enabled after reboot and after a factory reset.
+  rpc Enable(.google.protobuf.Empty) returns (.google.protobuf.Empty) {
+    option (.blickfeld.base.access_control_method) = {
+      level: LEVEL_AUTHORIZED
+    };
+  }
   // Disable the distortion correction.
   //  
-  // NOTE: Disabling the distortion correction is persistent, meaning it will still be disabled after reboot.
-  rpc Disable(.google.protobuf.Empty) returns (.google.protobuf.Empty);
+  // NOTE: Disabling the distortion correction is persistent, meaning it will still be disabled after reboot and after a factory reset.
+  rpc Disable(.google.protobuf.Empty) returns (.google.protobuf.Empty) {
+    option (.blickfeld.base.access_control_method) = {
+      level: LEVEL_ADMIN
+    };
+  }
+  // Whether the distortion correction is enabled, and whether a valid configuration is available to apply.
+  rpc Status(.google.protobuf.Empty) returns (.blickfeld.core_processing.services.DistortionCorrectionStatusResponse) {
+    option (.blickfeld.base.access_control_method) = {
+      level: LEVEL_AUTHORIZED
+      read_only: true
+    };
+  }
 }
 

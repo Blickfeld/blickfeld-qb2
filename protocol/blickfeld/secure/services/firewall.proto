@@ -6,7 +6,7 @@ import "google/protobuf/empty.proto";
 package blickfeld.secure.services;
 
 option (.blickfeld.base.access_control_file) = {
-  level: LEVEL_ADMIN
+  level: LEVEL_AUTHORIZED
 };
 
 // Set configuration request
@@ -24,19 +24,22 @@ message FirewallGetResponse {
 // Service for configuring firewall parameters
 service Firewall {
   option (.blickfeld.base.access_control_service) = {
-    level: LEVEL_ADMIN
+    level: LEVEL_AUTHORIZED
   };
   option (.blickfeld.base.protocol_maturity_service) = {
     level: LEVEL_EXPERIMENTAL
   };
   // Set configuration
-  rpc Set(.blickfeld.secure.services.FirewallSetRequest) returns (.google.protobuf.Empty);
+  rpc Set(.blickfeld.secure.services.FirewallSetRequest) returns (.google.protobuf.Empty) {
+    option (.blickfeld.base.access_control_method) = {
+      level: LEVEL_ADMIN
+    };
+  }
   // Get configuration
   rpc Get(.google.protobuf.Empty) returns (.blickfeld.secure.services.FirewallGetResponse) {
     option (.blickfeld.base.access_control_method) = {
       read_only: true
     };
   }
-  // 
 }
 

@@ -4,10 +4,10 @@ import "blickfeld/base/options.proto";
 package blickfeld.secure.config;
 
 option (.blickfeld.base.access_control_file) = {
-  level: LEVEL_ADMIN
+  level: LEVEL_AUTHORIZED
 };
 
-// Configuration options for the firewall
+// Configuration options for the firewall. A change takes effect immediately.
 message Firewall {
   // Rule for port forwarding
   message PortForwarding {
@@ -43,6 +43,18 @@ message Firewall {
     repeated {
       maximum: 4
     }
+    optional: true
+  }];
+  // The port the RTSP video stream is served on. Zero means the default, 554.
+  uint32 rtsp_port = 4 [(.blickfeld.base.validate) = {
+    number {
+      greater_or_equal: 10500
+      less_or_equal: 10599
+    }
+    optional: true
+  }];
+  // Refuse the RTSP video stream entirely: the port is not opened and nothing listens on it.
+  bool disable_rtsp_port = 5 [(.blickfeld.base.validate) = {
     optional: true
   }];
 }

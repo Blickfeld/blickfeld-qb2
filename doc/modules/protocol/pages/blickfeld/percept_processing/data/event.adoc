@@ -16,6 +16,13 @@ Thus, an event is often directly actionable.
 .2+| *injected* | bool| - | - 
 3+| Indicates if event was injected via injected method of event service to the pipeline and was not produced by the pipeline
 
+.2+| *end_not_observed* | bool| - | - 
+3+| The end of this event was not observed. 
+ 
+It is written when the pipeline comes back up after it stopped without closing the event, for 
+example after a power cycle. The timestamp is therefore the restart, and the duration an upper 
+bound: the event ended somewhere between the last frame the device processed and it.
+
 .2+| *security_intrusion_started* | xref:blickfeld/percept_processing/data/event.adoc#_blickfeld_percept_processing_data_Event_Security_IntrusionStarted[Security.IntrusionStarted] | - | - 
 3+| Security: Intrusion started
 
@@ -72,6 +79,12 @@ Thus, an event is often directly actionable.
 
 .2+| *security_motion_ended* | xref:blickfeld/percept_processing/data/event.adoc#_blickfeld_percept_processing_data_Event_Security_MotionEnded[Security.MotionEnded] | - | - 
 3+| Security: Motion ended
+
+.2+| *occupancy_zone_occupied* | xref:blickfeld/percept_processing/data/event.adoc#_blickfeld_percept_processing_data_Event_Occupancy_ZoneOccupied[Occupancy.ZoneOccupied] | - | - 
+3+| Occupancy: Zone became occupied
+
+.2+| *occupancy_zone_freed* | xref:blickfeld/percept_processing/data/event.adoc#_blickfeld_percept_processing_data_Event_Occupancy_ZoneFreed[Occupancy.ZoneFreed] | - | - 
+3+| Occupancy: Zone became free
 
 |===
 
@@ -295,6 +308,57 @@ A vehicle was detected upon leaving a zone
 
 .2+| *disqualification* | xref:blickfeld/percept_processing/data/disqualification.adoc[Disqualification] | - | - 
 3+| Disqualification in the scene during the traffic event.
+
+|===
+
+[#_blickfeld_percept_processing_data_Event_Occupancy]
+== Occupancy
+
+Container for occupancy-related events
+
+[#_blickfeld_percept_processing_data_Event_Occupancy_ZoneOccupied]
+=== Zone Occupied
+
+A zone became occupied.
+
+.Available fields in blickfeld.percept_processing.data.Event.Occupancy.ZoneOccupied
+|===
+| Field | Type | Default | Unit
+
+.2+| *zone_uuid* | string| - | - 
+3+| UUID of the occupancy zone.
+
+.2+| *state* | xref:blickfeld/percept_processing/data/state.adoc[State] | - | - 
+3+| Snapshot of the zone state.
+
+.2+| *point_cloud* | xref:blickfeld/core_processing/data/frame.adoc[core_processing.data.Frame] | - | - 
+3+| The points the zone counted on the frame which raised this event. 
+ 
+Down-sampled with the voxel size the zone configures, so it is the cloud the count was 
+taken over rather than every return inside the zone. A security setup smooths that 
+count across frames before it decides, so the two can differ by a few points. A zone 
+which inverts its state is raised when its count drops below the minimum, so its cloud 
+is close to empty by construction.
+
+|===
+
+[#_blickfeld_percept_processing_data_Event_Occupancy_ZoneFreed]
+=== Zone Freed
+
+A zone became free again.
+
+.Available fields in blickfeld.percept_processing.data.Event.Occupancy.ZoneFreed
+|===
+| Field | Type | Default | Unit
+
+.2+| *zone_uuid* | string| - | - 
+3+| UUID of the occupancy zone.
+
+.2+| *started_event_id* | string| - | - 
+3+| ID of the ZoneOccupied event.
+
+.2+| *duration* | float| - | s 
+3+| Duration of the occupancy event.
 
 |===
 

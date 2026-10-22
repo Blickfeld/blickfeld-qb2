@@ -11,6 +11,7 @@ Service for managing application keys.
 
 | *xref:#List[]* | xref:blickfeld/secure/services/application_key.adoc#_blickfeld_secure_services_ApplicationKeyListRequest[ApplicationKeyListRequest]| xref:blickfeld/secure/services/application_key.adoc#_blickfeld_secure_services_ApplicationKeyListResponse[ApplicationKeyListResponse]
 | *xref:#Create[]* | xref:blickfeld/secure/services/application_key.adoc#_blickfeld_secure_services_ApplicationKeyCreateRequest[ApplicationKeyCreateRequest]| xref:blickfeld/secure/services/application_key.adoc#_blickfeld_secure_services_ApplicationKeyCreateResponse[ApplicationKeyCreateResponse]
+| *xref:#Update[]* | xref:blickfeld/secure/services/application_key.adoc#_blickfeld_secure_services_ApplicationKeyUpdateRequest[ApplicationKeyUpdateRequest]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
 | *xref:#Delete[]* | xref:blickfeld/secure/services/application_key.adoc#_blickfeld_secure_services_ApplicationKeyDeleteRequest[ApplicationKeyDeleteRequest]| https://protobuf.dev/reference/protobuf/google.protobuf/#empty[google.protobuf.Empty]
 |===
 [#List]
@@ -82,6 +83,9 @@ be used.
 3+| The application key to create. Minimum (optional) input is the value set in the `purpose` field. Everything else will be generated 
 and added on the server side.
 
+.2+| *key* | optional string| - | - 
+3+| Optional key in plain text, in place of a generated one. Only for application keys with a username.
+
 |===
 
 [#_blickfeld_secure_services_ApplicationKeyCreateResponse]
@@ -103,6 +107,32 @@ The generated key in plain text will be returned only once.
 
 .2+| *key* | string| - | - 
 3+| The generated key in plain text. This key has to be used whenever an application needs a token for authenticated access.
+
+|===
+
+[#Update]
+== Update
+
+Update the access level, read-only flag, purpose and key of an application key with a username.
+
+[#_blickfeld_secure_services_ApplicationKeyUpdateRequest]
+=== Request
+
+Request to update an application key with a username.
+
+.Available fields in blickfeld.secure.services.ApplicationKeyUpdateRequest
+|===
+| Field | Type | Default | Unit
+
+.2+| *uuid* | string| - | - 
+3+| The uuid of the application key to update.
+
+.2+| *application_key* | xref:blickfeld/secure/config/application_key.adoc[config.ApplicationKey] | - | - 
+3+| The new purpose, access level and read-only flag; an unset access level keeps the key's. The remaining fields are 
+ignored.
+
+.2+| *key* | optional string| - | - 
+3+| Optional new key in plain text. The key is kept when empty.
 
 |===
 

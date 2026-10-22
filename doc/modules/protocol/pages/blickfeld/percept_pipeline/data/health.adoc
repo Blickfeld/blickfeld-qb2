@@ -33,6 +33,9 @@ Data source related health.
 .2+| *device* | repeated xref:blickfeld/percept_pipeline/data/health.adoc#_blickfeld_percept_pipeline_data_Health_DataSource_DeviceEntry[DeviceEntry] | - | - 
 3+| Map of devices. The key is the serial number of the device.
 
+.2+| *camera* | repeated xref:blickfeld/percept_pipeline/data/health.adoc#_blickfeld_percept_pipeline_data_Health_DataSource_CameraEntry[CameraEntry] | - | - 
+3+| Map of cameras. The key is `DataSource.Camera.serial_number`.
+
 |===
 
 [#_blickfeld_percept_pipeline_data_Health_DataSource_Device]
@@ -90,6 +93,56 @@ This flag is only set when swarm is enabled.
 
 |===
 
+[#_blickfeld_percept_pipeline_data_Health_DataSource_Camera]
+=== Camera
+
+Configured camera.
+
+.Available fields in blickfeld.percept_pipeline.data.Health.DataSource.Camera
+|===
+| Field | Type | Default | Unit
+
+.2+| *error_flags* | xref:blickfeld/percept_pipeline/data/health.adoc#_blickfeld_percept_pipeline_data_Health_DataSource_Camera_ErrorFlags[ErrorFlags] | - | - 
+3+| Error flags
+
+.2+| *position* | optional xref:blickfeld/percept_pipeline/config/data_source.adoc#_blickfeld_percept_pipeline_config_DataSource_Camera_Ptz_Position[config.DataSource.Camera.Ptz.Position] | - | - 
+3+| Where the camera is pointing, for one that can pan, tilt and zoom. 
+ 
+Reflects moves made from anywhere - automatic tracking, a client driving it by hand, 
+somebody at the camera's own interface - so watching health is how a client follows a 
+camera it is not itself driving. Left unset for a camera that cannot be aimed, or one 
+that is not answering.
+
+.2+| *moving* | bool| - | - 
+3+| Whether the camera is moving right now, so a client can tell a position it has 
+settled at from one it is passing through.
+
+|===
+
+[#_blickfeld_percept_pipeline_data_Health_DataSource_Camera_ErrorFlags]
+==== Error Flags
+
+Error flags
+
+.Available fields in blickfeld.percept_pipeline.data.Health.DataSource.Camera.ErrorFlags
+|===
+| Field | Type | Default | Unit
+
+.2+| *connect_failed* | bool| - | - 
+3+| The connection to the camera has failed. 
+This is most probably caused by power supply or network connectivity issues.
+
+.2+| *ptz_fault* | bool| - | - 
+3+| A pan/tilt/zoom move or position request failed.
+
+.2+| *stream_failed* | bool| - | - 
+3+| The camera's video stream is not being received.
+
+.2+| *stream_unsupported* | bool| - | - 
+3+| The camera offers no encoder to stream from besides the one it records with.
+
+|===
+
 [#_blickfeld_percept_pipeline_data_Health_DataSource_DeviceEntry]
 === Device Entry
 
@@ -101,6 +154,19 @@ This flag is only set when swarm is enabled.
 
 | *key* | string| - | - 
 | *value* | xref:blickfeld/percept_pipeline/data/health.adoc#_blickfeld_percept_pipeline_data_Health_DataSource_Device[Device] | - | - 
+|===
+
+[#_blickfeld_percept_pipeline_data_Health_DataSource_CameraEntry]
+=== Camera Entry
+
+
+
+.Available fields in blickfeld.percept_pipeline.data.Health.DataSource.CameraEntry
+|===
+| Field | Type | Default | Unit
+
+| *key* | string| - | - 
+| *value* | xref:blickfeld/percept_pipeline/data/health.adoc#_blickfeld_percept_pipeline_data_Health_DataSource_Camera[Camera] | - | - 
 |===
 
 [#_blickfeld_percept_pipeline_data_Health_Statistics]

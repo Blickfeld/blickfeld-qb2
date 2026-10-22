@@ -1,7 +1,7 @@
 [#_blickfeld_secure_config_Firewall]
 = Firewall
 
-Configuration options for the firewall
+Configuration options for the firewall. A change takes effect immediately.
 
 .Available fields in blickfeld.secure.config.Firewall
 |===
@@ -16,6 +16,12 @@ to http://qb2-xxxxx will fail.
 
 .2+| *flow_port_forwardings* | repeated xref:blickfeld/secure/config/firewall.adoc#_blickfeld_secure_config_Firewall_PortForwarding[PortForwarding] | - | - 
 3+| The given ports are forwarded to custom applications in the blickfeld flow.
+
+.2+| *rtsp_port* | optional uint32| - | - 
+3+| The port the RTSP video stream is served on. Zero means the default, 554.
+
+.2+| *disable_rtsp_port* | optional bool| - | - 
+3+| Refuse the RTSP video stream entirely: the port is not opened and nothing listens on it.
 
 |===
 

@@ -24,3 +24,8 @@ build cpp [amd64]:
   before_script:
     # Install Protobuf & gRPC debian dev packages
     - apt update && apt install -y libprotobuf-dev libgrpc++-dev protobuf-compiler-grpc
+
+# The protocol files are the copies of the components, linted in their projects
+test format [proto]:
+  rules:
+    - when: never

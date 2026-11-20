@@ -1,11 +1,14 @@
 #pragma once
 
+#include <algorithm>
 #include <blickfeld/base/grpc_defs.h>
 #include <blickfeld/hardware/services/identification.grpc.pb.h>
 #include <blickfeld/secure/token_factory.h>
+#include <cctype>
 #include <chrono>
-#include <grpc++/create_channel.h>
+#include <grpcpp/create_channel.h>
 #include <memory>
+#include <stdexcept>
 #include <string>
 
 namespace blickfeld {
@@ -15,7 +18,8 @@ namespace hardware {
  * @brief Connect to Qb2 device
  *
  * @param fqdn_or_ip Fully qualified domain name e.g. qb2-xxxxx.blickfeld.com, hostname, or IP address
- * @param serial_number Unique serial number assigned of Qb2 device (corresponding serial number is written on the device label)
+ * @param serial_number Unique serial number assigned of Qb2 device (corresponding serial number is written on the device label).
+ *                      If empty, it is read over the insecure port, which a device with disabled insecure network ports does not answer.
  * @param application_key Application key used for user-authentication & access-token injection for this gRPC Channel.
  * @param timeout Timeout value for gRPC connection. Can be used to tune the time limit on the attempt to connect to the device.
  * @return std::shared_ptr<grpc::Channel> gRPC Channel which can be used with generated gRPC stubs
@@ -33,9 +37,9 @@ inline std::shared_ptr<grpc::Channel> connect_to_device(const std::string&      
 
     // Fetch serial number
     if(cert_serial_number == "") {
-        auto endpoint = fqdn_or_ip + ":" + std::to_string(base::GRPC_DEFAULT_INSECURE_PORT);
-        auto channel  = grpc::CreateChannel(fqdn_or_ip + ":" + std::to_string(base::GRPC_DEFAULT_INSECURE_PORT), grpc::InsecureChannelCredentials());
-        auto service  = blickfeld::hardware::services::Identification::NewStub(channel);
+        auto                endpoint = fqdn_or_ip + ":" + std::to_string(base::GRPC_DEFAULT_INSECURE_PORT);
+        auto                channel  = grpc::CreateChannel(endpoint, grpc::InsecureChannelCredentials());
+        auto                service  = blickfeld::hardware::services::Identification::NewStub(channel);
         grpc::ClientContext context;
         context.set_deadline(deadline);
         blickfeld::hardware::services::IdentificationGetResponse response;

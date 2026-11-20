@@ -1,5 +1,6 @@
 #include <blickfeld/hardware/client.h>
 #include <blickfeld/secure/services/account.grpc.pb.h>
+#include <iostream>
 
 int main() {
     try {

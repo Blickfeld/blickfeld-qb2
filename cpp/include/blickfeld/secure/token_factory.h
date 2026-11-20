@@ -3,8 +3,11 @@
 #include <blickfeld/base/grpc_defs.h>
 #include <blickfeld/secure/services/authentication.grpc.pb.h>
 #include <blickfeld/secure/services/session.grpc.pb.h>
-#include <grpc++/channel.h>
-#include <grpc++/security/credentials.h>
+#include <grpcpp/channel.h>
+#include <grpcpp/security/credentials.h>
+#include <map>
+#include <memory>
+#include <string>
 
 namespace blickfeld {
 namespace secure {
@@ -29,10 +32,10 @@ class TokenFactory : public grpc::MetadataCredentialsPlugin {
         : channel(channel), application_key(application_key), current_token("") {};
 
     // Inject "token" field in call metadata
-    grpc::Status GetMetadata(grpc::string_ref                           service_url,
-                             grpc::string_ref                           method_name,
-                             const grpc::AuthContext&                   channel_auth_context,
-                             std::multimap<grpc::string, grpc::string>* metadata) override {
+    grpc::Status GetMetadata(grpc::string_ref                         service_url,
+                             grpc::string_ref                         method_name,
+                             const grpc::AuthContext&                 channel_auth_context,
+                             std::multimap<std::string, std::string>* metadata) override {
         grpc::Status status = create_or_renew_token();
         if(status.ok()) {
             metadata->insert(std::make_pair("token", current_token));

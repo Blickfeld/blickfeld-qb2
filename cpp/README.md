@@ -4,10 +4,11 @@ To simplify the integration in C++ projects, this project brings header files an
 
 ## Dependencies
 
-* Protobuf (minimum 3.6.1) with Protobuf Compiler
-* gRPC (minimum 1.16.1) with gRPC Compiler Plugin
+* CMake (minimum 3.16)
+* Protobuf (minimum 3.12) with Protobuf Compiler, as the protocol has proto3 optional fields
+* gRPC (minimum 1.30) with gRPC Compiler Plugin
 
-In modern linux distributions (Ubuntu 20.04, Debian 10 and greater), the debian packages should be used:
+In modern linux distributions (Ubuntu 22.04, Debian 11 and greater), the debian packages should be used:
 
 ```shell
 sudo apt update
@@ -68,16 +69,20 @@ target_link_libraries(example PUBLIC blickfeld-qb2)
 ```
 
 In the source code, the library method `connect_to_device` can then be used to connect to a device.
+It takes the hostname or IP address, the serial number and an application key of the device.
 
 ```cpp
 #include <blickfeld/hardware/client.h>
 
 int main() {
-    auto channel = blickfeld::hardware::connect_to_device("qb2-xxxxxxx");
+    auto channel = blickfeld::hardware::connect_to_device("qb2-xxxxxxx", "serial-number-xxx", "application-key-xxxxxxx");
     ..
     return 0;
 }
 ```
+
+Without a serial number, `connect_to_device` reads it from the device over the unencrypted port 50051,
+which a device with disabled insecure network ports does not answer.
 
 The various API services can then be used with the established channel.
 Note that the channel can also be re-used.
@@ -85,16 +90,20 @@ Note that the channel can also be re-used.
 ```cpp
 #include <blickfeld/hardware/client.h>
 #include <blickfeld/core_processing/services/point_cloud.grpc.pb.h>
+#include <iostream>
 
 int main() {
-    auto channel = blickfeld::hardware::connect_to_device("qb2-xxxxxxx");
+    auto channel = blickfeld::hardware::connect_to_device("qb2-xxxxxxx", "serial-number-xxx", "application-key-xxxxxxx");
 
     // Fetch one point cloud frame
     auto service = blickfeld::core_processing::services::PointCloud::NewStub(channel);
     grpc::ClientContext context;
     blickfeld::core_processing::services::PointCloudStreamResponse response;
     auto stream = service->Stream(&context, blickfeld::core_processing::services::PointCloudStreamRequest());
-    stream->Read(&response);
+    if (!stream->Read(&response)) {
+        std::cerr << "Stream failed: " << stream->Finish().error_message() << std::endl;
+        return 1;
+    }
     std::cout << "Received a frame with the ID " << response.frame().id() << std::endl;
     context.TryCancel();
 
@@ -103,5 +112,7 @@ int main() {
     return 0;
 }
 ```
+
+The [examples](examples) show the authentication, the processing of a point cloud frame and the ways to add the library to a project.
 
 Please refer to the [gRPC C++ documentation](https://grpc.io/docs/languages/cpp/quickstart/) and the [Blickfeld documentation](https://docs.blickfeld.com/qb2) (Guides & Protocol subsections).

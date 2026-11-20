@@ -1,6 +1,6 @@
 # Taken from https://raw.githubusercontent.com/protocolbuffers/protobuf/v3.12.4/cmake/protobuf-config.cmake.in
-# The Protobuf 3.6.1 (default for Ubuntu 20.04) does not support the PLUGIN keyword.
-# To keep the protocol script simple, we override the method here.
+# Extended by the PROTOC_OPTIONS keyword of later versions, to pass --experimental_allow_proto3_optional
+# to the protoc of Protobuf 3.12 to 3.14 (Ubuntu 22.04, Debian 11).
 # 
 # LICENSE from https://github.com/protocolbuffers/protobuf/blob/v3.12.4/LICENSE:
 #    Copyright 2008 Google Inc.  All rights reserved.
@@ -44,7 +44,7 @@ function(protobuf_generate)
   if(COMMAND target_sources)
     list(APPEND _singleargs TARGET)
   endif()
-  set(_multiargs PROTOS IMPORT_DIRS GENERATE_EXTENSIONS)
+  set(_multiargs PROTOS IMPORT_DIRS GENERATE_EXTENSIONS PROTOC_OPTIONS)
 
   cmake_parse_arguments(protobuf_generate "${_options}" "${_singleargs}" "${_multiargs}" "${ARGN}")
 
@@ -155,7 +155,7 @@ function(protobuf_generate)
     add_custom_command(
       OUTPUT ${_generated_srcs}
       COMMAND  protobuf::protoc
-      ARGS --${protobuf_generate_LANGUAGE}_out ${_dll_export_decl}${protobuf_generate_PROTOC_OUT_DIR} ${_plugin} ${_protobuf_include_path} ${_abs_file}
+      ARGS ${protobuf_generate_PROTOC_OPTIONS} --${protobuf_generate_LANGUAGE}_out ${_dll_export_decl}${protobuf_generate_PROTOC_OUT_DIR} ${_plugin} ${_protobuf_include_path} ${_abs_file}
       DEPENDS ${_abs_file} protobuf::protoc
       COMMENT "Running ${protobuf_generate_LANGUAGE} protocol buffer compiler on ${_proto}"
       VERBATIM )

@@ -2,16 +2,12 @@ include(CMakeFindDependencyMacro)
 
 if(NOT blickfeld-qb2_FOUND)
     # Protocol: Find Protobuf
-    find_package(Protobuf REQUIRED)
-    if(Protobuf_VERSION VERSION_LESS "3.12.4")
-        find_dependency(Protobuf 3.6.1 REQUIRED)
-        include("${CMAKE_CURRENT_LIST_DIR}/third-party/protobuf_generate.cmake")
-    endif()
+    find_dependency(Protobuf 3.12)
 
     # Protocol: Find gRPC
     find_dependency(gRPC QUIET)
     if (NOT gRPC_FOUND)
-        # Fallback to custom gRPC find (due to Ubuntu 20.04)
+        # Fallback to custom gRPC find for distributions without the CMake package of gRPC
         list (APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/third-party")
     endif()
     find_dependency(gRPC REQUIRED)
